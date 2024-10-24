@@ -1,0 +1,48 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
+    <h5 class="mb-0">
+        Contas
+    </h5>
+    <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
+        <li class="breadcrumb-item position-relative">
+            <a routerLink="/" class="d-inline-block position-relative">
+                <i class="ri-home-8-line"></i>
+                Financeiro
+            </a>
+        </li>
+        <li class="breadcrumb-item position-relative">
+            <a routerLink="/financeiro/cadastros" class="pl-0 d-inline-block">
+                Cadastros
+            </a>
+        </li>
+        <li class="breadcrumb-item position-relative">
+            Contas
+        </li>
+    </ol>
+</div>
+
+
+<mat-card  *ngIf="hasContas()" class="daxa-card projects-overview-card mb-25 pb-0 border-radius bg-white border-none d-block">
+    <mat-card-header>
+        <mat-card-title>
+            <h5 class="mt-0 mb-0">
+                Projects Overview
+            </h5>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        TESTE
+    </mat-card-content>
+</mat-card>
+
+<div *ngIf="!hasContas()" class="col-md-12 no-accounts">
+    <i class="material-symbols-outlined">
+        error
+    </i>
+    <p>Não há contas cadastradas</p>
+    <div class="btn-box">
+        <a>
+            <button mat-button>Criar conta</button>
+        </a>
+    </div>
+</div>

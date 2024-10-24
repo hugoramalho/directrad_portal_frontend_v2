@@ -1,0 +1,68 @@
+.item-lista {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 5px;
+  background: #f7f7f7; // Altere conforme necessário para combinar com a cor de fundo desejada
+  color: #333; // Altere conforme necessário para combinar com a cor do texto
+  margin-bottom: 5px;
+  border-radius: 4px; // Adiciona um border-radius se necessário
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); // Adiciona sombra se necessário
+  font-size: 0.8rem;
+
+  .status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #4CAF50; // Cor verde para o indicador
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+
+  .lancamento-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .tag {
+    background: #555;
+    padding: 1px 4px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    color: #fff;
+  }
+
+  .conteudo {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+
+    .data {
+      margin-right: 16px;
+      font-weight: bold;
+    }
+  }
+
+  .valor-menu {
+    display: flex;
+    align-items: center;
+
+    .valor {
+      font-weight: bold;
+    }
+
+    .negative {
+      color: #f44336; // Cor vermelha para valores negativos
+    }
+
+    .context-menu-button {
+      background: none;
+      border: none;
+      padding: 0;
+      margin-left: 16px;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

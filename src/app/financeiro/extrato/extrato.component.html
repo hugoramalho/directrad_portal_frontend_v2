@@ -1,0 +1,160 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
+    <h5 *ngIf="hasContas()" class="mb-0">
+        Extratos
+    </h5>
+    <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
+<!--        <li class="breadcrumb-item position-relative">-->
+<!--            <a routerLink="/" class="d-inline-block position-relative">-->
+<!--                <i class="ri-home-8-line"></i>-->
+<!--                Dashboard-->
+<!--            </a>-->
+<!--        </li>-->
+        <li class="breadcrumb-item position-relative">
+            Financeiro
+        </li>
+        <li class="breadcrumb-item position-relative">
+            Extratos
+        </li>
+    </ol>
+</div>
+
+<div class="mb-25 d-sm-flex justify-content-center">
+<!--    <mat-spinner-->
+<!--        class="col-sm-12 spinner"-->
+<!--        *ngIf="!carregado">-->
+<!--    </mat-spinner>-->
+</div>
+
+<div class="row">
+    <div *ngIf="hasContas()" class="col-lg-3 col-md-12">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-lg-9 col-md-12">
+        <mat-card
+            class="daxa-card emails-card mb-25 border-radius bg-white border-none d-block"
+            [class.component-dark-theme]="themeService.isDark()"
+            [class.rtl-enabled]="themeService.isRTLEnabled()">
+            <mat-card-header>
+                <mat-card-title>
+                    <h5 class="mt-0 mb-0">
+                        Filtrar
+                    </h5>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <div class="info-buttons-list d-flex align-items-center">
+                        <button mat-button>
+                            <i class="material-symbols-outlined">
+                                refresh
+                            </i>
+                        </button>
+                        <button mat-button>
+                            <i class="material-symbols-outlined">
+                                print
+                            </i>
+                        </button>
+                        <button mat-button>
+                            <i class="material-symbols-outlined">
+                                report_gmailerrorred
+                            </i>
+                        </button>
+                        <button mat-button>
+                            <i class="material-symbols-outlined">
+                                delete
+                            </i>
+                        </button>
+                        <button type="button" mat-button [matMenuTriggerFor]="emailHeaderMenu">
+                            <i class="material-symbols-outlined">
+                                more_horiz
+                            </i>
+                        </button>
+                        <mat-menu #emailHeaderMenu="matMenu" class="card-header-menu" xPosition="before">
+                            <button mat-menu-item>
+                                Recent
+                            </button>
+                            <button mat-menu-item>
+                                Unread
+                            </button>
+                            <button mat-menu-item>
+                                Mark All Read
+                            </button>
+                            <button mat-menu-item>
+                                Spam
+                            </button>
+                            <button mat-menu-item>
+                                Delete All
+                            </button>
+                        </mat-menu>
+                    </div>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="emails-table">
+                    <div class="table-responsive">
+                        <table mat-table [dataSource]="dataSource">
+
+                            <!-- Checkbox Column -->
+                            <ng-container matColumnDef="select">
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                                  (change)="$event ? selection.toggle(row) : null"
+                                                  [checked]="selection.isSelected(row)"
+                                    >
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container>
+                            <!-- Date Column -->
+                            <ng-container matColumnDef="date">
+                                <td mat-cell *matCellDef="let element" class="fw-medium">
+                                    {{ element.data_efetiva }}
+                                </td>
+                            </ng-container>
+
+                            <!-- Title Column -->
+                            <ng-container matColumnDef="title">
+                                <td mat-cell *matCellDef="let element">
+                                    <a routerLink="/email/read" class="fw-medium">
+                                        {{ element?.conta_origem?.nome }}
+                                        {{ element?.conta_destino?.nome }}
+                                    </a>
+                                </td>
+                            </ng-container>
+
+                            <!-- Description Column -->
+                            <ng-container matColumnDef="description">
+                                <td mat-cell *matCellDef="let element" class="text-body">
+                                    {{ element.descricao }}
+                                </td>
+                            </ng-container>
+
+
+
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+                                [routerLink]="'/email/read/'"></tr>
+
+                        </table>
+                    </div>
+                    <mat-paginator
+                        #paginator
+                        showFirstLastButtons
+                        [pageSizeOptions]="[10, 20, 30]"
+                        [pageSize]="10"
+                        [length]="totalItens">
+                    </mat-paginator>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div *ngIf="!hasContas() && carregado" class="col-md-12 no-accounts">
+        <i class="material-symbols-outlined">
+            error
+        </i>
+        <p>Não há contas cadastradas</p>
+        <div class="btn-box">
+            <button mat-button>Criar conta</button>
+        </div>
+    </div>
+</div>
+<!-- Inbox -->
+
