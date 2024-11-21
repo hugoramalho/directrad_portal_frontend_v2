@@ -71,7 +71,7 @@
                     <!-- Task ID Column -->
                     <ng-container matColumnDef="taskID">
                         <th mat-header-cell *matHeaderCellDef>
-                            Task ID
+                            Paciente
                         </th>
                         <td mat-cell *matCellDef="let element">
                             {{element.taskID}}
@@ -81,7 +81,7 @@
                     <!-- Task Name Column -->
                     <ng-container matColumnDef="taskName">
                         <th mat-header-cell *matHeaderCellDef>
-                            Task Name
+                            Data de nascimento
                         </th>
                         <td mat-cell *matCellDef="let element">
                             {{element.taskName}}
@@ -91,7 +91,7 @@
                     <!-- Assigned To Column -->
                     <ng-container matColumnDef="assignedTo">
                         <th mat-header-cell *matHeaderCellDef>
-                            Assigned To
+                            Data do exame
                         </th>
                         <td mat-cell *matCellDef="let element" class="text-black">
                             {{element.assignedTo}}
@@ -101,22 +101,33 @@
                     <!-- Due Date Column -->
                     <ng-container matColumnDef="dueDate">
                         <th mat-header-cell *matHeaderCellDef>
-                            Due Date
+                            Modalidade
                         </th>
                         <td mat-cell *matCellDef="let element">
                             {{element.dueDate}}
                         </td>
                     </ng-container>
 
+
                     <!-- Priority Column -->
                     <ng-container matColumnDef="priority">
                         <th mat-header-cell *matHeaderCellDef>
-                            Priority
+                            Estudo
                         </th>
                         <td mat-cell *matCellDef="let element">
                             {{element.priority}}
                         </td>
                     </ng-container>
+
+                    <ng-container matColumnDef="uid">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Uid
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.uid}}
+                        </td>
+                    </ng-container>
+
 
                     <!-- Status Column -->
                     <ng-container matColumnDef="status">

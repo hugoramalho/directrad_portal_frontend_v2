@@ -5,3 +5,4 @@
  **/
 
 export type Expandable = boolean | string[];
+

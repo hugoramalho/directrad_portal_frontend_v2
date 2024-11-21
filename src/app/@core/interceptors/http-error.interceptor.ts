@@ -9,7 +9,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, Htt
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from './error-dialog/error-dialog.component';  // Ajuste o caminho conforme necessário
+// import { ErrorDialogComponent } from './error-dialog/error-dialog.component';  // Ajuste o caminho conforme necessário
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {

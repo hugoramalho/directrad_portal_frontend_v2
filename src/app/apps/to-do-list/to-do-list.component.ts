@@ -89,6 +89,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         assignedTo: 'Shawn Kennedy',
         dueDate: '15 Nov, 2024',
         priority: 'High',
+        uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             inProgress: 'In Progress',
             // pending: 'Pending',
@@ -107,6 +108,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         assignedTo: 'Roberto Cruz',
         dueDate: '14 Nov, 2024',
         priority: 'Medium',
+        uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
             pending: 'Pending',
@@ -125,6 +127,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         assignedTo: 'Juli Johnson',
         dueDate: '13 Nov, 2024',
         priority: 'High',
+        uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
             // pending: 'Pending',
@@ -143,6 +146,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         assignedTo: 'Catalina Engles',
         dueDate: '12 Nov, 2024',
         priority: 'Low',
+        uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
             // pending: 'Pending',
@@ -161,6 +165,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         assignedTo: 'Louis Nagle',
         dueDate: '11 Nov, 2024',
         priority: 'Medium',
+        uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             inProgress: 'In Progress',
             // pending: 'Pending',
@@ -179,6 +184,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         assignedTo: 'Michael Marquez',
         dueDate: '10 Nov, 2024',
         priority: 'Low',
+        uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
             // pending: 'Pending',
@@ -197,6 +203,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         assignedTo: 'James Andy',
         dueDate: '09 Nov, 2024',
         priority: 'High',
+        uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             inProgress: 'In Progress',
             // pending: 'Pending',
@@ -215,6 +222,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         assignedTo: 'Alina Smith',
         dueDate: '08 Nov, 2024',
         priority: 'Medium',
+        uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
             // pending: 'Pending',
@@ -233,6 +241,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
         assignedTo: 'David Warner',
         dueDate: '07 Nov, 2024',
         priority: 'Low',
+        uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
             pending: 'Pending',
@@ -253,6 +262,7 @@ export interface PeriodicElement {
     assignedTo: string;
     dueDate: string;
     priority: string;
+    uid: string;
     status: any;
     action: any;
 }
