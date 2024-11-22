@@ -1,13 +1,10 @@
-/**
- Created by: Hugo Ramalho <ramalho.hg@gmail.com>
-
- Created at: 09/04/2024
- **/
-
- export interface Estudo {
-    id: number;
+export interface Estudo {
+    numImagens: string;
+    paciente: string;
+    dataNascimento: string;
+    dataExame: string;
+    modalidade: string;
+    estudo: string;
     uid: string;
-    login: string;
-    senha: string;
-    permissoes: string[];
+    status: any;
 }

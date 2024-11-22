@@ -24,7 +24,7 @@ import { CustomizerSettingsService } from '../../customizer-settings/customizer-
 })
 export class ToDoListComponent {
 
-    displayedColumns: string[] = ['select', 'taskID', 'taskName', 'assignedTo', 'modality', 'study', 'uid', 'status', 'action'];
+    displayedColumns: string[] = ['select', 'paciente', 'dataNascimento', 'dataExame', 'modalidade', 'study', 'uid', 'status', 'action'];
     dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
     selection = new SelectionModel<PeriodicElement>(true, []);
 
@@ -49,7 +49,7 @@ export class ToDoListComponent {
         if (!row) {
             return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
-        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.taskID + 1}`;
+        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.numImagens + 1}`;
     }
 
     // Search Filter
@@ -84,11 +84,12 @@ export class ToDoListComponent {
 
 const ELEMENT_DATA: PeriodicElement[] = [
     {
-        taskID: '#951',
+        numImagens: '#951',
         taskName: 'Hotel management system',
-        assignedTo: 'Shawn Kennedy',
-        dueDate: '15 Nov, 2024',
-        modality: 'CT',
+        paciente: 'Shawn Kennedy',
+        dataNascimento: '12 Nov, 2024',
+        dataExame: '15 Nov, 2024',
+        modalidade: 'CT',
         study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
@@ -97,18 +98,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
             // completed: 'Completed',
             // notStarted: 'Not Started',
         },
-        action: {
+       action: {
+            download: 'download',
+            access: 'key',
             view: 'visibility',
-            edit: 'edit',
+            edit: 'more_vert',
             delete: 'delete'
         }
     },
     {
-        taskID: '#587',
+        numImagens: '#587',
         taskName: 'Send proposal to APR Ltd',
-        assignedTo: 'Roberto Cruz',
-        dueDate: '14 Nov, 2024',
-        modality: 'CT',
+        paciente: 'Roberto Cruz',
+        dataNascimento: '12 Nov, 2024',
+        dataExame: '14 Nov, 2024',
+        modalidade: 'CT',
         study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
@@ -117,18 +121,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
             // completed: 'Completed',
             // notStarted: 'Not Started',
         },
-        action: {
+       action: {
+            download: 'download',
+            access: 'key',
             view: 'visibility',
-            edit: 'edit',
+            edit: 'more_vert',
             delete: 'delete'
         }
     },
     {
-        taskID: '#618',
+        numImagens: '#618',
         taskName: 'Python upgrade',
-        assignedTo: 'Juli Johnson',
-        dueDate: '13 Nov, 2024',
-        modality: 'CT',
+        paciente: 'Juli Johnson',
+        dataNascimento: '12 Nov, 2024',
+        dataExame: '13 Nov, 2024',
+        modalidade: 'CT',
         study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
@@ -137,18 +144,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
             completed: 'Completed',
             // notStarted: 'Not Started',
         },
-        action: {
+       action: {
+            download: 'download',
+            access: 'key',
             view: 'visibility',
-            edit: 'edit',
+            edit: 'more_vert',
             delete: 'delete'
         }
     },
     {
-        taskID: '#367',
+        numImagens: '#367',
         taskName: 'Schedule meeting with Daxa',
-        assignedTo: 'Catalina Engles',
-        dueDate: '12 Nov, 2024',
-        modality: 'CT',
+        paciente: 'Catalina Engles',
+        dataExame: '12 Nov, 2024',
+        dataNascimento: '12 Nov, 2024',
+        modalidade: 'CT',
         study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
@@ -157,18 +167,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
             // completed: 'Completed',
             notStarted: 'Not Started',
         },
-        action: {
+       action: {
+            download: 'download',
+            access: 'key',
             view: 'visibility',
-            edit: 'edit',
+            edit: 'more_vert',
             delete: 'delete'
         }
     },
     {
-        taskID: '#761',
+        numImagens: '#761',
         taskName: 'Engineering lite touch',
-        assignedTo: 'Louis Nagle',
-        dueDate: '11 Nov, 2024',
-        modality: 'CT',
+        paciente: 'Louis Nagle',
+        dataNascimento: '12 Nov, 2024',
+        dataExame: '11 Nov, 2024',
+        modalidade: 'CT',
         study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
@@ -177,18 +190,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
             // completed: 'Completed',
             // notStarted: 'Not Started',
         },
-        action: {
+       action: {
+            download: 'download',
+            access: 'key',
             view: 'visibility',
-            edit: 'edit',
+            edit: 'more_vert',
             delete: 'delete'
         }
     },
     {
-        taskID: '#431',
+        numImagens: '#431',
         taskName: 'Refund bill payment',
-        assignedTo: 'Michael Marquez',
-        dueDate: '10 Nov, 2024',
-        modality: 'CT',
+        paciente: 'Michael Marquez',
+        dataNascimento: '12 Nov, 2024',
+        dataExame: '10 Nov, 2024',
+        modalidade: 'CT',
         study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
@@ -197,18 +213,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
             // completed: 'Completed',
             notStarted: 'Not Started',
         },
-        action: {
+       action: {
+            download: 'download',
+            access: 'key',
             view: 'visibility',
-            edit: 'edit',
+            edit: 'more_vert',
             delete: 'delete'
         }
     },
     {
-        taskID: '#421',
+        numImagens: '#421',
         taskName: 'Public beta release',
-        assignedTo: 'James Andy',
-        dueDate: '09 Nov, 2024',
-        modality: 'CT',
+        paciente: 'James Andy',
+        dataNascimento: '12 Nov, 2024',
+        dataExame: '09 Nov, 2024',
+        modalidade: 'CT',
         study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
@@ -217,18 +236,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
             // completed: 'Completed',
             // notStarted: 'Not Started',
         },
-        action: {
+       action: {
+            download: 'download',
+            access: 'key',
             view: 'visibility',
-            edit: 'edit',
+            edit: 'more_vert',
             delete: 'delete'
         }
     },
     {
-        taskID: '#624',
+        numImagens: '#624',
         taskName: 'Fix platform errors',
-        assignedTo: 'Alina Smith',
-        dueDate: '08 Nov, 2024',
-        modality: 'CT',
+        paciente: 'Alina Smith',
+        dataNascimento: '12 Nov, 2024',
+        dataExame: '08 Nov, 2024',
+        modalidade: 'CT',
         study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
@@ -237,18 +259,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
             completed: 'Completed',
             // notStarted: 'Not Started',
         },
-        action: {
+       action: {
+            download: 'download',
+            access: 'key',
             view: 'visibility',
-            edit: 'edit',
+            edit: 'more_vert',
             delete: 'delete'
         }
     },
     {
-        taskID: '#513',
+        numImagens: '#513',
         taskName: 'Launch our mobile app',
-        assignedTo: 'David Warner',
-        dueDate: '07 Nov, 2024',
-        modality: 'CT',
+        paciente: 'David Warner',
+        dataNascimento: '12 Nov, 2024',
+        dataExame: '07 Nov, 2024',
+        modalidade: 'CT',
         study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
@@ -257,9 +282,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
             // completed: 'Completed',
             // notStarted: 'Not Started',
         },
-        action: {
+       action: {
+            download: 'download',
+            access: 'key',
             view: 'visibility',
-            edit: 'edit',
+            edit: 'more_vert',
             delete: 'delete'
         }
     }
@@ -267,10 +294,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export interface PeriodicElement {
     taskName: string;
-    taskID: string;
-    assignedTo: string;
-    dueDate: string;
-    modality: string;
+    numImagens: string;
+    paciente: string;
+    dataNascimento: string;
+    dataExame: string;
+    modalidade: string;
     study: string;
     uid: string;
     status: any;
