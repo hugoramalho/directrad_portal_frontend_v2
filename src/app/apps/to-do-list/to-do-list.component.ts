@@ -24,7 +24,7 @@ import { CustomizerSettingsService } from '../../customizer-settings/customizer-
 })
 export class ToDoListComponent {
 
-    displayedColumns: string[] = ['select', 'taskID', 'taskName', 'assignedTo', 'dueDate', 'priority', 'status', 'action'];
+    displayedColumns: string[] = ['select', 'taskID', 'taskName', 'assignedTo', 'modality', 'study', 'uid', 'status', 'action'];
     dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
     selection = new SelectionModel<PeriodicElement>(true, []);
 
@@ -88,7 +88,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         taskName: 'Hotel management system',
         assignedTo: 'Shawn Kennedy',
         dueDate: '15 Nov, 2024',
-        priority: 'High',
+        modality: 'CT',
+        study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             inProgress: 'In Progress',
@@ -107,7 +108,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         taskName: 'Send proposal to APR Ltd',
         assignedTo: 'Roberto Cruz',
         dueDate: '14 Nov, 2024',
-        priority: 'Medium',
+        modality: 'CT',
+        study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
@@ -126,7 +128,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         taskName: 'Python upgrade',
         assignedTo: 'Juli Johnson',
         dueDate: '13 Nov, 2024',
-        priority: 'High',
+        modality: 'CT',
+        study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
@@ -145,7 +148,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         taskName: 'Schedule meeting with Daxa',
         assignedTo: 'Catalina Engles',
         dueDate: '12 Nov, 2024',
-        priority: 'Low',
+        modality: 'CT',
+        study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
@@ -164,7 +168,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         taskName: 'Engineering lite touch',
         assignedTo: 'Louis Nagle',
         dueDate: '11 Nov, 2024',
-        priority: 'Medium',
+        modality: 'CT',
+        study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             inProgress: 'In Progress',
@@ -183,7 +188,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         taskName: 'Refund bill payment',
         assignedTo: 'Michael Marquez',
         dueDate: '10 Nov, 2024',
-        priority: 'Low',
+        modality: 'CT',
+        study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
@@ -202,7 +208,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         taskName: 'Public beta release',
         assignedTo: 'James Andy',
         dueDate: '09 Nov, 2024',
-        priority: 'High',
+        modality: 'CT',
+        study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             inProgress: 'In Progress',
@@ -221,7 +228,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         taskName: 'Fix platform errors',
         assignedTo: 'Alina Smith',
         dueDate: '08 Nov, 2024',
-        priority: 'Medium',
+        modality: 'CT',
+        study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
@@ -240,7 +248,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
         taskName: 'Launch our mobile app',
         assignedTo: 'David Warner',
         dueDate: '07 Nov, 2024',
-        priority: 'Low',
+        modality: 'CT',
+        study: 'Abdome',
         uid: '1.2.392.200036.9107.500.111234524111113002',
         status: {
             // inProgress: 'In Progress',
@@ -261,7 +270,8 @@ export interface PeriodicElement {
     taskID: string;
     assignedTo: string;
     dueDate: string;
-    priority: string;
+    modality: string;
+    study: string;
     uid: string;
     status: any;
     action: any;
