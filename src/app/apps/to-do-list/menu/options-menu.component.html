@@ -2,16 +2,25 @@
     <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menuWithIcons="matMenu">
-    <button mat-menu-item>
-        <mat-icon>dialpad</mat-icon>
-        <span>Redial</span>
+    <button mat-menu-item (click)="executarAcao('informacoes')">
+        <span>Laudo</span>
     </button>
-    <button mat-menu-item disabled>
-        <mat-icon>voicemail</mat-icon>
-        <span>Check voice mail</span>
+    <button mat-menu-item (click)="executarAcao('informacoes')">
+        <!-- <mat-icon>dialpad</mat-icon> -->
+        <span>Informaçẽos do exame</span>
     </button>
-    <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon>
-        <span>Disable alerts</span>
+    <button mat-menu-item disabled (click)="executarAcao('informacoes')">
+        <!-- <mat-icon>voicemail</mat-icon> -->
+        <span>Vincular com o RIS</span>
+    </button>
+    <button mat-menu-item (click)="executarAcao('informacoes')">
+        <!-- <mat-icon>notifications_off</mat-icon> -->
+        <span>Exportar exame</span>
+    </button>
+    <button mat-menu-item (click)="executarAcao('informacoes')">
+        <span>Excluir exame</span>
+    </button>
+    <button mat-menu-item (click)="executarAcao('informacoes')">
+        <span>Excluir série</span>
     </button>
 </mat-menu>
