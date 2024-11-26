@@ -25,8 +25,7 @@
         <mat-card
             class="daxa-card calendar-card mb-25 border-radius bg-white border-none d-block"
             [class.component-dark-theme]="themeService.isDark()"
-            [class.rtl-enabled]="themeService.isRTLEnabled()"
-        >
+            [class.rtl-enabled]="themeService.isRTLEnabled()">
             <mat-card-content>
                 <full-calendar [options]="calendarOptions"></full-calendar>
             </mat-card-content>
