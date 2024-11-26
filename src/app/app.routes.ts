@@ -192,6 +192,7 @@ import {ExtratoComponent} from "./financeiro/extrato/extrato.component";
 import {FinanceiroCadastroMenuComponent} from "./financeiro/cadastro/menu/financeiro-cadastro-menu.component";
 import {FinanceiroCadastroContaComponent} from "./financeiro/cadastro/conta/contas.component";
 import {FinanceiroCacheResolver} from "./financeiro/cache.resolver";
+import { CadastroComponent } from './cadastro/cadastro.component';
 
 export const routes: Routes = [
     {
@@ -221,6 +222,7 @@ export const routes: Routes = [
     {path: 'lms', component: LmsComponent},
     {path: 'help-desk', component: HelpDeskComponent},
     {path: 'to-do-list', component: ToDoListComponent},
+    {path: 'cadastro', component: CadastroComponent},
     {path: 'calendar', component: CalendarComponent},
     {path: 'contacts', component: ContactsComponent},
     {path: 'chat', component: ChatComponent},
