@@ -8,10 +8,7 @@
     [class.card-borderd-theme]="themeService.isCardBorder()"
     [class.rtl-enabled]="themeService.isRTLEnabled()">
     <div class="logo bg-white">
-        <a routerLink="/" class="d-flex align-items-center">
-            <img src="assets/images/logos/image.png" alt="logo-icon">
-            <span class="fw-semibold">Daxa</span>
-        </a>
+        <img src="{{this.logoUrl}}" alt="logo-icon">
     </div>
     <div
         (click)="toggle()"
@@ -25,56 +22,6 @@
         <div class="sidebar-inner">
             <div class="sidebar-menu">
                 <mat-accordion>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <i class="material-symbols-outlined">
-                                    lock_open
-                                </i>
-                                <span class="title">
-                                    Authentication
-                                </span>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <ul class="sidebar-sub-menu">
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Sign In
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/sign-up" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Sign Up
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/forgot-password" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Forgot Password
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/reset-password" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Reset Password
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/confirm-email" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Confirm Email
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/lock-screen" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Lock Screen
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/authentication/logout" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </mat-expansion-panel>
-
                     <a routerLink="/to-do-list" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             home
@@ -83,7 +30,7 @@
                             Home
                         </span>
                     </a>
-                    <a routerLink="/admin/worklist" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a routerLink="/worklist" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             group_work
                         </i>
@@ -91,7 +38,7 @@
                             Worklist
                         </span>
                     </a>
-                    <a routerLink="/admin/cadastro" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a routerLink="/cadastro" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             app_registration
                         </i>
