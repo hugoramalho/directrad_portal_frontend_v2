@@ -1,7 +1,6 @@
-<!-- Breadcrumb -->
 <div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
     <h5 class="mb-0">
-        To Do List
+        Exames
     </h5>
     <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
@@ -11,38 +10,148 @@
             </a>
         </li>
         <li class="breadcrumb-item position-relative">
-            Apps
-        </li>
-        <li class="breadcrumb-item position-relative">
-            To Do List
+            Exames
         </li>
     </ol>
 </div>
+<mat-card class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block" 
+[class.rtl-enabled]="themeService.isRTLEnabled()">
+    <mat-card-header>
+        <mat-card-title>
+            <h5 class="mt-0 mb-0">
+                Pesquisar estudos
+            </h5>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="mb-25">
+                    <!-- <label class="main-label d-block lh-1 text-black">
+                        User ID
+                    </label> -->
+                    <mat-form-field>
+                        <mat-label>
+                            Nome do paciente
+                        </mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-25">
+                    <!-- <label class="main-label d-block lh-1 text-black">
+                        User Name
+                    </label> -->
+                    <mat-form-field>
+                        <mat-label>
+                            Registro do paciente
+                        </mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-25">
+                    <!-- <label class="main-label d-block lh-1 text-black">
+                        Email Address
+                    </label> -->
+                    <mat-form-field>
+                        <mat-label>
+                            Data de nascimento
+                        </mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-25">
+                    <!-- <label class="main-label d-block lh-1 text-black">
+                        Email Address
+                    </label> -->
+                    <mat-form-field>
+                        <mat-label>
+                            Data do exame
+                        </mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-25">
+                    <mat-form-field>
+                        <mat-label>
+                            Uid do exame
+                        </mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-25">
+                    <mat-form-field>
+                        <mat-label>
+                            Tag do estudo
+                        </mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-25">
+                    <mat-form-field>
+                        <mat-label>
+                            Modalidade
+                        </mat-label>
+                        <mat-select>
+                            <mat-option value="option1">
+                                Washington D.C	
+                            </mat-option>
+                            <mat-option value="option2">
+                                Chicago
+                            </mat-option>
+                            <mat-option value="option3">
+                                Oklahoma City
+                            </mat-option>
+                            <mat-option value="option4">
+                                San Diego
+                            </mat-option>
+                            <mat-option value="option5">
+                                Los Angeles
+                            </mat-option>
+                            <mat-option value="option6">
+                                Las Vegas
+                            </mat-option>
+                            <mat-option value="option7">
+                                San Francisco
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="mb-25">
+                    <mat-form-field>
+                        <mat-label>
+                            Status do estudo
+                        </mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div class="btn-box">
+            <button mat-button>
+                Buscar
+            </button>
+        </div>
+    </mat-card-content>
+</mat-card>
 
 <!-- To Do List -->
 <mat-card
     class="daxa-card to-do-list-card mb-25 border-radius bg-white border-none d-block"
-    [class.rtl-enabled]="themeService.isRTLEnabled()"
->
-    <mat-card-header>
-        <mat-card-title>
-            <button
-                mat-button
-                class="text-daxa p-0 h-auto"
-                (click)="toggleClass()"
-            >
-                + Add New Task
-            </button>
-        </mat-card-title>
-        <mat-card-subtitle>
-            <form class="search-box position-relative">
-                <i class="material-symbols-outlined">
-                    search
-                </i>
-                <input type="text" class="input-search d-block w-100 border-none outline-0" placeholder="Search here..." (keyup)="applyFilter($event)" #input>
-            </form>
-        </mat-card-subtitle>
-    </mat-card-header>
+    [class.rtl-enabled]="themeService.isRTLEnabled()">
     <mat-card-content>
         <div class="to-do-list-table">
             <div class="table-responsive">
@@ -153,7 +262,7 @@
                     <!-- Action Column -->
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef>
-                            Action
+                            Ações
                         </th>
                         <td mat-cell *matCellDef="let element">
 
@@ -161,22 +270,22 @@
 
 
                             <div class="action-info">
-                                <button type="button" mat-button matTooltip="View" matTooltipPosition="above">
+                                <button type="button" mat-button matTooltip="Criar acesso" matTooltipPosition="above">
                                     <i class="material-symbols-outlined">
                                         {{element.action.access}}
                                     </i>
                                 </button>
-                                <button type="button" mat-button matTooltip="View" matTooltipPosition="above">
+                                <button type="button" mat-button matTooltip="DICOM" matTooltipPosition="above">
                                     <i class="material-symbols-outlined">
                                         {{element.action.download}}
                                     </i>
                                 </button>
-                                <button type="button" mat-button matTooltip="View" matTooltipPosition="above">
+                                <button type="button" mat-button matTooltip="Visualizador web" matTooltipPosition="above">
                                     <i class="material-symbols-outlined">
                                         {{element.action.view}}
                                     </i>
                                 </button>
-                                <button type="button" mat-button matTooltip="Edit" matTooltipPosition="above">
+                                <button type="button" mat-button matTooltip="Mais opções" matTooltipPosition="above">
                                     <i class="material-symbols-outlined">
                                         {{element.action.edit}}
                                     </i>
@@ -189,9 +298,9 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     
                     <!-- Row shown when there is no matching data. -->
-                    <tr class="mat-row" *matNoDataRow>
+                    <!-- <tr class="mat-row" *matNoDataRow>
                         <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                    </tr>
+                    </tr> -->
 
                 </table>
             </div>
