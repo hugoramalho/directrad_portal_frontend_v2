@@ -20,6 +20,7 @@ export class SidebarComponent {
 
     // isToggled
     isToggled = false;
+    logoUrl = 'assets/images/logos/direct-rad-logo1.png';
 
     constructor(
         private toggleService: ToggleService,
@@ -35,6 +36,7 @@ export class SidebarComponent {
 
     // Burger Menu Toggle
     toggle() {
+        
         this.toggleService.toggle();
     }
 
