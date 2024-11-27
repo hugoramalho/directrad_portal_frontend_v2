@@ -19,8 +19,8 @@ import { CustomizerSettingsService } from '../../customizer-settings/customizer-
     selector: 'app-to-do-list',
     standalone: true,
     imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatTableModule, NgIf, MatCheckboxModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule],
-    templateUrl: './to-do-list.component.html',
-    styleUrl: './to-do-list.component.scss'
+    templateUrl: './exames.component.html',
+    styleUrl: './exames.component.scss'
 })
 export class ToDoListComponent {
 
