@@ -16,23 +16,41 @@
     </ol>
 </div>
 
-<mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block">
-    <mat-card-header>
-        <mat-card-title>
-            Nessa página você pode criar, editar e excluir usuários, além de configurar pacs, aetitles e acesso SSH.
-            <br>Para toda nova instalaçao deve ser configurado inicialmente a tele no RIS, depois deve ser criado um PACS e um usuário administardor no portal, ambos devem ser vinculados a tele do cliente. 
-            <br>Cada aetitle deve ser vinculado a um ou vários hospitais do RIS.
-        </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+<!-- <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block"> -->
+    <!-- <mat-card-header> -->
+        <!-- <mat-card-title> -->
+            <div>
+                <ul>
+                    <li>
+                        Nessa página você pode criar, editar e excluir usuários, além de configurar pacs, aetitles e acesso SSH.
+                    </li>
+                    <li>
+                        Para toda nova instalaçao deve ser configurado inicialmente a tele no RIS, depois deve ser criado um PACS e um usuário administardor no portal, ambos devem ser vinculados a tele do cliente. 
+                    </li>
+                    <li>
+                        Cada aetitle deve ser vinculado a um ou vários hospitais do RIS.
+                    </li>
+                </ul>
+            </div>
+        <!-- </mat-card-title> -->
+    <!-- </mat-card-header> -->
+    <!-- <mat-card-content> -->
         <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
             <mat-tab label="Usuários">
                 <app-cadastro-usuario></app-cadastro-usuario>
             </mat-tab>
-            <mat-tab label="PACS">PACS</mat-tab>
-            <mat-tab label="Aetitles">Content 2</mat-tab>
-            <mat-tab label="SSH">Content 3</mat-tab>
-            <mat-tab label="Rotinas">Content 4</mat-tab>
+            <mat-tab label="PACS">
+                <app-cadastro-pacs></app-cadastro-pacs>
+            </mat-tab>
+            <mat-tab label="Aetitles">
+                <app-cadastro-aetitle></app-cadastro-aetitle>
+            </mat-tab>
+            <mat-tab label="SSH">
+                <app-cadastro-ssh></app-cadastro-ssh>
+            </mat-tab>
+            <mat-tab label="Rotinas">
+                <app-cadastro-rotina></app-cadastro-rotina>
+            </mat-tab>
         </mat-tab-group>
-    </mat-card-content>
-</mat-card>
+    <!-- </mat-card-content> -->
+<!-- </mat-card> -->
