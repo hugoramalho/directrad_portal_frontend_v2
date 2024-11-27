@@ -13,8 +13,7 @@
             <div
                 class="burger-menu cursor-pointer transition d-xl-none"
                 [ngClass]="{'active': isSidebarToggled}"
-                (click)="toggle()"
-            >
+                (click)="toggle()">
                 <span class="top-bar d-block bg-black transition"></span>
                 <span class="middle-bar d-block bg-black transition"></span>
                 <span class="bottom-bar d-block bg-black transition"></span>
@@ -23,7 +22,7 @@
                 <i class="material-symbols-outlined">
                     search
                 </i>
-                <input type="text" class="input-search d-block w-100 border-none outline-0" placeholder="Search here...">
+                <input type="text" class="input-search d-block w-100 border-none outline-0" placeholder="Buscar na página...">
             </form>
         </div>
         <ul class="header-right-side d-flex align-items-center mt-0 mb-0 pl-0 list-unstyled">
@@ -35,8 +34,7 @@
                 </button>
                 <mat-menu class="language-menu-dropdown" #languageMenu="matMenu" xPosition="before">
                     <div
-                        [class.dark-menu]="themeService.isDark() || themeService.isHeaderDark()"
-                    >
+                        [class.dark-menu]="themeService.isDark() || themeService.isHeaderDark()">
                         <span class="title fw-medium d-block">Choose Language</span>
                         <ul class="menu-body pl-0 mb-0 mt-0 list-unstyled">
                             <li>

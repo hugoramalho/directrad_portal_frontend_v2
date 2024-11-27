@@ -16,7 +16,9 @@
             right: 0;
             left: 0;
             top: 0;
-            
+            img{
+                max-width: 70%
+            }
             a {
                 color: var(--blackColor);
                 font: {
@@ -396,8 +398,8 @@
                 a {
                     color: var(--whiteColor);
                 }
-                img{
-
+                img {
+                    max-width: 70%
                 }
             }
             .burger-menu {
