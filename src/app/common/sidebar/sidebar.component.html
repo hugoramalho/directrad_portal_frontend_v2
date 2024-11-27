@@ -10,10 +10,7 @@
     <div class="logo bg-white">
         <img src="{{this.logoUrl}}" alt="logo-icon">
     </div>
-    <div
-        (click)="toggle()"
-        class="burger-menu"
-        [ngClass]="{'active': isSidebarToggled}">
+    <div (click)="toggle()" class="sidebar-menu-link burger-menu" [ngClass]="{'active': isSidebarToggled}">
         <span class="top-bar"></span>
         <span class="middle-bar"></span>
         <span class="bottom-bar"></span>
@@ -22,6 +19,11 @@
         <div class="sidebar-inner">
             <div class="sidebar-menu">
                 <mat-accordion>
+                    <!-- <div (click)="toggle()" class="sidebar-menu-link burger-menu" [ngClass]="{'active': isSidebarToggled}">
+                        <span class="top-bar"></span>
+                        <span class="middle-bar"></span>
+                        <span class="bottom-bar"></span>
+                    </div> -->
                     <a routerLink="/to-do-list" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             home
@@ -46,7 +48,7 @@
                             Cadastro
                         </span>
                     </a>
-                    <a routerLink="/admin/painel-controle" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a routerLink="/painel-controle" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             settings
                         </i>
@@ -54,7 +56,7 @@
                             Painel de Controle
                         </span>
                     </a>
-                    <a routerLink="/admin/directprint" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a routerLink="/directprint" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             print
                         </i>
@@ -62,7 +64,7 @@
                             DirectPrint
                         </span>
                     </a>
-                    <a routerLink="/admin/directviewer" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a routerLink="/directviewer" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             visibility
                         </i>
@@ -70,7 +72,7 @@
                             DirectViewer
                         </span>
                     </a>
-                    <a routerLink="/admin/user" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a routerLink="/user" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             person
                         </i>
@@ -78,7 +80,7 @@
                             Usuário
                         </span>
                     </a>
-                    <a routerLink="/admin/logout" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a routerLink="/logout" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             logout
                         </i>
