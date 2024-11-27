@@ -17,11 +17,26 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
 import { CadastroUsuarioComponent } from './usuarios/usuarios.component';
+import { CadastroPacsComponent } from './pacs/pacs.component';
+import { CadastroAetitleComponent } from './aetitles/aetitle.component';
+import { CadastroAcessoSshComponent } from './ssh/ssh.component';
+import { CadastroRotinaComponent } from './rotinas/rotina.component';
 
 @Component({
     selector: 'app-cadastro',
     standalone: true,
-    imports: [CadastroUsuarioComponent, RouterLink, MatCardModule, MatTabsModule, DatePipe, MatFormFieldModule],
+    imports: [
+        CadastroRotinaComponent, 
+        CadastroAcessoSshComponent, 
+        CadastroAetitleComponent, 
+        CadastroPacsComponent, 
+        CadastroUsuarioComponent, 
+        RouterLink, 
+        MatCardModule, 
+        MatTabsModule, 
+        DatePipe, 
+        MatFormFieldModule
+    ],
     templateUrl: './cadastro.component.html',
     styleUrl: './cadastro.component.scss'
 })
