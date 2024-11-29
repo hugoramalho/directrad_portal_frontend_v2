@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
-import { CadastroUsuarioComponent } from './usuarios/usuarios.component';
+import { CadastroUsuarioComponent } from './usuarios/usuario.component';
 import { CadastroPacsComponent } from './pacs/pacs.component';
 import { CadastroAetitleComponent } from './aetitles/aetitle.component';
 import { CadastroAcessoSshComponent } from './ssh/ssh.component';
