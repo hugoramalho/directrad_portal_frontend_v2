@@ -20,7 +20,10 @@ export class SidebarComponent {
 
     // isToggled
     isToggled = false;
-    logoUrl = 'assets/images/logos/direct-rad-logo1.png';
+    logoUrl = '';
+    logoUrlOpened = 'assets/images/logos/direct-rad-logo1.png';
+    logoUrlClosed = 'assets/images/logos/image.png';
+
 
     constructor(
         private toggleService: ToggleService,
@@ -32,11 +35,14 @@ export class SidebarComponent {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
+
+        this.logoUrl = this.isToggled ? this.logoUrlClosed : this.logoUrlOpened;
     }
 
     // Burger Menu Toggle
     toggle() {
-        
+        this.isToggled = !this.isToggled;
+        this.logoUrl = this.isToggled ? this.logoUrlClosed : this.logoUrlOpened;
         this.toggleService.toggle();
     }
 
