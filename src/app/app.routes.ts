@@ -59,7 +59,7 @@ import { HdReportsComponent } from './pages/help-desk-page/hd-reports/hd-reports
 import { EOrderTrackingComponent } from './pages/ecommerce-page/e-order-tracking/e-order-tracking.component';
 import { CalendarComponent } from './apps/calendar/calendar.component';
 import { ContactsComponent } from './apps/contacts/contacts.component';
-import { ExamesComponent } from './exame/exames.component';
+import { ExamesComponent } from './exame/exame.component';
 import { ChatComponent } from './apps/chat/chat.component';
 import { FileManagerComponent } from './apps/file-manager/file-manager.component';
 import { EmailComponent } from './apps/email/email.component';
