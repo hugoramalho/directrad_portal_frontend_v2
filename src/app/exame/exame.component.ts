@@ -19,8 +19,8 @@ import { CustomizerSettingsService } from '../customizer-settings/customizer-set
     selector: 'app-to-do-list',
     standalone: true,
     imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatTableModule, NgIf, MatCheckboxModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule],
-    templateUrl: './exames.component.html',
-    styleUrl: './exames.component.scss'
+    templateUrl: './exame.component.html',
+    styleUrl: './exame.component.scss'
 })
 export class ExamesComponent {
 
