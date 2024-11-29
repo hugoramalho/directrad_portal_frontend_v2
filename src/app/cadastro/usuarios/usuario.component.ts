@@ -22,8 +22,8 @@ import { CustomizerSettingsService } from '../../customizer-settings/customizer-
     selector: 'app-cadastro-usuario',
     standalone: true,
     imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatTableModule, NgIf, MatCheckboxModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule],
-    templateUrl: './usuarios.component.html',
-    styleUrl: './usuarios.component.scss'
+    templateUrl: './usuario.component.html',
+    styleUrl: './usuario.component.scss'
 })
 export class CadastroUsuarioComponent {
 
