@@ -239,7 +239,7 @@
 
 
                     <!-- Status Column -->
-                    <ng-container matColumnDef="status">
+                    <!-- <ng-container matColumnDef="status">
                         <th mat-header-cell *matHeaderCellDef>
                             Status
                         </th>
@@ -257,7 +257,7 @@
                                 {{element.status.notStarted}}
                             </span>
                         </td>
-                    </ng-container>
+                    </ng-container> -->
 
                     <!-- Action Column -->
                     <ng-container matColumnDef="action">
@@ -270,25 +270,18 @@
 
 
                             <div class="action-info">
-                                <button type="button" mat-button matTooltip="Criar acesso" matTooltipPosition="above">
-                                    <i class="material-symbols-outlined">
-                                        {{element.action.access}}
-                                    </i>
+                                <button type="button" mat-button (click)="criarAcessoRis(element.uid)"  matTooltip="Criar acesso" matTooltipPosition="above">
+                                    <i class="material-symbols-outlined">key</i>
                                 </button>
-                                <button type="button" mat-button matTooltip="DICOM" matTooltipPosition="above">
-                                    <i class="material-symbols-outlined">
-                                        {{element.action.download}}
-                                    </i>
+                                <button type="button" mat-button (click)="visualizarWeb(element.uid)" matTooltip="DICOM" matTooltipPosition="above">
+                                    <i class="material-symbols-outlined">download</i>
                                 </button>
-                                <button type="button" mat-button matTooltip="Visualizador web" matTooltipPosition="above">
-                                    <i class="material-symbols-outlined">
-                                        {{element.action.view}}
-                                    </i>
+                                <button type="button" mat-button (click)="menuContextoEstudos(element.uid)"matTooltip="Visualizador web" matTooltipPosition="above">
+                                    <i class="material-symbols-outlined">visibility</i>
                                 </button>
                                 <button type="button" mat-button matTooltip="Mais opções" matTooltipPosition="above">
-                                    <i class="material-symbols-outlined">
-                                        {{element.action.edit}}
-                                    </i>
+                                  <i class="material-symbols-outlined">more_vert</i>
+
                                 </button>
                             </div>
                         </td>

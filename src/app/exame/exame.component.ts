@@ -14,6 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
+import { EstudoRepository } from './exame.service';
+import { Exame } from './exame';
 
 @Component({
     selector: 'app-to-do-list',
@@ -24,9 +26,9 @@ import { CustomizerSettingsService } from '../customizer-settings/customizer-set
 })
 export class ExamesComponent {
 
-    displayedColumns: string[] = ['select', 'paciente', 'dataNascimento', 'dataExame', 'modalidade', 'study', 'uid', 'status', 'action'];
-    dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-    selection = new SelectionModel<PeriodicElement>(true, []);
+    displayedColumns: string[] = ['select', 'paciente', 'dataNascimento', 'dataExame', 'modalidade', 'study', 'uid', 'action'];
+    dataSource = new MatTableDataSource<Exame>([]);
+    selection = new SelectionModel<Exame>(true, []);
 
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
@@ -45,7 +47,7 @@ export class ExamesComponent {
     }
 
     /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: PeriodicElement): string {
+    checkboxLabel(row?: Exame): string {
         if (!row) {
             return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
@@ -64,16 +66,45 @@ export class ExamesComponent {
         this.classApplied = !this.classApplied;
     }
 
+    criarAcessoRis(uid: string) {
+
+    }
+
+    visualizarWeb(uid: string) {
+
+    }
+
+    menuContextoEstudos(uid: string) {
+
+    }
+
     // isToggled
     isToggled = false;
 
     constructor(
-        public themeService: CustomizerSettingsService
-    ) {
-        this.themeService.isToggled$.subscribe(isToggled => {
-            this.isToggled = isToggled;
-        });
-    }
+      public themeService: CustomizerSettingsService,
+      private estudoRepository: EstudoRepository // Injeção do serviço
+  ) {
+      this.themeService.isToggled$.subscribe(isToggled => {
+          this.isToggled = isToggled;
+      });
+  }
+
+  private loadExames(): void {
+    this.estudoRepository.getEstudos().subscribe({
+        next: (exames: Exame[]) => {
+          console.log(exames);
+            this.dataSource.data = exames; // Atualiza a tabela com os dados recebidos
+        },
+        error: (error) => {
+            console.error('Erro ao carregar os exames:', error);
+        }
+    });
+}
+
+  ngOnInit(): void {
+      this.loadExames(); // Carregar os dados ao inicializar
+  }
 
     // RTL Mode
     toggleRTLEnabledTheme() {
@@ -82,225 +113,3 @@ export class ExamesComponent {
 
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-    {
-        numImagens: '#951',
-        taskName: 'Hotel management system',
-        paciente: 'Shawn Kennedy',
-        dataNascimento: '12 Nov, 2024',
-        dataExame: '15 Nov, 2024',
-        modalidade: 'CT',
-        study: 'Abdome',
-        uid: '1.2.392.200036.9107.500.111234524111113002',
-        status: {
-            inProgress: 'In Progress',
-            // pending: 'Pending',
-            // completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-       action: {
-            download: 'download',
-            access: 'key',
-            view: 'visibility',
-            edit: 'more_vert',
-            delete: 'delete'
-        }
-    },
-    {
-        numImagens: '#587',
-        taskName: 'Send proposal to APR Ltd',
-        paciente: 'Roberto Cruz',
-        dataNascimento: '12 Nov, 2024',
-        dataExame: '14 Nov, 2024',
-        modalidade: 'CT',
-        study: 'Abdome',
-        uid: '1.2.392.200036.9107.500.111234524111113002',
-        status: {
-            // inProgress: 'In Progress',
-            pending: 'Pending',
-            // completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-       action: {
-            download: 'download',
-            access: 'key',
-            view: 'visibility',
-            edit: 'more_vert',
-            delete: 'delete'
-        }
-    },
-    {
-        numImagens: '#618',
-        taskName: 'Python upgrade',
-        paciente: 'Juli Johnson',
-        dataNascimento: '12 Nov, 2024',
-        dataExame: '13 Nov, 2024',
-        modalidade: 'CT',
-        study: 'Abdome',
-        uid: '1.2.392.200036.9107.500.111234524111113002',
-        status: {
-            // inProgress: 'In Progress',
-            // pending: 'Pending',
-            completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-       action: {
-            download: 'download',
-            access: 'key',
-            view: 'visibility',
-            edit: 'more_vert',
-            delete: 'delete'
-        }
-    },
-    {
-        numImagens: '#367',
-        taskName: 'Schedule meeting with Daxa',
-        paciente: 'Catalina Engles',
-        dataExame: '12 Nov, 2024',
-        dataNascimento: '12 Nov, 2024',
-        modalidade: 'CT',
-        study: 'Abdome',
-        uid: '1.2.392.200036.9107.500.111234524111113002',
-        status: {
-            // inProgress: 'In Progress',
-            // pending: 'Pending',
-            // completed: 'Completed',
-            notStarted: 'Not Started',
-        },
-       action: {
-            download: 'download',
-            access: 'key',
-            view: 'visibility',
-            edit: 'more_vert',
-            delete: 'delete'
-        }
-    },
-    {
-        numImagens: '#761',
-        taskName: 'Engineering lite touch',
-        paciente: 'Louis Nagle',
-        dataNascimento: '12 Nov, 2024',
-        dataExame: '11 Nov, 2024',
-        modalidade: 'CT',
-        study: 'Abdome',
-        uid: '1.2.392.200036.9107.500.111234524111113002',
-        status: {
-            inProgress: 'In Progress',
-            // pending: 'Pending',
-            // completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-       action: {
-            download: 'download',
-            access: 'key',
-            view: 'visibility',
-            edit: 'more_vert',
-            delete: 'delete'
-        }
-    },
-    {
-        numImagens: '#431',
-        taskName: 'Refund bill payment',
-        paciente: 'Michael Marquez',
-        dataNascimento: '12 Nov, 2024',
-        dataExame: '10 Nov, 2024',
-        modalidade: 'CT',
-        study: 'Abdome',
-        uid: '1.2.392.200036.9107.500.111234524111113002',
-        status: {
-            // inProgress: 'In Progress',
-            // pending: 'Pending',
-            // completed: 'Completed',
-            notStarted: 'Not Started',
-        },
-       action: {
-            download: 'download',
-            access: 'key',
-            view: 'visibility',
-            edit: 'more_vert',
-            delete: 'delete'
-        }
-    },
-    {
-        numImagens: '#421',
-        taskName: 'Public beta release',
-        paciente: 'James Andy',
-        dataNascimento: '12 Nov, 2024',
-        dataExame: '09 Nov, 2024',
-        modalidade: 'CT',
-        study: 'Abdome',
-        uid: '1.2.392.200036.9107.500.111234524111113002',
-        status: {
-            inProgress: 'In Progress',
-            // pending: 'Pending',
-            // completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-       action: {
-            download: 'download',
-            access: 'key',
-            view: 'visibility',
-            edit: 'more_vert',
-            delete: 'delete'
-        }
-    },
-    {
-        numImagens: '#624',
-        taskName: 'Fix platform errors',
-        paciente: 'Alina Smith',
-        dataNascimento: '12 Nov, 2024',
-        dataExame: '08 Nov, 2024',
-        modalidade: 'CT',
-        study: 'Abdome',
-        uid: '1.2.392.200036.9107.500.111234524111113002',
-        status: {
-            // inProgress: 'In Progress',
-            // pending: 'Pending',
-            completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-       action: {
-            download: 'download',
-            access: 'key',
-            view: 'visibility',
-            edit: 'more_vert',
-            delete: 'delete'
-        }
-    },
-    {
-        numImagens: '#513',
-        taskName: 'Launch our mobile app',
-        paciente: 'David Warner',
-        dataNascimento: '12 Nov, 2024',
-        dataExame: '07 Nov, 2024',
-        modalidade: 'CT',
-        study: 'Abdome',
-        uid: '1.2.392.200036.9107.500.111234524111113002',
-        status: {
-            // inProgress: 'In Progress',
-            pending: 'Pending',
-            // completed: 'Completed',
-            // notStarted: 'Not Started',
-        },
-       action: {
-            download: 'download',
-            access: 'key',
-            view: 'visibility',
-            edit: 'more_vert',
-            delete: 'delete'
-        }
-    }
-];
-
-export interface PeriodicElement {
-    taskName: string;
-    numImagens: string;
-    paciente: string;
-    dataNascimento: string;
-    dataExame: string;
-    modalidade: string;
-    study: string;
-    uid: string;
-    status: any;
-    action: any;
-}
