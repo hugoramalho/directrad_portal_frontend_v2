@@ -5,7 +5,7 @@ import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {AuthInterceptor} from "./@core/interceptors/auth.interceptor";
+// import {AuthInterceptor} from "./@core/interceptors/auth.interceptor";
 
 
 export const appConfig: ApplicationConfig = {
@@ -14,6 +14,6 @@ export const appConfig: ApplicationConfig = {
         provideClientHydration(),
         provideAnimations(),
         importProvidersFrom(HttpClientModule),
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+        // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ]
 };
