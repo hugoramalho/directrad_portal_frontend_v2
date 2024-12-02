@@ -1,0 +1,18 @@
+services:
+  portal_frontend_v2:
+    container_name: portal_frontend_v2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ../../:/usr/src/app
+    working_dir: /usr/src/app
+    command: >
+      sh -c "npm install && npm start"
+
+networks:
+  directrad:
+    name: directrad
+    driver: bridge
