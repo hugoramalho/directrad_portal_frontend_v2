@@ -1,9 +1,12 @@
 {
     "/api/v2": {
-        "target": "http://localhost:8085", 
+        "target": "http://localhost:8000", 
         "secure": false,                   
         "changeOrigin": true,          
-        "logLevel": "debug",         
+        "logLevel": "debug",   
+        "pathRewrite": {                  
+        "^/api/v2": "/api/v2"
+        },      
         "headers": {                        
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
