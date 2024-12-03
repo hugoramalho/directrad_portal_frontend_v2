@@ -1,0 +1,21 @@
+export const DcmQueryParams = {
+  STUDY_INSTANCE_UID: "StudyInstanceUID",
+  OFFSET: "offset",
+  LIMIT: "limit",
+  INCLUDEFIELD: "includefield",
+  MODALITIES_IN_STUDY: "ModalitiesInStudy",
+  RETURNEMPTY: "returnempty",
+  PATIENT_NAME: "PatientName",
+  PATIENT_ID: "PatientID",
+  STUDY_DATE: "StudyDate",
+  STUDY_TIME: "StudyTime",
+  COMPRESSIONFAILED: "compressionfailed",
+  STORAGE_VERIFICATION_FAILED: "storageVerificationFailed",
+  REFERRING_PHYSICIAN_NAME: "ReferringPhysicianName",
+  ACCESSION_NUMBER: "AccessionNumber",
+  ISSUER_OF_ACCESSION_NUMBER_SEQUENCE_LOCAL_NAMESPACE_ENTITY_ID: "IssuerOfAccessionNumberSequence.LocalNamespaceEntityID",
+  STUDY_ACCESS_DATE_TIME: "StudyAccessDateTime",
+  STUDY_RECEIVE_DATE_TIME: "StudyReceiveDateTime",
+  INSTITUTIONAL_DEPARTMENT_NAME: "InstitutionalDepartmentName",
+  SENDING_APPLICATION_ENTITY_TITLE_OF_SERIES: "SendingApplicationEntityTitleOfSeries"
+};

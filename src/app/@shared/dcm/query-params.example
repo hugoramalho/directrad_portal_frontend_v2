@@ -1,0 +1,5 @@
+offset=0&
+limit=21&
+includefield=all&
+orderby=-StudyDate,-StudyTime
+&ModalitiesInStudy=CR&returnempty=false&PatientName=teste&PatientID=id_&StudyDate=20241201-20241203&StudyTime=153053-153056&compressionfailed=false&storageVerificationFailed=false&StudyInstanceUID=1.2.392.200036.9116.2.6.1.44063.1805437073.1731350970.151500&ReferringPhysicianName=teste&AccessionNumber=tete&IssuerOfAccessionNumberSequence.LocalNamespaceEntityID=teste&StudyAccessDateTime=20241203&StudyReceiveDateTime=20241203&InstitutionalDepartmentName=teste&SendingApplicationEntityTitleOfSeries=teste

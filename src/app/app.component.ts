@@ -15,7 +15,16 @@ import { CustomizerSettingsService } from './customizer-settings/customizer-sett
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, RouterOutlet, SidebarComponent, HeaderComponent, FooterComponent, RouterLink, CustomizerSettingsComponent, HttpClientModule],
+    imports: [
+        CommonModule, 
+        RouterOutlet, 
+        SidebarComponent, 
+        HeaderComponent, 
+        FooterComponent, 
+        RouterLink, 
+        CustomizerSettingsComponent, 
+        HttpClientModule
+    ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
     providers: [
