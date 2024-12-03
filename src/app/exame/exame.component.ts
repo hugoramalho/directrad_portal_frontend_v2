@@ -15,20 +15,52 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
 import { EstudoRepository } from './exame.service';
-import { Exame } from './exame';
+import { Estudo } from './exame';
+import { MenuContextoEstudosComponent } from './menu/options-menu.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
     selector: 'app-to-do-list',
     standalone: true,
-    imports: [MatCardModule, MatMenuModule, MatButtonModule, RouterLink, MatTableModule, NgIf, MatCheckboxModule, MatTooltipModule, MatFormFieldModule, MatInputModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule],
+    imports: [
+        MenuContextoEstudosComponent, 
+        MatCardModule, 
+        MatMenuModule, 
+        MatButtonModule, 
+        RouterLink, 
+        MatTableModule, 
+        NgIf, 
+        MatCheckboxModule, 
+        MatTooltipModule, 
+        MatFormFieldModule, 
+        MatInputModule, 
+        MatSelectModule, 
+        MatDatepickerModule, 
+        MatNativeDateModule
+    ],
     templateUrl: './exame.component.html',
     styleUrl: './exame.component.scss'
 })
 export class ExamesComponent {
 
     displayedColumns: string[] = ['select', 'paciente', 'dataNascimento', 'dataExame', 'modalidade', 'study', 'uid', 'action'];
-    dataSource = new MatTableDataSource<Exame>([]);
-    selection = new SelectionModel<Exame>(true, []);
+    dataSource = new MatTableDataSource<Estudo>([]);
+    selection = new SelectionModel<Estudo>(true, []);
+    isToggled = false;
+
+
+    constructor(
+      public themeService: CustomizerSettingsService,
+      private estudoRepository: EstudoRepository,
+      private menuContexto: MenuContextoEstudosComponent,
+      private dialog: MatDialog
+  ) {
+      this.themeService.isToggled$.subscribe(isToggled => {
+          this.isToggled = isToggled;
+      });
+  }
+
 
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
@@ -47,7 +79,7 @@ export class ExamesComponent {
     }
 
     /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: Exame): string {
+    checkboxLabel(row?: Estudo): string {
         if (!row) {
             return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         }
@@ -74,25 +106,30 @@ export class ExamesComponent {
 
     }
 
-    menuContextoEstudos(uid: string) {
+    downloadEstudo(uid: string) {
 
     }
 
-    // isToggled
-    isToggled = false;
+    menuContextoEstudos(uid: string) {
+        const dialogRef = this.dialog.open(MenuContextoEstudosComponent, {
+            width: '300px',
+            data: { uid }
+          });
+      
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              console.log(`Ação realizada: ${result.action}, UID: ${result.uid}`);
+              // Execute ações específicas com base na resposta do diálogo
+            }
+          });
+    }
 
-    constructor(
-      public themeService: CustomizerSettingsService,
-      private estudoRepository: EstudoRepository // Injeção do serviço
-  ) {
-      this.themeService.isToggled$.subscribe(isToggled => {
-          this.isToggled = isToggled;
-      });
-  }
+    // isToggled
+
 
   private loadExames(): void {
     this.estudoRepository.getEstudos().subscribe({
-        next: (exames: Exame[]) => {
+        next: (exames: Estudo[]) => {
           console.log(exames);
             this.dataSource.data = exames; // Atualiza a tabela com os dados recebidos
         },

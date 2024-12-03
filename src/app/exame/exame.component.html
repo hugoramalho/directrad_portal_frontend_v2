@@ -183,7 +183,7 @@
                             Paciente
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.paciente}}
+                            {{element.patientName}}
                         </td>
                     </ng-container>
 
@@ -193,7 +193,7 @@
                             Data de nascimento
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.dataNascimento}}
+                            {{element.studyDate}}
                         </td>
                     </ng-container>
 
@@ -203,7 +203,7 @@
                             Data do exame
                         </th>
                         <td mat-cell *matCellDef="let element" class="text-black">
-                            {{element.dataExame}}
+                            {{ element.studyDate | date: 'dd/MMMM/yyyy' }}
                         </td>
                     </ng-container>
 
@@ -213,7 +213,7 @@
                             Modalidade
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.modalidade}}
+                            {{element.studyModality}}
                         </td>
                     </ng-container>
 
@@ -233,7 +233,7 @@
                             Uid do estudo
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.uid}}
+                            {{element.studyInstanceUID}}
                         </td>
                     </ng-container>
 
@@ -276,12 +276,11 @@
                                 <button type="button" mat-button (click)="visualizarWeb(element.uid)" matTooltip="DICOM" matTooltipPosition="above">
                                     <i class="material-symbols-outlined">download</i>
                                 </button>
-                                <button type="button" mat-button (click)="menuContextoEstudos(element.uid)"matTooltip="Visualizador web" matTooltipPosition="above">
+                                <button type="button" mat-button (click)="downloadEstudo(element.uid)"matTooltip="Visualizador web" matTooltipPosition="above">
                                     <i class="material-symbols-outlined">visibility</i>
                                 </button>
-                                <button type="button" mat-button matTooltip="Mais opções" matTooltipPosition="above">
+                                <button type="button" mat-button (click)="menuContextoEstudos(element.uid)" matTooltip="Mais opções" matTooltipPosition="above">
                                   <i class="material-symbols-outlined">more_vert</i>
-
                                 </button>
                             </div>
                         </td>
