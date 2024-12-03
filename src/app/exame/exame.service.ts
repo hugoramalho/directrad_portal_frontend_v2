@@ -32,7 +32,7 @@ import { ApiResponse } from '../@shared/model/api-response';
 import { ApiResponsePaginated } from '../@shared/model/api-response-paginated';
 import {catchError, map} from "rxjs/operators";
 import { PaginatedList } from '../@shared/model/paginated-list';
-import { Exame } from './exame';
+import { Estudo } from './exame';
 
 @Injectable({
     providedIn: 'root',
@@ -76,11 +76,11 @@ export class EstudoRepository {
     //         .pipe(map(response => response?.data || null));
     // }
 
-    getEstudos(page: number = 1, perPage: number = 10): Observable<Exame[]>  {
+    getEstudos(page: number = 1, perPage: number = 10): Observable<Estudo[]>  {
       let params = new HttpParams()
           .set('page', page)
           .set('page_size', perPage);
-      return this.http.get<Exame[]>(this.apiUrl);
+      return this.http.get<Estudo[]>(this.apiUrl);
   }
 
 }
