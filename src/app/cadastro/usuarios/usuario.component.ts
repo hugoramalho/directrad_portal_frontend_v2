@@ -49,10 +49,11 @@ export class CadastroUsuarioComponent {
 
     /** The label for the checkbox on the passed row */
     checkboxLabel(row?: PeriodicElement): string {
-        if (!row) {
-            return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-        }
-        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.numImagens + 1}`;
+        // if (!row) {
+        //     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+        // }
+        // return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.numImagens + 1}`;
+        return '';
     }
 
     // Search Filter
