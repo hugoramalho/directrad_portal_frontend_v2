@@ -16,15 +16,16 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
 import { EstudoRepository } from './exame.service';
 import { Estudo } from './exame';
-import { MenuContextoEstudosComponent } from './menu/options-menu.component';
+// import { MenuContextoEstudosComponent } from './menu/options-menu.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { CommonModule } from '@angular/common';
+import { DateFormatPipe } from '../@shared/pipe/date-pipe';
 
 @Component({
     selector: 'app-to-do-list',
     standalone: true,
     imports: [
-        MenuContextoEstudosComponent, 
+        // MenuContextoEstudosComponent, 
         MatCardModule, 
         MatMenuModule, 
         MatButtonModule, 
@@ -37,14 +38,16 @@ import { MatDialog } from '@angular/material/dialog';
         MatInputModule, 
         MatSelectModule, 
         MatDatepickerModule, 
-        MatNativeDateModule
+        MatNativeDateModule,
+        CommonModule,
+        DateFormatPipe
     ],
     templateUrl: './exame.component.html',
     styleUrl: './exame.component.scss'
 })
 export class ExamesComponent {
 
-    displayedColumns: string[] = ['select', 'paciente', 'dataNascimento', 'dataExame', 'modalidade', 'study', 'uid', 'action'];
+    displayedColumns: string[] = ['select', 'paciente', 'dataNascimento', 'dataExame', 'modalidade', 'study', 'action'];
     dataSource = new MatTableDataSource<Estudo>([]);
     selection = new SelectionModel<Estudo>(true, []);
     isToggled = false;
@@ -53,7 +56,7 @@ export class ExamesComponent {
     constructor(
       public themeService: CustomizerSettingsService,
       private estudoRepository: EstudoRepository,
-      private menuContexto: MenuContextoEstudosComponent,
+      // private menuContexto: MenuContextoEstudosComponent,
       private dialog: MatDialog
   ) {
       this.themeService.isToggled$.subscribe(isToggled => {
@@ -80,10 +83,11 @@ export class ExamesComponent {
 
     /** The label for the checkbox on the passed row */
     checkboxLabel(row?: Estudo): string {
-        if (!row) {
-            return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-        }
-        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.numImagens + 1}`;
+        // if (!row) {
+        //     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+        // }
+        // return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.numImagens + 1}`;
+        return '';
     }
 
     // Search Filter
@@ -111,17 +115,17 @@ export class ExamesComponent {
     }
 
     menuContextoEstudos(uid: string) {
-        const dialogRef = this.dialog.open(MenuContextoEstudosComponent, {
-            width: '300px',
-            data: { uid }
-          });
+        // const dialogRef = this.dialog.open(MenuContextoEstudosComponent, {
+        //     width: '300px',
+        //     data: { uid }
+        //   });
       
-          dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-              console.log(`Ação realizada: ${result.action}, UID: ${result.uid}`);
-              // Execute ações específicas com base na resposta do diálogo
-            }
-          });
+        //   dialogRef.afterClosed().subscribe(result => {
+        //     if (result) {
+        //       console.log(`Ação realizada: ${result.action}, UID: ${result.uid}`);
+        //       // Execute ações específicas com base na resposta do diálogo
+        //     }
+        //   });
     }
 
     // isToggled
