@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import { Estudo } from '../../exame/exame';
 
 
 @Component({
@@ -48,11 +49,12 @@ export class CadastroAetitleComponent {
     }
 
     /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: PeriodicElement): string {
-        if (!row) {
-            return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-        }
-        return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.numImagens + 1}`;
+    checkboxLabel(row?: Estudo): string {
+        // if (!row) {
+        //     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+        // }
+        // return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.NumberOfStudyRelatedInstances + 1}`;
+        return '';
     }
 
     // Search Filter
