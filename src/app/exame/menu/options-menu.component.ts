@@ -1,19 +1,22 @@
 import { Component, Inject, InjectionToken, Input } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatMenu } from '@angular/material/menu';
-import { MatIcon } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-basic-menu',
+  selector: 'app-menu-estudos',
   standalone: true,
   imports: [
-    MatMenu,
-    MatIcon
+    MatMenuModule,
+    MatIconModule,
+    MatDialogModule
   ],
   templateUrl: './options-menu.component.html',
-  styleUrl: './options-menu.component.scss'
+  // styleUrl: './options-menu.component.scss'
 })
-export class MenuContextoEstudosComponent {
+export class MenuEstudosComponent {
   @Input() estudoId: string | undefined;
 
   executarAcao(acao: string) {
@@ -21,7 +24,7 @@ export class MenuContextoEstudosComponent {
   }
   
   constructor(
-    public dialogRef: MatDialogRef<MenuContextoEstudosComponent>,
+    public dialogRef: MatDialogRef<MenuEstudosComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { uid: string }
   ) {}
 
@@ -37,5 +40,8 @@ export class MenuContextoEstudosComponent {
     this.dialogRef.close({ action: 'deletar', uid: this.uid });
   }
 
+  onClose(): void {
+    this.dialogRef.close();
+  }
 
 }

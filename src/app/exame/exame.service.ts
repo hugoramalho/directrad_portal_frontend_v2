@@ -33,6 +33,7 @@ import { ApiResponsePaginated } from '../@shared/model/api-response-paginated';
 import {catchError, map} from "rxjs/operators";
 import { PaginatedList } from '../@shared/model/paginated-list';
 import { Estudo } from './exame';
+import { DcmQueryParams } from '../@shared/dcm/query-params';
 
 @Injectable({
     providedIn: 'root',
@@ -82,5 +83,12 @@ export class EstudoRepository {
           .set('page_size', perPage);
       return this.http.get<Estudo[]>(this.apiUrl);
   }
+
+  getEstudo(uid: string): Observable<Estudo[]>  {
+    let params = new HttpParams()
+        .set(DcmQueryParams.STUDY_INSTANCE_UID, uid);
+    return this.http.get<Estudo[]>(this.apiUrl);
+  }
+
 
 }

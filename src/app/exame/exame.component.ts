@@ -16,10 +16,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
 import { EstudoRepository } from './exame.service';
 import { Estudo } from './exame';
-// import { MenuContextoEstudosComponent } from './menu/options-menu.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MenuEstudosComponent } from './menu/options-menu.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { DateFormatPipe } from '../@shared/pipe/date-pipe';
+
 
 @Component({
     selector: 'app-to-do-list',
@@ -40,7 +41,8 @@ import { DateFormatPipe } from '../@shared/pipe/date-pipe';
         MatDatepickerModule, 
         MatNativeDateModule,
         CommonModule,
-        DateFormatPipe
+        DateFormatPipe,
+        MatDialogModule
     ],
     templateUrl: './exame.component.html',
     styleUrl: './exame.component.scss'
@@ -114,18 +116,16 @@ export class ExamesComponent {
 
     }
 
-    menuContextoEstudos(uid: string) {
-        // const dialogRef = this.dialog.open(MenuContextoEstudosComponent, {
-        //     width: '300px',
-        //     data: { uid }
-        //   });
-      
-        //   dialogRef.afterClosed().subscribe(result => {
-        //     if (result) {
-        //       console.log(`Ação realizada: ${result.action}, UID: ${result.uid}`);
-        //       // Execute ações específicas com base na resposta do diálogo
-        //     }
-        //   });
+    menuEstudos(uid: string) {
+        const dialogRef = this.dialog.open(MenuEstudosComponent, {
+            data: { uid }
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              console.log(`Ação realizada: ${result.action}, UID: ${result.uid}`);
+              // Execute ações específicas com base na resposta do diálogo
+            }
+          });
     }
 
     // isToggled
@@ -134,7 +134,6 @@ export class ExamesComponent {
   private loadExames(): void {
     this.estudoRepository.getEstudos().subscribe({
         next: (exames: Estudo[]) => {
-          console.log(exames);
             this.dataSource.data = exames; // Atualiza a tabela com os dados recebidos
         },
         error: (error) => {

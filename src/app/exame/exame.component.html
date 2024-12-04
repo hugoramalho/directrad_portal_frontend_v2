@@ -270,16 +270,16 @@
 
 
                             <div class="action-info">
-                                <button type="button" mat-button (click)="criarAcessoRis(element.uid)"  matTooltip="Criar acesso" matTooltipPosition="above">
+                                <button type="button" mat-button (click)="criarAcessoRis(element.StudyInstanceUID)"  matTooltip="Criar acesso no RIS" matTooltipPosition="above">
                                     <i class="material-symbols-outlined">key</i>
                                 </button>
-                                <button type="button" mat-button (click)="visualizarWeb(element.uid)" matTooltip="DICOM" matTooltipPosition="above">
+                                <button type="button" mat-button (click)="visualizarWeb(element.StudyInstanceUID)" matTooltip="Download arquivo DICOM" matTooltipPosition="above">
                                     <i class="material-symbols-outlined">download</i>
                                 </button>
-                                <button type="button" mat-button (click)="downloadEstudo(element.uid)"matTooltip="Visualizador web" matTooltipPosition="above">
+                                <button type="button" mat-button (click)="downloadEstudo(element.StudyInstanceUID)"matTooltip="Visualizador web" matTooltipPosition="above">
                                     <i class="material-symbols-outlined">visibility</i>
                                 </button>
-                                <button type="button" mat-button (click)="menuContextoEstudos(element.uid)" matTooltip="Mais opções" matTooltipPosition="above">
+                                <button type="button" mat-button (click)="menuEstudos(element.StudyInstanceUID)" matTooltip="Mais opções" matTooltipPosition="above">
                                   <i class="material-symbols-outlined">more_vert</i>
                                 </button>
                             </div>
