@@ -7,28 +7,34 @@
                     left: -20px;
                     right: -20px;
                 };
+
                 .to-do-list-table {
                     .mat-mdc-table {
                         .mat-mdc-header-cell {
                             &:last-child {
                                 text-align: right;
                             }
+
                             &:first-child {
                                 padding-right: 0;
                             }
                         }
+
                         .mat-mdc-cell {
                             padding: {
                                 top: 21.5px;
                                 bottom: 21.5px;
                             };
+
                             &:last-child {
                                 text-align: right;
                             }
+
                             &:first-child {
                                 padding-right: 0;
                             }
                         }
+
                         .daxa-badge {
                             color: var(--daxaColor);
                             background: rgba(15, 121, 243, 0.10);
@@ -37,10 +43,12 @@
                                 color: var(--warningColor);
                                 background: rgba(241, 179, 28, 0.10);
                             }
+
                             &.pending {
                                 color: var(--successColor);
                                 background: rgba(46, 212, 126, 0.10);
                             }
+
                             &.not-started {
                                 color: var(--dangerColor);
                                 background: rgba(231, 76, 60, 0.10);
@@ -48,12 +56,14 @@
                         }
                     }
                 }
+
                 .add-new-task-btn {
                     padding: {
                         top: 20px;
                         left: 20px;
                         right: 20px;
                     };
+
                     .mat-mdc-button {
                         padding: 0;
                         height: auto;
@@ -62,12 +72,14 @@
                             size: var(--fontSize) !important;
                             weight: normal;
                         };
+
                         &:not(:disabled) {
                             color: var(--daxaColor);
                         }
                     }
                 }
             }
+
             &.rtl-enabled {
                 .mat-mdc-card-content {
                     .to-do-list-table {
@@ -76,6 +88,7 @@
                                 &:last-child {
                                     text-align: left;
                                 }
+
                                 &:first-child {
                                     padding: {
                                         right: 20px;
@@ -83,10 +96,12 @@
                                     };
                                 }
                             }
+
                             .mat-mdc-cell {
                                 &:last-child {
                                     text-align: left;
                                 }
+
                                 &:first-child {
                                     padding: {
                                         right: 20px;
@@ -119,6 +134,7 @@
             x: hidden;
             y: auto;
         };
+
         .popup-dialog {
             display: flex;
             transition: .3s;
@@ -130,6 +146,7 @@
                 left: auto;
                 right: auto;
             };
+
             .daxa-card {
                 width: 100%;
 
@@ -144,6 +161,7 @@
                         right: 20px;
                         bottom: 18px;
                     };
+
                     .mat-mdc-card-subtitle {
                         .mat-mdc-button {
                             padding: 0;
@@ -155,16 +173,20 @@
                         }
                     }
                 }
+
                 .mat-mdc-card-content {
                     .main-label {
                         margin-bottom: 12px;
                         font-size: 15px;
                     }
+
                     .mat-mdc-form-field {
                         margin-bottom: 20px;
                     }
+
                     .btn-box {
                         text-align: right;
+
                         .mat-mdc-button {
                             border: 0;
                             height: auto;
@@ -175,6 +197,7 @@
                             color: var(--whiteColor);
                             font-size: 15px !important;
                             background-color: var(--daxaColor);
+
                             &:first-child {
                                 margin-right: 10px;
                                 background-color: var(--dangerColor);
@@ -184,6 +207,7 @@
                 }
             }
         }
+
         &.active {
             opacity: 1;
             visibility: visible;
@@ -192,13 +216,14 @@
                 transform: none;
             }
         }
+
         &.rtl-enabled {
             .popup-dialog {
                 .daxa-card {
                     .mat-mdc-card-content {
                         .btn-box {
                             text-align: left;
-    
+
                             .mat-mdc-button {
                                 &:first-child {
                                     margin: {
@@ -216,7 +241,7 @@
 }
 
 /* Max width 767px */
-@media only screen and (max-width : 767px) {
+@media only screen and (max-width: 767px) {
 
     // To Do List
     .mat-mdc-card {
@@ -227,6 +252,7 @@
                         left: -15px;
                         right: -15px;
                     };
+
                     .to-do-list-table {
                         .mat-mdc-table {
                             .info {
@@ -237,12 +263,14 @@
                             }
                         }
                     }
+
                     .add-new-task-btn {
                         .mat-mdc-button {
                             font-size: 14px !important;
                         }
                     }
                 }
+
                 &.rtl-enabled {
                     .mat-mdc-card-content {
                         .to-do-list-table {
@@ -254,6 +282,7 @@
                                         };
                                     }
                                 }
+
                                 .mat-mdc-cell {
                                     &:first-child {
                                         padding: {
@@ -291,7 +320,7 @@
         .add-new-task-popup {
             .popup-dialog {
                 max-width: 400px;
-                
+
                 .daxa-card {
                     .mat-mdc-card-header {
                         margin: {
@@ -303,19 +332,23 @@
                             right: 15px;
                             bottom: 15px;
                         };
+
                         .mat-mdc-card-subtitle {
                             .mat-mdc-button {
                                 font-size: 20px !important;
                             }
                         }
                     }
+
                     .mat-mdc-card-content {
                         .main-label {
                             font-size: 14px;
                         }
+
                         .mat-mdc-form-field {
                             margin-bottom: 15px;
                         }
+
                         .btn-box {
                             .mat-mdc-button {
                                 font-size: 14px !important;
@@ -330,7 +363,7 @@
 }
 
 /* Min width 576px to Max width 767px */
-@media only screen and (min-width : 576px) and (max-width : 767px) {
+@media only screen and (min-width: 576px) and (max-width: 767px) {
 
     // To Do List
     .mat-mdc-card {
@@ -342,6 +375,7 @@
                         right: -20px;
                     };
                 }
+
                 &.rtl-enabled {
                     .mat-mdc-card-content {
                         .to-do-list-table {
@@ -353,6 +387,7 @@
                                         };
                                     }
                                 }
+
                                 .mat-mdc-cell {
                                     &:first-child {
                                         padding: {
@@ -371,7 +406,7 @@
 }
 
 /* Min width 768px to Max width 991px */
-@media only screen and (min-width : 768px) and (max-width : 991px) {
+@media only screen and (min-width: 768px) and (max-width: 991px) {
 
     // To Do List
     .mat-mdc-card {
@@ -391,14 +426,16 @@
 }
 
 /* Min width 992px to Max width 1199px */
-@media only screen and (min-width : 992px) and (max-width : 1199px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+}
 
 /* Min width 1200px to Max width 1399px */
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+}
 
 /* Min width 1600px */
-@media only screen and (min-width: 1600px) {}
-
+@media only screen and (min-width: 1600px) {
+}
 
 
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -410,6 +447,7 @@
                 .title {
                     margin-bottom: 20px;
                 }
+
                 .main-label {
                     margin-bottom: 12px;
                 }
@@ -417,6 +455,7 @@
         }
     }
 }
+
 ::ng-deep {
     .mat-mdc-card {
         &.daxa-card {
@@ -429,14 +468,17 @@
                             padding: 0 3px 0 0;
                             cursor: pointer;
                         }
+
                         .mdc-label {
                             cursor: pointer;
                             color: var(--bodyColor);
                         }
+
                         &:last-child {
                             margin-right: 0;
                         }
                     }
+
                     .mat-mdc-checkbox {
                         margin-bottom: 12px;
                         display: block;
@@ -453,26 +495,32 @@
                                 width: 100%;
                                 height: 100%;
                             }
+
                             .mdc-checkbox__background {
                                 top: 0;
                                 left: 0;
                             }
+
                             .mat-mdc-checkbox-ripple, .mdc-checkbox__ripple {
                                 border-radius: 2px;
                             }
+
                             .mat-mdc-checkbox-touch-target {
                                 width: 100%;
                                 height: 100%;
                             }
                         }
+
                         .mdc-label {
                             color: var(--bodyColor);
                             margin-left: 5px;
                         }
+
                         &:last-child {
                             margin-bottom: 0;
                         }
                     }
+
                     .btn-box {
                         .mat-mdc-button {
                             border: 0;
@@ -491,6 +539,7 @@
                         }
                     }
                 }
+
                 &.rtl-enabled {
                     .mat-mdc-card-content {
                         .mat-mdc-radio-button {
@@ -498,10 +547,12 @@
                                 right: 0;
                                 left: 30px;
                             };
+
                             &:last-child {
                                 margin-left: 0;
                             }
                         }
+
                         .mat-mdc-checkbox {
                             .mdc-label {
                                 padding: {
@@ -514,6 +565,7 @@
                                 };
                             }
                         }
+
                         .btn-box {
                             .mat-mdc-button {
                                 &:not(:first-child) {
@@ -532,7 +584,7 @@
 }
 
 /* Max width 767px */
-@media only screen and (max-width : 767px) {
+@media only screen and (max-width: 767px) {
 
     .mat-mdc-card {
         &.daxa-card {
@@ -541,6 +593,7 @@
                     .title {
                         margin-bottom: 15px;
                     }
+
                     .main-label {
                         margin-bottom: 10px;
                     }
@@ -556,13 +609,14 @@
                         .btn-box {
                             .mat-mdc-button {
                                 padding: 13px 18px;
-    
+
                                 &:not(:first-child) {
                                     margin-left: 8px;
                                 }
                             }
                         }
                     }
+
                     &.rtl-enabled {
                         .mat-mdc-card-content {
                             .btn-box {
@@ -585,16 +639,21 @@
 }
 
 /* Min width 576px to Max width 767px */
-@media only screen and (min-width : 576px) and (max-width : 767px) {}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+}
 
 /* Min width 768px to Max width 991px */
-@media only screen and (min-width : 768px) and (max-width : 991px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+}
 
 /* Min width 992px to Max width 1199px */
-@media only screen and (min-width : 992px) and (max-width : 1199px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+}
 
 /* Min width 1200px to Max width 1399px */
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+}
 
 /* Min width 1600px */
-@media only screen and (min-width: 1600px) {}
+@media only screen and (min-width: 1600px) {
+}
