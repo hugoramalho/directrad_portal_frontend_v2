@@ -24,7 +24,29 @@ import { TwMaterialDesignRipplesComponent } from './tw-material-design-ripples/t
 @Component({
     selector: 'app-table',
     standalone: true,
-    imports: [RouterLink, MatCardModule, BasicTableComponent, StylingColumnsUtagColumnNamesComponent, AddingRemovingDataWuaabDatasourceComponent, DynamicallyChangingColumnsDisplayedComponent, ArDataWuaObservableBasedDatasourceComponent, TwExpandableRowsComponent, TableWithFilteringComponent, FooterRowTableComponent, RetrievingDataThroughHttpComponent, MultipleHeaderFooterRowsComponent, DtwSortingPaginationFilteringComponent, TableWithPaginationComponent, TwReOrderableColumnsComponent, TableWithSelectionComponent, TableWithSortingComponent, TableWithStickyColumnsComponent, TableWithStickyFooterComponent, TableWithStickyHeaderComponent, TwMaterialDesignRipplesComponent],
+    imports: [
+      RouterLink, 
+      MatCardModule, 
+      BasicTableComponent, 
+      StylingColumnsUtagColumnNamesComponent, 
+      AddingRemovingDataWuaabDatasourceComponent, 
+      DynamicallyChangingColumnsDisplayedComponent, 
+      ArDataWuaObservableBasedDatasourceComponent, 
+      TwExpandableRowsComponent, 
+      TableWithFilteringComponent, 
+      FooterRowTableComponent, 
+      RetrievingDataThroughHttpComponent, 
+      MultipleHeaderFooterRowsComponent, 
+      DtwSortingPaginationFilteringComponent, 
+      TableWithPaginationComponent, 
+      TwReOrderableColumnsComponent, 
+      TableWithSelectionComponent, 
+      TableWithSortingComponent, 
+      TableWithStickyColumnsComponent, 
+      TableWithStickyFooterComponent, 
+      TableWithStickyHeaderComponent, 
+      TwMaterialDesignRipplesComponent
+    ],
     templateUrl: './table.component.html',
     styleUrl: './table.component.scss'
 })
