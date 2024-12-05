@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
     MatDialogModule
   ],
   templateUrl: './options-menu.component.html',
-  // styleUrl: './options-menu.component.scss'
+  styleUrl: './options-menu.component.scss'
 })
 export class MenuEstudosComponent {
   @Input() estudoId: string | undefined;
