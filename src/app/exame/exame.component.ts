@@ -26,19 +26,19 @@ import { DateFormatPipe } from '../@shared/pipe/date-pipe';
     selector: 'app-to-do-list',
     standalone: true,
     imports: [
-        // MenuContextoEstudosComponent, 
-        MatCardModule, 
-        MatMenuModule, 
-        MatButtonModule, 
-        RouterLink, 
-        MatTableModule, 
-        NgIf, 
-        MatCheckboxModule, 
-        MatTooltipModule, 
-        MatFormFieldModule, 
-        MatInputModule, 
-        MatSelectModule, 
-        MatDatepickerModule, 
+        // MenuContextoEstudosComponent,
+        MatCardModule,
+        MatMenuModule,
+        MatButtonModule,
+        RouterLink,
+        MatTableModule,
+        NgIf,
+        MatCheckboxModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatDatepickerModule,
         MatNativeDateModule,
         CommonModule,
         DateFormatPipe,
@@ -131,20 +131,20 @@ export class ExamesComponent {
     // isToggled
 
 
-  private loadExames(): void {
-    this.estudoRepository.getEstudos().subscribe({
-        next: (exames: Estudo[]) => {
-            this.dataSource.data = exames; // Atualiza a tabela com os dados recebidos
-        },
-        error: (error) => {
-            console.error('Erro ao carregar os exames:', error);
-        }
-    });
-}
+    private loadExames(): void {
+        this.estudoRepository.getEstudos().subscribe({
+            next: (exames: Estudo[]) => {
+                this.dataSource.data = exames; // Atualiza a tabela com os dados recebidos
+            },
+            error: (error) => {
+                console.error('Erro ao carregar os exames:', error);
+            }
+        });
+    }
 
-  ngOnInit(): void {
-      this.loadExames(); // Carregar os dados ao inicializar
-  }
+    ngOnInit(): void {
+        this.loadExames(); // Carregar os dados ao inicializar
+    }
 
     // RTL Mode
     toggleRTLEnabledTheme() {
