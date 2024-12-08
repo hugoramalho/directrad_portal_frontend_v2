@@ -24,10 +24,10 @@ export interface Estudo {
   PatientsTelephoneNumbers?: string | null;
   PatientsAddress?: string | null;
   PatientsAgeAttribute?: string | null;
-  OtherPatientNamesAttribute?: string | null;
-  PatientsBirthTimeAttribute?: string | null;
-  PatientsBirthDateAttribute?: string | null;
-  IssuerOfPatientIdAttribute?: string | null;
+  OtherPatientNames?: string | null;
+  PatientBirthTime?: string | null;
+  PatientBirthDate?: string | null;
+  IssuerOfPatientId?: string | null;
   SOPClassesInStudy?: string | null;
   StudyInstanceUID?: string | null;
   StudyModality?: string | null;
