@@ -1,25 +1,25 @@
-import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { RouterLink } from '@angular/router';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
-import { EstudoRepository } from './exame.service';
-import { Estudo } from './exame';
-import { MenuEstudosComponent } from './menu/options-menu.component';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
-import { DateFormatPipe } from '../@shared/pipe/date-pipe';
+import {NgIf} from '@angular/common';
+import {Component} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {RouterLink} from '@angular/router';
+import {SelectionModel} from '@angular/cdk/collections';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {CustomizerSettingsService} from '../customizer-settings/customizer-settings.service';
+import {EstudoRepository} from './exame.service';
+import {Estudo} from './exame';
+import {MenuEstudosComponent} from './menu/options-menu.component';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {CommonModule} from '@angular/common';
+import {DateFormatPipe} from '../@shared/pipe/date-pipe';
 
 
 @Component({
@@ -56,15 +56,15 @@ export class ExamesComponent {
 
 
     constructor(
-      public themeService: CustomizerSettingsService,
-      private estudoRepository: EstudoRepository,
-      // private menuContexto: MenuContextoEstudosComponent,
-      private dialog: MatDialog
-  ) {
-      this.themeService.isToggled$.subscribe(isToggled => {
-          this.isToggled = isToggled;
-      });
-  }
+        public themeService: CustomizerSettingsService,
+        private estudoRepository: EstudoRepository,
+        // private menuContexto: MenuContextoEstudosComponent,
+        private dialog: MatDialog
+    ) {
+        this.themeService.isToggled$.subscribe(isToggled => {
+            this.isToggled = isToggled;
+        });
+    }
 
 
     /** Whether the number of selected elements matches the total number of rows. */
@@ -100,6 +100,7 @@ export class ExamesComponent {
 
     // Popup Trigger
     classApplied = false;
+
     toggleClass() {
         this.classApplied = !this.classApplied;
     }
@@ -118,14 +119,14 @@ export class ExamesComponent {
 
     menuEstudos(uid: string) {
         const dialogRef = this.dialog.open(MenuEstudosComponent, {
-            data: { uid }
-          });
-          dialogRef.afterClosed().subscribe(result => {
+            data: {uid}
+        });
+        dialogRef.afterClosed().subscribe(result => {
             if (result) {
-              console.log(`Ação realizada: ${result.action}, UID: ${result.uid}`);
-              // Execute ações específicas com base na resposta do diálogo
+                console.log(`Ação realizada: ${result.action}, UID: ${result.uid}`);
+                // Execute ações específicas com base na resposta do diálogo
             }
-          });
+        });
     }
 
     // isToggled
