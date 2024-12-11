@@ -32,12 +32,12 @@ export class AuthService {
     }
 
 
-    login(email: string, senha: string): Observable<any> {
-        let credentials = {'email': email, 'senha_acesso': senha}
+    login(username: string, senha: string): Observable<any> {
+        let credentials = {'username': senha, 'senha': senha}
 
         return this.http.post(this.loginUrl, credentials, {
             headers: new HttpHeaders({'Content-Type': 'application/json'}),
-            // withCredentials: true // Importante para o envio de cookies (como CSRF tokens)
+            withCredentials: true // Importante para o envio de cookies (como CSRF tokens)
         });
     }
 
