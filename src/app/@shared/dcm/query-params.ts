@@ -6,6 +6,7 @@ export const DcmQueryParams = {
     MODALITIES_IN_STUDY: "ModalitiesInStudy",
     RETURNEMPTY: "returnempty",
     PATIENT_NAME: "PatientName",
+    PATIENT_BIRTH_DATE: "PatientBirthDate",
     PATIENT_ID: "PatientID",
     STUDY_DATE: "StudyDate",
     STUDY_TIME: "StudyTime",
