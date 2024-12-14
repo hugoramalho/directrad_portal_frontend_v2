@@ -76,11 +76,19 @@ export class EstudoRepository {
     //         .pipe(map(response => response?.data || null));
     // }
 
-    getEstudos(page: number = 1, perPage: number = 10): Observable<Estudo[]> {
-        let params = new HttpParams()
-            .set('page', page)
-            .set('page_size', perPage);
-        return this.http.get<Estudo[]>(this.apiUrl);
+    getEstudos(page: number = 1, perPage: number = 10, queryParams: Record<string, any> | null = null): Observable<Estudo[]> {
+        let params = new HttpParams();
+            // .set('page', page.toString())
+            // .set('page_size', perPage.toString());
+        if (queryParams) {
+            Object.keys(queryParams).forEach((key) => {
+                const value = queryParams[key];
+                if (value !== null && value !== undefined && value !== '') {
+                    params = params.set(key, value);
+                }
+            });
+        }
+        return this.http.get<Estudo[]>(this.apiUrl, { params });
     }
 
     getEstudo(uid: string): Observable<Estudo[]> {

@@ -20,7 +20,9 @@ import {MenuEstudosComponent} from './menu/options-menu.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
 import {DateFormatPipe} from '../@shared/pipe/date-pipe';
-
+import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {DcmQueryParams} from "../@shared/dcm/query-params";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
     selector: 'app-to-do-list',
@@ -42,7 +44,9 @@ import {DateFormatPipe} from '../@shared/pipe/date-pipe';
         MatNativeDateModule,
         CommonModule,
         DateFormatPipe,
-        MatDialogModule
+        MatDialogModule,
+        ReactiveFormsModule,
+        MatProgressSpinner,
     ],
     templateUrl: './exame.component.html',
     styleUrl: './exame.component.scss'
@@ -53,19 +57,60 @@ export class ExamesComponent {
     dataSource = new MatTableDataSource<Estudo>([]);
     selection = new SelectionModel<Estudo>(true, []);
     isToggled = false;
-
+    searchForm: FormGroup;
+    isLoading = true;
 
     constructor(
         public themeService: CustomizerSettingsService,
         private estudoRepository: EstudoRepository,
         // private menuContexto: MenuContextoEstudosComponent,
-        private dialog: MatDialog
-    ) {
+        private dialog: MatDialog,
+        private formBuilder: FormBuilder,
+    ) {}
+
+    ngOnInit(): void {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
+
+        this.searchForm = this.formBuilder.group({
+            STUDY_DATE: [''],
+            STUDY_INSTANCE_UID: [''],
+            MODALITIES_IN_STUDY: [''],
+            PATIENT_NAME: [''],
+            PATIENT_BIRTH_DATE: [''],
+        });
+        this.loadExames();
+
     }
 
+    private loadExames(): void {
+        this.estudoRepository.getEstudos().subscribe({
+            next: (exames: Estudo[]) => {
+                this.dataSource.data = exames; // Atualiza a tabela com os dados recebidos
+                this.isLoading = false;
+            },
+            error: (error) => {
+                console.error('Erro ao carregar os exames:', error);
+            }
+        });
+    }
+
+    public onSearch(): void {
+        this.isLoading = true;
+        console.log('clicou');
+        const filters = this.searchForm.value;
+        console.log(filters);
+        this.estudoRepository.getEstudos(1, 10, filters).subscribe({
+            next: (exames: Estudo[]) => {
+                this.dataSource.data = exames;
+                this.isLoading = false;
+            },
+            error: (error) => {
+                console.error('Erro ao carregar os exames:', error);
+            }
+        });
+    }
 
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
@@ -132,20 +177,8 @@ export class ExamesComponent {
     // isToggled
 
 
-    private loadExames(): void {
-        this.estudoRepository.getEstudos().subscribe({
-            next: (exames: Estudo[]) => {
-                this.dataSource.data = exames; // Atualiza a tabela com os dados recebidos
-            },
-            error: (error) => {
-                console.error('Erro ao carregar os exames:', error);
-            }
-        });
-    }
 
-    ngOnInit(): void {
-        this.loadExames(); // Carregar os dados ao inicializar
-    }
+
 
     // RTL Mode
     toggleRTLEnabledTheme() {
