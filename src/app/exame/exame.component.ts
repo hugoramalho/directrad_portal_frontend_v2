@@ -74,7 +74,7 @@ export class ExamesComponent {
         {value: "US", name: "Ultrassom (US)" },
         {value: "CT", name: "Tomografia Computadorizada (CT)" },
         {value: "MR", name: "Ressonância magnética (MR)" },
-        {value: "CR&00080061=DX&00080061=DR", name: "Raio X (DR|DX)" },
+        {value: "DR, DX", name: "Raio X (DR|DX)" },
         {value: "MG", name: "Mamografia (MG)" },
         {value: "PT", name: "PET Scan (PT)" },
         {value: "NM", name: "Medicina nuclear (MN)" },
