@@ -24,6 +24,8 @@ import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} f
 import {DcmQueryParams} from "../@shared/dcm/query-params";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {dateValidator} from "../@shared/date.validator";
+import {EditarEstudoModalComponent} from "./edicao/edicao-estudo.component";
+
 
 @Component({
     selector: 'app-to-do-list',
@@ -308,7 +310,7 @@ export class ExamesComponent {
     }
 
     menuEstudos(uid: string) {
-        const dialogRef = this.dialog.open(MenuEstudosComponent, {
+        const dialogRef = this.dialog.open(EditarEstudoModalComponent, {
             data: {uid}
         });
         dialogRef.afterClosed().subscribe(result => {
