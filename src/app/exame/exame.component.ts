@@ -84,6 +84,7 @@ export class ExamesComponent {
         {value: "NM", name: "Cintilografia (NM)" },
     ];
     searchForm: FormGroup;
+    classApplied = false;
 
 
     constructor(
@@ -198,11 +199,8 @@ export class ExamesComponent {
 
     public onSearch(): void {
         this.isLoading = true;
-
-        // Obtém os valores do formulário
         const filters = { ...this.searchForm.value };
         const today = new Date();
-
         // Converte a data para o formato desejado
         switch (filters.dateOption) {
             case 'since-start':
@@ -245,13 +243,11 @@ export class ExamesComponent {
         if (filters.PATIENT_BIRTH_DATE) {
             filters.PATIENT_BIRTH_DATE = this.formatDateToYmd(filters.PATIENT_BIRTH_DATE);
         }
-
         // Remove campos auxiliares para enviar apenas o necessário
         delete filters.specificDate;
         delete filters.rangeStart;
         delete filters.rangeEnd;
         delete filters.dateOption;
-        console.log(filters);
         this.estudoRepository.getEstudos(1, 10, filters).subscribe({
             next: (exames: Estudo[]) => {
                 this.dataSource.data = exames;
@@ -294,8 +290,6 @@ export class ExamesComponent {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    // Popup Trigger
-    classApplied = false;
 
     toggleClass() {
         this.classApplied = !this.classApplied;
