@@ -33,6 +33,7 @@ import {catchError, map} from "rxjs/operators";
 import {PaginatedList} from '../@shared/model/paginated-list';
 import {Estudo} from './exame';
 import {DcmQueryParams} from '../@shared/dcm/query-params';
+import {TagDicom} from "./tag-dicom";
 
 @Injectable({
     providedIn: 'root',
@@ -93,9 +94,12 @@ export class EstudoRepository {
 
     getEstudo(uid: string): Observable<Estudo[]> {
         let params = new HttpParams()
-            .set(DcmQueryParams.STUDY_INSTANCE_UID, uid);
-        return this.http.get<Estudo[]>(this.apiUrl);
+            .set('STUDY_INSTANCE_UID', uid);
+        return this.http.get<Estudo[]>(this.apiUrl, { params });
     }
 
+    getTagsDicom(): Observable<TagDicom> {
+        return this.http.get<TagDicom>(this.apiUrl + '/tags-dicom');
+    }
 
 }
