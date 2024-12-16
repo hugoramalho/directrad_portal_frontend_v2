@@ -1,4 +1,6 @@
 // Main Content
+
+
 .main-content {
     overflow: hidden;
     min-height: 100vh;
@@ -107,7 +109,7 @@
             }
         }
     }
-    
+
 }
 
 /* Min width 576px to Max width 767px */
@@ -134,7 +136,7 @@
         }
         &.right-sidebar {
             padding-right: 25px;
-            
+
             &.active, &.hide-sidebar {
                 padding-right: 25px;
             }
@@ -228,7 +230,7 @@
     // Main Content
     .main-content {
         padding-left: 262px;
-        
+
         &.active, &.hide-sidebar {
             padding-left: 85px;
         }
