@@ -46,6 +46,7 @@ $daxa-theme: mat.define-light-theme((
     --bodyColor: #919aa3;
     --transition: .5s;
     --fontSize: 15px;
+    --iconButtonSize: 1.5rem;
     --borderBoxShadow: rgba(0, 0, 0, .05) 0px 6px 24px 0px, rgba(0, 0, 0, .08) 0px 0px 0px 1px;
 }
 *, ::after, ::before {
@@ -61,6 +62,8 @@ body {
         size: var(--fontSize);
         family: var(--fontFamily);
     };
+
+
 }
 a {
     transition: var(--transition);
