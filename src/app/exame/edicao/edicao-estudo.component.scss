@@ -1,0 +1,18 @@
+.mat-table {
+    width: 100%;
+}
+
+.mat-header-row,
+.mat-row {
+    display: flex;
+}
+
+.mat-cell,
+.mat-header-cell {
+    flex: 1;
+    text-align: left;
+}
+
+.mat-icon-button {
+    margin-left: 8px;
+}
