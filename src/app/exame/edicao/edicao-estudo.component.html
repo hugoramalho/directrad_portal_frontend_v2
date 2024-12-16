@@ -31,10 +31,7 @@
             <td mat-cell *matCellDef="let element">
                 <div *ngIf="!element.isEditing">
                     {{ element.value }}
-                    <button
-                        mat-icon-button
-                        *ngIf="element.editable"
-                        (click)="enableEditing(element)">
+                    <button mat-icon-button (click)="enableEditing(element)">
                         <mat-icon>edit</mat-icon>
                     </button>
                 </div>
@@ -46,7 +43,7 @@
 
         <!-- Actions -->
         <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
                 <button
                     mat-icon-button
