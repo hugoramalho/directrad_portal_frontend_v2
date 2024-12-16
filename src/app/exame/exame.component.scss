@@ -10,7 +10,18 @@
 
                 .to-do-list-table {
                     .mat-mdc-table {
+                        .mat-mdc-row {
+                            transition: background-color 0.3s ease !important;
+
+                            &:hover {
+                                background-color: rgba(0, 0, 0, 0.04) !important;
+                            }
+                        }
+
+
                         .mat-mdc-header-cell {
+
+
                             &:last-child {
                                 text-align: right;
                             }
@@ -35,6 +46,7 @@
                             }
                         }
 
+
                         .daxa-badge {
                             color: var(--daxaColor);
                             background: rgba(15, 121, 243, 0.10);
@@ -55,6 +67,8 @@
                             }
                         }
                     }
+
+
                 }
 
                 .add-new-task-btn {
@@ -90,12 +104,29 @@
                     width: 50px;
                     height: 50px;
                 }
+
+                .action-info {
+                    i {
+                        font-size: var(--iconButtonSize);
+                    }
+                }
             }
 
             &.rtl-enabled {
                 .mat-mdc-card-content {
                     .to-do-list-table {
                         .mat-mdc-table {
+                            .mat-mdc-row {
+                                transition: background-color 0.3s ease !important;
+
+                                &:hover {
+                                    .mat-mdc-cell {
+                                        background-color: rgba(0, 0, 0, 0.04) !important;
+                                    }
+                                }
+                            }
+
+
                             .mat-mdc-header-cell {
                                 &:last-child {
                                     text-align: left;
@@ -131,6 +162,38 @@
 
 // Add New Task Popup
 ::ng-deep {
+    .mat-mdc-table {
+        .mat-mdc-row {
+            transition: background-color 0.2s ease !important;
+            &:hover {
+                .mat-mdc-cell {
+                    background-color: rgba(0, 0, 0, 0.05) !important;
+                }
+
+            }
+        }
+    }
+    .dark-theme {
+        .mat-mdc-select-panel{
+            background-color: red !important;
+            mat-option{
+                &:hover{
+                    background-color: blue !important;
+                }
+            }
+        }
+        .mat-mdc-table {
+            .mat-mdc-row {
+                &:hover {
+                    .mat-mdc-cell {
+                        background-color: rgba(0, 0, 0, 0.2) !important;
+                    }
+                }
+            }
+        }
+    }
+
+
     .add-new-task-popup {
         top: 0;
         left: 0;
@@ -228,28 +291,8 @@
                 transform: none;
             }
         }
-
-        &.rtl-enabled {
-            .popup-dialog {
-                .daxa-card {
-                    .mat-mdc-card-content {
-                        .btn-box {
-                            text-align: left;
-
-                            .mat-mdc-button {
-                                &:first-child {
-                                    margin: {
-                                        right: 0;
-                                        left: 10px;
-                                    };
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
+
 }
 
 /* Max width 767px */
@@ -550,46 +593,31 @@
                             }
                         }
                     }
-                }
 
-                &.rtl-enabled {
-                    .mat-mdc-card-content {
-                        .mat-mdc-radio-button {
-                            margin: {
-                                right: 0;
-                                left: 30px;
-                            };
+                    &.rtl-enabled {
+                        .popup-dialog {
+                            .daxa-card {
+                                .mat-mdc-card-content {
+                                    .btn-box {
+                                        text-align: left;
 
-                            &:last-child {
-                                margin-left: 0;
-                            }
-                        }
-
-                        .mat-mdc-checkbox {
-                            .mdc-label {
-                                padding: {
-                                    left: 0;
-                                    right: 4px;
-                                };
-                                margin: {
-                                    left: 0;
-                                    right: 5px;
-                                };
-                            }
-                        }
-
-                        .btn-box {
-                            .mat-mdc-button {
-                                &:not(:first-child) {
-                                    margin: {
-                                        left: 0;
-                                        right: 10px;
-                                    };
+                                        .mat-mdc-button {
+                                            &:first-child {
+                                                margin: {
+                                                    right: 0;
+                                                    left: 10px;
+                                                };
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
+
                 }
+
+
             }
         }
     }
@@ -667,4 +695,5 @@
 }
 
 /* Min width 1600px */
-@media only screen and (min-width: 1600px) {}
+@media only screen and (min-width: 1600px) {
+}
