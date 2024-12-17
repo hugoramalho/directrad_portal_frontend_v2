@@ -11,10 +11,6 @@
 .mat-header-cell {
     flex: 1;
     text-align: left;
-    &:last-child{
-        text-align: right;
-    }
-
 }
 
 .mat-icon-button {
@@ -22,30 +18,18 @@
 }
 
 .loading-container {
-    display: flex;          /* Ativa flexbox */
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;     /* Centraliza verticalmente */
-    height: 100%;           /* Garante altura para centralização */
-    width: 100%;            /* Ocupa toda a largura */
-    min-height: 200px;      /* Define uma altura mínima opcional */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    min-height: 200px;
 }
-
-
-//
-//.align-right {
-//    text-align: right; /* Alinha o conteúdo e o texto à direita */
-//}
-//
-//.table-container {
-//    width: 100%;
-//}
-//
-//mat-header-cell, mat-cell {
-//    padding: 8px 16px; /* Ajuste do espaçamento para estética */
-//    font-size: 14px;
-//}
 
 .mat-column-value,
 .mat-column-actions {
-    text-align: right; /* Alinha o texto das células à direita */
+    text-align: right;
+    input{
+        width: 30rem;
+    }
 }
