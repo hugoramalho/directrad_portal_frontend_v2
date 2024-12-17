@@ -29,39 +29,36 @@
                 <td mat-cell *matCellDef="let element">{{ element.name }}</td>
             </ng-container>
 
-            <!-- Valor -->
-            <ng-container matColumnDef="value">
-                <th mat-header-cell *matHeaderCellDef>Valor</th>
-                <td mat-cell *matCellDef="let element">
-                    <div *ngIf="!element.isEditing">
-                        {{ element.value }}
-                        <button mat-icon-button (click)="enableEditing(element)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                    </div>
-                    <div *ngIf="element.isEditing">
-                        <input matInput [(ngModel)]="element.value"/>
-                    </div>
-                </td>
-            </ng-container>
+        <!-- Valor -->
+        <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef>Valor</th>
+            <td mat-cell *matCellDef="let element">
+                 <input [disabled]="!element.isEditing" matInput [(ngModel)]="element.value"/>
+                <!-- <input [disabled]="!element.isEditable || element.isEditing" matInput [(ngModel)]="element.value" />-->
+            </td>
+        </ng-container>
 
-            <!-- Actions -->
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef></th>
-                <td mat-cell *matCellDef="let element">
-                    <button
-                        mat-icon-button
-                        *ngIf="element.isEditing"
-                        (click)="disableEditing(element)">
-                        <mat-icon>check</mat-icon>
-                    </button>
-                </td>
-            </ng-container>
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <button
+                    mat-icon-button
+                    *ngIf="element.isEditing"
+                    (click)="disableEditing(element)">
+                    <mat-icon>check</mat-icon>
+                </button>
+                <button mat-icon-button
+                        *ngIf="!element.isEditing"
+                        (click)="enableEditing(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </td>
+        </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-    </ng-template>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

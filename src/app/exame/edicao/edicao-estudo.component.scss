@@ -44,3 +44,8 @@
 //    padding: 8px 16px; /* Ajuste do espaçamento para estética */
 //    font-size: 14px;
 //}
+
+.mat-column-value,
+.mat-column-actions {
+    text-align: right; /* Alinha o texto das células à direita */
+}
