@@ -98,8 +98,8 @@ export class EstudoRepository {
         return this.http.get<Estudo[]>(this.apiUrl, { params });
     }
 
-    getTagsDicom(): Observable<TagDicom> {
-        return this.http.get<TagDicom>(this.apiUrl + '/tags-dicom');
+    getTagsDicom(): Observable<any> {
+        return this.http.get<any>(this.apiUrl + '/tags-dicom');
     }
 
 }
