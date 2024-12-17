@@ -62,6 +62,7 @@ import {MatInput} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
 import {TagDicom} from "../tag-dicom";
 import {Estudo} from "../exame";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
     standalone: true,
@@ -86,14 +87,15 @@ import {Estudo} from "../exame";
         MatHeaderRowDef,
         MatRowDef,
         MatDialogActions,
-        MatButton
+        MatButton,
+        MatProgressSpinner
     ]
 })
 export class EditarEstudoModalComponent {
     displayedColumns: string[] = ['tag', 'name', 'value', 'actions'];
     estudoTags: any[] = [];
     isModified: boolean = false;
-
+    isLoading = true;
 
     dicomTagMap: Record<string, string> = {
         StudyInstanceUID: "0020000D",
@@ -175,6 +177,7 @@ export class EditarEstudoModalComponent {
                         isEditing: false, // Controla o estado de edição
                     };
                 });
+                this.isLoading = false;
             },
             error: (err) => {
                 console.error('Erro ao carregar o estudo:', err);
