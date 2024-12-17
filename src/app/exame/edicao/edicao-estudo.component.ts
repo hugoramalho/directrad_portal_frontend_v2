@@ -171,7 +171,6 @@ export class EditarEstudoModalComponent {
         OtherPatientNames: "00101001",
         PatientComments: "00104000",
         ReasonForTheAttributeModification: "04000565",
-        PatientID: "00100020",
         PatientName: "00100010",
         PatientBirthDate: "00100030",
         PatientSex: "00100040",

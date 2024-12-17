@@ -33,3 +33,24 @@
         width: 30rem;
     }
 }
+
+.custom-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.left-button {
+    margin-right: auto;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.custom-dialog-actions{
+    .left-button{
+        padding: 12px;
+    }
+}
