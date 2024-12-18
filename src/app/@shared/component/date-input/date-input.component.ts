@@ -5,45 +5,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDatepicker } from '@angular/material/datepicker';
 
 @Component({
     selector: 'app-data-input',
     standalone: true,
-    template: `
-        <ng-container *ngIf="useMaterial; else nativeInput">
-            <!-- Material Template -->
-            <mat-form-field appearance="fill">
-                <mat-label>{{ label }}</mat-label>
-                <input
-                    matInput
-                    [placeholder]="placeholder"
-                    maxlength="10"
-                    [matDatepicker]="picker"
-                    [value]="displayValue"
-                    (input)="formatDateInput($event)"
-                    (keypress)="restrictToNumbers($event)"
-                    (blur)="validateAndSetDate($event)"
-                />
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker (closed)="onDatePickerClose(picker)"></mat-datepicker>
-            </mat-form-field>
-        </ng-container>
-
-        <!-- Native Template -->
-        <ng-template #nativeInput>
-            <label>{{ label }}</label>
-            <input
-                type="text"
-                [placeholder]="placeholder"
-                maxlength="10"
-                [value]="displayValue"
-                (input)="formatDateInput($event)"
-                (keypress)="restrictToNumbers($event)"
-                (blur)="validateAndSetDate($event)"
-            />
-        </ng-template>
-    `,
+    templateUrl: './date-input.component.html',
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -55,34 +21,34 @@ import { MatDatepicker } from '@angular/material/datepicker';
 })
 export class DataInputComponent implements ControlValueAccessor {
     @Input() label: string = 'Data';
-    @Input() placeholder: string = 'DD/MM/YYYY';
+    @Input() placeholder: string = 'dia/mês/ano';
     @Input() useMaterial: boolean = false; // Define o uso de Material Design
     @Output() dateChange = new EventEmitter<Date>();
 
-    private _value: Date | null = null;
+    private _value: Date | undefined = undefined;
     displayValue: string = ''; // Valor formatado para exibição no input
 
     // Callbacks para ControlValueAccessor
-    onChange = (value: Date | null) => {};
+    onChange = (value: Date | undefined) => {};
     onTouched = () => {};
 
     // Propriedade de entrada e saída de valor
-    get value(): Date | null {
+    get value(): Date | undefined {
         return this._value;
     }
 
-    set value(value: Date | null) {
+    set value(value: Date | undefined) {
         this._value = value;
         this.displayValue = this.formatDateToDisplay(value);
         this.onChange(value);
         this.dateChange.emit(value);
     }
 
-    writeValue(value: Date | null): void {
+    writeValue(value: Date | undefined): void {
         this.value = value;
     }
 
-    registerOnChange(fn: (value: Date | null) => void): void {
+    registerOnChange(fn: (value: Date | undefined) => void): void {
         this.onChange = fn;
     }
 
@@ -112,7 +78,7 @@ export class DataInputComponent implements ControlValueAccessor {
 
         const regex = /^\d{2}\/\d{2}\/\d{4}$/;
         if (!regex.test(value)) {
-            this.value = null; // Define como nulo se a data for inválida
+            this.value = undefined; // Define como undefined se a data for inválida
             return;
         }
 
@@ -127,12 +93,12 @@ export class DataInputComponent implements ControlValueAccessor {
         ) {
             this.value = date;
         } else {
-            this.value = null; // Define como nulo se a data for inválida
+            this.value = undefined; // Define como undefined se a data for inválida
         }
     }
 
     restrictToNumbers(event: KeyboardEvent): void {
-        const allowedKeys = ['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight'];
+        const allowedKeys = ['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete'];
         const isNumber = /^[0-9]$/.test(event.key);
 
         if (!isNumber && !allowedKeys.includes(event.key)) {
@@ -140,14 +106,24 @@ export class DataInputComponent implements ControlValueAccessor {
         }
     }
 
-    onDatePickerClose(picker: MatDatepicker<Date>): void {
-        const selectedDate = picker._selected as Date | null;
-        if (selectedDate) {
+    onMaterialDateSelected(picker: any): void {
+        const selectedDate = picker._selected;
+        if (selectedDate instanceof Date) {
             this.value = selectedDate;
         }
     }
 
-    private formatDateToDisplay(date: Date | null): string {
+    onNativeDateSelected(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        const value = input.value;
+
+        if (value) {
+            const [year, month, day] = value.split('-').map(Number);
+            this.value = new Date(year, month - 1, day);
+        }
+    }
+
+    private formatDateToDisplay(date: Date | undefined): string {
         if (!date) return '';
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -155,5 +131,3 @@ export class DataInputComponent implements ControlValueAccessor {
         return `${day}/${month}/${year}`;
     }
 }
-
-
