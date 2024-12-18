@@ -59,11 +59,14 @@ import {NgIf} from "@angular/common";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule} from "@angular/forms";
 import {TagDicom} from "../tag-dicom";
 import {Estudo} from "../exame";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatTooltip} from "@angular/material/tooltip";
+import {CustomizerSettingsService} from "../../customizer-settings/customizer-settings.service";
+import {DataInputComponent} from "../../@shared/component/date-input/date-input.component";
+import {GenderSelectComponent} from "../../@shared/component/gender-select/gender-select.component";
 
 @Component({
     standalone: true,
@@ -90,7 +93,9 @@ import {MatTooltip} from "@angular/material/tooltip";
         MatDialogActions,
         MatButton,
         MatProgressSpinner,
-        MatTooltip
+        MatTooltip,
+        DataInputComponent,
+        GenderSelectComponent
     ]
 })
 export class EditarEstudoModalComponent {
@@ -155,7 +160,6 @@ export class EditarEstudoModalComponent {
     dicomEditableTagMap: Record<string, string> = {
         StudyDate: "00080020",
         StudyModality: "00080061",
-        ReferringPhysicianName: "00080090",
         StudyDescription: "00081030",
         StudyPriorityID: "0032000C",
         ReasonForStudy: "00321030",
@@ -185,16 +189,55 @@ export class EditarEstudoModalComponent {
         Allergies: "00102110",
         AdditionalPatientHistory: "001021B0",
     };
+    estudoForm: FormGroup;
+    isToggled = false;
 
     constructor(
-        public dialogRef: MatDialogRef<EditarEstudoModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: { uid: string },
-        private estudoService: EstudoRepository
+        public dialogRef: MatDialogRef<EditarEstudoModalComponent>,
+        public themeService: CustomizerSettingsService,
+        private estudoService: EstudoRepository,
+        private formBuilder: FormBuilder,
     ) {
     }
 
     ngOnInit(): void {
         this.loadEstudo();
+        this.themeService.isToggled$.subscribe(isToggled => {
+            this.isToggled = isToggled;
+        });
+        this.estudoForm = this.formBuilder.group({
+            StudyDate: [null],
+            StudyModality: [''],
+            StudyDescription: [''],
+            StudyPriorityID: [''],
+            ReasonForStudy: [''],
+            RequestingService: [''],
+            StudyComments: [''],
+            AdmissionID: [''],
+            RequestedProcedureID: [''],
+            ProcedureCode: [''],
+            RequestingPhysicianPhone: [''],
+            PatientTransportArrangements: [''],
+            PatientNameIdeographic: [''],
+            PatientNamePhonetic: [''],
+            OtherPatientNames: [''],
+            PatientComments: [''],
+            ReasonForTheAttributeModification: [''],
+            PatientName: [''],
+            PatientBirthDate: [null],
+            PatientSex: [''],
+            PatientSize: [''],
+            PatientWeight: [''],
+            PatientTelephoneNumbers: [''],
+            PatientEmail: [''],
+            PatientInsurancePlan: [''],
+            EthnicGroup: [''],
+            Occupation: [''],
+            MedicalAlerts: [''],
+            Allergies: [''],
+            AdditionalPatientHistory: [''],
+        });
     }
 
     private loadEstudo(): void {

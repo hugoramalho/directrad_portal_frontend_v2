@@ -81,9 +81,11 @@
     </ng-template>
 </mat-dialog-content>
 
-<mat-dialog-actions class="custom-dialog-actions">
+<mat-dialog-actions *ngIf="!isLoading" class="custom-dialog-actions">
+    <app-data-input></app-data-input>
+    <app-gender-select></app-gender-select>
     <button mat-raised-button class="daxa h-auto mdc-button mdc-button--unelevated mat-mdc-unelevated-button mat-unthemed mat-mdc-button-base left-button">
-        Editar relação Paciente/Estudo
+        Corrigir relação Paciente/Estudo
         <mat-icon>contact_page</mat-icon>
     </button>
     <span class="spacer"></span>
