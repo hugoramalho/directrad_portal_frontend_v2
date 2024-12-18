@@ -55,7 +55,7 @@ import {
     MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
     MatTable
 } from "@angular/material/table";
-import {NgIf} from "@angular/common";
+import {NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
@@ -67,6 +67,12 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {CustomizerSettingsService} from "../../customizer-settings/customizer-settings.service";
 import {DataInputComponent} from "../../@shared/component/date-input/date-input.component";
 import {GenderSelectComponent} from "../../@shared/component/gender-select/gender-select.component";
+import {TrueFalseSelectComponent} from "../../@shared/component/bool-select/bool-select.component";
+import {
+    StudyModalitySelectComponent
+} from "../../@shared/component/study-modality-select/study-modality-select.component";
+import {UnityMeasureInputComponent} from "../../@shared/component/unity-measure-input/unity-measure-input.component";
+import {PhoneInputComponent} from "../../@shared/component/phone-number-input/phone-number-input.component";
 
 @Component({
     standalone: true,
@@ -95,7 +101,13 @@ import {GenderSelectComponent} from "../../@shared/component/gender-select/gende
         MatProgressSpinner,
         MatTooltip,
         DataInputComponent,
-        GenderSelectComponent
+        GenderSelectComponent,
+        TrueFalseSelectComponent,
+        StudyModalitySelectComponent,
+        UnityMeasureInputComponent,
+        PhoneInputComponent,
+        NgSwitchCase,
+        NgSwitch
     ]
 })
 export class EditarEstudoModalComponent {
@@ -105,6 +117,8 @@ export class EditarEstudoModalComponent {
     isLoading = true;
 
     dicomTagMap: Record<string, string> = {
+        PregnancyStatus: '001021C0',
+        SmokingStatus: '001021A0',
         StudyInstanceUID: "0020000D",
         StudyDate: "00080020",
         StudyTime: "00080030",
@@ -158,6 +172,8 @@ export class EditarEstudoModalComponent {
     };
 
     dicomEditableTagMap: Record<string, string> = {
+        PregnancyStatus: '001021C0',
+        SmokingStatus: '001021A0',
         StudyDate: "00080020",
         StudyModality: "00080061",
         StudyDescription: "00081030",
@@ -189,6 +205,57 @@ export class EditarEstudoModalComponent {
         Allergies: "00102110",
         AdditionalPatientHistory: "001021B0",
     };
+
+    tagsInputTypeMap: Record<string, { component: string; options?: any }> = {
+        PregnancyStatus: {
+            component: 'app-bool-select',
+            options: {}
+        },
+        SmokingStatus: {
+            component: 'app-bool-select',
+            options: {}
+        },
+        StudyDate: {
+            component: 'app-data-input',
+            options: {}
+        },
+        StudyModality: {
+            component: 'app-study-modality-select',
+            options: {
+                multiple: false
+            }
+        },
+        PatientBirthDate: {
+            component: 'app-data-input',
+            options: {}
+        },
+        PatientSex: {
+            component: 'app-gender-select',
+            options: {}
+        },
+        PatientSize: {
+            component: 'app-unity-measure-input',
+            options: {
+                unitOptions: [{ value: 'cm', label: 'Centímetros' }]
+            }
+        },
+        PatientWeight: {
+            component: 'app-unity-measure-input',
+            options: {
+                unitOptions: [{ value: 'Kg', label: 'Kilogramas' }]
+            }
+        },
+        PatientTelephoneNumbers: {
+            component: 'app-phone-input'
+        },
+        PatientEmail: {
+            component: 'input',
+            options: {
+                type: 'email'
+            }
+        }
+    };
+
     estudoForm: FormGroup;
     isToggled = false;
 
@@ -217,6 +284,8 @@ export class EditarEstudoModalComponent {
             AdmissionID: [''],
             RequestedProcedureID: [''],
             ProcedureCode: [''],
+            PregnancyStatus: [null],
+            SmokingStatus: [null],
             RequestingPhysicianPhone: [''],
             PatientTransportArrangements: [''],
             PatientNameIdeographic: [''],
@@ -238,6 +307,10 @@ export class EditarEstudoModalComponent {
             Allergies: [''],
             AdditionalPatientHistory: [''],
         });
+    }
+
+    getComponentForTag(tagName: string): { component: string; options?: any } | null {
+        return this.tagsInputTypeMap[tagName] || null;
     }
 
     private loadEstudo(): void {

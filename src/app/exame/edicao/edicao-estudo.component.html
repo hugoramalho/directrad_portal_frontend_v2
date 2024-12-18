@@ -12,8 +12,6 @@
 <!--</mat-card>-->
 
 <mat-dialog-content>
-
-
     <div class="loading-container" *ngIf="isLoading; else edicaoEstudoTemplate">
         <mat-spinner></mat-spinner>
     </div>
@@ -34,10 +32,64 @@
             <!-- Valor -->
             <ng-container matColumnDef="value">
                 <th mat-header-cell *matHeaderCellDef>Valor</th>
+                <!--                <td mat-cell *matCellDef="let element">-->
+                <!--                    <input [disabled]="!element.isEditing || !element.isEditable" matInput [(ngModel)]="element.value"/>-->
+                <!--                    &lt;!&ndash; <input [disabled]="!element.isEditable || element.isEditing" matInput [(ngModel)]="element.value" />&ndash;&gt;-->
+                <!--                </td>-->
+
                 <td mat-cell *matCellDef="let element">
-                    <input [disabled]="!element.isEditing || !element.isEditable" matInput [(ngModel)]="element.value"/>
-                    <!-- <input [disabled]="!element.isEditable || element.isEditing" matInput [(ngModel)]="element.value" />-->
+                    <ng-container *ngIf="getComponentForTag(element.name); else defaultInput">
+                        <ng-container [ngSwitch]="getComponentForTag(element.name)?.component">
+
+                            <app-bool-select
+                                *ngSwitchCase="'app-bool-select'"
+
+                                [(ngModel)]="element.value">
+                            </app-bool-select>
+
+                            <app-data-input
+                                *ngSwitchCase="'app-data-input'"
+
+                                [(ngModel)]="element.value">
+                            </app-data-input>
+
+                            <app-study-modality-select
+                                *ngSwitchCase="'app-study-modality-select'"
+
+                                [(ngModel)]="element.value"
+                                [multiple]="getComponentForTag(element.name)?.options?.multiple">
+                            </app-study-modality-select>
+
+                            <app-unity-measure-input
+                                *ngSwitchCase="'app-unity-measure-input'"
+
+                                [(ngModel)]="element.value"
+                                [unitOptions]="getComponentForTag(element.name)?.options?.unitOptions">
+                            </app-unity-measure-input>
+
+                            <app-phone-input
+                                *ngSwitchCase="'app-phone-input'"
+
+                                [(ngModel)]="element.value">
+                            </app-phone-input>
+
+                            <input
+                                *ngSwitchCase="'input'"
+                                matInput
+                                [(ngModel)]="element.value"
+                                [type]="getComponentForTag(element.name)?.options?.type || 'text'">
+                        </ng-container>
+                    </ng-container>
+
+                    <ng-template #defaultInput>
+                        <input
+                            matInput
+                            [(ngModel)]="element.value"
+                            [disabled]="!element.isEditing || !element.isEditable">
+                    </ng-template>
                 </td>
+
+
             </ng-container>
 
             <!-- Actions -->
@@ -82,13 +134,21 @@
 </mat-dialog-content>
 
 <mat-dialog-actions *ngIf="!isLoading" class="custom-dialog-actions">
-    <app-data-input></app-data-input>
-    <app-gender-select></app-gender-select>
-    <button mat-raised-button class="daxa h-auto mdc-button mdc-button--unelevated mat-mdc-unelevated-button mat-unthemed mat-mdc-button-base left-button">
-        Corrigir relação Paciente/Estudo
-        <mat-icon>contact_page</mat-icon>
-    </button>
-    <span class="spacer"></span>
-    <button mat-button (click)="onCancel()">Cancelar</button>
-    <button mat-raised-button color="primary" [disabled]="!isModified" (click)="onSave()">Salvar</button>
+<!--    <app-phone-input></app-phone-input>-->
+<!--    <app-unity-measure-input [maxDecimals]=2-->
+<!--                             [unitOptions]="[{ value: 'cm', label: 'Centímetros' }]"></app-unity-measure-input>-->
+<!--    <app-unity-measure-input [maxDecimals]=2-->
+<!--                             [unitOptions]="[{ value: 'kg', label: 'Kilogramas' }]"></app-unity-measure-input>-->
+<!--    <app-study-modality-select></app-study-modality-select>-->
+<!--    <app-bool-select></app-bool-select>-->
+<!--    <app-data-input></app-data-input>-->
+<!--    <app-gender-select></app-gender-select>-->
+        <button mat-raised-button class="daxa h-auto mdc-button mdc-button--unelevated mat-mdc-unelevated-button mat-unthemed mat-mdc-button-base left-button">
+            Corrigir relação Paciente/Estudo
+            <mat-icon>contact_page</mat-icon>
+        </button>
+        <span class="spacer"></span>
+        <button mat-button (click)="onCancel()">Cancelar</button>
+        <button mat-raised-button color="primary" [disabled]="!isModified" (click)="onSave()">Salvar</button>
 </mat-dialog-actions>
+
