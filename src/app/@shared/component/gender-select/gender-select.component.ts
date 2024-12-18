@@ -24,7 +24,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
         <!-- Native HTML Select -->
         <ng-template #nativeSelect>
             <label for="genderSelect">Gênero:</label>
-            <select id="genderSelect" [value]="value" (change)="onGenderChange($event.target.value)">
+            <select id="genderSelect" [value]="value" (change)="onNativeGenderChange($event)">
                 <option *ngFor="let option of genderOptions" [value]="option.value">
                     {{ option.label }}
                 </option>
@@ -59,6 +59,12 @@ export class GenderSelectComponent implements ControlValueAccessor {
         this.value = value; // Atualiza o valor local
         this.onChange(value); // Notifica o Angular sobre a mudança
         this.onTouched(); // Marca o campo como "tocado"
+    }
+
+    onNativeGenderChange(event: Event): void {
+        const target = event.target as HTMLSelectElement;
+        const value = target?.value || '';
+        this.onGenderChange(value); // Reutiliza a lógica do Angular Material
     }
 
     writeValue(value: string): void {
