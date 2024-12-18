@@ -1,0 +1,18 @@
+<div class="terminal-container">
+    <div id="terminal"></div>
+    <div class="controls">
+        <form (submit)="sendCommand()">
+
+                <input
+                    matInput
+                    [(ngModel)]="command"
+                    name="command"
+                    placeholder="Digite um comando"
+                    required
+                />
+                <button mat-button class="daxa mdc-button mat-mdc-button-base" type="submit">Enviar</button>
+
+        </form>
+        <button mat-button class="danger mdc-button mat-mdc-button-base" (click)="disconnect()">Desconectar</button>
+    </div>
+</div>

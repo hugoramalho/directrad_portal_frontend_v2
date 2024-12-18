@@ -17,34 +17,44 @@
 </div>
 
 <!-- <mat-card class="daxa-card mb-25 border-radius bg-white border-none d-block"> -->
-    <!-- <mat-card-header> -->
-        <!-- <mat-card-title> -->
-            <div>
-                <ul> 
-                    <li>
-                      Nessa página você pode criar, editar e excluir aetitles, reiniciar os serviços do PACS, verificar os logs de execução do serviço, além de também possuir interface para instalação do PACS em um cliente remoto via SSH.
-                    </li>
-                </ul>
-            </div>
-        <!-- </mat-card-title> -->
-    <!-- </mat-card-header> -->
-    <!-- <mat-card-content> -->
-        <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-            <mat-tab label="Aetitles">
+<!-- <mat-card-header> -->
+<!-- <mat-card-title> -->
+<div>
+    <ul>
+        <li>
+            Nessa página você pode criar, editar e excluir aetitles, reiniciar os serviços do PACS, verificar os logs de
+            execução do serviço, além de também possuir interface para instalação do PACS em um cliente remoto via SSH.
+        </li>
+    </ul>
+</div>
+<!-- </mat-card-title> -->
+<!-- </mat-card-header> -->
+<!-- <mat-card-content> -->
 
-            </mat-tab>
-            <mat-tab label="Associações DICOM">
+<mat-tab-group
+    (selectedTabChange)="onTabChange($event)"
+    mat-stretch-tabs="false"
+    mat-align-tabs="start"
+    [dynamicHeight]="true"
+    animationDuration="0ms"
+    [disableRipple]="true">
+    <mat-tab label="Aetitles">
 
-            </mat-tab>
-            <mat-tab label="Tarefas de exportação">
+    </mat-tab>
+    <mat-tab label="Associações DICOM">
 
-            </mat-tab>
-            <mat-tab label="Configurações PACS">
+    </mat-tab>
+    <mat-tab label="Tarefas de exportação">
 
-            </mat-tab>
-            <mat-tab label="Instalaçao">
+    </mat-tab>
+    <mat-tab label="Configurações PACS">
 
-            </mat-tab>
-        </mat-tab-group>
-    <!-- </mat-card-content> -->
+    </mat-tab>
+    <mat-tab label="Instalaçao">
+<!--        <div *ngIf="isTerminalActive">-->
+            <app-ssh-terminal></app-ssh-terminal>
+<!--        </div>-->
+    </mat-tab>
+</mat-tab-group>
+<!-- </mat-card-content> -->
 <!-- </mat-card> -->
