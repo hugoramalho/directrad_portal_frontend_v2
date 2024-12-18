@@ -1,12 +1,13 @@
 <ng-container *ngIf="useMaterial; else nativeInput">
     <!-- Material Template -->
     <mat-form-field appearance="fill">
-        <mat-label>{{ label }}</mat-label>
+<!--        <mat-label>{{ label }}</mat-label>-->
         <input
             matInput
             [value]="displayValue"
             (input)="onInputChange($event)"
             (blur)="onTouched()"
+            (keydown)="restrictToNumbers($event)"
             placeholder="{{ placeholder }}"
             type="tel"
         />
@@ -15,12 +16,13 @@
 
 <!-- Native Template -->
 <ng-template #nativeInput>
-    <label>{{ label }}</label>
+<!--    <label>{{ label }}</label>-->
     <input
         type="tel"
         [value]="displayValue"
         (input)="onInputChange($event)"
         (blur)="onTouched()"
+        (keydown)="restrictToNumbers($event)"
         placeholder="{{ placeholder }}"
     />
 </ng-template>
