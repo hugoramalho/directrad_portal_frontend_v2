@@ -39,7 +39,7 @@
     animationDuration="0ms"
     [disableRipple]="true">
     <mat-tab label="Aetitles">
-
+        <app-cadastro-aetitle></app-cadastro-aetitle>
     </mat-tab>
     <mat-tab label="Associações DICOM">
 
@@ -51,9 +51,9 @@
 
     </mat-tab>
     <mat-tab label="Instalaçao">
-<!--        <div *ngIf="isTerminalActive">-->
+        <div *ngIf="isTerminalActive">
             <app-ssh-terminal></app-ssh-terminal>
-<!--        </div>-->
+        </div>
     </mat-tab>
 </mat-tab-group>
 <!-- </mat-card-content> -->
