@@ -1,0 +1,26 @@
+<ng-container *ngIf="useMaterial; else nativeInput">
+    <!-- Material Template -->
+    <mat-form-field appearance="fill">
+        <mat-label>{{ label }}</mat-label>
+        <input
+            matInput
+            [value]="displayValue"
+            (input)="onInputChange($event)"
+            (blur)="onTouched()"
+            placeholder="{{ placeholder }}"
+            type="tel"
+        />
+    </mat-form-field>
+</ng-container>
+
+<!-- Native Template -->
+<ng-template #nativeInput>
+    <label>{{ label }}</label>
+    <input
+        type="tel"
+        [value]="displayValue"
+        (input)="onInputChange($event)"
+        (blur)="onTouched()"
+        placeholder="{{ placeholder }}"
+    />
+</ng-template>
