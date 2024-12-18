@@ -8,29 +8,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
     selector: 'app-gender-select',
     standalone: true,
     imports: [CommonModule, MatFormFieldModule, MatSelectModule],
-    template: `
-        <ng-container *ngIf="useMaterial; else nativeSelect">
-            <!-- Angular Material Template -->
-            <mat-form-field appearance="fill">
-                <mat-label>Gênero</mat-label>
-                <mat-select [value]="value" (selectionChange)="onGenderChange($event.value)">
-                    <mat-option *ngFor="let option of genderOptions" [value]="option.value">
-                        {{ option.label }}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </ng-container>
-
-        <!-- Native HTML Select -->
-        <ng-template #nativeSelect>
-            <label for="genderSelect">Gênero:</label>
-            <select id="genderSelect" [value]="value" (change)="onNativeGenderChange($event)">
-                <option *ngFor="let option of genderOptions" [value]="option.value">
-                    {{ option.label }}
-                </option>
-            </select>
-        </ng-template>
-    `,
+    templateUrl: 'gender-select.component.html',
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
