@@ -1,0 +1,21 @@
+<ng-container *ngIf="useMaterial; else nativeSelect">
+    <!-- Material Template -->
+    <mat-form-field appearance="fill">
+<!--        <mat-label>{{ label }}</mat-label>-->
+        <mat-select [value]="value" (selectionChange)="onSelectionChange($event.value)" [multiple]="multiple">
+            <mat-option *ngFor="let modality of studyModalities" [value]="modality.value">
+                {{ modality.name }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</ng-container>
+
+<!-- Native Select -->
+<ng-template #nativeSelect>
+<!--    <label>{{ label }}</label>-->
+    <select [value]="value" (change)="onNativeSelectionChange($event)" [multiple]="multiple">
+        <option *ngFor="let modality of studyModalities" [value]="modality.value">
+            {{ modality.name }}
+        </option>
+    </select>
+</ng-template>

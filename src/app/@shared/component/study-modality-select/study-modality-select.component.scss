@@ -1,0 +1,30 @@
+/* Estilização do rótulo para o select nativo */
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Estilização do select nativo */
+select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+
+    &:focus {
+        border-color: #3f51b5; /* Azul semelhante ao Material Design */
+        outline: none;
+        box-shadow: 0 0 3px rgba(63, 81, 181, 0.5);
+    }
+}
+
+/* Mat-form-field ajustes */
+mat-form-field {
+    width: 100%;
+}
