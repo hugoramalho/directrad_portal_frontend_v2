@@ -1,0 +1,133 @@
+<!--<ng-container *ngIf="useMaterial; else nativeInput">-->
+<!--    &lt;!&ndash; Material Design Template &ndash;&gt;-->
+<!--    <mat-form-field appearance="fill">-->
+<!--        <input-->
+<!--            matInput-->
+<!--            type="text"-->
+<!--            [value]="displayValue"-->
+<!--            (input)="onInputChange($event)"-->
+<!--            (keydown)="restrictToNumbers($event)"-->
+<!--            (blur)="onTouched()"-->
+<!--            placeholder="{{ placeholder }}"-->
+<!--        />-->
+<!--        <span style="cursor: default;" matSuffix matTooltip="{{ getUnitFullName(selectedUnit) }}" aria-label="Unidade">-->
+<!--            ({{ selectedUnit }})-->
+<!--        </span>-->
+<!--    </mat-form-field>-->
+
+<!--    &lt;!&ndash; Select Unidade (Somente se houver mais de uma opção) &ndash;&gt;-->
+<!--    <mat-form-field appearance="fill" *ngIf="unitOptions.length > 1">-->
+<!--&lt;!&ndash;        <mat-label>Unidade</mat-label>&ndash;&gt;-->
+<!--        <mat-select [value]="selectedUnit" (selectionChange)="onUnitChange($event.value)">-->
+<!--            <mat-option *ngFor="let option of unitOptions" [value]="option.value">-->
+<!--                {{ option.label }}-->
+<!--            </mat-option>-->
+<!--        </mat-select>-->
+<!--    </mat-form-field>-->
+
+<!--</ng-container>-->
+
+<!--&lt;!&ndash; Native HTML Template &ndash;&gt;-->
+<!--<ng-template #nativeInput>-->
+<!--    <div style="position: relative; display: inline-block; width: 100%;">-->
+<!--        <input-->
+<!--            type="text"-->
+<!--            [value]="displayValue"-->
+<!--            (input)="onInputChange($event)"-->
+<!--            (keydown)="restrictToNumbers($event)"-->
+<!--            (blur)="onTouched()"-->
+<!--            placeholder="{{ placeholder }}"-->
+<!--            style="padding-right: 60px;"-->
+<!--        />-->
+<!--        <span-->
+<!--            class="unit-suffix"-->
+<!--            [matTooltip]="getUnitFullName(selectedUnit)"-->
+<!--            style="cursor: default; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">-->
+<!--            ({{ selectedUnit }})-->
+<!--        </span>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Select Unidade (Somente se houver mais de uma opção) &ndash;&gt;-->
+<!--    <label for="unitSelect" *ngIf="unitOptions.length > 1">Unidade:</label>-->
+<!--    <select-->
+<!--        id="unitSelect"-->
+<!--        *ngIf="unitOptions.length > 1"-->
+<!--        [value]="selectedUnit"-->
+<!--        (change)="onUnitChange($event)">-->
+<!--        <option *ngFor="let option of unitOptions" [value]="option.value">-->
+<!--            {{ option.label }}-->
+<!--        </option>-->
+<!--    </select>-->
+<!--</ng-template>-->
+
+
+
+
+
+
+
+
+
+
+
+
+<ng-container *ngIf="useMaterial; else nativeInput">
+    <!-- Material Design Template -->
+    <mat-form-field appearance="fill">
+        <input
+            matInput
+            type="text"
+            [value]="displayValue"
+            (input)="onInputChange($event)"
+            (keydown)="restrictToNumbers($event)"
+            (blur)="onTouched()"
+            placeholder="{{ placeholder }}"
+        />
+        <span style="cursor: default;" matSuffix matTooltip="{{ getUnitFullName(selectedUnit) }}" aria-label="Unidade">
+            ({{ selectedUnit }})
+        </span>
+    </mat-form-field>
+
+    <!-- Select Unidade (Somente se houver mais de uma opção) -->
+    <mat-form-field appearance="fill" *ngIf="unitOptions.length > 1">
+        <mat-select [value]="selectedUnit" (selectionChange)="onUnitChange($event.value)">
+            <mat-option *ngFor="let option of unitOptions" [value]="option.value">
+                {{ option.label }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</ng-container>
+
+<!-- Native HTML Template -->
+<ng-template #nativeInput>
+    <div style="position: relative; display: inline-block; width: 100%;">
+        <input
+            type="text"
+            [value]="displayValue"
+            (input)="onInputChange($event)"
+            (keydown)="restrictToNumbers($event)"
+            (blur)="onTouched()"
+            placeholder="{{ placeholder }}"
+            style="padding-right: 60px;"
+        />
+
+        <span
+            class="unit-suffix"
+            [matTooltip]="getUnitFullName(selectedUnit)"
+            style="cursor: default; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+            ({{ selectedUnit }})
+        </span>
+    </div>
+
+    <!-- Select Unidade (Somente se houver mais de uma opção) -->
+    <label for="unitSelect" *ngIf="unitOptions.length > 1">Unidade:</label>
+    <select
+        id="unitSelect"
+        *ngIf="unitOptions.length > 1"
+        [value]="selectedUnit"
+        (change)="onUnitChange($event)">
+        <option *ngFor="let option of unitOptions" [value]="option.value">
+            {{ option.label }}
+        </option>
+    </select>
+</ng-template>

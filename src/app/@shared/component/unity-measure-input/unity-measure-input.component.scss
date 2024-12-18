@@ -1,0 +1,47 @@
+/* Estilização comum */
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: #333;
+}
+
+.native-input-container,
+.material-input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+input {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+
+    &:focus {
+        border-color: #3f51b5;
+        box-shadow: 0 0 3px rgba(63, 81, 181, 0.5);
+    }
+}
+
+span.unit {
+    margin-left: 8px;
+    color: #555;
+    font-size: 14px;
+}
+
+/* Ajustes para MatFormField */
+mat-form-field {
+    width: 100%;
+}
+
+.material-input-container span.unit {
+    position: absolute;
+    right: 10px;
+    font-size: 12px;
+    color: #555;
+}
