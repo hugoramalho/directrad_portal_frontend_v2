@@ -209,7 +209,8 @@ export class EditarEstudoModalComponent {
     tagsInputTypeMap: Record<string, { component: string; options?: any }> = {
         PregnancyStatus: {
             component: 'app-bool-select',
-            options: {}
+            options: {
+            }
         },
         SmokingStatus: {
             component: 'app-bool-select',

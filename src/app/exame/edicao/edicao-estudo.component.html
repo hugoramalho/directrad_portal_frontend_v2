@@ -43,39 +43,40 @@
 
                             <app-bool-select
                                 *ngSwitchCase="'app-bool-select'"
-
+                                [initialValue]="element.value"
                                 [(ngModel)]="element.value">
                             </app-bool-select>
 
                             <app-data-input
                                 *ngSwitchCase="'app-data-input'"
-
+                                [initialValue]="element.value"
                                 [(ngModel)]="element.value">
                             </app-data-input>
 
                             <app-study-modality-select
                                 *ngSwitchCase="'app-study-modality-select'"
-
+                                [initialValue]="element.value"
                                 [(ngModel)]="element.value"
                                 [multiple]="getComponentForTag(element.name)?.options?.multiple">
                             </app-study-modality-select>
 
                             <app-unity-measure-input
                                 *ngSwitchCase="'app-unity-measure-input'"
-
+                                [initialValue]="element.value"
                                 [(ngModel)]="element.value"
                                 [unitOptions]="getComponentForTag(element.name)?.options?.unitOptions">
                             </app-unity-measure-input>
 
                             <app-phone-input
                                 *ngSwitchCase="'app-phone-input'"
-
+                                [initialValue]="element.value"
                                 [(ngModel)]="element.value">
                             </app-phone-input>
 
                             <input
                                 *ngSwitchCase="'input'"
                                 matInput
+                                [value]="element.value"
                                 [(ngModel)]="element.value"
                                 [type]="getComponentForTag(element.name)?.options?.type || 'text'">
                         </ng-container>
