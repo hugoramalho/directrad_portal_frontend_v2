@@ -29,7 +29,7 @@ export class PhoneInputComponent implements ControlValueAccessor {
     displayValue: string = ''; // Valor formatado para exibição no input
 
     ngOnInit(): void {
-        this.value = this.initialValue ?? '';
+        this._value = this.initialValue ?? '';
     }
 
     // Callbacks para ControlValueAccessor
