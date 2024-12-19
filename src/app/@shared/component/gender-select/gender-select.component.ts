@@ -20,6 +20,8 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 })
 export class GenderSelectComponent implements ControlValueAccessor {
     @Input() useMaterial: boolean = false; // Se deve usar Angular Material
+    @Input() disabled: boolean = false; // Se deve usar Angular Material
+    @Input() initialValue: string | null = null;
     value: string = ''; // Valor selecionado
 
     // Opções de gênero

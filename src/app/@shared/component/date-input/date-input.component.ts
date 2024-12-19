@@ -24,6 +24,8 @@ export class DataInputComponent implements ControlValueAccessor {
     @Input() placeholder: string = 'dia/mês/ano';
     @Input() useMaterial: boolean = false; // Define o uso de Material Design
     @Output() dateChange = new EventEmitter<Date>();
+    @Input() disabled: boolean = false;
+    @Input() initialValue: string | null = null;
 
     private _value: Date | undefined = undefined;
     displayValue: string = ''; // Valor formatado para exibição no input

@@ -20,9 +20,12 @@ import { MatSelectModule } from '@angular/material/select';
 })
 export class StudyModalitySelectComponent implements ControlValueAccessor {
     @Input() useMaterial: boolean = false; // Se deve usar Angular Material
+    @Input() initialValue: string | null= null;
     @Input() label: string = 'Modalidades de Estudo'; // Rótulo do campo
     @Input({transform: booleanAttribute}) multiple: boolean = false; // Permitir múltiplas seleções
     @Output() selectionChange = new EventEmitter<string[] | string>();
+    @Input() disabled: boolean = false;
+
 
     value: string[] | string = ''; // Valor atual selecionado
 
@@ -40,6 +43,10 @@ export class StudyModalitySelectComponent implements ControlValueAccessor {
         { value: 'BMD', name: 'Densitometria Óssea (BMD)' },
         { value: 'NM', name: 'Cintilografia (NM)' },
     ];
+
+    ngOnInit(): void {
+        this.value = this.initialValue ?? '';
+    }
 
     // Callbacks para ControlValueAccessor
     onChange: (value: string[] | string) => void = () => {};

@@ -21,6 +21,8 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 export class TrueFalseSelectComponent implements ControlValueAccessor {
     @Input() useMaterial: boolean = false; // Define o uso do Material Design
     @Input() label: string = 'Escolha'; // Rótulo do campo
+    @Input() disabled: boolean = false;
+    @Input() initialValue: boolean | null = null;
 
     value: boolean | null = null;
 
@@ -33,6 +35,10 @@ export class TrueFalseSelectComponent implements ControlValueAccessor {
     // Callbacks para o ControlValueAccessor
     onChange: (value: boolean | null) => void = () => {};
     onTouched: () => void = () => {};
+
+    onInit(){
+
+    }
 
     onValueChange(value: boolean): void {
         this.value = value;

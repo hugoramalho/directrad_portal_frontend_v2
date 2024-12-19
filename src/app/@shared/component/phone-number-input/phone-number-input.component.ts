@@ -20,11 +20,17 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class PhoneInputComponent implements ControlValueAccessor {
     @Input() useMaterial: boolean = false; // Define o estilo do input
+    @Input() initialValue: string | null = null;
     @Input() label: string = 'Telefone'; // Rótulo
     @Input() placeholder: string = '+XX (XX) XXXXX-XXXX'; // Placeholder do input
+    @Input() disabled: boolean = false;
 
     private _value: string = ''; // Valor interno
     displayValue: string = ''; // Valor formatado para exibição no input
+
+    ngOnInit(): void {
+        this.value = this.initialValue ?? '';
+    }
 
     // Callbacks para ControlValueAccessor
     onChange = (value: string) => {};
