@@ -66,7 +66,7 @@
                 <!-- <button mat-button class="p-0 h-auto" (click)="toggleClass()">
                     + Cadastrar novo PACS
                 </button> -->
-                <button mat-flat-button class="daxa h-auto" (click)="toggleClass()">
+                <button mat-flat-button class="daxa h-auto" (click)="openAddAetitleModal()">
                     + Cadastrar novo Aetitle
                 </button>
             </div>
@@ -206,7 +206,7 @@
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
+
                     <!-- Row shown when there is no matching data. -->
                     <!-- <tr class="mat-row" *matNoDataRow>
                         <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>

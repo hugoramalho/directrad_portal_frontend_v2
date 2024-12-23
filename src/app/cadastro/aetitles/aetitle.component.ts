@@ -17,6 +17,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { Estudo } from '../../exame/exame';
+import {MatDialog} from "@angular/material/dialog";
+import {AddAetitleComponent} from "../../painel-controle/aetitles/criar-aetitle/add-aetitle.component";
 
 
 @Component({
@@ -73,7 +75,8 @@ export class CadastroAetitleComponent {
     isToggled = false;
 
     constructor(
-        public themeService: CustomizerSettingsService
+        public themeService: CustomizerSettingsService,
+        private dialog: MatDialog
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -85,7 +88,29 @@ export class CadastroAetitleComponent {
         this.themeService.toggleRTLEnabledTheme();
     }
 
+    openAddAetitleModal() {
+        const dialogRef = this.dialog.open(AddAetitleComponent, {
+            width: 'auto', // Define o tamanho do modal
+            data: {}, // Dados iniciais se necessário
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                // O resultado do modal será retornado aqui
+                console.log('Modal result:', result);
+                this.handleAetitleResult(result);
+            }
+        });
+    }
+
+    handleAetitleResult(result: any) {
+        // Lógica para lidar com os dados retornados pelo modal
+        console.log('Aetitle salvo:', result);
+        // Exemplo: salvar no backend, atualizar estado local, etc.
+    }
+
 }
+
 
 const ELEMENT_DATA: PeriodicElement[] = [
     {
