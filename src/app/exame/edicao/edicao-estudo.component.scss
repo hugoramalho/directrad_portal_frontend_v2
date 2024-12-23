@@ -1,4 +1,8 @@
 
+.spacer {
+    flex: 1 1 auto;
+}
+
 mat-dialog-content{
     min-width: 320px;
 
@@ -54,9 +58,7 @@ mat-dialog-actions{
         margin-right: auto;
     }
 
-    .spacer {
-        flex: 1 1 auto;
-    }
+
 
     .custom-dialog-actions{
         .left-button{

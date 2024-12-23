@@ -77,7 +77,7 @@ export class EstudoRepository {
     //         .pipe(map(response => response?.data || null));
     // }
 
-    getEstudos(page: number = 1, perPage: number = 10, queryParams: Record<string, any> | null = null): Observable<Estudo[]> {
+    public getEstudos(page: number = 1, perPage: number = 10, queryParams: Record<string, any> | null = null): Observable<Estudo[]> {
         let params = new HttpParams();
             // .set('page', page.toString())
             // .set('page_size', perPage.toString());
@@ -92,13 +92,13 @@ export class EstudoRepository {
         return this.http.get<Estudo[]>(this.apiUrl, { params });
     }
 
-    getEstudo(uid: string): Observable<Estudo[]> {
+    public getEstudo(uid: string): Observable<Estudo[]> {
         let params = new HttpParams()
             .set('STUDY_INSTANCE_UID', uid);
         return this.http.get<Estudo[]>(this.apiUrl, { params });
     }
 
-    getTagsDicom(): Observable<any> {
+    public getTagsDicom(): Observable<any> {
         return this.http.get<any>(this.apiUrl + '/tags-dicom');
     }
 

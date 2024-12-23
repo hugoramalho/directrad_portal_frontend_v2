@@ -44,7 +44,13 @@
 // }
 
 import {Component, Inject} from '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialogContent, MatDialogActions} from '@angular/material/dialog';
+import {
+    MatDialogRef,
+    MAT_DIALOG_DATA,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogTitle
+} from '@angular/material/dialog';
 import {EstudoRepository} from "../exame.service";
 import {
     MatCell,
@@ -107,7 +113,8 @@ import {PhoneInputComponent} from "../../@shared/component/phone-number-input/ph
         UnityMeasureInputComponent,
         PhoneInputComponent,
         NgSwitchCase,
-        NgSwitch
+        NgSwitch,
+        MatDialogTitle
     ]
 })
 export class EditarEstudoModalComponent {
@@ -115,6 +122,7 @@ export class EditarEstudoModalComponent {
     estudoTags: any[] = [];
     isModified: boolean = false;
     isLoading = true;
+    estudo?: Estudo | null = null;
 
     dicomTagMap: Record<string, string> = {
         PregnancyStatus: '001021C0',
@@ -331,6 +339,7 @@ export class EditarEstudoModalComponent {
                             isEditing: false,
                         };
                     });
+                this.estudo = estudo;
                 this.isLoading = false;
             },
             error: (err) => {

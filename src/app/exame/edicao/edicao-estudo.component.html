@@ -11,6 +11,15 @@
 <!--    </mat-card-content>-->
 <!--</mat-card>-->
 
+<div >
+
+    <h2 style="display: inline" *ngIf="!isLoading" mat-dialog-title>Editar estudo</h2>
+    <span class="spacer"></span>
+
+    <h3 style="display: inline" *ngIf="!isLoading" class="mb-25" mat-dialog-title>uid: {{estudo?.StudyInstanceUID}}</h3>
+</div>
+
+
 <mat-dialog-content>
     <div class="loading-container" *ngIf="isLoading; else edicaoEstudoTemplate">
         <mat-spinner></mat-spinner>
