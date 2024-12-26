@@ -16,10 +16,10 @@ import {MatOption} from "@angular/material/autocomplete";
     selector: 'app-chat',
     standalone: true,
     imports: [RouterLink, MatCardModule, MatMenuModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatTabsModule, MatOption],
-    templateUrl: './chat.component.html',
-    styleUrl: './chat.component.scss'
+    templateUrl: './suporte-usuario.component.html',
+    styleUrl: './suporte-usuario.component.scss'
 })
-export class ChatComponent {
+export class SuporteUsuarioComponent {
     contactList: { name: string; avatar: string }[] = [];
     messages: { username: string; message: string }[] = [];
     newMessage: string = '';
@@ -34,7 +34,7 @@ export class ChatComponent {
         private mercureService: MercureService
     ) {
         const isToggled$ = this.themeService.isToggled$.pipe(first());
-        const messages$ = this.mercureService.subscribeToTopic('/chat').pipe(first());
+        const messages$ = this.mercureService.subscribeToTopic('/suporte/chat').pipe(first());
 
         // Combinar os observáveis e aguardar a conclusão
         forkJoin([isToggled$, messages$]).subscribe(([isToggled, initialMessages]) => {
@@ -46,7 +46,7 @@ export class ChatComponent {
 
     sendMessage(): void {
         if (this.newMessage.trim()) {
-            this.http.post('/api/chat/send', {
+            this.http.post('/api/v2/suporte/chat', {
                 username: this.username,
                 message: this.newMessage,
             }).subscribe();

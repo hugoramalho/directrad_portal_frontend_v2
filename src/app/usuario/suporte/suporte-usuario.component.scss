@@ -57,7 +57,7 @@
                         .user {
                             .img {
                                 margin-right: 12px;
-                                
+
                                 img {
                                     width: 45px;
                                 }
@@ -149,7 +149,7 @@
                         .input-search {
                             background: rgba(255, 255, 255, .07);
                             color: var(--whiteColor);
-                            
+
                             &::placeholder {
                                 color: rgba(255, 255, 255, .50);
                             }
@@ -169,7 +169,7 @@
                         }
                         .single-user-item {
                             border-color: rgba(255, 255, 255, 0.09);
-    
+
                             &::before {
                                 background: rgba(255, 255, 255, .07);
                             }
@@ -233,7 +233,7 @@
                     .user {
                         .img {
                             margin-right: 15px;
-                            
+
                             img {
                                 width: 65px;
                             }
@@ -270,11 +270,11 @@
                     margin: 20px -20px 0;
                 }
                 .chat-body {
-                    transform: rotate(180deg);
+                    //transform: rotate(180deg);
                     margin-right: -20px;
-                    overflow-y: scroll;
-                    direction: rtl;
                     height: 600px;
+                    overflow-y: auto;
+                    direction: ltr;
 
                     &::-webkit-scrollbar {
                         width: 8px;
@@ -287,9 +287,11 @@
                         background: #ebebeb;
                     }
                     ul {
-                        flex-direction: column-reverse;
-                        justify-content: flex-end;
                         display: flex;
+                        flex-direction: column-reverse; /* Inverte a ordem sem usar `rotate` */
+                        margin: 0;
+                        padding: 0 20px; /* Alinhamento interno */
+                        justify-content: flex-end;
                         padding: {
                             left: 20px;
                             right: 0;
@@ -299,7 +301,7 @@
                             padding-left: 45px;
                             direction: ltr;
                             width: 80%;
-            
+
                             .user {
                                 top: 0;
                                 left: 0;
@@ -307,7 +309,7 @@
                             }
                             .message {
                                 text-align: left;
-            
+
                                 p {
                                     padding: 10px 15px;
                                     display: inline-block;
@@ -316,7 +318,7 @@
                                 }
                                 div {
                                     margin-bottom: 5px;
-            
+
                                     &:last-child {
                                         margin-bottom: 0;
                                     }
@@ -343,7 +345,7 @@
                                 }
                                 .message {
                                     text-align: right;
-            
+
                                     p {
                                         color: var(--whiteColor);
                                         border-radius: 10px 0 10px 10px;
@@ -445,7 +447,7 @@
                                 }
                                 .message {
                                     text-align: right;
-                
+
                                     p {
                                         border-radius: 10px 0 10px 10px;
                                     }
@@ -469,7 +471,7 @@
                                     }
                                     .message {
                                         text-align: left;
-                
+
                                         p {
                                             border-radius: 0 10px 10px 10px;
                                         }
@@ -587,7 +589,7 @@
                         .mat-mdc-tab-group {
                             .mat-mdc-tab-header {
                                 border-color: rgba(255, 255, 255, 0.09);
-    
+
                                 .mat-mdc-tab-label-container {
                                     .mat-mdc-tab {
                                         .mdc-tab__text-label {
@@ -635,7 +637,7 @@
                                 margin-left: 18px;
                                 display: inline-block;
                                 transition: var(--transition);
-    
+
                                 i {
                                     font-size: 20px;
                                 }
@@ -657,7 +659,7 @@
                                 margin-left: 12px;
                                 display: inline-block;
                                 transition: var(--transition);
-    
+
                                 i {
                                     font-size: 20px;
                                 }
@@ -711,7 +713,7 @@
                                 color: var(--whiteColor);
                                 transform: translateY(-50%);
                                 background-color: var(--daxaColor);
-    
+
                                 .mdc-button__label {
                                     left: 0;
                                     right: 0;
@@ -794,10 +796,10 @@
                     }
                     .chat-users-list {
                         height: 550px;
-    
+
                         .single-user-item {
                             padding: 15px 15px;
-    
+
                             .user {
                                 .title {
                                     span {
@@ -824,7 +826,7 @@
 
                             .img {
                                 margin-right: 13px;
-                                
+
                                 img {
                                     width: 55px;
                                 }
@@ -851,7 +853,7 @@
                     .chat-body {
                         margin-right: -15px;
                         height: 500px;
-    
+
                         ul {
                             padding: {
                                 left: 15px;
@@ -859,7 +861,7 @@
                             };
                             li {
                                 width: 100%;
-           
+
                                 .time {
                                     font-size: 13px;
                                 }
@@ -868,7 +870,7 @@
                     }
                     .chat-footer {
                         padding: 15px;
-    
+
                         .buttons-list {
                             top: 0;
                             margin: {
@@ -931,10 +933,10 @@
                     .mat-mdc-card-content {
                         .mat-mdc-tab-group {
                             margin-top: 15px;
-    
+
                             .mat-mdc-tab-header {
                                 margin-bottom: 10px;
-    
+
                                 .mat-mdc-tab-label-container {
                                     .mat-mdc-tab {
                                         margin-right: 20px;
@@ -985,7 +987,7 @@
                             .buttons-list {
                                 .mat-mdc-button {
                                     margin-left: 15px;
-        
+
                                     i {
                                         font-size: 18px;
                                     }
@@ -1072,7 +1074,7 @@
                     }
                     .chat-body {
                         margin-right: -20px;
-    
+
                         ul {
                             padding-left: 20px;
                         }
