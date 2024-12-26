@@ -194,6 +194,8 @@ import {FinanceiroCadastroContaComponent} from "./financeiro/cadastro/conta/cont
 import {FinanceiroCacheResolver} from "./financeiro/cache.resolver";
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { PainelControleComponent } from './painel-controle/painel-controle.component';
+import {SuporteUsuarioComponent} from "./usuario/suporte/suporte-usuario.component";
+import {UsuarioComponent} from "./usuario/usuario.component";
 
 export const routes: Routes = [
     {
@@ -225,10 +227,21 @@ export const routes: Routes = [
     {path: 'exames', component: ExamesComponent},
     {path: 'cadastro', component: CadastroComponent},
     {path: 'painel-controle', component: PainelControleComponent},
+    {path: 'painel-controle', component: PainelControleComponent},
+
     {path: 'calendar', component: CalendarComponent},
     {path: 'contacts', component: ContactsComponent},
     {path: 'chat', component: ChatComponent},
     {path: 'kanban-board', component: KanbanBoardComponent},
+    {
+        path: 'usuario',
+        component: UsuarioComponent,
+        children: [
+            {path: '', component: AccountSettingsComponent},
+            {path: 'suporte', component: SuporteUsuarioComponent},
+            {path: 'config', component: AccountSettingsComponent}
+        ]
+    },
     {
         path: 'file-manager',
         component: FileManagerComponent,
