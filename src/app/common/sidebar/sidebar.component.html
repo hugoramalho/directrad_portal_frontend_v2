@@ -72,14 +72,30 @@
                             DirectViewer
                         </span>
                     </a>
-                    <a routerLink="/user" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="material-symbols-outlined">
-                            person
-                        </i>
-                        <span class="title">
-                            Usuário
-                        </span>
-                    </a>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="material-symbols-outlined">
+                                    person
+                                </i>
+                                <span class="title">
+                                    Usuário
+                                </span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/usuario/config" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Configurações
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Suporte
+                                </a>
+                            </li>
+                        </ul>
+                    </mat-expansion-panel>
                     <a routerLink="/logout" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             logout
