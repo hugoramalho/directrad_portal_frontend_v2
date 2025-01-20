@@ -8,7 +8,7 @@
         z-index: 222;
         left: 0;
         top: 0;
-        
+
         .logo {
             position: absolute;
             padding: 25px;
@@ -37,7 +37,7 @@
             cursor: pointer;
             position: absolute;
             transition: var(--transition);
-    
+
             span {
                 height: 1px;
                 width: 25px;
@@ -49,7 +49,7 @@
             &.active {
                 opacity: 1;
                 visibility: visible;
-                
+
                 span {
                     &.top-bar {
                         transform: rotate(45deg);
@@ -82,9 +82,11 @@
                     font-size: 14px;
                     position: relative;
                     padding-left: 22px;
-                    margin-bottom: 19px;
+                    margin-bottom: 5px;
+                    margin-top: 2px;
 
                     &::before {
+                        margin-left: 5px;
                         left: 0;
                         top: 50%;
                         content: '';
@@ -102,7 +104,7 @@
                         margin-bottom: 27px;
                         color: var(--blackColor);
                         background-color: transparent;
-            
+
                         .mat-expansion-panel-header {
                             transition: var(--transition);
                             background-color: transparent;
@@ -126,7 +128,7 @@
                             }
                             .mat-content {
                                 display: block;
-            
+
                                 .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
                                     display: block;
                                     margin-right: 0;
@@ -153,7 +155,7 @@
                                 position: absolute;
                                 right: 0;
                                 top: 50%;
-            
+
                                 &::after {
                                     display: none;
                                 }
@@ -219,7 +221,7 @@
                         }
                         .mat-expansion-panel-body {
                             padding: 15px 0 0;
-            
+
                             .mat-expansion-panel {
                                 margin-bottom: 0;
                             }
@@ -259,7 +261,7 @@
                                 &.mat-expanded {
                                     background-color: #e7effd !important;
                                     color: var(--daxaColor);
-            
+
                                     .mat-content {
                                         .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
                                             color: var(--daxaColor) !important;
@@ -277,7 +279,7 @@
                                 &:hover {
                                     background-color: #e7effd !important;
                                     color: var(--daxaColor);
-            
+
                                     .mat-content {
                                         .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
                                             color: var(--daxaColor);
@@ -329,7 +331,7 @@
                                         &:hover, &.active {
                                             background-color: #e7effd;
                                             color: var(--daxaColor);
-            
+
                                             &::after {
                                                 background-color: var(--daxaColor);
                                             }
@@ -417,10 +419,10 @@
                     .mat-accordion {
                         .mat-expansion-panel {
                             color: var(--whiteColor);
-                
+
                             .mat-expansion-panel-header {
                                 color: var(--whiteColor);
-                                
+
                                 .mat-content {
                                     .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
                                         color: var(--whiteColor);
@@ -428,7 +430,7 @@
                                 }
                                 &.mat-expanded {
                                     color: var(--daxaColor);
-    
+
                                     .mat-content {
                                         .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
                                             color: var(--daxaColor);
@@ -442,7 +444,7 @@
                                 }
                                 &:hover {
                                     color: var(--daxaColor);
-    
+
                                     .mat-content {
                                         .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
                                             color: var(--daxaColor);
@@ -473,7 +475,7 @@
                                     &.mat-expanded {
                                         background-color: #2c343e !important;
                                         color: var(--daxaColor);
-                
+
                                         .mat-content {
                                             .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
                                                 color: var(--daxaColor) !important;
@@ -491,7 +493,7 @@
                                     &:hover {
                                         background-color: #2c343e !important;
                                         color: var(--daxaColor);
-                
+
                                         .mat-content {
                                             .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
                                                 color: var(--daxaColor);
@@ -506,14 +508,14 @@
                                     .sidemenu-item {
                                         .sidemenu-link {
                                             color: var(--whiteColor);
-                                            
+
                                             &::after {
                                                 opacity: .50;
                                             }
                                             &:hover, &.active {
                                                 background-color: #2c343e;
                                                 color: var(--daxaColor);
-                
+
                                                 &::after {
                                                     background-color: var(--daxaColor);
                                                 }
@@ -525,7 +527,7 @@
                             &:has(> .mat-expansion-panel-content > .mat-expansion-panel-body > .sidebar-sub-menu > .sidemenu-item > .sidemenu-link.active) {
                                 .mat-expansion-panel-header {
                                     color: var(--daxaColor);
-    
+
                                     .mat-content {
                                         .mat-expansion-panel-header-title, .mat-expansion-panel-header-description {
                                             color: var(--daxaColor);
@@ -541,7 +543,7 @@
                         }
                         .sidebar-menu-link {
                             color: var(--whiteColor);
-                            
+
                             &:hover, &.active {
                                 color: var(--daxaColor);
                             }
@@ -574,7 +576,7 @@
         &.rtl-enabled {
             left: auto;
             right: 0;
-            
+
             .logo {
                 a {
                     span {
@@ -656,7 +658,7 @@
                                 }
                                 .sidebar-sub-menu {
                                     padding-right: 0;
-                                    
+
                                     .sidemenu-item {
                                         .sidemenu-link {
                                             padding: {
@@ -706,7 +708,7 @@
         .sidebar-area {
             width: 250px;
             left: -100%;
-            
+
             .logo {
                 padding: 20px;
             }
@@ -726,7 +728,7 @@
                         font-size: 13px;
                         padding-left: 18px;
                         margin-bottom: 16px;
-    
+
                         &::before {
                             width: 10px;
                         }
@@ -734,7 +736,7 @@
                     .mat-accordion {
                         .mat-expansion-panel {
                             margin-bottom: 23px;
-                
+
                             .mat-expansion-panel-header {
                                 font-size: 14px;
                                 padding: {
@@ -754,7 +756,7 @@
                             }
                             .mat-expansion-panel-body {
                                 padding: 12px 0 0;
-                
+
                                 .mat-expansion-panel-header {
                                     font-size: 13px;
                                     padding: {
@@ -897,7 +899,7 @@
                 &.right-sidebar {
                     left: -100%;
                     right: auto;
-    
+
                     &.active, &.hide-sidebar {
                         left: 0;
                     }
@@ -940,7 +942,7 @@
                 &.right-sidebar {
                     left: -100%;
                     right: 0;
-    
+
                     &.active, &.hide-sidebar {
                         left: 0;
                     }
@@ -980,7 +982,7 @@
                 &.right-sidebar {
                     left: -100%;
                     right: 0;
-    
+
                     &.active, &.hide-sidebar {
                         left: 0;
                     }
@@ -997,12 +999,12 @@
 
 /* Min width 1200px */
 @media (min-width: 1200px) {
-    
+
     ::ng-deep {
         .sidebar-area {
             &.active, &.hide-sidebar {
                 width: 60px;
-    
+
                 .logo {
                     padding: {
                         left: 12px;
@@ -1032,12 +1034,12 @@
                     .mat-accordion {
                         .mat-expansion-panel {
                             margin-bottom: 5px;
-                
+
                             .mat-expansion-panel-header {
                                 padding: 0;
                                 width: 36px;
                                 height: 36px;
-    
+
                                 i {
                                     left: 0;
                                     right: 0;
@@ -1062,7 +1064,7 @@
                             width: 36px;
                             height: 36px;
                             margin-bottom: 5px;
-    
+
                             i {
                                 left: 0;
                                 right: 0;
@@ -1076,7 +1078,7 @@
                 }
                 &:hover {
                     width: 260px;
-    
+
                     .logo {
                         padding: {
                             left: 25px;
@@ -1106,7 +1108,7 @@
                         .mat-accordion {
                             .mat-expansion-panel {
                                 margin-bottom: 27px;
-                    
+
                                 .mat-expansion-panel-header {
                                     width: auto;
                                     height: auto;
@@ -1220,7 +1222,7 @@
 
             &.active, &.hide-sidebar {
                 width: 60px;
-    
+
                 &:hover {
                     width: 240px;
                 }

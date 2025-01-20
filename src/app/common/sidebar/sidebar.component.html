@@ -26,34 +26,81 @@
                     </div> -->
                     <a routerLink="/exames" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
-                            home
+                            dashboard
                         </i>
                         <span class="title">
-                            Home
+                            Dashboard
+                        </span>
+                    </a>
+                    <a routerLink="/exames" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                        <i class="material-symbols-outlined">
+                            clinical_notes
+                        </i>
+                        <span class="title">
+                            Estudos
                         </span>
                     </a>
                     <a routerLink="/worklist" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
-                            list_alt
+                            overview
                         </i>
                         <span class="title">
                             Worklist
                         </span>
                     </a>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="material-symbols-outlined">
+                                    dns
+                                </i>
+                                <span class="title">
+                                    Painel de Controle
+                                </span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/usuario/config" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Configurações
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Cadastros
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/usuario/config" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Objetos DICOM
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Hosts
+                                </a>
+                            </li>
+                            <li class="sidemenu-item">
+                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Instalação
+                                </a>
+                            </li>
+                        </ul>
+                    </mat-expansion-panel>
                     <a routerLink="/cadastro" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
-                            app_registration
+                            domain
                         </i>
                         <span class="title">
-                            Cadastro
+                            Instituições
                         </span>
                     </a>
                     <a routerLink="/painel-controle" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
-                            settings
+                            analytics
                         </i>
                         <span class="title">
-                            Painel de Controle
+                            Relatórios
                         </span>
                     </a>
                     <a routerLink="/directprint" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
