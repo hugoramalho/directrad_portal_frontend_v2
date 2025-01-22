@@ -18,7 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { Estudo } from '../../exame/exame';
 import {MatDialog} from "@angular/material/dialog";
-import {AddAetitleComponent} from "../../painel-controle/aetitles/criar-aetitle/add-aetitle.component";
+import {AddAetitleComponent} from "../_aetitles/criar-aetitle/add-aetitle.component";
 
 
 @Component({

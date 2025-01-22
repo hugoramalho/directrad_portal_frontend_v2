@@ -18,7 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
 import { CadastroUsuarioComponent } from './usuarios/usuario.component';
 import { CadastroPacsComponent } from './pacs/pacs.component';
-import { CadastroAetitleComponent } from './aetitles/aetitle.component';
+import { CadastroAetitleComponent } from '../painel-controle/aetitles/aetitle.component';
 import { CadastroAcessoSshComponent } from './ssh/ssh.component';
 import { CadastroRotinaComponent } from './rotinas/rotina.component';
 
@@ -26,15 +26,15 @@ import { CadastroRotinaComponent } from './rotinas/rotina.component';
     selector: 'app-cadastro',
     standalone: true,
     imports: [
-        CadastroRotinaComponent, 
-        CadastroAcessoSshComponent, 
-        CadastroAetitleComponent, 
-        CadastroPacsComponent, 
-        CadastroUsuarioComponent, 
-        RouterLink, 
-        MatCardModule, 
-        MatTabsModule, 
-        DatePipe, 
+        CadastroRotinaComponent,
+        CadastroAcessoSshComponent,
+        CadastroAetitleComponent,
+        CadastroPacsComponent,
+        CadastroUsuarioComponent,
+        RouterLink,
+        MatCardModule,
+        MatTabsModule,
+        DatePipe,
         MatFormFieldModule
     ],
     templateUrl: './cadastro.component.html',
