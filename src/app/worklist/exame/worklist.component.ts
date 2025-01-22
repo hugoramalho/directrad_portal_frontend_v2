@@ -13,19 +13,18 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-import {CustomizerSettingsService} from '../customizer-settings/customizer-settings.service';
-import {EstudoRepository} from './exame.service';
-import {Estudo} from './exame';
+import {CustomizerSettingsService} from '../../customizer-settings/customizer-settings.service';
+import {WorklistService} from './worklist.service';
+import {Estudo} from './worklist';
 import {MenuEstudosComponent} from './menu/options-menu.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
-import {DateFormatPipe} from '../@shared/pipe/date-pipe';
+import {DateFormatPipe} from '../../@shared/pipe/date-pipe';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {DcmQueryParams} from "../@shared/dcm/query-params";
+import {DcmQueryParams} from "../../@shared/dcm/query-params";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {dateValidator} from "../@shared/date.validator";
-import {EditarEstudoModalComponent} from "./edicao/edicao-estudo.component";
-
+import {dateValidator} from "../../@shared/date.validator";
+import {EditarWorklistModalComponent} from "./edicao/edicao-worklist.component";
 
 @Component({
     selector: 'app-to-do-list',
@@ -52,10 +51,10 @@ import {EditarEstudoModalComponent} from "./edicao/edicao-estudo.component";
         MatProgressSpinner,
         FormsModule,
     ],
-    templateUrl: './exame.component.html',
-    styleUrl: './exame.component.scss'
+    templateUrl: './worklist.component.html',
+    styleUrl: './worklist.component.scss'
 })
-export class ExamesComponent {
+export class WorklistComponent {
 
     displayedColumns: string[] = ['select', 'paciente', 'dataNascimento', 'dataExame', 'modalidade', 'study', 'action'];
     dataSource = new MatTableDataSource<Estudo>([]);
@@ -91,7 +90,7 @@ export class ExamesComponent {
 
     constructor(
         public themeService: CustomizerSettingsService,
-        private estudoRepository: EstudoRepository,
+        private estudoRepository: WorklistService,
         // private menuContexto: MenuContextoEstudosComponent,
         private dialog: MatDialog,
         private formBuilder: FormBuilder,

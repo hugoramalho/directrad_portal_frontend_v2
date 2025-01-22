@@ -31,14 +31,14 @@ import {ApiResponse} from '../@shared/model/api-response';
 import {ApiResponsePaginated} from '../@shared/model/api-response-paginated';
 import {catchError, map} from "rxjs/operators";
 import {PaginatedList} from '../@shared/model/paginated-list';
-import {Estudo} from './exame';
+import {Estudo} from './worklist';
 import {DcmQueryParams} from '../@shared/dcm/query-params';
 import {TagDicom} from "./tag-dicom";
 
 @Injectable({
     providedIn: 'root',
 })
-export class EstudoRepository {
+export class WorklistService {
 
     private apiUrl = `${environment.apiBaseUrl}/estudos`;
 
