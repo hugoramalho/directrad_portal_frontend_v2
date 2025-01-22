@@ -37,8 +37,8 @@
 // @Component({
 //     standalone: true,
 //     selector: 'app-edit-estudo-modal',
-//     templateUrl: './edicao-estudo.component.html',
-//     styleUrls: ['./edicao-estudo.component.scss'],
+//     templateUrl: './edicao-worklist.component.html',
+//     styleUrls: ['./edicao-worklist.component.scss'],
 //     imports: [
 //         MatTable,
 //         MatDialogContent,

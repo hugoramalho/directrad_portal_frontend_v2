@@ -192,10 +192,11 @@ import {ExtratoComponent} from "./financeiro/extrato/extrato.component";
 import {FinanceiroCadastroMenuComponent} from "./financeiro/cadastro/menu/financeiro-cadastro-menu.component";
 import {FinanceiroCadastroContaComponent} from "./financeiro/cadastro/conta/contas.component";
 import {FinanceiroCacheResolver} from "./financeiro/cache.resolver";
-import { CadastroComponent } from './cadastro/cadastro.component';
+import { CadastroComponent } from './painel-controle/cadastro/cadastro.component';
 import { PainelControleComponent } from './painel-controle/painel-controle.component';
 import {SuporteUsuarioComponent} from "./usuario/suporte/suporte-usuario.component";
 import {UsuarioComponent} from "./usuario/usuario.component";
+import {WorklistComponent} from "./worklist/exame/worklist.component";
 
 export const routes: Routes = [
     {
@@ -219,15 +220,16 @@ export const routes: Routes = [
 
 
     //
-    {path: '', component: ExamesComponent},
+    {path: '', component: EcommerceComponent},
     {path: 'crm', component: CrmComponent},
     {path: 'project-management', component: ProjectManagementComponent},
     {path: 'lms', component: LmsComponent},
     {path: 'help-desk', component: HelpDeskComponent},
     {path: 'exames', component: ExamesComponent},
+    {path: 'worklist', component: WorklistComponent},
     {path: 'cadastro', component: CadastroComponent},
     {path: 'painel-controle', component: PainelControleComponent},
-    {path: 'painel-controle', component: PainelControleComponent},
+    {path: 'dashboard', component: EcommerceComponent},
 
     {path: 'calendar', component: CalendarComponent},
     {path: 'contacts', component: ContactsComponent},

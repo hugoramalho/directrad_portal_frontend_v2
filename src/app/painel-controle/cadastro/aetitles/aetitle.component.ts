@@ -15,10 +15,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
-import { Estudo } from '../../exame/exame';
+import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
+import { Estudo } from '../../../exame/exame';
 import {MatDialog} from "@angular/material/dialog";
-import {AddAetitleComponent} from "../_aetitles/criar-aetitle/add-aetitle.component";
+import {AddAetitleComponent} from "../../_aetitles/criar-aetitle/add-aetitle.component";
 
 
 @Component({

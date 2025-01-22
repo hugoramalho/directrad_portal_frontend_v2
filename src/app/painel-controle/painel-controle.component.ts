@@ -16,7 +16,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
 import {SshTerminalComponent} from "./instalacao/instalacao.component";
-import {CadastroAetitleComponent} from "../cadastro/aetitles/aetitle.component";
+import {CadastroAetitleComponent} from "./cadastro/aetitles/aetitle.component";
 
 
 @Component({
