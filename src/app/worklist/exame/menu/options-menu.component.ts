@@ -72,8 +72,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {CommonModule} from '@angular/common';
 import {MatButton} from "@angular/material/button";
-import {EstudoRepository} from "../exame.service";
-import {Estudo} from "../exame";
+import {WorklistService} from "../worklist.service";
+import {Estudo} from "../worklist";
 import {
     MatCell,
     MatCellDef,
@@ -118,7 +118,7 @@ export class MenuEstudosComponent {
 
     constructor(
         public dialogRef: MatDialogRef<MenuEstudosComponent>,
-        private estudoRepository: EstudoRepository,
+        private estudoRepository: WorklistService,
         @Inject(MAT_DIALOG_DATA) public data: { uid: string }
     ) {
         // this.themeService.isToggled$.subscribe(isToggled => {

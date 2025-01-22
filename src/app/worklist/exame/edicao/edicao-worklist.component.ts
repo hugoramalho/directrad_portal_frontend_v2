@@ -51,7 +51,7 @@ import {
     MatDialogActions,
     MatDialogTitle
 } from '@angular/material/dialog';
-import {EstudoRepository} from "../worklist.service";
+import {WorklistService} from "../worklist.service";
 import {
     MatCell,
     MatCellDef,
@@ -70,21 +70,21 @@ import {TagDicom} from "../tag-dicom";
 import {Estudo} from "../worklist";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatTooltip} from "@angular/material/tooltip";
-import {CustomizerSettingsService} from "../../customizer-settings/customizer-settings.service";
-import {DataInputComponent} from "../../@shared/component/date-input/date-input.component";
-import {GenderSelectComponent} from "../../@shared/component/gender-select/gender-select.component";
-import {TrueFalseSelectComponent} from "../../@shared/component/bool-select/bool-select.component";
+import {CustomizerSettingsService} from "../../../customizer-settings/customizer-settings.service";
+import {DataInputComponent} from "../../../@shared/component/date-input/date-input.component";
+import {GenderSelectComponent} from "../../../@shared/component/gender-select/gender-select.component";
+import {TrueFalseSelectComponent} from "../../../@shared/component/bool-select/bool-select.component";
 import {
     StudyModalitySelectComponent
-} from "../../@shared/component/study-modality-select/study-modality-select.component";
-import {UnityMeasureInputComponent} from "../../@shared/component/unity-measure-input/unity-measure-input.component";
-import {PhoneInputComponent} from "../../@shared/component/phone-number-input/phone-number-input.component";
+} from "../../../@shared/component/study-modality-select/study-modality-select.component";
+import {UnityMeasureInputComponent} from "../../../@shared/component/unity-measure-input/unity-measure-input.component";
+import {PhoneInputComponent} from "../../../@shared/component/phone-number-input/phone-number-input.component";
 
 @Component({
     standalone: true,
     selector: 'app-edit-estudo-modal',
-    templateUrl: './edicao-estudo.component.html',
-    styleUrls: ['./edicao-estudo.component.scss'],
+    templateUrl: './edicao-worklist.component.html',
+    styleUrls: ['./edicao-worklist.component.scss'],
     imports: [
         MatTable,
         MatDialogContent,
@@ -117,7 +117,7 @@ import {PhoneInputComponent} from "../../@shared/component/phone-number-input/ph
         MatDialogTitle
     ]
 })
-export class EditarEstudoModalComponent {
+export class EditarWorklistModalComponent {
     displayedColumns: string[] = ['tag', 'name', 'value', 'actions'];
     estudoTags: any[] = [];
     isModified: boolean = false;
@@ -272,7 +272,7 @@ export class EditarEstudoModalComponent {
         @Inject(MAT_DIALOG_DATA) public data: { uid: string },
         public dialogRef: MatDialogRef<EditarEstudoModalComponent>,
         public themeService: CustomizerSettingsService,
-        private estudoService: EstudoRepository,
+        private estudoService: WorklistService,
         private formBuilder: FormBuilder,
     ) {
     }
