@@ -1,5 +1,5 @@
 {
-    "name": "daxa",
+    "name": "directrad_portal_frontend_v2",
     "version": "1.1.0",
     "scripts": {
         "ng": "ng",
@@ -7,7 +7,7 @@
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
-        "serve:ssr:daxa": "node dist/daxa/server/server.mjs"
+        "serve:ssr:daxa": "node dist/server/server.mjs"
     },
     "private": true,
     "dependencies": {
