@@ -1,13 +1,13 @@
 {
     "/api/v2": {
-        "target": "http://localhost:8000", 
-        "secure": false,                   
-        "changeOrigin": true,          
-        "logLevel": "debug",   
-        "pathRewrite": {                  
+        "target": "http://localhost:8000",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": {
         "^/api/v2": "/api/v2"
-        },      
-        "headers": {                        
+        },
+        "headers": {
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
           "Access-Control-Allow-Headers": "Content-Type, Authorization"
