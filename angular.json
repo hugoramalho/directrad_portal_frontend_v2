@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "daxa": {
+        "directrad_portal_frontend_v2": {
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -17,7 +17,7 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/daxa",
+                        "outputPath": "dist/directrad_portal_v2_frontend",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
                         "polyfills": [
@@ -44,6 +44,12 @@
                     },
                     "configurations": {
                         "production": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environments.prod.ts"
+                                }
+                            ],
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -70,10 +76,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "buildTarget": "daxa:build:production"
+                            "buildTarget": "directrad_portal_frontend_v2:build:production"
                         },
                         "development": {
-                            "buildTarget": "daxa:build:development"
+                            "buildTarget": "directrad_portal_frontend_v2:build:development"
                         }
                     },
                     "options": {
@@ -84,7 +90,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "buildTarget": "daxa:build"
+                        "buildTarget": "directrad_portal_frontend_v2:build"
                     }
                 },
                 "test": {
