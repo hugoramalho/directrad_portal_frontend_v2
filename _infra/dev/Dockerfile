@@ -1,5 +1,47 @@
-FROM node:18-alpine
+#FROM node:18-alpine
+#
+#WORKDIR /usr/src/app
+#EXPOSE 4200
+#CMD ["npm", "run", "start"]
+#
+##cd /caminho/para/meu-projeto-angular
+##docker build -f infra/prod/Dockerfile -t meu_app_prod .
 
-WORKDIR /usr/src/app
-EXPOSE 4200
-CMD ["npm", "run", "start"]
+
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################
+
+
+# ===========================
+#  Etapa 1: Build Angular (Dev config)
+# ===========================
+FROM node:18-alpine AS build
+
+WORKDIR /app
+
+# Instalar dependências
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+# Compilar Angular usando config de desenvolvimento
+RUN npm run build -- --configuration=development
+# ou: RUN ng build --configuration development
+
+# ===========================
+#  Etapa 2: Servir com Nginx
+# ===========================
+FROM nginx:alpine
+
+# Copiar os arquivos compilados
+COPY --from=build /app/dist/directrad_portal_v2_frontend /usr/share/nginx/html
+
+# Copiar arquivo Nginx específico do ambiente dev
+COPY _infra/dev/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

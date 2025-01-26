@@ -1,27 +1,34 @@
+# ===========================
+#  Etapa 1: Build Angular
+# ===========================
 FROM node:18-alpine AS build
+
 WORKDIR /app
+
+# Copia dependências primeiro
 COPY package*.json ./
+RUN npm ci  # Instala todas as deps (incluindo devDependencies) para compilar Angular
 
-# Instalar apenas as dependências necessárias para produção
-RUN npm ci --only=production
-
-# Instalar o Angular CLI localmente
-RUN npm install -g @angular/cli
-
+# Copia o restante do código-fonte
 COPY . .
 
-# Construir o projeto Angular para produção
-RUN ng build --configuration production
+# Build de produção do Angular
+RUN npm run build -- --configuration production
+# ou: RUN ng build --configuration production
 
-# Etapa 2: Servir o aplicativo com Nginx
+# ===========================
+#  Etapa 2: Servir no Nginx
+# ===========================
 FROM nginx:alpine
 
-# Copiar os arquivos de build do Angular para o diretório padrão do Nginx
-COPY --from=build /app/dist/[nome-do-seu-app] /usr/share/nginx/html
+# Copia o build do Angular da Etapa 1 para a pasta padrão do Nginx
+COPY --from=build /app/dist/directrad_portal_v2_frontend /usr/share/nginx/html
 
-# Expor a porta 80
+# Copia o arquivo de rotas/config do Nginx para a pasta de configs
+COPY _infra/prod/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+
+# Expor a porta 80 no contêiner
 EXPOSE 80
 
-# Iniciar o Nginx
+# Executa o Nginx
 CMD ["nginx", "-g", "daemon off;"]
-
