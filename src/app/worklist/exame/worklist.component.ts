@@ -309,7 +309,7 @@ export class WorklistComponent {
     }
 
     menuEstudos(uid: string) {
-        const dialogRef = this.dialog.open(EditarEstudoModalComponent, {
+        const dialogRef = this.dialog.open(EditarWorklistModalComponent, {
             data: {uid}
         });
         dialogRef.afterClosed().subscribe(result => {

@@ -26,13 +26,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpClientModule, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {environment} from '../../environments/environment';
-import {ApiResponse} from '../@shared/model/api-response';
-import {ApiResponsePaginated} from '../@shared/model/api-response-paginated';
+import {environment} from '../../../environments/environment';
+import {ApiResponse} from '../../@shared/model/api-response';
+import {ApiResponsePaginated} from '../../@shared/model/api-response-paginated';
 import {catchError, map} from "rxjs/operators";
-import {PaginatedList} from '../@shared/model/paginated-list';
+import {PaginatedList} from '../../@shared/model/paginated-list';
 import {Estudo} from './worklist';
-import {DcmQueryParams} from '../@shared/dcm/query-params';
+import {DcmQueryParams} from '../../@shared/dcm/query-params';
 import {TagDicom} from "./tag-dicom";
 
 @Injectable({

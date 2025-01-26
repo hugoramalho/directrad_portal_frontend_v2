@@ -5,6 +5,16 @@
  **/
 
 export const environment = {
-  production: true,
-  apiUrl: 'http://localhost:8000'
+    production: true,
+    apiUrl: 'https://homolog.portal.directrad.com.br',
+    firebaseConfig: {
+        apiKey: "sua-api-key",
+        authDomain: "seu-auth-domain",
+        projectId: "seu-project-id",
+        storageBucket: "seu-storage-bucket",
+        messagingSenderId: "seu-messaging-sender-id",
+        appId: "seu-app-id"
+    }
 };
+
+

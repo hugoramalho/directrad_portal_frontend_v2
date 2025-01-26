@@ -270,7 +270,7 @@ export class EditarWorklistModalComponent {
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: { uid: string },
-        public dialogRef: MatDialogRef<EditarEstudoModalComponent>,
+        public dialogRef: MatDialogRef<EditarWorklistModalComponent>,
         public themeService: CustomizerSettingsService,
         private estudoService: WorklistService,
         private formBuilder: FormBuilder,
