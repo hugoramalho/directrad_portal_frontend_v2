@@ -1,0 +1,10 @@
+node_modules/
+dist/
+tmp/
+.env
+*.log
+proxy.conf.json
+.idea
+README.md
+.gitignore
+.editorconfig

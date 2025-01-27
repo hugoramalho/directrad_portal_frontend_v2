@@ -220,7 +220,7 @@ export const routes: Routes = [
 
 
     //
-    {path: '', component: EcommerceComponent},
+    {path: '', component: ExamesComponent},
     {path: 'crm', component: CrmComponent},
     {path: 'project-management', component: ProjectManagementComponent},
     {path: 'lms', component: LmsComponent},

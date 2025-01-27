@@ -3,14 +3,14 @@
 # ===========================
 FROM node:18-alpine AS build
 
-WORKDIR /app
+WORKDIR /var/www
 
 # Copia dependências primeiro
 COPY package*.json ./
 RUN npm ci  # Instala todas as deps (incluindo devDependencies) para compilar Angular
 
 # Copia o restante do código-fonte
-COPY . .
+COPY ../../ .
 
 # Build de produção do Angular
 RUN npm run build -- --configuration production
@@ -22,7 +22,7 @@ RUN npm run build -- --configuration production
 FROM nginx:alpine
 
 # Copia o build do Angular da Etapa 1 para a pasta padrão do Nginx
-COPY --from=build /app/dist/directrad_portal_v2_frontend /usr/share/nginx/html
+COPY --from=build /var/www/dist/directrad_portal_v2_frontend /usr/share/nginx/html
 
 # Copia o arquivo de rotas/config do Nginx para a pasta de configs
 COPY _infra/prod/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
