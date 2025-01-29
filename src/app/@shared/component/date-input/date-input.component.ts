@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, Output } from '@angular/core';
+import {Component, ElementRef, EventEmitter, forwardRef, Input, Output, Renderer2, ViewChild} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -27,12 +27,17 @@ export class DataInputComponent implements ControlValueAccessor {
     @Input() disabled: boolean = false;
     @Input() initialValue: string | null = null;
 
+    @ViewChild('picker') picker: any;
+    @ViewChild('inputElement') inputElement!: ElementRef;
+
     private _value: Date | undefined = undefined;
     displayValue: string = ''; // Valor formatado para exibição no input
 
     // Callbacks para ControlValueAccessor
     onChange = (value: Date | undefined) => {};
     onTouched = () => {};
+
+    constructor(private renderer: Renderer2) {}
 
     // Propriedade de entrada e saída de valor
     get value(): Date | undefined {
@@ -123,6 +128,16 @@ export class DataInputComponent implements ControlValueAccessor {
             const [year, month, day] = value.split('-').map(Number);
             this.value = new Date(year, month - 1, day);
         }
+    }
+
+    openCalendar(event: any) {
+        const inputElement = this.inputElement.nativeElement;
+        const rect = inputElement.getBoundingClientRect(); // Pega a posição do input na tela
+
+        // Aqui estamos utilizando o `Renderer2` para modificar o estilo do picker
+        this.renderer.setStyle(this.picker._datepickerRef._overlayRef.overlayElement, 'top', `${rect.bottom + window.scrollY}px`);
+        this.renderer.setStyle(this.picker._datepickerRef._overlayRef.overlayElement, 'left', `${rect.left + window.scrollX}px`);
+        this.picker.open(); // Abre o calendário
     }
 
     private formatDateToDisplay(date: Date | undefined): string {
