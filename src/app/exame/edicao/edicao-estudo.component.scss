@@ -2,44 +2,60 @@
 .spacer {
     flex: 1 1 auto;
 }
-
-mat-dialog-content{
+.mat-mdc-dialog-surface {
+    max-height: 80vh; /* Limita a altura do modal */
+    overflow: hidden !important; /* Remove o scroll pai */
+    display: flex;
+    flex-direction: column; /* Garante layout adequado */
+}
+.mat-dialog-container{
     min-width: 320px;
 
-    .mat-table {
-        width: 100%;
-    }
+    .mat-dialog-content {
+        overflow: hidden !important;
+        max-height: 70vh !important;
+        .table-container {
+            flex: 1; /* Ocupa o espaço restante */
+            overflow-y: auto; /* Habilita scroll vertical para a tabela */
+            .mat-table {
+                width: 100%;
+            }
 
-    .mat-header-row,
-    .mat-row {
-        display: flex;
-    }
+            .mat-header-row,
+            .mat-row {
+                display: flex;
+            }
 
-    .mat-cell,
-    .mat-header-cell {
-        flex: 1;
-        text-align: left;
-    }
-
-    .mat-icon-button {
-        margin-left: 8px;
-    }
-
-    .loading-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-        min-height: 200px;
-    }
-
-    .mat-column-value,
-    .mat-column-actions {
-        text-align: right;
-        input{
-            width: 30rem;
+            .mat-cell,
+            .mat-header-cell {
+                flex: 1;
+                text-align: left;
+            }
         }
+
+
+
+        .mat-icon-button {
+            margin-left: 8px;
+        }
+
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            min-height: 200px;
+        }
+
+        .mat-column-value,
+        .mat-column-actions {
+            text-align: right;
+            input{
+                width: 30rem;
+            }
+        }
+
     }
 
 
