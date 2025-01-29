@@ -102,7 +102,7 @@ import { PProjectsComponent } from './pages/profile-page/p-projects/p-projects.c
 import { IconsComponent } from './icons/icons.component';
 import { MaterialSymbolsComponent } from './icons/material-symbols/material-symbols.component';
 import { RemixiconComponent } from './icons/remixicon/remixicon.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
+import { AuthenticationComponent } from './auth/authentication.component';
 import { SignInComponent } from './authentication/sign-in/sign-in.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
@@ -228,7 +228,16 @@ export const routes: Routes = [
     {path: 'exames', component: ExamesComponent},
     {path: 'worklist', component: WorklistComponent},
     {path: 'cadastro', component: CadastroComponent},
-    {path: 'painel-controle', component: PainelControleComponent},
+    {
+        path: 'painel-controle',
+        component: PainelControleComponent,
+        children: [
+            {path: '', component: PainelControleComponent},
+            // {path: 'suporte', component: SuporteUsuarioComponent},
+            // {path: 'config', component: AccountSettingsComponent}
+        ]
+    },
+
     {path: 'dashboard', component: EcommerceComponent},
 
     {path: 'calendar', component: CalendarComponent},
