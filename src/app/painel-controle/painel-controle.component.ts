@@ -17,6 +17,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
 import {SshTerminalComponent} from "./instalacao/instalacao.component";
 import {CadastroAetitleComponent} from "./cadastro/aetitles/aetitle.component";
+import {CadastroPacsComponent} from "./pacs/pacs.component";
+import {CadastroRotinaComponent} from "./rotinas/rotina.component";
+import {CadastroAcessoSshComponent} from "./ssh/ssh.component";
 
 
 @Component({
@@ -30,7 +33,10 @@ import {CadastroAetitleComponent} from "./cadastro/aetitles/aetitle.component";
         MatFormFieldModule,
         SshTerminalComponent,
         NgIf,
-        CadastroAetitleComponent
+        CadastroAetitleComponent,
+        CadastroPacsComponent,
+        CadastroRotinaComponent,
+        CadastroAcessoSshComponent
     ],
     templateUrl: './painel-controle.component.html',
     styleUrl: './painel-controle.component.scss'
