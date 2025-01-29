@@ -311,7 +311,8 @@ export class ExamesComponent {
 
     menuEstudos(uid: string) {
         const dialogRef = this.dialog.open(EditarEstudoModalComponent, {
-            data: {uid}
+            data: {uid},
+            maxHeight: '70vh'
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {

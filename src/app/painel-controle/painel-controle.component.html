@@ -38,18 +38,24 @@
     [dynamicHeight]="true"
     animationDuration="0ms"
     [disableRipple]="true">
+    <mat-tab label="Pacs">
+        <app-cadastro-pacs></app-cadastro-pacs>
+    </mat-tab>
     <mat-tab label="Aetitles">
         <app-cadastro-aetitle></app-cadastro-aetitle>
     </mat-tab>
-    <mat-tab label="Associações DICOM">
-
+    <mat-tab label="Usuários">
+        <app-cadastro-ssh></app-cadastro-ssh>
     </mat-tab>
-    <mat-tab label="Tarefas de exportação">
+    <mat-tab label="Associações DICOM"></mat-tab>
 
+    <mat-tab label="Tarefas de exportação"></mat-tab>
+    <mat-tab label="Worklist reverso">
+        <app-cadastro-rotina></app-cadastro-rotina>
     </mat-tab>
-    <mat-tab label="Configurações PACS">
 
-    </mat-tab>
+    <mat-tab label="Configurações PACS"></mat-tab>
+
     <mat-tab label="Instalaçao">
         <div *ngIf="isTerminalActive">
             <app-ssh-terminal></app-ssh-terminal>
