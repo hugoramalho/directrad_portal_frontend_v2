@@ -182,6 +182,7 @@ export class EditarEstudoModalComponent {
     dicomEditableTagMap: Record<string, string> = {
         PregnancyStatus: '001021C0',
         SmokingStatus: '001021A0',
+        AccessionNumber: "00080050",
         StudyDate: "00080020",
         StudyModality: "00080061",
         StudyDescription: "00081030",
