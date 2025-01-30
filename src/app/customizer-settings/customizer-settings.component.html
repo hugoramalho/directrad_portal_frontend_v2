@@ -3,8 +3,7 @@
     [ngClass]="{'active': isToggled}"
     class="settings-sidebar bg-white box-shadow"
     [class.component-dark-theme]="themeService.isDark()"
-    [class.component-rtl-enabled]="themeService.isRTLEnabled()"
->
+    [class.component-rtl-enabled]="themeService.isRTLEnabled()">
     <div class="settings-header bg-gray d-flex align-items-center justify-content-between">
         <div>
             <h5 class="m-0">
@@ -123,12 +122,11 @@
 </div>
 
 <!-- Settings Button -->
-<button
-    mat-fab
-    (click)="toggle()"
-    class="daxa settings-btn"
-    [ngClass]="{'active': isToggled}"
-    [class.component-rtl-enabled]="themeService.isRTLEnabled()"
->
-    <mat-icon>settings</mat-icon>
-</button>
+<!--<button-->
+<!--    mat-fab-->
+<!--    (click)="toggle()"-->
+<!--    class="daxa settings-btn"-->
+<!--    [ngClass]="{'active': isToggled}"-->
+<!--    [class.component-rtl-enabled]="themeService.isRTLEnabled()">-->
+<!--    <mat-icon>settings</mat-icon>-->
+<!--</button>-->
