@@ -17,7 +17,7 @@ export class AuthService
 {
     static readonly AUTH_TOKEN_KEY: string = "auth_token";
     static readonly USER_ID_KEY: string = "user_id";
-    private loginUrl = `${environment.apiBaseUrl}/cliente/login`;
+    private loginUrl = `${environment.apiBaseUrl}/idp/auth/portal`;
     private tokenKey = 'auth_token';
     private userKey = 'user_id';
 
@@ -40,7 +40,7 @@ export class AuthService
             this.loginUrl,
             {
                 'username': username,
-                'senha': password
+                'password': password
             },
             {
                 headers: new HttpHeaders(
@@ -50,17 +50,16 @@ export class AuthService
                         'X-Client-App': 'PORTAL_PACS'
                     }
                 ),
-                withCredentials: true // Importante para o envio de cookies (como CSRF tokens)
+                // withCredentials: true // Importante para o envio de cookies (como CSRF tokens)
             }
         );
     }
 
-    handleAuthentication(data: any): boolean {
-        if (data.token) {
-            localStorage.setItem(this.tokenKey, data.token);
-            localStorage.setItem(this.userKey, data.usuario_id.toString());
+    handleAuthentication(response: any): boolean {
+        if (response.success) {
+            localStorage.setItem(this.tokenKey, response.data.jwt);
+            // localStorage.setItem(this.userKey, data.usuario_id.toString());
             return true;
-            // this.router.navigate(['/home']);
         }
         return false;
     }

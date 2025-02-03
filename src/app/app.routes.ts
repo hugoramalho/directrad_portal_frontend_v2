@@ -216,11 +216,6 @@ export const routes: Routes = [
             {path: 'media', component: MediaComponent}
         ]
     },
-
-
-
-
-    //
     {path: '', component: ExamesComponent},
     {path: 'crm', component: CrmComponent},
     {path: 'project-management', component: ProjectManagementComponent},
@@ -238,9 +233,7 @@ export const routes: Routes = [
             // {path: 'config', component: AccountSettingsComponent}
         ]
     },
-
     {path: 'dashboard', component: EcommerceComponent},
-
     {path: 'calendar', component: CalendarComponent},
     {path: 'contacts', component: ContactsComponent},
     {path: 'chat', component: ChatComponent},
@@ -424,7 +417,7 @@ export const routes: Routes = [
         path: 'authentication',
         component: AuthenticationComponent,
         children: [
-            {path: '', component: LoginComponent},
+            {path: '', component: SignInComponent},
             {path: 'sign-up', component: SignUpComponent},
             {path: 'forgot-password', component: ForgotPasswordComponent},
             {path: 'reset-password', component: ResetPasswordComponent},
