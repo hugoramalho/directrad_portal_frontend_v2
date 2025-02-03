@@ -80,42 +80,6 @@
                     transform: translateY(-50%);
                 }
             }
-            .socials {
-                margin-top: 15px;
-
-                .mat-mdc-button {
-                    padding: 0;
-                    width: 30px;
-                    height: 30px;
-                    min-width: auto;
-                    border-radius: 50%;
-                    display: inline-block;
-                    color: var(--whiteColor);
-                    background-color: var(--daxaColor);
-                    margin: {
-                        left: 5px;
-                        right: 5px;
-                    };
-                    &:first-child {
-                        margin-left: 0;
-                    }
-                    &:last-child {
-                        margin-right: 0;
-                    }
-                    &.facebook {
-                        background-color: #3a559f;
-                    }
-                    &.twitter {
-                        background-color: rgba(15, 20, 25, 1);
-                    }
-                    &.google {
-                        background-color: #e02f2f;
-                    }
-                    &.linkedin {
-                        background-color: #007ab9;
-                    }
-                }
-            }
         }
     }
     &.card-borderd-theme {
