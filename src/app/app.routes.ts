@@ -197,6 +197,7 @@ import { PainelControleComponent } from './painel-controle/painel-controle.compo
 import {SuporteUsuarioComponent} from "./usuario/suporte/suporte-usuario.component";
 import {UsuarioComponent} from "./usuario/usuario.component";
 import {WorklistComponent} from "./worklist/exame/worklist.component";
+import {LoginComponent} from "./auth/login/login.component";
 
 export const routes: Routes = [
     {
@@ -423,7 +424,7 @@ export const routes: Routes = [
         path: 'authentication',
         component: AuthenticationComponent,
         children: [
-            {path: '', component: SignInComponent},
+            {path: '', component: LoginComponent},
             {path: 'sign-up', component: SignUpComponent},
             {path: 'forgot-password', component: ForgotPasswordComponent},
             {path: 'reset-password', component: ResetPasswordComponent},
