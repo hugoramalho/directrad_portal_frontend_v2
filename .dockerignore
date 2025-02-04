@@ -1,9 +1,9 @@
 node_modules/
+_infra
 dist/
 tmp/
 .env
 *.log
-proxy.conf.json
 .idea
 README.md
 .gitignore
