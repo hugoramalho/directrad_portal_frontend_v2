@@ -3,7 +3,7 @@ services:
     container_name: portal_frontend_v2
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.old
     ports:
       - "4200:4200"
     volumes:
