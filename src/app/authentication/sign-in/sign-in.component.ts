@@ -52,12 +52,9 @@ export class SignInComponent {
                     error: (error) => {
                         this.snackBar.open('Erro no login', 'Fechar', {
                             duration: 4000, // tempo em milissegundos para fechar automaticamente
-                            horizontalPosition: 'right', // 'start' | 'center' | 'end' | 'left' | 'right'
-                            verticalPosition: 'bottom',      // 'top' | 'bottom'
-                            panelClass: ['success-snackbar'] // Classe CSS personalizada
 
                         });
-                        console.error('Erro no login', error);
+                        console.error('Erro no logdasdasdsain', error);
                     }
                 });
         } else {

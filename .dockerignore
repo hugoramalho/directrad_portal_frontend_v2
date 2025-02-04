@@ -1,5 +1,4 @@
 node_modules/
-_infra
 dist/
 tmp/
 .env
