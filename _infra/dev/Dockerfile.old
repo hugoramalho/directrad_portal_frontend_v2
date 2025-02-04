@@ -6,7 +6,7 @@ FROM node:18-alpine AS build
 WORKDIR /srv/app
 
 # Instalar dependências
-COPY package*.json ./
+COPY ../../package*.json ./
 RUN npm ci
 
 COPY ../../ .
