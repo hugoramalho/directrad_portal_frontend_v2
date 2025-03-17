@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {environment} from "../../../../environments/environment";
-import {ApiResponse} from "../../model/api-response";
+import {ApiResponseInterface} from "../../model/http/api-response-interface";
 import {Categoria} from "../../model/financeiro/categoria";
 import {Conta} from "../../model/financeiro/conta";
 import {AppCache} from "../../../@core/cache/app.cache";
@@ -21,7 +21,7 @@ import {an} from "@fullcalendar/core/internal-common";
     providedIn: 'root'
 })
 export class CategoriaFinanceiroDataSource {
-    private apiBaseUrl = `${environment.apiBaseUrl}/financeiro/categorias`;
+    private apiBaseUrl = `${environment.api_v1_base_url}/financeiro/categorias`;
 
     private categoriasCache= new BehaviorSubject<Conta[]>([]);
 
@@ -47,25 +47,25 @@ export class CategoriaFinanceiroDataSource {
     }
 
     getCategorias(): Observable<Categoria[]|null|undefined> {
-        return this.http.get<ApiResponse<Categoria[]>>(`${this.apiBaseUrl}`)
+        return this.http.get<ApiResponseInterface<Categoria[]>>(`${this.apiBaseUrl}`)
             .pipe(map(response => response.data || null));
     }
 
     // Adiciona uma nova categoria
     createCategoria(categoria: Categoria): Observable<Categoria|null|undefined> {
-        return this.http.post<ApiResponse<Categoria>>(this.apiBaseUrl, categoria)
+        return this.http.post<ApiResponseInterface<Categoria>>(this.apiBaseUrl, categoria)
             .pipe(map(response => response.data || null));
     }
 
     // Atualiza uma categoria existente
     updateCategoria(categoria: Categoria): Observable<Categoria|null|undefined> {
-        return this.http.put<ApiResponse<Categoria>>(`${this.apiBaseUrl}/${categoria.id}`, categoria)
+        return this.http.put<ApiResponseInterface<Categoria>>(`${this.apiBaseUrl}/${categoria.id}`, categoria)
             .pipe(map(response => response.data));
     }
 
     // Exclui uma categoria pelo ID
     deleteCategoria(id: number): Observable<Categoria|null|undefined> {
-        return this.http.delete<ApiResponse<|null|undefined>>(`${this.apiBaseUrl}/${id}`)
+        return this.http.delete<ApiResponseInterface<|null|undefined>>(`${this.apiBaseUrl}/${id}`)
             .pipe(map(response => response.data));
     }
 

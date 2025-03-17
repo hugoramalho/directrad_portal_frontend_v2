@@ -14,7 +14,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
-import { AuthService } from "../../@core/auth/auth.service";
+import { AuthService } from "../../@shared/service/auth/auth.service";
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -47,39 +47,30 @@ export class LoginComponent {
 
     hide = true;
     authForm: FormGroup;
-    onSubmit() {
-        // this.snackBar.dismiss();
-        this.snackBar.open('Falha na autenticação', 'Fechar', {
-            duration: 500,
-            horizontalPosition: 'right',
-            verticalPosition: 'bottom',
-            panelClass: ['success-snackbar'] // Classe CSS personalizada
-
-        }).afterDismissed().subscribe(() => {
-            console.log('Snackbar fechado automaticamente.');
-        });;
+    onSubmit(): void {
         if (this.authForm.valid) {
-            this.authService.login(this.authForm.get('username')?.value, this.authForm.get('password')?.value)
-                .subscribe({
-                    next: (response) => {
-                        if (this.authService.handleAuthentication(response)) {
-                            // Redireciona para "/estudos" após login bem-sucedido
-                            this.router.navigate(['/estudos']);
-                        }
-                    },
-                    error: (error) => {
-                        this.snackBar.open('Operação realizada com sucesso!', 'Fechar', {
-                            duration: 3000, // tempo em milissegundos para fechar automaticamente
-                            horizontalPosition: 'center', // 'start' | 'center' | 'end' | 'left' | 'right'
-                            verticalPosition: 'top',      // 'top' | 'bottom'
-                            panelClass: ['success-snackbar'] // Classe CSS personalizada
-
-                        });
-                        console.error('Erro no login', error);
-                    }
-                });
-        } else {
-            console.log('Formulário inválido. Verifique os campos.');
+            this.authService.login(
+                this.authForm.value.username,
+                this.authForm.value.password
+            ).subscribe({
+                next: () => {
+                    this.snackBar.open('Login realizado com sucesso!', 'Fechar', {
+                        duration: 3000,
+                        horizontalPosition: 'center',
+                        verticalPosition: 'top',
+                        panelClass: ['success-snackbar']
+                    });
+                    // this.router.navigate(['/home']);
+                },
+                error: () => {
+                    this.snackBar.open('Falha na autenticação!', 'Fechar', {
+                        duration: 3000,
+                        horizontalPosition: 'center',
+                        verticalPosition: 'top',
+                        panelClass: ['error-snackbar']
+                    });
+                }
+            });
         }
     }
 

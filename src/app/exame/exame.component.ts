@@ -1,5 +1,5 @@
 import {NgIf} from '@angular/common';
-import {Component} from '@angular/core';
+import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
@@ -13,9 +13,10 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatPaginator, MatPaginatorModule, PageEvent} from "@angular/material/paginator";
 import {CustomizerSettingsService} from '../customizer-settings/customizer-settings.service';
-import {EstudoRepository} from './exame.service';
-import {Estudo} from './exame';
+import {EstudoService} from '../@shared/service/estudo/exame.service';
+import {Estudo} from '../@shared/model/estudo/exame';
 import {MenuEstudosComponent} from './menu/options-menu.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
@@ -25,6 +26,12 @@ import {DcmQueryParams} from "../@shared/dcm/query-params";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {dateValidator} from "../@shared/date.validator";
 import {EditarEstudoModalComponent} from "./edicao/edicao-estudo.component";
+import {PaginatedListInterface} from "../@shared/model/http/paginated-list-interface";
+import {PaginatedList} from "../@shared/model/http/paginated-list";
+import {tap} from "rxjs/operators";
+import {PacsService} from "../@shared/service/pacs/pacs.service";
+import {Pacs} from "../@shared/model/pacs/pacs";
+import {UserService} from "../@shared/service/usuario/user.service";
 
 
 @Component({
@@ -51,6 +58,7 @@ import {EditarEstudoModalComponent} from "./edicao/edicao-estudo.component";
         ReactiveFormsModule,
         MatProgressSpinner,
         FormsModule,
+        MatPaginatorModule
     ],
     templateUrl: './exame.component.html',
     styleUrl: './exame.component.scss'
@@ -60,9 +68,12 @@ export class ExamesComponent {
     displayedColumns: string[] = ['select', 'paciente', 'dataNascimento', 'dataExame', 'modalidade', 'study', 'action'];
     dataSource = new MatTableDataSource<Estudo>([]);
     selection = new SelectionModel<Estudo>(true, []);
-    isToggled = false;
-    isLoading = true;
-    selectedDateRange: string = 'since-start';
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+
+    isToggled: boolean = false;
+    isLoading: boolean = true;
+    currentLength: number = 0;
+    selectedDateRange: string = 'last7Days';
     dateRangeOptions = [
         {value: 'since-start', label: 'Qualquer período'},
         {value: 'today', label: 'Hoje'},
@@ -73,28 +84,30 @@ export class ExamesComponent {
         {value: 'range', label: 'Intervalo'},
     ];
     studyModalities = [
-        {value: "US", name: "Ultrassom (US)" },
-        {value: "CT", name: "Tomografia Computadorizada (CT)" },
-        {value: "MR", name: "Ressonância magnética (MR)" },
-        {value: "DR, DX", name: "Raio X (DR|DX)" },
-        {value: "MG", name: "Mamografia (MG)" },
-        {value: "PT", name: "PET Scan (PT)" },
-        {value: "NM", name: "Medicina nuclear (MN)" },
-        {value: "XA", name: "Angiografia (XA)" },
-        {value: "RF", name: "Fluoroscopia (RF)" },
-        {value: "BMD", name: "Densitometria óssea (BMD)" },
-        {value: "NM", name: "Cintilografia (NM)" },
+        {value: "US", name: "Ultrassom (US)"},
+        {value: "CT", name: "Tomografia Computadorizada (CT)"},
+        {value: "MR", name: "Ressonância magnética (MR)"},
+        {value: "DR, DX", name: "Raio X (DR|DX)"},
+        {value: "MG", name: "Mamografia (MG)"},
+        {value: "PT", name: "PET Scan (PT)"},
+        {value: "NM", name: "Medicina nuclear (MN)"},
+        {value: "XA", name: "Angiografia (XA)"},
+        {value: "RF", name: "Fluoroscopia (RF)"},
+        {value: "BMD", name: "Densitometria óssea (BMD)"},
+        {value: "NM", name: "Cintilografia (NM)"},
     ];
     searchForm: FormGroup;
     classApplied = false;
-
-
+    pacsMap = new Map<string, Pacs>();
+    pacsArray: Pacs[];
     constructor(
         public themeService: CustomizerSettingsService,
-        private estudoRepository: EstudoRepository,
+        private estudoService: EstudoService,
         // private menuContexto: MenuContextoEstudosComponent,
         private dialog: MatDialog,
         private formBuilder: FormBuilder,
+        private pacsService: PacsService,
+        private userService: UserService
     ) {
     }
 
@@ -102,20 +115,43 @@ export class ExamesComponent {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
-        this.searchForm = this.formBuilder.group({
-            STUDY_DATE: [null], // Campo único que armazenará a data no formato Ymd ou o intervalo
-            STUDY_INSTANCE_UID: [''],
-            MODALITIES_IN_STUDY: [''],
-            PATIENT_NAME: [''],
-            PATIENT_ID: [''],
-            PATIENT_BIRTH_DATE: [null],
-            dateOption: ['any'], // Valor inicial do select
-            specificDate: [null], // Campo auxiliar para "Data específica"
-            rangeStart: [null],   // Campo auxiliar para início do intervalo
-            rangeEnd: [null], // Campo auxiliar para fim do intervalo
+        this.pacsService.get().subscribe((pacsArray: Pacs[]) => {
+            this.pacsArray = pacsArray;
+            this.pacsMap = new Map(pacsArray.map(pacs => [pacs.id, pacs]));
         });
-        this.loadExames();
+        // Definir "Últimos 7 dias" como opção inicial
+        this.selectedDateRange = 'last7Days';
+
+        // Data de hoje e de 7 dias atrás
+        const today = new Date();
+        const last7Days = new Date(today);
+        last7Days.setDate(today.getDate() - 7);
+
+        // Formatar para "YYYYMMDD-YYYYMMDD"
+        const studyDateRange = `${this.formatDateToYmd(last7Days)}-${this.formatDateToYmd(today)}`;
+
+        // Inicializar o formulário com os filtros corretos
+        this.searchForm = this.formBuilder.group({
+            study_date: [studyDateRange], // Define a data inicial no formato correto
+            study_uid: [''],
+            modalities_in_study: [''],
+            patient_name: [''],
+            patient_id: [''],
+            patient_birth_date: [null],
+            dateOption: [this.selectedDateRange], // Define a opção inicial como 'last7Days'
+            specificDate: [null],
+            rangeStart: [last7Days], // Preenche os campos auxiliares para UI
+            rangeEnd: [today],
+            pacs_id: [this.userService.getUser()?.pacs_id]
+        });
+        // Carregar exames automaticamente com este filtro inicial
+        this.loadExames(1, this.paginator?.pageSize || 20);
     }
+
+
+    // listPacs() {
+    //     return this.pacsService.getPacs();
+    // }
 
 
     formatDateInput(event: Event): void {
@@ -138,7 +174,7 @@ export class ExamesComponent {
         // Verifica se o valor é uma data válida no formato DD/MM/YYYY
         const regex = /^\d{2}\/\d{2}\/\d{4}$/;
         if (!regex.test(value)) {
-            this.searchForm.get('PATIENT_BIRTH_DATE')?.setErrors({ invalidDate: true });
+            this.searchForm.get('patient_birth_date')?.setErrors({invalidDate: true});
             return;
         }
 
@@ -152,20 +188,19 @@ export class ExamesComponent {
             date.getMonth() + 1 !== month ||
             date.getDate() !== day
         ) {
-            this.searchForm.get('PATIENT_BIRTH_DATE')?.setErrors({ invalidDate: true });
+            this.searchForm.get('patient_birth_date')?.setErrors({invalidDate: true});
             return;
         }
 
         // Atualiza o FormControl com um objeto Date válido
         this.searchForm.patchValue({
-            PATIENT_BIRTH_DATE: date,
+            patient_birth_date: date,
         });
-        this.searchForm.get('PATIENT_BIRTH_DATE')?.setErrors(null);
+        this.searchForm.get('patient_birth_date')?.setErrors(null);
     }
 
-
     getSelectedValues(): string {
-        const selected = this.searchForm.get('MODALITIES_IN_STUDY')?.value;
+        const selected = this.searchForm.get('modalities_in_study')?.value;
         return selected ? selected.join(', ') : 'Modalidades';
     }
 
@@ -187,21 +222,80 @@ export class ExamesComponent {
         return `${year}${month}${day}`;
     }
 
-    private loadExames(): void {
-        this.estudoRepository.getEstudos().subscribe({
-            next: (exames: Estudo[]) => {
-                this.dataSource.data = exames; // Atualiza a tabela com os dados recebidos
+    private loadExames(page: number = 1, page_size: number = 20): void {
+        const filters = this.getSearchFilters();
+        this.estudoService.getEstudos(page, page_size, filters).subscribe({
+            next: (examesList: PaginatedList<Estudo[]>) => {
+                this.dataSource.data = examesList.items; // Atualiza a tabela com os dados recebidos
+                this.currentLength = examesList.total;
                 this.isLoading = false;
             },
             error: (error) => {
                 console.error('Erro ao carregar os exames:', error);
+                this.isLoading = false;
             }
         });
     }
 
+    private getSearchFilters(): Record<string, any> {
+        const filters = {...this.searchForm.value};
+        const today = new Date();
+
+        switch (filters.dateOption) {
+            case 'since-start':
+                filters.study_date = null;
+                break;
+            case 'today':
+                filters.study_date = this.formatDateToYmd(today);
+                break;
+            case 'yesterday':
+                const yesterday = new Date(today);
+                yesterday.setDate(today.getDate() - 1);
+                filters.study_date = this.formatDateToYmd(yesterday);
+                break;
+            case 'last7Days':
+                const last7Days = new Date(today);
+                last7Days.setDate(today.getDate() - 7);
+                filters.study_date = this.formatDateToYmd(last7Days);
+                break;
+            case 'last30Days':
+                const last30Days = new Date(today);
+                last30Days.setDate(today.getDate() - 30);
+                filters.study_date = this.formatDateToYmd(last30Days);
+                break;
+            case 'specificDate':
+                filters.study_date = filters.specificDate
+                    ? this.formatDateToYmd(filters.specificDate)
+                    : null;
+                break;
+            case 'range':
+                const start = filters.rangeStart
+                    ? this.formatDateToYmd(filters.rangeStart)
+                    : null;
+                const end = filters.rangeEnd
+                    ? this.formatDateToYmd(filters.rangeEnd)
+                    : null;
+                filters.study_date = start && end ? `${start}-${end}` : null;
+                break;
+        }
+
+        if (filters.patient_birth_date) {
+            filters.patient_birth_date = this.formatDateToYmd(filters.patient_birth_date);
+        }
+
+        // Removendo campos auxiliares desnecessários antes de enviar os filtros
+        delete filters.specificDate;
+        delete filters.rangeStart;
+        delete filters.rangeEnd;
+        delete filters.dateOption;
+
+        return filters;
+    }
+
+
     public onSearch(): void {
         this.isLoading = true;
-        const filters = { ...this.searchForm.value };
+        const filters = {...this.searchForm.value};
         const today = new Date();
         // Converte a data para o formato desejado
         switch (filters.dateOption) {
@@ -242,17 +336,17 @@ export class ExamesComponent {
                 break;
         }
 
-        if (filters.PATIENT_BIRTH_DATE) {
-            filters.PATIENT_BIRTH_DATE = this.formatDateToYmd(filters.PATIENT_BIRTH_DATE);
+        if (filters.patient_birth_date) {
+            filters.patient_birth_date = this.formatDateToYmd(filters.patient_birth_date);
         }
         // Remove campos auxiliares para enviar apenas o necessário
         delete filters.specificDate;
         delete filters.rangeStart;
         delete filters.rangeEnd;
         delete filters.dateOption;
-        this.estudoRepository.getEstudos(1, 10, filters).subscribe({
-            next: (exames: Estudo[]) => {
-                this.dataSource.data = exames;
+        this.estudoService.getEstudos(1, 10, filters).subscribe({
+            next: (examesList: PaginatedList<Estudo[]>) => {
+                this.dataSource.data = examesList.items;
                 this.isLoading = false;
             },
             error: (error) => {
@@ -292,6 +386,9 @@ export class ExamesComponent {
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
+    onPageChange(event: PageEvent) {
+        this.loadExames(event.pageIndex + 1, event.pageSize); // pageIndex começa em 0, então somamos 1
+    }
 
     toggleClass() {
         this.classApplied = !this.classApplied;
@@ -321,8 +418,6 @@ export class ExamesComponent {
             }
         });
     }
-
-    // isToggled
 
 
     // RTL Mode

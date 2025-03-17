@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {environment} from "../../../../environments/environment";
-import {ApiResponse} from "../../model/api-response";
+import {ApiResponseInterface} from "../../model/http/api-response-interface";
 import {Conta} from "../../model/financeiro/conta";
 import {Categoria} from "../../model/financeiro/categoria";
 import {AppCache} from "../../../@core/cache/app.cache";
@@ -21,9 +21,9 @@ import {an} from "@fullcalendar/core/internal-common";
     providedIn: 'root'
 })
 export class ContaFinanceiroDataSource {
-    private contasUrl = `${environment.apiBaseUrl}/financeiro/contas`;
+    private contasUrl = `${environment.api_v1_base_url}/financeiro/contas`;
     private contasCache = new BehaviorSubject<Conta[]>([]);
-    private apiUrl = `${environment.apiBaseUrl}/financeiro/contas`;
+    private apiUrl = `${environment.api_v1_base_url}/financeiro/contas`;
 
     constructor(
         private http: HttpClient,

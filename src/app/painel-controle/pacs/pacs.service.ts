@@ -28,10 +28,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpClientModule, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { ApiResponse } from '../../@shared/model/api-response';
-import { ApiResponsePaginated } from '../../@shared/model/api-response-paginated';
+import { ApiResponseInterface } from '../../@shared/model/http/api-response-interface';
+import { ApiResponsePaginated } from '../../@shared/model/http/api-response-paginated';
 import {catchError, map} from "rxjs/operators";
-import { PaginatedList } from '../../@shared/model/paginated-list';
+import { PaginatedListInterface } from '../../@shared/model/http/paginated-list-interface';
 import { Pacs } from './pacs';
 
 @Injectable({
@@ -39,12 +39,12 @@ import { Pacs } from './pacs';
 })
 export class EstudoRepository {
 
-    private apiUrl = `${environment.apiBaseUrl}/financeiro/lancamentos`;
+    private apiUrl = `${environment.api_v1_base_url}/financeiro/lancamentos`;
 
     constructor(private http: HttpClient) {
     }
 
-    getPacs(pacs: Pacs | null | undefined, page: number = 1, perPage: number = 10): Observable<PaginatedList<Pacs[]> | null>{
+    getPacs(pacs: Pacs | null | undefined, page: number = 1, perPage: number = 10): Observable<PaginatedListInterface<Pacs[]> | null>{
         if (pacs) {
             let params = new HttpParams()
                 .set('page', page)
@@ -52,7 +52,7 @@ export class EstudoRepository {
 
 
             const url = this.apiUrl + '/pacs/' + pacs.id;
-            return this.http.get<ApiResponse<PaginatedList<Pacs[]> | null>>(url, {params})
+            return this.http.get<ApiResponseInterface<PaginatedListInterface<Pacs[]> | null>>(url, {params})
                 .pipe(
                     map(response => {
                             return response.data || null
@@ -68,11 +68,11 @@ export class EstudoRepository {
     }
 
 
-    getLancamentos(page: number = 1, perPage: number = 10): Observable<PaginatedList<Pacs[]> | null> {
+    getLancamentos(page: number = 1, perPage: number = 10): Observable<PaginatedListInterface<Pacs[]> | null> {
         let params = new HttpParams()
             .set('page', page)
             .set('page_size', perPage);
-        return this.http.get<ApiResponse<PaginatedList<Pacs[]> | null>>(this.apiUrl, {params})
+        return this.http.get<ApiResponseInterface<PaginatedListInterface<Pacs[]> | null>>(this.apiUrl, {params})
             .pipe(map(response => response?.data || null));
     }
 

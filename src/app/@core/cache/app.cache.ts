@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, mapTo, Observable, of} from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import {ApiResponse} from "../../@shared/model/api-response";
+import {ApiResponseInterface} from "../../@shared/model/http/api-response-interface";
 import {AppResource} from "../../@shared/model/financeiro/app-resource";
 
 @Injectable({
@@ -59,7 +59,7 @@ export class AppCache {
     }
 
     public initiateResourceCache(uri: string): Observable<null> {
-        return this.http.get<ApiResponse<AppResource[]>>(uri).pipe(
+        return this.http.get<ApiResponseInterface<AppResource[]>>(uri).pipe(
             catchError(error => {
                 // Retornamos um Observable de um array vazio para continuar o fluxo no tap seguinte.
                 return of(null);
@@ -68,10 +68,10 @@ export class AppCache {
                 console.log('resources', resources)
                 if(resources?.data){
                     this.cache[uri] = new BehaviorSubject(resources.data);
-                    resources.data.forEach(resource => {
-                        const index = uri + `/${resource.id}`;
-                        this.cache[index] = new BehaviorSubject(resource);
-                    });
+                    // resources.data.forEach(resource => {
+                    //     const index = uri + `/${resource.id}`;
+                    //     this.cache[index] = new BehaviorSubject(resource);
+                    // });
                 }
             }),
             mapTo(null)  // Transforma a emissão em null, já que não precisamos retornar os dados.

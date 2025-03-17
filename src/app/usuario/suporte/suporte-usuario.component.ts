@@ -8,9 +8,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RouterLink } from '@angular/router';
 import {CustomizerSettingsService} from "../../customizer-settings/customizer-settings.service";
 import {HttpClient} from "@angular/common/http";
-import {MercureService} from "../../@core/external/mercure.service";
+import {MercureService} from "../../@shared/externals/mercure.service";
 import {first, forkJoin} from "rxjs";
 import {MatOption} from "@angular/material/autocomplete";
+
 
 @Component({
     selector: 'app-chat',

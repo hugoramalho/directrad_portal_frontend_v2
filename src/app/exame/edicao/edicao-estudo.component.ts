@@ -51,7 +51,7 @@ import {
     MatDialogActions,
     MatDialogTitle
 } from '@angular/material/dialog';
-import {EstudoRepository} from "../exame.service";
+import {EstudoService} from "../../@shared/service/estudo/exame.service";
 import {
     MatCell,
     MatCellDef,
@@ -66,8 +66,8 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {FormBuilder, FormGroup, FormsModule} from "@angular/forms";
-import {TagDicom} from "../tag-dicom";
-import {Estudo} from "../exame";
+import {TagDicom} from "../../@shared/model/estudo/tag-dicom";
+import {Estudo} from "../../@shared/model/estudo/exame";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {MatTooltip} from "@angular/material/tooltip";
 import {CustomizerSettingsService} from "../../customizer-settings/customizer-settings.service";
@@ -273,7 +273,7 @@ export class EditarEstudoModalComponent {
         @Inject(MAT_DIALOG_DATA) public data: { uid: string },
         public dialogRef: MatDialogRef<EditarEstudoModalComponent>,
         public themeService: CustomizerSettingsService,
-        private estudoService: EstudoRepository,
+        private estudoService: EstudoService,
         private formBuilder: FormBuilder,
     ) {
     }

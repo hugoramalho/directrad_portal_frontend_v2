@@ -27,10 +27,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpClientModule, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {ApiResponse} from '../../@shared/model/api-response';
-import {ApiResponsePaginated} from '../../@shared/model/api-response-paginated';
+import {ApiResponseInterface} from '../../@shared/model/http/api-response-interface';
+import {ApiResponsePaginated} from '../../@shared/model/http/api-response-paginated';
 import {catchError, map} from "rxjs/operators";
-import {PaginatedList} from '../../@shared/model/paginated-list';
+import {PaginatedListInterface} from '../../@shared/model/http/paginated-list-interface';
 import {Estudo} from './worklist';
 import {DcmQueryParams} from '../../@shared/dcm/query-params';
 import {TagDicom} from "./tag-dicom";
@@ -40,7 +40,7 @@ import {TagDicom} from "./tag-dicom";
 })
 export class WorklistService {
 
-    private apiUrl = `${environment.apiBaseUrl}/estudos`;
+    private apiUrl = `${environment.api_v1_base_url}/estudos`;
 
     constructor(private http: HttpClient) {
     }
@@ -94,7 +94,7 @@ export class WorklistService {
 
     public getEstudo(uid: string): Observable<Estudo[]> {
         let params = new HttpParams()
-            .set('STUDY_INSTANCE_UID', uid);
+            .set('study_uid', uid);
         return this.http.get<Estudo[]>(this.apiUrl, { params });
     }
 

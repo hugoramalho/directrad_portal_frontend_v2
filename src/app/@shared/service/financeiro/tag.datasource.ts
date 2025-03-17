@@ -10,7 +10,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {environment} from '../../../../environments/environment';
 import {Lancamento} from '../../model/financeiro/lancamento';
-import {ApiResponse} from '../../model/api-response';
+import {ApiResponseInterface} from '../../model/http/api-response-interface';
 import {Tag} from '../../model/financeiro/tag';
 import {Categoria} from "../../model/financeiro/categoria";
 import {map} from "rxjs/operators";
@@ -20,7 +20,7 @@ import {map} from "rxjs/operators";
 })
 export class TagDatasource {
 
-    private apiUrl = `${environment.apiBaseUrl}/financeiro/tags`;
+    private apiUrl = `${environment.api_v1_base_url}/financeiro/tags`;
 
     constructor(private http: HttpClient) {
     }
@@ -29,7 +29,7 @@ export class TagDatasource {
         if (!tags_id) {
             return of(null);
         }
-        return this.http.post<ApiResponse<Tag[] | null | undefined>>(this.apiUrl + '/ids', {'ids': tags_id})
+        return this.http.post<ApiResponseInterface<Tag[] | null | undefined>>(this.apiUrl + '/ids', {'ids': tags_id})
             .pipe(map(response => response.data || null));
     }
 
@@ -38,7 +38,7 @@ export class TagDatasource {
         if (!id) {
             return of(null);
         }
-        return this.http.get<ApiResponse<Tag>>(`${this.apiUrl}/${id}`)
+        return this.http.get<ApiResponseInterface<Tag>>(`${this.apiUrl}/${id}`)
             .pipe(map(response => response.data || null));
     }
 }

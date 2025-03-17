@@ -16,7 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CustomizerSettingsService } from '../../../customizer-settings/customizer-settings.service';
-import { Estudo } from '../../../exame/exame';
+import { Estudo } from '../../../@shared/model/estudo/exame';
 import {MatDialog} from "@angular/material/dialog";
 import {AddAetitleComponent} from "../../aetitles/criar-aetitle/add-aetitle.component";
 

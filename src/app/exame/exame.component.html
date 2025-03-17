@@ -1,6 +1,6 @@
 <div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
     <h5 class="mb-0">
-        Exames ATESTES
+        Exames
     </h5>
     <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
         <li class="breadcrumb-item position-relative">
@@ -32,7 +32,7 @@
                             <mat-label>
                                 Nome do paciente
                             </mat-label>
-                            <input formControlName="PATIENT_NAME" matInput>
+                            <input formControlName="patient_name" matInput>
                         </mat-form-field>
                     </div>
                 </div>
@@ -44,13 +44,13 @@
                                 matInput
                                 placeholder="dia/mês/ano"
                                 maxlength="10"
-                                formControlName="PATIENT_BIRTH_DATE"
+                                formControlName="patient_birth_date"
                                 [matDatepicker]="birthDatePicker"
                                 (input)="formatDateInput($event)"
                                 (blur)="validateAndSetDate($event)"/>
                             <mat-datepicker-toggle matIconSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
                             <mat-datepicker #birthDatePicker></mat-datepicker>
-                            <mat-error *ngIf="searchForm.get('PATIENT_BIRTH_DATE')?.hasError('invalidDate')">
+                            <mat-error *ngIf="searchForm.get('patient_birth_date')?.hasError('invalidDate')">
                                 Data inválida. Use o formato dia/mês/ano.
                             </mat-error>
                         </mat-form-field>
@@ -62,7 +62,7 @@
                             <mat-label>
                                 Registro do paciente
                             </mat-label>
-                            <input formControlName="PATIENT_ID" matInput>
+                            <input formControlName="patient_id" matInput>
                         </mat-form-field>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                             <mat-label>
                                 Modalidades
                             </mat-label>
-                            <mat-select  formControlName="MODALITIES_IN_STUDY" multiple>
+                            <mat-select  formControlName="modalities_in_study">
                                 <mat-select-trigger>
                                     {{ getSelectedValues() }}
                                 </mat-select-trigger>
@@ -89,9 +89,25 @@
                     <div class="mb-25">
                         <mat-form-field>
                             <mat-label>
+                                Pacs
+                            </mat-label>
+                            <mat-select  formControlName="pacs_id">
+                                @for (pacs of pacsArray; track pacs) {
+                                    <mat-option [value]="pacs.id">
+                                        {{pacs.identificacao}}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
                                 Uid do exame
                             </mat-label>
-                            <input  formControlName="STUDY_INSTANCE_UID" matInput>
+                            <input  formControlName="study_uid" matInput>
                         </mat-form-field>
                     </div>
                 </div>
@@ -120,7 +136,6 @@
                                 <mat-datepicker #specificDatePicker></mat-datepicker>
                             </mat-form-field>
                         </div>
-
                         <div *ngIf="selectedDateRange === 'range'">
                             <mat-form-field>
                                 <mat-label>Escolha ou digite um intervalo</mat-label>
@@ -154,12 +169,14 @@
 <mat-card
     class="daxa-card to-do-list-card mb-25 border-radius bg-white border-none d-block"
     [class.rtl-enabled]="themeService.isRTLEnabled()">
+
     <mat-card-content>
-        <div class="to-do-list-table table-responsive">
-            <div class="loading-container" *ngIf="isLoading; else estudosTableTemplate">
-                <mat-spinner></mat-spinner>
-            </div>
-            <ng-template #estudosTableTemplate>
+        <div class="studies-table">
+            <div class="to-do-list-table table-responsive">
+                <div class="loading-container" *ngIf="isLoading; else estudosTableTemplate">
+                    <mat-spinner></mat-spinner>
+                </div>
+                <ng-template #estudosTableTemplate>
                     <table mat-table [dataSource]="dataSource">
                         <ng-container matColumnDef="select">
                             <th mat-header-cell *matHeaderCellDef>
@@ -285,6 +302,14 @@
 
                     </table>
                 </ng-template>
+            </div>
+            <mat-paginator
+                [length]="currentLength"
+                [pageSize]="20"
+                [pageSizeOptions]="[20,50]"
+                (page)="onPageChange($event)"
+                showFirstLastButtons>
+            </mat-paginator>
         </div>
     </mat-card-content>
 </mat-card>

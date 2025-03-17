@@ -103,11 +103,11 @@ export class WorklistComponent {
         });
         this.searchForm = this.formBuilder.group({
             STUDY_DATE: [null], // Campo único que armazenará a data no formato Ymd ou o intervalo
-            STUDY_INSTANCE_UID: [''],
-            MODALITIES_IN_STUDY: [''],
-            PATIENT_NAME: [''],
-            PATIENT_ID: [''],
-            PATIENT_BIRTH_DATE: [null],
+            study_uid: [''],
+            modalities_in_study: [''],
+            patient_name: [''],
+            patient_id: [''],
+            patient_birth_date: [null],
             dateOption: ['any'], // Valor inicial do select
             specificDate: [null], // Campo auxiliar para "Data específica"
             rangeStart: [null],   // Campo auxiliar para início do intervalo
@@ -137,7 +137,7 @@ export class WorklistComponent {
         // Verifica se o valor é uma data válida no formato DD/MM/YYYY
         const regex = /^\d{2}\/\d{2}\/\d{4}$/;
         if (!regex.test(value)) {
-            this.searchForm.get('PATIENT_BIRTH_DATE')?.setErrors({ invalidDate: true });
+            this.searchForm.get('patient_birth_date')?.setErrors({ invalidDate: true });
             return;
         }
 
@@ -151,20 +151,20 @@ export class WorklistComponent {
             date.getMonth() + 1 !== month ||
             date.getDate() !== day
         ) {
-            this.searchForm.get('PATIENT_BIRTH_DATE')?.setErrors({ invalidDate: true });
+            this.searchForm.get('patient_birth_date')?.setErrors({ invalidDate: true });
             return;
         }
 
         // Atualiza o FormControl com um objeto Date válido
         this.searchForm.patchValue({
-            PATIENT_BIRTH_DATE: date,
+            patient_birth_date: date,
         });
-        this.searchForm.get('PATIENT_BIRTH_DATE')?.setErrors(null);
+        this.searchForm.get('patient_birth_date')?.setErrors(null);
     }
 
 
     getSelectedValues(): string {
-        const selected = this.searchForm.get('MODALITIES_IN_STUDY')?.value;
+        const selected = this.searchForm.get('modalities_in_study')?.value;
         return selected ? selected.join(', ') : 'Modalidades';
     }
 
@@ -241,8 +241,8 @@ export class WorklistComponent {
                 break;
         }
 
-        if (filters.PATIENT_BIRTH_DATE) {
-            filters.PATIENT_BIRTH_DATE = this.formatDateToYmd(filters.PATIENT_BIRTH_DATE);
+        if (filters.patient_birth_date) {
+            filters.patient_birth_date = this.formatDateToYmd(filters.patient_birth_date);
         }
         // Remove campos auxiliares para enviar apenas o necessário
         delete filters.specificDate;

@@ -32,7 +32,7 @@
                             <mat-label>
                                 Nome do paciente
                             </mat-label>
-                            <input formControlName="PATIENT_NAME" matInput>
+                            <input formControlName="patient_name" matInput>
                         </mat-form-field>
                     </div>
                 </div>
@@ -44,13 +44,13 @@
                                 matInput
                                 placeholder="dia/mês/ano"
                                 maxlength="10"
-                                formControlName="PATIENT_BIRTH_DATE"
+                                formControlName="patient_birth_date"
                                 [matDatepicker]="birthDatePicker"
                                 (input)="formatDateInput($event)"
                                 (blur)="validateAndSetDate($event)"/>
                             <mat-datepicker-toggle matIconSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
                             <mat-datepicker #birthDatePicker></mat-datepicker>
-                            <mat-error *ngIf="searchForm.get('PATIENT_BIRTH_DATE')?.hasError('invalidDate')">
+                            <mat-error *ngIf="searchForm.get('patient_birth_date')?.hasError('invalidDate')">
                                 Data inválida. Use o formato dia/mês/ano.
                             </mat-error>
                         </mat-form-field>
@@ -62,7 +62,7 @@
                             <mat-label>
                                 Registro do paciente
                             </mat-label>
-                            <input formControlName="PATIENT_ID" matInput>
+                            <input formControlName="patient_id" matInput>
                         </mat-form-field>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                             <mat-label>
                                 Modalidades
                             </mat-label>
-                            <mat-select  formControlName="MODALITIES_IN_STUDY" multiple>
+                            <mat-select  formControlName="modalities_in_study" multiple>
                                 <mat-select-trigger>
                                     {{ getSelectedValues() }}
                                 </mat-select-trigger>
@@ -91,7 +91,7 @@
                             <mat-label>
                                 Uid do exame
                             </mat-label>
-                            <input  formControlName="STUDY_INSTANCE_UID" matInput>
+                            <input  formControlName="study_uid" matInput>
                         </mat-form-field>
                     </div>
                 </div>

@@ -7,6 +7,7 @@
                     left: -20px;
                     right: -20px;
                 };
+
                 .to-do-list-table {
                     .mat-mdc-table {
                         .mat-mdc-row {
@@ -16,6 +17,7 @@
                                 background-color: rgba(0, 0, 0, 0.04) !important;
                             }
                         }
+
                         .mat-mdc-header-cell {
 
 
@@ -27,6 +29,7 @@
                                 padding-right: 0;
                             }
                         }
+
                         .mat-mdc-cell {
                             padding: {
                                 top: 21.5px;
@@ -41,6 +44,7 @@
                                 padding-right: 0;
                             }
                         }
+
                         .daxa-badge {
                             color: var(--daxaColor);
                             background: rgba(15, 121, 243, 0.10);
@@ -62,6 +66,7 @@
                         }
                     }
                 }
+
                 .add-new-task-btn {
                     padding: {
                         top: 20px;
@@ -83,38 +88,45 @@
                         }
                     }
                 }
+
                 .loading-container {
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     height: 200px; /* Altura ajustável */
                 }
+
                 .mat-spinner {
                     width: 50px;
                     height: 50px;
                 }
+
                 .action-info {
                     i {
                         font-size: var(--iconButtonSize);
                     }
                 }
             }
+
             &.rtl-enabled {
                 .mat-mdc-card-content {
                     .to-do-list-table {
                         .mat-mdc-table {
                             .mat-mdc-row {
                                 transition: background-color 0.3s ease !important;
+
                                 &:hover {
                                     .mat-mdc-cell {
                                         background-color: rgba(0, 0, 0, 0.04) !important;
                                     }
                                 }
                             }
+
                             .mat-mdc-header-cell {
                                 &:last-child {
                                     text-align: left;
                                 }
+
                                 &:first-child {
                                     padding: {
                                         right: 20px;
@@ -122,10 +134,12 @@
                                     };
                                 }
                             }
+
                             .mat-mdc-cell {
                                 &:last-child {
                                     text-align: left;
                                 }
+
                                 &:first-child {
                                     padding: {
                                         right: 20px;
@@ -141,11 +155,29 @@
     }
 }
 
+::ng-deep {
+
+}
+
 // Add New Task Popup
 ::ng-deep {
+    .mat-mdc-card {
+        &.daxa-card {
+            .studies-table {
+                .mat-mdc-paginator {
+                    padding: {
+                        top: 15px;
+                        left: 20px;
+                        right: 20px;
+                    };
+                }
+            }
+        }
+    }
     .mat-mdc-table {
         .mat-mdc-row {
             transition: background-color 0.2s ease !important;
+
             &:hover {
                 .mat-mdc-cell {
                     background-color: rgba(0, 0, 0, 0.05) !important;
@@ -154,15 +186,18 @@
             }
         }
     }
+
     .dark-theme {
-        .mat-mdc-select-panel{
+        .mat-mdc-select-panel {
             background-color: red !important;
-            mat-option{
-                &:hover{
+
+            mat-option {
+                &:hover {
                     background-color: blue !important;
                 }
             }
         }
+
         .mat-mdc-table {
             .mat-mdc-row {
                 &:hover {
@@ -173,6 +208,7 @@
             }
         }
     }
+
     .add-new-task-popup {
         top: 0;
         left: 0;
@@ -188,6 +224,7 @@
             x: hidden;
             y: auto;
         };
+
         .popup-dialog {
             display: flex;
             transition: .3s;
@@ -260,9 +297,11 @@
                 }
             }
         }
+
         &.active {
             opacity: 1;
             visibility: visible;
+
             .popup-dialog {
                 transform: none;
             }

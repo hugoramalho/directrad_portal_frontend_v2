@@ -10,10 +10,10 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, forkJoin, Observable, of} from 'rxjs';
 import {catchError, map, switchMap, tap} from 'rxjs/operators';
 import {environment} from "../../../../environments/environment";
-import {ApiResponse} from "../../model/api-response";
-import {ApiResponsePaginated} from "../../model/api-response-paginated";
+import {ApiResponseInterface} from "../../model/http/api-response-interface";
+import {ApiResponsePaginated} from "../../model/http/api-response-paginated";
 import {Lancamento} from "../../model/financeiro/lancamento";
-import {PaginatedList} from "../../model/paginated-list";
+import {PaginatedListInterface} from "../../model/http/paginated-list-interface";
 import {CategoriaFinanceiroDataSource} from "./categoria.datasource";
 import {TagDatasource} from "./tag.datasource";
 import {ContaFinanceiroDataSource} from "./conta.datasource";
@@ -26,7 +26,7 @@ import {AppCache} from "../../../@core/cache/app.cache";
     providedIn: 'root'
 })
 export class LancamentoFinanceiroDataSource {
-    private apiUrl = `${environment.apiBaseUrl}/financeiro/lancamentos`;
+    private apiUrl = `${environment.api_v1_base_url}/financeiro/lancamentos`;
 
     private lancamentosCache = new BehaviorSubject<Conta[]>([]);
     private lancamentosContaCache = new BehaviorSubject<Conta[]>([]);
@@ -52,14 +52,14 @@ export class LancamentoFinanceiroDataSource {
     //     return this.lancamentosCache.asObservable();
     // }
 
-    getLancamentosConta(conta: Conta | null, page: number = 1, perPage: number = 10, expand: boolean = false): Observable<PaginatedList<Lancamento[]> | null | void> {
+    getLancamentosConta(conta: Conta | null, page: number = 1, perPage: number = 10, expand: boolean = false): Observable<PaginatedListInterface<Lancamento[]> | null | void> {
         if(!conta){
             return of(null);
         }
         console.log('contaa', conta);
         const url = `${this.apiUrl}/contas/${conta.id}?page=${page}&per_page=${perPage}`;
 
-        return this.http.get<ApiResponse<PaginatedList<Lancamento[]>>>(url)
+        return this.http.get<ApiResponseInterface<PaginatedListInterface<Lancamento[]>>>(url)
             .pipe(
                 map(response => response.data || null),  // Extrai PaginatedList<Lancamento[]> diretamente
                 switchMap(paginatedList => {

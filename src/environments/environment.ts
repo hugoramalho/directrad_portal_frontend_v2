@@ -10,8 +10,9 @@
 
 export const environment = {
     production: false,
-    apiBaseUrl: 'http://localhost:8060/api/v2',
-    baseUrl: 'http://localhost:8060',
+    api_v1_base_url: 'http://localhost:8080/api/v1',
+    api_v2_base_url: 'http://localhost:8060/api/v2',
+    baseUrl: 'http://localhost:8080',
     firebaseConfig: {
         apiKey: "sua-api-key",
         authDomain: "seu-auth-domain",

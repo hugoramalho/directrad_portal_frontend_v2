@@ -94,7 +94,7 @@ export class EstudoRepository {
 
     public getEstudo(uid: string): Observable<Estudo[]> {
         let params = new HttpParams()
-            .set('STUDY_INSTANCE_UID', uid);
+            .set('study_uid', uid);
         return this.http.get<Estudo[]>(this.apiUrl, { params });
     }
 

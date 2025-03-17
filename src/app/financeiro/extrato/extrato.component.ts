@@ -26,7 +26,7 @@ import {CustomizerSettingsService} from "../../customizer-settings/customizer-se
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {NgIf} from "@angular/common";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {PaginatedList} from "../../@shared/model/paginated-list";
+import {PaginatedListInterface} from "../../@shared/model/http/paginated-list-interface";
 import {LancamentoFinanceiroDataSource} from "../../@shared/service/financeiro/lancamento.datasource";
 import {ContaFinanceiroDataSource} from "../../@shared/service/financeiro/conta.datasource";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";

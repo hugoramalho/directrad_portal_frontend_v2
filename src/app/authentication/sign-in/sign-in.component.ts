@@ -8,7 +8,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 import {CustomizerSettingsService} from '../../customizer-settings/customizer-settings.service';
-import {AuthService} from "../../@core/auth/auth.service";
+import {AuthService} from "../../@shared/service/auth/auth.service";
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
@@ -39,26 +39,30 @@ export class SignInComponent {
 
     hide = true;
     authForm: FormGroup;
-
-    onSubmit() {
+    onSubmit(): void {
         if (this.authForm.valid) {
-            this.authService.login(this.authForm.get('username')?.value, this.authForm.get('password')?.value)
-                .subscribe({
-                    next: (response) => {
-                        if (this.authService.handleAuthentication(response)) {
-                            this.router.navigate(['']);
-                        }
-                    },
-                    error: (error) => {
-                        this.snackBar.open('Erro no login', 'Fechar', {
-                            duration: 4000, // tempo em milissegundos para fechar automaticamente
-
-                        });
-                        console.error('Erro no logdasdasdsain', error);
-                    }
-                });
-        } else {
-            console.log('Formulário inválido. Verifique os campos.');
+            this.authService.login(
+                this.authForm.value.username,
+                this.authForm.value.password
+            ).subscribe({
+                next: () => {
+                    this.snackBar.open('Login realizado com sucesso!', 'Fechar', {
+                        duration: 4000,
+                        horizontalPosition: 'right',
+                        verticalPosition: 'bottom',
+                        panelClass: ['success-snackbar']
+                    });
+                    this.router.navigate(['/']);
+                },
+                error: () => {
+                    this.snackBar.open('Falha na autenticação!', 'Fechar', {
+                        duration: 4000,
+                        horizontalPosition: 'right',
+                        verticalPosition: 'bottom',
+                        panelClass: ['error-snackbar']
+                    });
+                }
+            });
         }
     }
 

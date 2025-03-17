@@ -9,6 +9,7 @@ import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import {AuthInterceptor} from "./@shared/interceptors/auth.interceptor";
 
 registerLocaleData(localePt);
 
@@ -34,6 +35,6 @@ export const appConfig: ApplicationConfig = {
         importProvidersFrom(HttpClientModule, MatNativeDateModule),
         { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
         { provide: LOCALE_ID, useValue: 'pt-BR' },
-        // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
     ]
 };
