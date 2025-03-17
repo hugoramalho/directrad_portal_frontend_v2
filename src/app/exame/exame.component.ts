@@ -300,28 +300,28 @@ export class ExamesComponent {
         // Converte a data para o formato desejado
         switch (filters.dateOption) {
             case 'since-start':
-                filters.STUDY_DATE = null;
+                filters.study_date = null;
                 break;
             case 'today':
-                filters.STUDY_DATE = this.formatDateToYmd(today);
+                filters.study_date = this.formatDateToYmd(today);
                 break;
             case 'yesterday':
                 const yesterday = new Date(today);
                 yesterday.setDate(today.getDate() - 1);
-                filters.STUDY_DATE = this.formatDateToYmd(yesterday);
+                filters.study_date = this.formatDateToYmd(yesterday);
                 break;
             case 'last7Days':
                 const last7Days = new Date(today);
                 last7Days.setDate(today.getDate() - 7);
-                filters.STUDY_DATE = this.formatDateToYmd(last7Days);
+                filters.study_date = this.formatDateToYmd(last7Days);
                 break;
             case 'last30Days':
                 const last30Days = new Date(today);
                 last30Days.setDate(today.getDate() - 30);
-                filters.STUDY_DATE = this.formatDateToYmd(last30Days);
+                filters.study_date = this.formatDateToYmd(last30Days);
                 break;
             case 'specificDate':
-                filters.STUDY_DATE = filters.specificDate
+                filters.study_date = filters.specificDate
                     ? this.formatDateToYmd(filters.specificDate)
                     : null;
                 break;
@@ -332,7 +332,7 @@ export class ExamesComponent {
                 const end = filters.rangeEnd
                     ? this.formatDateToYmd(filters.rangeEnd)
                     : null;
-                filters.STUDY_DATE = start && end ? `${start}-${end}` : null;
+                filters.study_date = start && end ? `${start}-${end}` : null;
                 break;
         }
 

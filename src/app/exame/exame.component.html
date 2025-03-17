@@ -73,9 +73,9 @@
                                 Modalidades
                             </mat-label>
                             <mat-select  formControlName="modalities_in_study">
-                                <mat-select-trigger>
-                                    {{ getSelectedValues() }}
-                                </mat-select-trigger>
+<!--                                <mat-select-trigger>-->
+<!--                                    {{ getSelectedValues() }}-->
+<!--                                </mat-select-trigger>-->
                                 @for (modalidade of studyModalities; track modalidade) {
                                     <mat-option [value]="modalidade.value">
                                         {{modalidade.name}}

@@ -8,7 +8,7 @@ export const DcmQueryParams = {
     patient_name: "PatientName",
     patient_birth_date: "PatientBirthDate",
     patient_id: "PatientID",
-    STUDY_DATE: "StudyDate",
+    study_date: "StudyDate",
     STUDY_TIME: "StudyTime",
     COMPRESSIONFAILED: "compressionfailed",
     STORAGE_VERIFICATION_FAILED: "storageVerificationFailed",
