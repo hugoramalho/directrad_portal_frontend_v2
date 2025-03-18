@@ -8,7 +8,7 @@
                     right: -20px;
                 };
 
-                .to-do-list-table {
+                .studies-list-table  {
                     .mat-mdc-table {
                         .mat-mdc-row {
                             transition: background-color 0.3s ease !important;
@@ -110,7 +110,7 @@
 
             &.rtl-enabled {
                 .mat-mdc-card-content {
-                    .to-do-list-table {
+                    .studies-list-table  {
                         .mat-mdc-table {
                             .mat-mdc-row {
                                 transition: background-color 0.3s ease !important;
@@ -322,7 +322,7 @@
                         right: -15px;
                     };
 
-                    .to-do-list-table {
+                    .studies-list-table  {
                         .mat-mdc-table {
                             .info {
                                 .image {
@@ -342,7 +342,7 @@
 
                 &.rtl-enabled {
                     .mat-mdc-card-content {
-                        .to-do-list-table {
+                        .studies-list-table  {
                             .mat-mdc-table {
                                 .mat-mdc-header-cell {
                                     &:first-child {
@@ -447,7 +447,7 @@
 
                 &.rtl-enabled {
                     .mat-mdc-card-content {
-                        .to-do-list-table {
+                        .studies-list-table  {
                             .mat-mdc-table {
                                 .mat-mdc-header-cell {
                                     &:first-child {

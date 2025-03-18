@@ -56,9 +56,8 @@
         </div>
     </mat-card-content>
 </mat-card>
-
 <mat-card
-    class="daxa-card to-do-list-card mb-25 mt-25 border-radius bg-white border-none d-block"
+    class="daxa-card pacs-list-card mb-25 mt-25 border-radius bg-white border-none d-block"
     [class.rtl-enabled]="themeService.isRTLEnabled()">
     <mat-card-header>
         <mat-card-title>
@@ -66,7 +65,7 @@
                 <!-- <button mat-button class="p-0 h-auto" (click)="toggleClass()">
                     + Cadastrar novo PACS
                 </button> -->
-                <button mat-flat-button class="daxa h-auto" (click)="toggleClass()">
+                <button mat-flat-button class="daxa h-auto add-new-task-btn" (click)="toggleClass()">
                     + Cadastrar novo PACS
                 </button>
             </div>
@@ -81,18 +80,17 @@
         </mat-card-subtitle> -->
     </mat-card-header>
     <mat-card-content>
-        <div class="to-do-list-table">
+        <div class="pacs-list-table">
             <div class="table-responsive">
                 <table mat-table [dataSource]="dataSource">
-
                     <!-- Checkbox Column -->
                     <ng-container matColumnDef="select">
                         <th mat-header-cell *matHeaderCellDef>
-                            <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                            <mat-checkbox
+                                (change)="$event ? toggleAllRows() : null"
                                 [checked]="selection.hasValue() && isAllSelected()"
                                 [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                [aria-label]="checkboxLabel()"
-                            >
+                                [aria-label]="checkboxLabel()">
                             </mat-checkbox>
                         </th>
                         <td mat-cell *matCellDef="let row">
@@ -104,114 +102,96 @@
                             </mat-checkbox>
                         </td>
                     </ng-container>
-
-                    <!-- Task ID Column -->
-                    <ng-container matColumnDef="paciente">
+                    <ng-container matColumnDef="identificacao">
                         <th mat-header-cell *matHeaderCellDef>
-                            Paciente
+                            Identificação
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.paciente}}
+                            {{element.identificacao}}
                         </td>
                     </ng-container>
-
-                    <!-- Task Name Column -->
-                    <ng-container matColumnDef="dataNascimento">
+                    <ng-container matColumnDef="ip">
                         <th mat-header-cell *matHeaderCellDef>
-                            Data de nascimento
+                            IP
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.dataNascimento}}
+                            {{element.ip}}
                         </td>
                     </ng-container>
-
-                    <!-- Assigned To Column -->
-                    <ng-container matColumnDef="dataExame">
+                    <ng-container matColumnDef="main_storage_aetitle">
                         <th mat-header-cell *matHeaderCellDef>
-                            Data do exame
+                            Aetitle
                         </th>
                         <td mat-cell *matCellDef="let element" class="text-black">
-                            {{element.dataExame}}
+                            {{element.main_storage_aetitle}}
                         </td>
                     </ng-container>
-
-                    <!-- Due Date Column -->
-                    <ng-container matColumnDef="modalidade">
+                    <ng-container matColumnDef="username_admin">
                         <th mat-header-cell *matHeaderCellDef>
-                            Modalidade
+                            Admin
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.modalidade}}
+                            {{element.username_admin}}
                         </td>
                     </ng-container>
-
-
-                    <!-- Priority Column -->
-                    <ng-container matColumnDef="study">
+                    <ng-container matColumnDef="username_tele">
                         <th mat-header-cell *matHeaderCellDef>
-                            Estudo
+                            Tele
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.study}}
+                            {{element.username_tele}}
                         </td>
                     </ng-container>
-
-                    <ng-container matColumnDef="uid">
+                    <ng-container matColumnDef="host">
                         <th mat-header-cell *matHeaderCellDef>
-                            Uid do estudo
+                            Host
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.uid}}
+                            {{element.host}}
                         </td>
                     </ng-container>
-
-
-                    <!-- Status Column -->
-                    <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Status
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            <span class="daxa-badge in-progress d-inline-block" *ngIf="element.status.inProgress">
-                                {{element.status.inProgress}}
-                            </span>
-                            <span class="daxa-badge pending d-inline-block" *ngIf="element.status.pending">
-                                {{element.status.pending}}
-                            </span>
-                            <span class="daxa-badge completed d-inline-block" *ngIf="element.status.completed">
-                                {{element.status.completed}}
-                            </span>
-                            <span class="daxa-badge not-started d-inline-block" *ngIf="element.status.notStarted">
-                                {{element.status.notStarted}}
-                            </span>
-                        </td>
-                    </ng-container>
-
-                    <!-- Action Column -->
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef>
                             Ações
                         </th>
                         <td mat-cell *matCellDef="let element">
                             <!-- <app-options-menu [usuarioId]="estudo.id"></app-options-menu> -->
+
                             <div class="action-info">
-                                <button type="button" mat-button matTooltip="Editar" matTooltipPosition="above">
+                                <button
+                                    type="button"
+                                    mat-button
+                                    matTooltip="Editar"
+                                    matTooltipPosition="above">
                                     <i class="material-symbols-outlined">
                                         edit
                                     </i>
                                 </button>
+                                <button 
+                                    type="button"
+                                    mat-button
+                                    matTooltip="Download arquivo DICOM"
+                                    matTooltipPosition="above">
+                                    <i class="material-symbols-outlined">download</i>
+                                </button>
+                                <button
+                                    type="button"
+                                    mat-button
+                                    matTooltip="Visualizador web"
+                                    matTooltipPosition="above">
+                                    <i class="material-symbols-outlined">visibility</i>
+                                </button>
+                                <button
+                                    type="button"
+                                    mat-button
+                                    matTooltip="Mais opções" matTooltipPosition="above">
+                                    <i class="material-symbols-outlined">more_vert</i>
+                                </button>
                             </div>
                         </td>
                     </ng-container>
-
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    
-                    <!-- Row shown when there is no matching data. -->
-                    <!-- <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                    </tr> -->
-
                 </table>
             </div>
         </div>

@@ -25,7 +25,7 @@ export class AetitleService {
     ) {
     }
 
-    public queryAetitles(queryParams: Record<string, any>): Observable<Aetitle[]>
+    public query(): Observable<Aetitle[]>
     {
         return this.aetitleRepository.getAETitles();
     }

@@ -1,13 +1,13 @@
 // To Do List
 .mat-mdc-card {
     &.daxa-card {
-        &.to-do-list-card {
+        &.pacs-list-card {
             .mat-mdc-card-content {
                 margin: {
                     left: -20px;
                     right: -20px;
                 };
-                .to-do-list-table {
+                .pacs-list-table {
                     .mat-mdc-table {
                         .mat-mdc-header-cell {
                             &:last-child {
@@ -48,29 +48,10 @@
                         }
                     }
                 }
-                .add-new-task-btn {
-                    padding: {
-                        top: 20px;
-                        left: 20px;
-                        right: 20px;
-                    };
-                    .mat-mdc-button {
-                        padding: 0;
-                        height: auto;
-                        min-width: auto;
-                        font: {
-                            size: var(--fontSize) !important;
-                            weight: normal;
-                        };
-                        &:not(:disabled) {
-                            color: var(--daxaColor);
-                        }
-                    }
-                }
             }
             &.rtl-enabled {
                 .mat-mdc-card-content {
-                    .to-do-list-table {
+                    .pacs-list-table {
                         .mat-mdc-table {
                             .mat-mdc-header-cell {
                                 &:last-child {
@@ -198,7 +179,7 @@
                     .mat-mdc-card-content {
                         .btn-box {
                             text-align: left;
-    
+
                             .mat-mdc-button {
                                 &:first-child {
                                     margin: {
@@ -217,17 +198,16 @@
 
 /* Max width 767px */
 @media only screen and (max-width : 767px) {
-
     // To Do List
     .mat-mdc-card {
         &.daxa-card {
-            &.to-do-list-card {
+            &.pacs-list-card {
                 .mat-mdc-card-content {
                     margin: {
                         left: -15px;
                         right: -15px;
                     };
-                    .to-do-list-table {
+                    .pacs-list-table {
                         .mat-mdc-table {
                             .info {
                                 .image {
@@ -245,7 +225,7 @@
                 }
                 &.rtl-enabled {
                     .mat-mdc-card-content {
-                        .to-do-list-table {
+                        .pacs-list-table {
                             .mat-mdc-table {
                                 .mat-mdc-header-cell {
                                     &:first-child {
@@ -271,7 +251,7 @@
     ::ng-deep {
         .mat-mdc-card {
             &.daxa-card {
-                &.to-do-list-card {
+                &.pacs-list-card {
                     .mat-mdc-card-header {
                         .mat-mdc-card-header-text {
                             display: block;
@@ -291,7 +271,7 @@
         .add-new-task-popup {
             .popup-dialog {
                 max-width: 400px;
-                
+
                 .daxa-card {
                     .mat-mdc-card-header {
                         margin: {
@@ -335,7 +315,7 @@
     // To Do List
     .mat-mdc-card {
         &.daxa-card {
-            &.to-do-list-card {
+            &.pacs-list-card {
                 .mat-mdc-card-content {
                     margin: {
                         left: -20px;
@@ -344,7 +324,7 @@
                 }
                 &.rtl-enabled {
                     .mat-mdc-card-content {
-                        .to-do-list-table {
+                        .pacs-list-table {
                             .mat-mdc-table {
                                 .mat-mdc-header-cell {
                                     &:first-child {
@@ -376,7 +356,7 @@
     // To Do List
     .mat-mdc-card {
         &.daxa-card {
-            &.to-do-list-card {
+            &.pacs-list-card {
                 .mat-mdc-card-content {
                     .add-new-task-btn {
                         .mat-mdc-button {
@@ -556,7 +536,7 @@
                         .btn-box {
                             .mat-mdc-button {
                                 padding: 13px 18px;
-    
+
                                 &:not(:first-child) {
                                     margin-left: 8px;
                                 }
