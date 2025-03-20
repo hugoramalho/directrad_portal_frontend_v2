@@ -18,8 +18,14 @@ export class PacsService {
     ) {
     }
 
-    get() {
-        return this.pacsRepository.get();
+    get(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null)
+    {
+        return this.pacsRepository.get(page, page_size, queryParams);
+    }
+
+    queryAll()
+    {
+        return this.pacsRepository.queryAll();
     }
 
 }

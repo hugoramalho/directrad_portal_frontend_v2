@@ -1,0 +1,109 @@
+<div class="modal-header row">
+    <h5 class="modal-title">Cadastrar novo PACS</h5>
+<!--    <button type="button" class="close" (click)="onCancel()">&times;</button>-->
+</div>
+
+<mat-dialog-content class="modal-body">
+    <p>
+        Caso esse PACS use o worklist central, utilizar como "IP Worklist" o DDNS "pacs.rad.direct" e "Porta worklist" a
+        porta "80"
+    </p>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Nome/Identificação</label>
+            <input type="text"
+                   class="form-control"
+                   [(ngModel)]="pacsData.nome"/>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Usa SSL? (Padrão: Não)</label>
+            <select class="form-control"
+                    [(ngModel)]="pacsData.usaSSI">
+                <option value="nao">Não</option>
+                <option value="sim">Sim</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>Endereço IP</label>
+            <input type="text" class="form-control" [(ngModel)]="pacsData.enderecoIp"/>
+        </div>
+        <div class="col-md-6 form-group">
+            <label>Domínio</label>
+            <input type="text" class="form-control" [(ngModel)]="pacsData.dominio"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <label>IP Worklist</label>
+            <input type="text"
+                   class="form-control"
+                   [(ngModel)]="pacsData.ipWorklist"
+                   placeholder="Ip do worklist, caso seja diferente"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label>Porta worklist (Padrão: 3000)</label>
+            <input type="number" class="form-control" [(ngModel)]="pacsData.portaWorklist"/>
+        </div>
+        <div class="col-md-4 form-group">
+            <label>Porta WADO (Padrão: 8090)</label>
+            <input type="number" class="form-control" [(ngModel)]="pacsData.portaWado"/>
+        </div>
+        <div class="col-md-4 form-group">
+            <label>Porta API (Padrão: 3966)</label>
+            <input type="number" class="form-control" [(ngModel)]="pacsData.portaApi"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label>Porta HTTP (Padrão: 80)</label>
+            <input type="number" class="form-control" [(ngModel)]="pacsData.portaHttp"/>
+        </div>
+        <div class="col-md-4 form-group">
+            <label>Porta HTTPS/SSL (Padrão: 443)</label>
+            <input type="number" class="form-control" [(ngModel)]="pacsData.portaHttps"/>
+        </div>
+        <div class="col-md-4 form-group">
+            <label>Porta DICOM (Padrão: 11112)</label>
+            <input type="number" class="form-control" [(ngModel)]="pacsData.portaDicom"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 form-group">
+            <label>Total de RAM alocada</label>
+            <select class="form-control" [(ngModel)]="pacsData.ramAlocada">
+                <option>4GB</option>
+                <option>8GB</option>
+                <option>16GB</option>
+            </select>
+        </div>
+        <div class="col-md-4 form-group">
+            <label>Total de pools (Padrão: 50, Max: 500)</label>
+            <input type="number" class="form-control" [(ngModel)]="pacsData.totalPools"/>
+        </div>
+        <div class="col-md-4 form-group">
+            <label>Total de threads (Padrão: 100, Max: 600)</label>
+            <input type="number" class="form-control" [(ngModel)]="pacsData.totalThreads"/>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions class="modal-footer">
+    <button
+        mat-button
+        type="button"
+        class="btn btn-secondary"
+        (click)="onCancel()">
+        Cancelar
+    </button>
+    <button
+        mat-button
+        type="button"
+        class="btn btn-primary"
+        (click)="goToNextPage()">
+        Próximo
+    </button>
+</mat-dialog-actions>
+

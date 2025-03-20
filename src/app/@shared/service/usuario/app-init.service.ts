@@ -32,7 +32,7 @@ export class AppInitializerService {
             }
 
             // // 2. Busca a lista de PACS do usuário
-            const pacs = await firstValueFrom(this.pacsRepository.get());
+            const pacs = await firstValueFrom(this.pacsRepository.queryAll());
             if (pacs.length === 0) {
                 console.error('Nenhum PACS encontrado!');
                 return;

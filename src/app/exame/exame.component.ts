@@ -115,7 +115,7 @@ export class ExamesComponent {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
-        this.pacsService.get().subscribe((pacsArray: Pacs[]) => {
+        this.pacsService.queryAll().subscribe((pacsArray: Pacs[]) => {
             this.pacsArray = pacsArray;
             this.pacsMap = new Map(pacsArray.map(pacs => [pacs.id, pacs]));
         });

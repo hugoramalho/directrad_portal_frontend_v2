@@ -4,11 +4,14 @@
  * Created at: 09/03/2025
  **/
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {ApiResponseInterface} from "../model/http/api-response-interface";
 import {Pacs} from "../model/pacs/pacs";
+import {PaginatedListInterface} from "../model/http/paginated-list-interface";
+import {Estudo} from "../model/estudo/exame";
+import {PaginatedList} from "../model/http/paginated-list";
 
 @Injectable({
     providedIn: 'root'
@@ -21,24 +24,52 @@ export class PacsRepository {
     constructor(private http: HttpClient) {
     }
 
-    /** Obtém os PACS do cache ou da API */
-    get(): Observable<Pacs[]> {
+    get(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null): Observable<PaginatedList<Pacs[]>> {
+        let params = new HttpParams();
+        if (queryParams) {
+            Object.keys(queryParams).forEach((key) => {
+                const value = queryParams[key];
+                if (value !== null && value !== undefined && value !== '') {
+                    params = params.set(key, value);
+                }
+            });
+        }
+        params = params.set('page', page.toString());
+        params = params.set('page_size', page_size.toString());
+        return this.http.get<ApiResponseInterface<PaginatedListInterface<Pacs[]>>>(
+            `${this.baseUrl}`,
+            {params}
+        ).pipe(
+            map(response => {
+                return new PaginatedList<Pacs[]>(response.data)
+            }),
+            catchError(err => {
+                return of(new PaginatedList<Pacs[]>({
+                    total: 0,
+                    count: 0,
+                    page,
+                    page_size: page_size,
+                    items: []
+                }));
+            })
+        );
+
+    }
+
+    queryAll(): Observable<Pacs[]> {
         const cachedPacsMap = this.pacsSubject.getValue();
         if (cachedPacsMap.size > 0) {
             return of(Array.from(cachedPacsMap.values())); // Retorna os valores do Map como array
         }
-        return this.http.get<ApiResponseInterface<Pacs[]>>(`${this.baseUrl}`).pipe(
-            map(response => response.data || []),
-            tap((pacsArray: Pacs[]) => {
-                const pacsMap = new Map<string, Pacs>();
-                pacsArray.forEach(pacs => pacsMap.set(pacs.id, pacs)); // Converte array para Map
-                this.pacsSubject.next(pacsMap);
-            }),
-            catchError(err => {
-                console.error('Erro ao obter PACS:', err);
-                return of([]); // Retorna um array vazio em caso de erro
-            })
-        );
+        return this.http.get<ApiResponseInterface<Pacs[]>>(`${this.baseUrl}`)
+            .pipe(
+                map(response => {
+                    return response.data || [];
+                }),
+                catchError(err => {
+                    return of([]);
+                })
+            );
     }
 
     /** Obtém um PACS específico */

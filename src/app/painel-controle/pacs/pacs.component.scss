@@ -47,6 +47,18 @@
                             }
                         }
                     }
+                    .mat-mdc-paginator {
+                        padding: {
+                            top: 15px;
+                            left: 20px;
+                            right: 20px;
+                        };
+                    }
+                }
+                .action-info {
+                    i {
+                        font-size: var(--iconButtonSize);
+                    }
                 }
             }
             &.rtl-enabled {
