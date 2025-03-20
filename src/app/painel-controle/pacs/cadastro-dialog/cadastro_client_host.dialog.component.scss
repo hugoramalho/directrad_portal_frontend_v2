@@ -1,0 +1,19 @@
+
+mat-dialog-content {
+    overflow: hidden !important;
+    height: 40vh;
+    width: 100%;
+
+    .pacs-form {
+        mat-form-field {
+            margin-bottom: 0.5rem;
+        }
+        label {
+            display: block;
+            white-space: nowrap;
+        }
+        input {
+            display: block;
+        }
+    }
+}

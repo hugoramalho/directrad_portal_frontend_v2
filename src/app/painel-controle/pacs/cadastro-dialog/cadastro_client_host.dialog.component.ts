@@ -6,20 +6,32 @@
 
 import { Component } from '@angular/core';
 import {MatDialogActions, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
-import {FormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
 import {NgIf} from "@angular/common";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {MatOption, MatSelect} from "@angular/material/select";
 
 @Component({
     standalone: true,
     selector: 'app-create-host-proprio',
+    styleUrls: ['./cadastro_client_host.dialog.component.scss'],
     templateUrl: './cadastro_client_host.dialog.component.html',
     imports: [
         FormsModule,
         MatButton,
         MatDialogContent,
         MatDialogActions,
-        NgIf
+        NgIf,
+        ReactiveFormsModule,
+        MatSlideToggle,
+        MatLabel,
+        MatFormField,
+        MatInput,
+        MatSelect,
+        MatOption
     ]
 })
 export class CreateHostProprioComponent {
@@ -40,20 +52,71 @@ export class CreateHostProprioComponent {
         totalPools: 50,
         totalThreads: 100,
     };
-
+    pacsForm: FormGroup;
     currentPage = 1;
+    usarChaveSSH = true;
 
-    constructor(public dialogRef: MatDialogRef<CreateHostProprioComponent>) {}
+    constructor(
+        public dialogRef: MatDialogRef<CreateHostProprioComponent>,
+        private formBuilder: FormBuilder,
+    ) {
 
-    onCancel() {
+    }
+
+    ngOnInit()
+    {
+        this.pacsForm = this.formBuilder.group({
+            identificacao: [''],
+            ip: [''],
+            dominio: [''],
+            ip_worklist: [''],
+            porta_worklist: [''],
+            porta_wado: [''],
+            porta_api: [''],
+            porta_http: [''],
+            porta_https: [''],
+            porta_dicom: [''],
+            config_ram: [''],
+            config_threads_pool: [''],
+            config_threads: [''],
+            aetitle_storage_principal: [''],
+            aetitle_worklist: [''],
+            tele_id: [''],
+            admin_id: [''],
+            pacs_host_ssh_username: [''],
+            pacs_host_ssh_port: [''],
+            use_ssh_key: [''],
+            pacs_host_ssh_password: [''],
+            pacs_host_ssh_key: [''],
+        });
+    }
+
+    toggleSshInput()
+    {
+        this.usarChaveSSH = !this.usarChaveSSH;
+    }
+
+    onCancel()
+    {
         this.dialogRef.close();
     }
 
-    goToNextPage() {
-        this.currentPage = 2; // Simplesmente muda a página para exibir a segunda parte do formulário
+    goToNextPage()
+    {
+        if (this.currentPage < 2) {
+            this.currentPage++;
+        }
     }
 
-    save() {
+    goToPreviousPage()
+    {
+        if (this.currentPage > 1) {
+            this.currentPage--;
+        }
+    }
+
+    save()
+    {
         console.log('Salvando PACS:', this.pacsData);
         this.dialogRef.close(this.pacsData);
     }

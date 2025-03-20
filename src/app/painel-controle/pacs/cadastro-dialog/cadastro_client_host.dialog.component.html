@@ -1,109 +1,297 @@
 <div class="modal-header row">
     <h5 class="modal-title">Cadastrar novo PACS</h5>
-<!--    <button type="button" class="close" (click)="onCancel()">&times;</button>-->
+    <!--    <button type="button" class="close" (click)="onCancel()">&times;</button>-->
 </div>
 
-<mat-dialog-content class="modal-body">
+<mat-dialog-content lass="modal-body">
     <p>
         Caso esse PACS use o worklist central, utilizar como "IP Worklist" o DDNS "pacs.rad.direct" e "Porta worklist" a
         porta "80"
     </p>
-    <div class="row">
-        <div class="col-md-6 form-group">
-            <label>Nome/Identificação</label>
-            <input type="text"
-                   class="form-control"
-                   [(ngModel)]="pacsData.nome"/>
+    <form class="pacs-form" [formGroup]="pacsForm">
+        <div *ngIf="currentPage === 1">
+            <div class="row">
+                <div class="col-md-8 form-group">
+                    <mat-form-field>
+                        <mat-label>Nome do Pacs</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            class="form-control"
+                            formControlName="identificacao"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Endereço IP</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            class="form-control"
+                            formControlName="ip"
+                        />
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Domínio</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            class="form-control"
+                            formControlName="dominio"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>IP Worklist</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            class="form-control"
+                            formControlName="ip_worklist"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Porta worklist (Padrão: 3000)</mat-label>
+                        <input
+                            matInput
+                            type="number"
+                            class="form-control"
+                            formControlName="porta_worklist"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Porta WADO (Padrão: 8090)</mat-label>
+                        <input
+                            matInput
+                            type="number"
+                            class="form-control"
+                            formControlName="porta_wado"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Porta API (Padrão: 3966)</mat-label>
+                        <input
+                            matInput
+                            type="number"
+                            class="form-control"
+                            formControlName="porta_api"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Porta HTTP (Padrão: 80)</mat-label>
+                        <input
+                            matInput
+                            type="number"
+                            class="form-control"
+                            formControlName="porta_http"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Porta HTTPS/SSL (Padrão: 443)</mat-label>
+                        <input
+                            matInput
+                            type="number"
+                            class="form-control"
+                            formControlName="porta_https"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Porta DICOM (Padrão: 11112)</mat-label>
+                        <input
+                            matInput
+                            type="number"
+                            class="form-control"
+                            formControlName="porta_dicom"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Total de RAM alocada</mat-label>
+                        <mat-select
+                            class="form-control"
+                            formControlName="config_ram">
+                            <mat-option>4GB</mat-option>
+                            <mat-option>8GB</mat-option>
+                            <mat-option>16GB</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Pools (Padrão: 50, Max: 500)</mat-label>
+                        <input
+                            matInput
+                            type="number"
+                            class="form-control"
+                            formControlName="config_threads_pool"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4 form-group">
+                    <mat-form-field>
+                        <mat-label>Threads (Padrão: 100, Max: 600)</mat-label>
+                        <input
+                            matInput
+                            type="number"
+                            class="form-control"
+                            formControlName="config_threads"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 form-group">
-            <label>Usa SSL? (Padrão: Não)</label>
-            <select class="form-control"
-                    [(ngModel)]="pacsData.usaSSI">
-                <option value="nao">Não</option>
-                <option value="sim">Sim</option>
-            </select>
+        <div *ngIf="currentPage === 2">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>AeTitle Principal (Storage)</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="aetitle_storage_principal"
+                        placeholder="Digite o nome"
+                    />
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>AeTitle Worklist</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        formControlName="aetitle_worklist"
+                        placeholder="Digite o nome"
+                    />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <label>Usuário Tele</label>
+                    <select
+                        class="form-control"
+                        formControlName="tele_id"
+                    >
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Conta Admin do PACS</label>
+                    <select
+                        class="form-control"
+                        formControlName="admin_id"
+                    >
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+            </div>
+            <hr/>
+            <div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Usuário SSH</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            formControlName="pacs_host_ssh_username"
+                        />
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Porta SSH</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            formControlName="pacs_host_ssh_port"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Usar chave SSH</label>
+                    <mat-slide-toggle
+                        (change)="toggleSshInput()"
+                        formControlName="use_ssh_key"
+                        name="usarChaveSSH"
+                    ></mat-slide-toggle>
+                </div>
+                <div class="form-group">
+                    <div *ngIf="!usarChaveSSH">
+                        <label>Senha SSH</label>
+                        <input
+                            type="password"
+                            class="form-control"
+                            formControlName="pacs_host_ssh_password"
+                        />
+                    </div>
+                    <div *ngIf="usarChaveSSH">
+                        <label>Chave SSH</label>
+                        <textarea
+                            class="form-control"
+                            formControlName="pacs_host_ssh_key"
+                        ></textarea>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 form-group">
-            <label>Endereço IP</label>
-            <input type="text" class="form-control" [(ngModel)]="pacsData.enderecoIp"/>
-        </div>
-        <div class="col-md-6 form-group">
-            <label>Domínio</label>
-            <input type="text" class="form-control" [(ngModel)]="pacsData.dominio"/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 form-group">
-            <label>IP Worklist</label>
-            <input type="text"
-                   class="form-control"
-                   [(ngModel)]="pacsData.ipWorklist"
-                   placeholder="Ip do worklist, caso seja diferente"/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 form-group">
-            <label>Porta worklist (Padrão: 3000)</label>
-            <input type="number" class="form-control" [(ngModel)]="pacsData.portaWorklist"/>
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Porta WADO (Padrão: 8090)</label>
-            <input type="number" class="form-control" [(ngModel)]="pacsData.portaWado"/>
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Porta API (Padrão: 3966)</label>
-            <input type="number" class="form-control" [(ngModel)]="pacsData.portaApi"/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 form-group">
-            <label>Porta HTTP (Padrão: 80)</label>
-            <input type="number" class="form-control" [(ngModel)]="pacsData.portaHttp"/>
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Porta HTTPS/SSL (Padrão: 443)</label>
-            <input type="number" class="form-control" [(ngModel)]="pacsData.portaHttps"/>
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Porta DICOM (Padrão: 11112)</label>
-            <input type="number" class="form-control" [(ngModel)]="pacsData.portaDicom"/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4 form-group">
-            <label>Total de RAM alocada</label>
-            <select class="form-control" [(ngModel)]="pacsData.ramAlocada">
-                <option>4GB</option>
-                <option>8GB</option>
-                <option>16GB</option>
-            </select>
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Total de pools (Padrão: 50, Max: 500)</label>
-            <input type="number" class="form-control" [(ngModel)]="pacsData.totalPools"/>
-        </div>
-        <div class="col-md-4 form-group">
-            <label>Total de threads (Padrão: 100, Max: 600)</label>
-            <input type="number" class="form-control" [(ngModel)]="pacsData.totalThreads"/>
-        </div>
-    </div>
+    </form>
+
 </mat-dialog-content>
 <mat-dialog-actions class="modal-footer">
     <button
+        *ngIf="currentPage > 1"
         mat-button
         type="button"
         class="btn btn-secondary"
-        (click)="onCancel()">
-        Cancelar
+        (click)="goToPreviousPage()"
+    >
+        Voltar
+    </button>
+    <button
+        *ngIf="currentPage === 1"
+        mat-button
+        type="button"
+        class="btn btn-primary"
+        (click)="goToNextPage()"
+    >
+        Próximo
+    </button>
+    <button
+        *ngIf="currentPage === 2"
+        mat-button
+        type="submit"
+        class="btn btn-success"
+        (click)="save()"
+    >
+        Cadastrar
     </button>
     <button
         mat-button
         type="button"
-        class="btn btn-primary"
-        (click)="goToNextPage()">
-        Próximo
+        class="btn btn-secondary"
+        (click)="onCancel()"
+    >
+        Cancelar
     </button>
 </mat-dialog-actions>
 
