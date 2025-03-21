@@ -97,6 +97,35 @@
 
 // Add New Task Popup
 ::ng-deep {
+    .mat-mdc-table {
+        .mat-mdc-row {
+            transition: background-color 0.2s ease !important;
+            &:hover {
+                .mat-mdc-cell {
+                    background-color: rgba(0, 0, 0, 0.05) !important;
+                }
+            }
+        }
+    }
+    .dark-theme {
+        .mat-mdc-select-panel {
+            background-color: red !important;
+            mat-option {
+                &:hover {
+                    background-color: blue !important;
+                }
+            }
+        }
+        .mat-mdc-table {
+            .mat-mdc-row {
+                &:hover {
+                    .mat-mdc-cell {
+                        background-color: rgba(0, 0, 0, 0.2) !important;
+                    }
+                }
+            }
+        }
+    }
     .add-new-task-popup {
         top: 0;
         left: 0;

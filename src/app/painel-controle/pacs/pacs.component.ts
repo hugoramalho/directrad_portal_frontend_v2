@@ -60,6 +60,15 @@ import { NgIf } from '@angular/common';
 export class CadastroPacsComponent {
     isLoading = true;
     searchForm: FormGroup;
+    dataSource = new MatTableDataSource<Pacs>([]);
+    selection = new SelectionModel<Pacs>(true, []);
+    currentLength: number = 0;
+    isToggled = false;
+    clinicas: UserClinica[];
+    teles: UserTele[];
+    adminUsers: UserAdmin[];
+    pacsList: Pacs[];
+    aetitles: Aetitle[];
     displayedColumns: string[] = [
         'select',
         'identificacao',
@@ -70,16 +79,6 @@ export class CadastroPacsComponent {
         'host',
         'action'
     ];
-    dataSource = new MatTableDataSource<Pacs>([]);
-    selection = new SelectionModel<Pacs>(true, []);
-    currentLength: number = 0;
-    isToggled = false;
-    clinicas: UserClinica[];
-    teles: UserTele[];
-    adminUsers: UserAdmin[];
-    pacsList: Pacs[];
-    aetitles: Aetitle[];
-
 
     constructor(
         public themeService: CustomizerSettingsService,
@@ -108,7 +107,7 @@ export class CadastroPacsComponent {
             result2: this.teleUserService.query(),
             result3: this.pacsService.queryAll(),
             result4: this.aetitleService.query(),
-            result5: this.usersService.query(),
+            result5: this.usersService.queryAdmin(),
         }).subscribe({
             next: ({ result1, result2, result3, result4, result5 }) => {
                 this.clinicas = result1;
@@ -129,13 +128,13 @@ export class CadastroPacsComponent {
                             pacs.main_storage_aetitle = aetitle.aetitle;
                             return;
                         }
-                    })
+                    });
                     this.adminUsers.forEach(user => {
                         if(pacs.admin_id == user.id) {
                             pacs.username_admin = user.username;
                             return;
                         }
-                    })
+                    });
                 });
                 this.loadPacs();
                 this.isLoading = false;

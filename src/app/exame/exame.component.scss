@@ -7,7 +7,6 @@
                     left: -20px;
                     right: -20px;
                 };
-
                 .studies-list-table  {
                     .mat-mdc-table {
                         .mat-mdc-row {
@@ -80,38 +79,32 @@
                     align-items: center;
                     height: 200px; /* Altura ajustável */
                 }
-
                 .mat-spinner {
                     width: 50px;
                     height: 50px;
                 }
-
                 .action-info {
                     i {
                         font-size: var(--iconButtonSize);
                     }
                 }
             }
-
             &.rtl-enabled {
                 .mat-mdc-card-content {
                     .studies-list-table  {
                         .mat-mdc-table {
                             .mat-mdc-row {
                                 transition: background-color 0.3s ease !important;
-
                                 &:hover {
                                     .mat-mdc-cell {
                                         background-color: rgba(0, 0, 0, 0.04) !important;
                                     }
                                 }
                             }
-
                             .mat-mdc-header-cell {
                                 &:last-child {
                                     text-align: left;
                                 }
-
                                 &:first-child {
                                     padding: {
                                         right: 20px;
@@ -119,12 +112,10 @@
                                     };
                                 }
                             }
-
                             .mat-mdc-cell {
                                 &:last-child {
                                     text-align: left;
                                 }
-
                                 &:first-child {
                                     padding: {
                                         right: 20px;
@@ -139,11 +130,8 @@
         }
     }
 }
-
 ::ng-deep {
-
 }
-
 // Add New Task Popup
 ::ng-deep {
     .mat-mdc-card {

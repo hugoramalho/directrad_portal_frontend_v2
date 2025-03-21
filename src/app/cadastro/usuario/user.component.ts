@@ -1,3 +1,9 @@
+/**
+ * Created by: Hugo Ramalho <ramalho.hg@gmail.com>
+ *
+ * Created at: 21/03/2025
+ **/
+
 import {Component} from '@angular/core';
 import {MatCardModule} from '@angular/material/card';
 import {RouterLink} from '@angular/router';
@@ -16,21 +22,14 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatDialog} from "@angular/material/dialog";
 import {Aetitle} from "../../@shared/model/pacs/aetitle";
 import {CustomizerSettingsService} from "../../customizer-settings/customizer-settings.service";
-import {CreateAetitleComponent} from "./create-dialog/create-aetitle.component";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
-import {AetitleService} from "../../@shared/service/pacs/aetitle.service";
-import {forkJoin} from "rxjs";
-import {PacsHostMapper, PacsHostType} from "../../@shared/model/pacs/pacs-host-type";
-import {ClinicaService} from "../../@shared/service/usuario/clinica.service";
-import {PacsService} from "../../@shared/service/pacs/pacs.service";
-import {UserClinica} from "../../@shared/model/usuario/user-clinica";
-import {Pacs} from "../../@shared/model/pacs/pacs";
-import {PaginatedList} from "../../@shared/model/http/paginated-list";
+import {UsersService} from "../../@shared/service/usuario/users.service";
+import {User} from "../../@shared/model/usuario/user";
 
 
 @Component({
     standalone: true,
-    selector: 'app-painel-aetitle',
+    selector: 'app-cadastro-usuario',
     imports: [
         MatCardModule,
         MatMenuModule,
@@ -47,20 +46,17 @@ import {PaginatedList} from "../../@shared/model/http/paginated-list";
         MatNativeDateModule,
         MatPaginator
     ],
-    templateUrl: './aetitle.component.html',
-    styleUrl: './aetitle.component.scss'
+    templateUrl: './user.component.html',
+    styleUrl: './user.component.scss'
 })
-export class CadastroAetitleComponent {
+export class CadastroUsuarioComponent {
     isLoading: boolean = false;
     classApplied = false;
     isToggled = false;
     currentLength: number = 0;
-    dataSource = new MatTableDataSource<Aetitle>([]);
-    selection = new SelectionModel<Aetitle>(true, []);
+    dataSource = new MatTableDataSource<User>([]);
+    selection = new SelectionModel<User>(true, []);
     aetitles: Aetitle[];
-    clinicas: UserClinica[];
-    pacsList: Pacs[];
-
     displayedColumns: string[] = [
         'select',
         'aetitle',
@@ -74,51 +70,24 @@ export class CadastroAetitleComponent {
     constructor(
         public themeService: CustomizerSettingsService,
         private dialog: MatDialog,
-        private aetitleService: AetitleService,
-        private clinicaService: ClinicaService,
-        private pacsService: PacsService,
+        private usersService: UsersService
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
     }
 
-    ngOnInit(): void {
-        this.loadAetitles(1, 20);
+    ngOnInit(): void
+    {
+        this.loadUsers(1, 20);
     }
 
-
-    private loadAetitles(page: number = 1, page_size: number = 20): void
+    private loadUsers(page: number = 1, page_size: number = 20): void
     {
-        forkJoin({
-            result1: this.clinicaService.query(),
-            result2: this.aetitleService.queryAll(page, page_size),
-            result3: this.pacsService.queryAll(),
-        }).subscribe({
-            next: ({result1, result2, result3,}) => {
-                console.log(result1, result2, result3);
-
-                this.clinicas = result1;
-                let aetitlesPaginatedList = result2;
-                this.pacsList = result3;
-                this.pacsList.forEach(pacs => {
-                    aetitlesPaginatedList.items.forEach(aetitle => {
-                        if (aetitle.pacs_id == pacs.id) {
-                            aetitle.pacs_relacionado = pacs.identificacao;
-                            return;
-                        }
-                    });
-                });
-                this.clinicas.forEach(clinica => {
-                    aetitlesPaginatedList.items.forEach(aetitle => {
-                        if (aetitle.clinica_id == clinica.id) {
-                            aetitle.clinica_identificacao = clinica.nome_razao;
-                            return;
-                        }
-                    });
-                });
-                this.dataSource.data = aetitlesPaginatedList.items;
-                this.currentLength = aetitlesPaginatedList.total;
+        this.usersService.query(page, page_size).subscribe({
+            next: (result) => {
+                this.dataSource.data = result.items;
+                this.currentLength = result.total;
                 this.isLoading = false;
             },
             error: (err) => {
@@ -129,14 +98,16 @@ export class CadastroAetitleComponent {
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
-    isAllSelected() {
+    isAllSelected()
+    {
         const numSelected = this.selection.selected.length;
         const numRows = this.dataSource.data.length;
         return numSelected === numRows;
     }
 
     /** Selects all rows if they are not all selected; otherwise clear selection. */
-    toggleAllRows() {
+    toggleAllRows()
+    {
         if (this.isAllSelected()) {
             this.selection.clear();
             return;
@@ -145,7 +116,8 @@ export class CadastroAetitleComponent {
     }
 
     /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: Aetitle): string {
+    checkboxLabel(row?: User): string
+    {
         // if (!row) {
         //     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         // }
@@ -153,36 +125,41 @@ export class CadastroAetitleComponent {
         return '';
     }
 
-    applyFilter(event: Event) {
+    applyFilter(event: Event)
+    {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    toggleClass() {
+    toggleClass()
+    {
         this.classApplied = !this.classApplied;
     }
 
-    onPageChange(event: PageEvent) {
-        this.loadAetitles(event.pageIndex + 1, event.pageSize);
+    onPageChange(event: PageEvent)
+    {
+        this.loadUsers(event.pageIndex + 1, event.pageSize);
     }
 
     // RTL Mode
-    toggleRTLEnabledTheme() {
+    toggleRTLEnabledTheme()
+    {
         this.themeService.toggleRTLEnabledTheme();
     }
 
-    openAddAetitleModal() {
-        const dialogRef = this.dialog.open(CreateAetitleComponent, {
-            width: 'auto', // Define o tamanho do modal
-            data: {}, // Dados iniciais se necessário
-        });
-        dialogRef.afterClosed().subscribe((result) => {
-            if (result) {
-                // O resultado do modal será retornado aqui
-                console.log('Modal result:', result);
-                this.handleAetitleResult(result);
-            }
-        });
+    openAddAetitleModal()
+    {
+        // const dialogRef = this.dialog.open(CreateAetitleComponent, {
+        //     width: 'auto', // Define o tamanho do modal
+        //     data: {}, // Dados iniciais se necessário
+        // });
+        // dialogRef.afterClosed().subscribe((result) => {
+        //     if (result) {
+        //         // O resultado do modal será retornado aqui
+        //         console.log('Modal result:', result);
+        //         this.handleAetitleResult(result);
+        //     }
+        // });
     }
 
     handleAetitleResult(result: any) {

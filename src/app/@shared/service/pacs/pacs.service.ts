@@ -14,8 +14,12 @@ export class PacsService {
     constructor(
         private http: HttpClient,
         private pacsRepository: PacsRepository,
-
     ) {
+    }
+
+    create()
+    {
+
     }
 
     get(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null)

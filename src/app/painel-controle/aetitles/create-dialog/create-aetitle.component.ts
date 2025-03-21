@@ -19,8 +19,8 @@ import {MatLabel} from "@angular/material/form-field";
 @Component({
     standalone: true,
     selector: 'app-add-aetitle',
-    templateUrl: './add-aetitle.component.html',
-    styleUrls: ['./add-aetitle.component.scss'],
+    templateUrl: './create-aetitle.component.html',
+    styleUrls: ['./create-aetitle.component.scss'],
     imports: [
         MatFormField,
         FormsModule,
@@ -41,7 +41,7 @@ import {MatLabel} from "@angular/material/form-field";
     ]
 
 })
-export class AddAetitleComponent {
+export class CreateAetitleComponent {
     aetitleType: string = 'export'; // Default type
     exportData = {
         aetitle: '',
@@ -70,7 +70,7 @@ export class AddAetitleComponent {
     ];
 
     constructor(
-        public dialogRef: MatDialogRef<AddAetitleComponent>,
+        public dialogRef: MatDialogRef<CreateAetitleComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {}
 

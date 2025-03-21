@@ -30,31 +30,12 @@ export class AetitleService {
         return this.aetitleRepository.getAETitles();
     }
 
-
-
-    public getEstudos(page: number = 1, perPage: number = 10, queryParams: Record<string, any> | null = null): Observable<Estudo[]> {
-        let params = new HttpParams();
-        // .set('page', page.toString())
-        // .set('page_size', perPage.toString());
-        if (queryParams) {
-            Object.keys(queryParams).forEach((key) => {
-                const value = queryParams[key];
-                if (value !== null && value !== undefined && value !== '') {
-                    params = params.set(key, value);
-                }
-            });
-        }
-        return this.http.get<Estudo[]>(this.apiUrl, { params });
+    public queryAll(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null)
+    {
+        return this.aetitleRepository.query(page, page_size, queryParams);
     }
 
-    public getEstudo(uid: string): Observable<Estudo[]> {
-        let params = new HttpParams()
-            .set('study_uid', uid);
-        return this.http.get<Estudo[]>(this.apiUrl, { params });
-    }
 
-    public getTagsDicom(): Observable<any> {
-        return this.http.get<any>(this.apiUrl + '/tags-dicom');
-    }
+
 
 }

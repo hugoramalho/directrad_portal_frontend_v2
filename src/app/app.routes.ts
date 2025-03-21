@@ -192,12 +192,13 @@ import {ExtratoComponent} from "./financeiro/extrato/extrato.component";
 import {FinanceiroCadastroMenuComponent} from "./financeiro/cadastro/menu/financeiro-cadastro-menu.component";
 import {FinanceiroCadastroContaComponent} from "./financeiro/cadastro/conta/contas.component";
 import {FinanceiroCacheResolver} from "./financeiro/cache.resolver";
-import { CadastroComponent } from './painel-controle/cadastro/cadastro.component';
-import { PainelControleComponent } from './painel-controle/painel-controle.component';
+import { PacsControleComponent } from './painel-controle/pacs-controle.component';
 import {SuporteUsuarioComponent} from "./usuario/suporte/suporte-usuario.component";
 import {UsuarioComponent} from "./usuario/usuario.component";
 import {WorklistComponent} from "./worklist/exame/worklist.component";
 import {LoginComponent} from "./auth/login/login.component";
+import {CadastroUsuarioComponent} from "./cadastro/usuario/user.component";
+import {CadastroComponent} from "./cadastro/cadastro.component";
 
 export const routes: Routes = [
     {
@@ -223,14 +224,21 @@ export const routes: Routes = [
     {path: 'help-desk', component: HelpDeskComponent},
     {path: 'exames', component: ExamesComponent},
     {path: 'worklist', component: WorklistComponent},
-    {path: 'cadastro', component: CadastroComponent},
     {
         path: 'painel-controle',
-        component: PainelControleComponent,
+        component: PacsControleComponent,
         children: [
-            {path: '', component: PainelControleComponent},
+            {path: '', component: PacsControleComponent},
             // {path: 'suporte', component: SuporteUsuarioComponent},
             // {path: 'config', component: AccountSettingsComponent}
+        ]
+    },
+    {
+        path: 'cadastros',
+        component: CadastroComponent,
+        children: [
+            {path: '', component: CadastroComponent},
+            {path: 'usuarios', component: CadastroUsuarioComponent},
         ]
     },
     {path: 'dashboard', component: EcommerceComponent},

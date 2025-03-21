@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterLink } from '@angular/router';
-import { DatePipe } from '@angular/common';
-import { NgIf } from '@angular/common';
+import {DatePipe, NgIf} from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -15,32 +14,33 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
-import { CadastroUsuarioComponent } from '../aetitles/usuarios/usuario.component';
-import { CadastroPacsComponent } from '../pacs/pacs.component';
-import { CadastroAetitleComponent } from './aetitles/aetitle.component';
-import { CadastroAcessoSshComponent } from '../ssh/ssh.component';
-import { CadastroRotinaComponent } from '../rotinas/rotina.component';
+import { CustomizerSettingsService } from '../customizer-settings/customizer-settings.service';
+import {SshTerminalComponent} from "./instalacao/instalacao.component";
+import {CadastroPacsComponent} from "./pacs/pacs.component";
+import {CadastroRotinaComponent} from "./rotinas/rotina.component";
+import {CadastroAcessoSshComponent} from "./ssh/ssh.component";
+import {CadastroAetitleComponent} from "./aetitles/aetitle.component";
 
 @Component({
-    selector: 'app-cadastro',
+    selector: 'app-painel-controle',
     standalone: true,
     imports: [
-        CadastroRotinaComponent,
-        CadastroAcessoSshComponent,
-        CadastroAetitleComponent,
-        CadastroPacsComponent,
-        CadastroUsuarioComponent,
         RouterLink,
         MatCardModule,
         MatTabsModule,
         DatePipe,
-        MatFormFieldModule
+        MatFormFieldModule,
+        SshTerminalComponent,
+        NgIf,
+        CadastroPacsComponent,
+        CadastroRotinaComponent,
+        CadastroAcessoSshComponent,
+        CadastroAetitleComponent
     ],
-    templateUrl: './cadastro.component.html',
-    styleUrl: './cadastro.component.scss'
+    templateUrl: './pacs-controle.component.html',
+    styleUrl: './pacs-controle.component.scss'
 })
-export class CadastroComponent {
+export class PacsControleComponent {
  // //
     // Tab group where the tab content is loaded lazily (when activated)
     // tabLoadTimes: Date[] = [];
@@ -53,5 +53,11 @@ export class CadastroComponent {
 
     // Tab group with paginated tabs
     // lotsOfTabs = new Array(30).fill(0).map((_, index) => `Tab ${index}`);
+    isTerminalActive = false;
 
+    onTabChange(event: any): void {
+        if (event.index === 4) { // Índice da aba "Terminal"
+            this.isTerminalActive = true;
+        }
+    }
 }

@@ -7,7 +7,7 @@ import {UserPermissions} from "../usuario/user-permissions";
 import {AbstractModel} from "../abstract-model";
 
 export interface Pacs {
-    id: string;
+    id: number | string;
     identificacao?: string | null;
     pacs_application_id?: number | null;
     dominio?: string | null;

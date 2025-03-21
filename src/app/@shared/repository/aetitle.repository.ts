@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable, of, tap} from 'rxjs';
 import {CacheService} from "../cache/app.cache";
 import {Aetitle} from "../model/pacs/aetitle";
 import {ApiResponseInterface} from "../model/http/api-response-interface";
 import {catchError, map} from "rxjs/operators";
 import {Pacs} from "../model/pacs/pacs";
+import {PaginatedList} from "../model/http/paginated-list";
+import {PaginatedListInterface} from "../model/http/paginated-list-interface";
 
 @Injectable({
     providedIn: 'root'
@@ -43,6 +45,38 @@ export class AETitleRepository {
             catchError(err => {
                 console.error('Erro ao obter AETitles:', err);
                 return of([]); // Retorna um array vazio em caso de erro
+            })
+        );
+    }
+
+    query(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null): Observable<PaginatedList<Aetitle[]>>
+    {
+        let params = new HttpParams();
+        if (queryParams) {
+            Object.keys(queryParams).forEach((key) => {
+                const value = queryParams[key];
+                if (value !== null && value !== undefined && value !== '') {
+                    params = params.set(key, value);
+                }
+            });
+        }
+        params = params.set('page', page.toString());
+        params = params.set('page_size', page_size.toString());
+        return this.http.get<ApiResponseInterface<PaginatedListInterface<Aetitle[]>>>(
+            `${this.baseUrl}/aetitles`,
+            {params}
+        ).pipe(
+            map(response => {
+                return new PaginatedList<Aetitle[]>(response.data)
+            }),
+            catchError(err => {
+                return of(new PaginatedList<Aetitle[]>({
+                    total: 0,
+                    count: 0,
+                    page,
+                    page_size: page_size,
+                    items: []
+                }));
             })
         );
     }

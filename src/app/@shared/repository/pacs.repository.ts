@@ -24,6 +24,8 @@ export class PacsRepository {
     constructor(private http: HttpClient) {
     }
 
+    // create()
+
     get(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null): Observable<PaginatedList<Pacs[]>> {
         let params = new HttpParams();
         if (queryParams) {
@@ -53,7 +55,6 @@ export class PacsRepository {
                 }));
             })
         );
-
     }
 
     queryAll(): Observable<Pacs[]> {

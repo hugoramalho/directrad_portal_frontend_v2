@@ -6,7 +6,7 @@
 
 
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import { User } from '../../model/usuario/user';
 import {UsersRepository} from "../../repository/user/users.repository";
 
@@ -23,8 +23,14 @@ export class UsersService {
     }
 
 
-    query() {
-        return this.usersRepository.query();
+    queryAdmin(page: number = 1, page_size: number = 20, queryParams: Record<string, any> | null = null)
+    {
+        return this.usersRepository.queryAdmin(page, page_size, queryParams);
+    }
+
+    query(page: number = 1, page_size: number = 20,  queryParams: Record<string, any> | null = null)
+    {
+        return this.usersRepository.query(page, page_size, queryParams);
     }
 
 }

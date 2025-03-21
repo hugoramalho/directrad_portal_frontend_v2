@@ -63,137 +63,82 @@
     <mat-card-header>
         <mat-card-title>
             <div class="btn-box">
-                <!-- <button mat-button class="p-0 h-auto" (click)="toggleClass()">
-                    + Cadastrar novo PACS
-                </button> -->
                 <button mat-flat-button class="daxa h-auto" (click)="toggleClass()">
                     + Cadastrar novo Aetitle
                 </button>
             </div>
         </mat-card-title>
-        <!-- <mat-card-subtitle>
-            <form class="search-box position-relative">
-                <i class="material-symbols-outlined">
-                    search
-                </i>
-                <input type="text" class="input-search d-block w-100 border-none outline-0" placeholder="Search here..." (keyup)="applyFilter($event)" #input>
-            </form>
-        </mat-card-subtitle> -->
     </mat-card-header>
     <mat-card-content>
-        <div class="to-do-list-table">
+        <div class="aetitle-list-table">
             <div class="table-responsive">
                 <table mat-table [dataSource]="dataSource">
-
                     <!-- Checkbox Column -->
                     <ng-container matColumnDef="select">
                         <th mat-header-cell *matHeaderCellDef>
-                            <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                                          [checked]="selection.hasValue() && isAllSelected()"
-                                          [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                          [aria-label]="checkboxLabel()"
+                            <mat-checkbox
+                                (change)="$event ? toggleAllRows() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                [aria-label]="checkboxLabel()"
                             >
                             </mat-checkbox>
                         </th>
                         <td mat-cell *matCellDef="let row">
-                            <mat-checkbox (click)="$event.stopPropagation()"
-                                          (change)="$event ? selection.toggle(row) : null"
-                                          [checked]="selection.isSelected(row)"
-                                          [aria-label]="checkboxLabel(row)"
+                            <mat-checkbox
+                                (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row)"
+                                [aria-label]="checkboxLabel(row)"
                             >
                             </mat-checkbox>
                         </td>
                     </ng-container>
-
-                    <!-- Task ID Column -->
-                    <ng-container matColumnDef="paciente">
+                    <ng-container matColumnDef="aetitle">
                         <th mat-header-cell *matHeaderCellDef>
-                            Paciente
+                            Aetitle
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.paciente}}
+                            {{element.aetitle}}
                         </td>
                     </ng-container>
-
-                    <!-- Task Name Column -->
-                    <ng-container matColumnDef="dataNascimento">
+                    <ng-container matColumnDef="tipo">
                         <th mat-header-cell *matHeaderCellDef>
-                            Data de nascimento
+                            Tipo
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.dataNascimento}}
+                            {{element.tipo}}
                         </td>
                     </ng-container>
-
-                    <!-- Assigned To Column -->
-                    <ng-container matColumnDef="dataExame">
+                    <ng-container matColumnDef="pacs_relacionado">
                         <th mat-header-cell *matHeaderCellDef>
-                            Data do exame
+                            Pacs Relacionado
                         </th>
                         <td mat-cell *matCellDef="let element" class="text-black">
-                            {{element.dataExame}}
+                            {{element.pacs_relacionado}}
                         </td>
                     </ng-container>
-
-                    <!-- Due Date Column -->
-                    <ng-container matColumnDef="modalidade">
+                    <ng-container matColumnDef="clinica_identificacao">
                         <th mat-header-cell *matHeaderCellDef>
-                            Modalidade
+                            Clínica
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.modalidade}}
+                            {{element.clinica_identificacao}}
                         </td>
                     </ng-container>
-
-
-                    <!-- Priority Column -->
-                    <ng-container matColumnDef="study">
+                    <ng-container matColumnDef="status_sincronizacao_pacs">
                         <th mat-header-cell *matHeaderCellDef>
-                            Estudo
+                            Status Sincronização
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.study}}
+                            {{element.status_sincronizacao_pacs}}
                         </td>
                     </ng-container>
-
-                    <ng-container matColumnDef="uid">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Uid do estudo
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.uid}}
-                        </td>
-                    </ng-container>
-
-
-                    <!-- Status Column -->
-                    <ng-container matColumnDef="status">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Status
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            <span class="daxa-badge in-progress d-inline-block" *ngIf="element.status.inProgress">
-                                {{element.status.inProgress}}
-                            </span>
-                            <span class="daxa-badge pending d-inline-block" *ngIf="element.status.pending">
-                                {{element.status.pending}}
-                            </span>
-                            <span class="daxa-badge completed d-inline-block" *ngIf="element.status.completed">
-                                {{element.status.completed}}
-                            </span>
-                            <span class="daxa-badge not-started d-inline-block" *ngIf="element.status.notStarted">
-                                {{element.status.notStarted}}
-                            </span>
-                        </td>
-                    </ng-container>
-
-                    <!-- Action Column -->
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef>
                             Ações
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            <!-- <app-options-menu [usuarioId]="estudo.id"></app-options-menu> -->
                             <div class="action-info">
                                 <button type="button" mat-button matTooltip="Editar" matTooltipPosition="above">
                                     <i class="material-symbols-outlined">
@@ -203,16 +148,16 @@
                             </div>
                         </td>
                     </ng-container>
-
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-                    <!-- Row shown when there is no matching data. -->
-                    <!-- <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-                    </tr> -->
-
                 </table>
+                <mat-paginator
+                    [length]="currentLength"
+                    [pageSize]="20"
+                    [pageSizeOptions]="[20,50]"
+                    (page)="onPageChange($event)"
+                    showFirstLastButtons>
+                </mat-paginator>
             </div>
         </div>
     </mat-card-content>

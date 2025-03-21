@@ -98,7 +98,7 @@ export class ExamesComponent {
     ];
     searchForm: FormGroup;
     classApplied = false;
-    pacsMap = new Map<string, Pacs>();
+    pacsMap = new Map<string | number, Pacs>();
     pacsArray: Pacs[];
     constructor(
         public themeService: CustomizerSettingsService,

@@ -7,7 +7,7 @@
                     left: -20px;
                     right: -20px;
                 };
-                .to-do-list-table {
+                .aetitle-list-table {
                     .mat-mdc-table {
                         .mat-mdc-header-cell {
                             &:last-child {
@@ -47,6 +47,13 @@
                             }
                         }
                     }
+                    .mat-mdc-paginator {
+                        padding: {
+                            top: 15px;
+                            left: 20px;
+                            right: 20px;
+                        };
+                    }
                 }
                 .add-new-task-btn {
                     padding: {
@@ -70,7 +77,7 @@
             }
             &.rtl-enabled {
                 .mat-mdc-card-content {
-                    .to-do-list-table {
+                    .aetitle-list-table {
                         .mat-mdc-table {
                             .mat-mdc-header-cell {
                                 &:last-child {
@@ -104,6 +111,35 @@
 
 // Add New Task Popup
 ::ng-deep {
+    .mat-mdc-table {
+        .mat-mdc-row {
+            transition: background-color 0.2s ease !important;
+            &:hover {
+                .mat-mdc-cell {
+                    background-color: rgba(0, 0, 0, 0.05) !important;
+                }
+            }
+        }
+    }
+    .dark-theme {
+        .mat-mdc-select-panel {
+            background-color: red !important;
+            mat-option {
+                &:hover {
+                    background-color: blue !important;
+                }
+            }
+        }
+        .mat-mdc-table {
+            .mat-mdc-row {
+                &:hover {
+                    .mat-mdc-cell {
+                        background-color: rgba(0, 0, 0, 0.2) !important;
+                    }
+                }
+            }
+        }
+    }
     .add-new-task-popup {
         top: 0;
         left: 0;
@@ -198,7 +234,7 @@
                     .mat-mdc-card-content {
                         .btn-box {
                             text-align: left;
-    
+
                             .mat-mdc-button {
                                 &:first-child {
                                     margin: {
@@ -227,7 +263,7 @@
                         left: -15px;
                         right: -15px;
                     };
-                    .to-do-list-table {
+                    .aetitle-list-table {
                         .mat-mdc-table {
                             .info {
                                 .image {
@@ -245,7 +281,7 @@
                 }
                 &.rtl-enabled {
                     .mat-mdc-card-content {
-                        .to-do-list-table {
+                        .aetitle-list-table {
                             .mat-mdc-table {
                                 .mat-mdc-header-cell {
                                     &:first-child {
@@ -291,7 +327,7 @@
         .add-new-task-popup {
             .popup-dialog {
                 max-width: 400px;
-                
+
                 .daxa-card {
                     .mat-mdc-card-header {
                         margin: {
@@ -344,7 +380,7 @@
                 }
                 &.rtl-enabled {
                     .mat-mdc-card-content {
-                        .to-do-list-table {
+                        .aetitle-list-table {
                             .mat-mdc-table {
                                 .mat-mdc-header-cell {
                                     &:first-child {
@@ -556,7 +592,7 @@
                         .btn-box {
                             .mat-mdc-button {
                                 padding: 13px 18px;
-    
+
                                 &:not(:first-child) {
                                     margin-left: 8px;
                                 }

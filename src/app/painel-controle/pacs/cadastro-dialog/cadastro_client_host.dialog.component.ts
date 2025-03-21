@@ -54,7 +54,7 @@ export class CreateHostProprioComponent {
     };
     pacsForm: FormGroup;
     currentPage = 1;
-    usarChaveSSH = true;
+    usarChaveSSH = false;
 
     constructor(
         public dialogRef: MatDialogRef<CreateHostProprioComponent>,
