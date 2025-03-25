@@ -290,7 +290,6 @@ export class EditarEstudoDialogComponent
                     isEditing: false,
                 };
             });
-        // this.estudoForm.patchValue(this.estudo);
         this.isLoading = false;
     }
 
@@ -335,6 +334,7 @@ export class EditarEstudoDialogComponent
         const updatedTags = this.estudoTags
             .filter((tag) => tag.isEditable)
             .map(({name, value}) => ({name, value}));
-        this.dialogRef.close(updatedTags); // Retorna as alterações
+        console.log(updatedTags);
+        // this.dialogRef.close(updatedTags);
     }
 }

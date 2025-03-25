@@ -35,6 +35,8 @@ import {UserService} from "../@shared/service/usuario/user.service";
 import {UserGroups} from "../@shared/model/usuario/user-groups";
 import {MatTab} from "@angular/material/tabs";
 import {STUDIES_OPTION_MENU} from "./menu/options-menu.enum";
+import {DatetimeFormatPipe} from "../@shared/pipe/datetime-pipe";
+import {EstudoViewerService} from "../@shared/service/estudo/study-viewer.service";
 
 
 @Component({
@@ -62,7 +64,8 @@ import {STUDIES_OPTION_MENU} from "./menu/options-menu.enum";
         MatProgressSpinner,
         FormsModule,
         MatPaginatorModule,
-        MatTab
+        MatTab,
+        DatetimeFormatPipe
     ],
     templateUrl: './estudos.component.html',
     styleUrl: './estudos.component.scss'
@@ -80,6 +83,7 @@ export class EstudosComponent {
     pacsMap = new Map<string | number, Pacs>();
     pacsArray: Pacs[];
     filteredPacs: Pacs[] = [];
+    selectedPacs: Pacs | undefined;
     isAdmin: boolean = false;
     displayedColumns: string[] = [
         'select',
@@ -120,7 +124,8 @@ export class EstudosComponent {
         private dialog: MatDialog,
         private formBuilder: FormBuilder,
         private pacsService: PacsService,
-        private userService: UserService
+        private userService: UserService,
+        private estudoViewerService: EstudoViewerService
     ) {
     }
 
@@ -134,6 +139,10 @@ export class EstudosComponent {
             this.pacsArray = pacsArray;
             this.filteredPacs = pacsArray;
             this.pacsMap = new Map(pacsArray.map(pacs => [pacs.id, pacs]));
+            let pacsId = this.userService.getUser()?.pacs_id;
+            if(pacsId) {
+                this.selectedPacs = this.pacsMap.get(pacsId);
+            }
         });
         // Definir "Últimos 7 dias" como opção inicial
         this.selectedDateRange = 'last7Days';
@@ -421,8 +430,9 @@ export class EstudosComponent {
 
     }
 
-    visualizarWeb(uid: string) {
-
+    visualizarWeb(estudo: Estudo)
+    {
+        this.estudoViewerService.openViewer(estudo);
     }
 
     downloadEstudo(uid: string) {

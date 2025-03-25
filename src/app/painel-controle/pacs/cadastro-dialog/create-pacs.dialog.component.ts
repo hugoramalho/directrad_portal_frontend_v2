@@ -59,7 +59,6 @@ export class CreatePacsDialogComponent
     filteredTeles: UserRis[] = [];
     filteredAdmins: User[] = [];
 
-
     constructor(
         public dialogRef: MatDialogRef<CreatePacsDialogComponent>,
         private formBuilder: FormBuilder,
@@ -111,8 +110,8 @@ export class CreatePacsDialogComponent
         }
 
         forkJoin({
-            result1: this.usersService.queryAllAdmins(),
-            result2: this.usersService.queryAllTele(),
+            result1: this.usersService.queryAdmins(),
+            result2: this.usersService.queryTeles(),
         }).subscribe({
             next: ({result1, result2}) => {
                 this.adminUsers = result1;

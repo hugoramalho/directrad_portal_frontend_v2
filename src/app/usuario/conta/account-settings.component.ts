@@ -1,3 +1,5 @@
+
+
 import {Component} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -8,19 +10,15 @@ import {FileUploadModule} from '@iplab/ngx-file-upload';
 import {CustomizerSettingsService} from '../../customizer-settings/customizer-settings.service';
 import {UserService} from "../../@shared/service/usuario/user.service";
 import {User} from "../../@shared/model/usuario/user";
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatDialog} from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Pacs} from "../../@shared/model/pacs/pacs";
 import {UserGroups, UserGroupsMapper} from "../../@shared/model/usuario/user-groups";
 import {MatChip, MatChipListbox} from "@angular/material/chips";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
 import {NgIf} from "@angular/common";
 import {BRAZILIAN_STATES_ORDERED} from "../../@shared/model/utils/estados";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
-import {SelectPacsTypeComponent} from "../../painel-controle/pacs/cadastro-dialog/pacs-type-choice.dialog.component";
-import {CreatePacsDialogComponent} from "../../painel-controle/pacs/cadastro-dialog/create-pacs.dialog.component";
-import {PacsHostType} from "../../@shared/model/pacs/pacs-host-type";
 import {ChangePasswordDialogComponent} from "../password-change/password-change.dialog.component";
 
 @Component({

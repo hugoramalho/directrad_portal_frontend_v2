@@ -110,7 +110,7 @@ export class CadastroPacsComponent {
             result1: this.clinicaService.query(),
             result2: this.teleUserService.query(),
             result3: this.aetitleService.query(),
-            result4: this.usersService.queryAdmin(),
+            result4: this.usersService.queryAdminsPaginated(),
         }).subscribe({
             next: ({ result1, result2, result3, result4 }) => {
                 this.clinicas = result1;

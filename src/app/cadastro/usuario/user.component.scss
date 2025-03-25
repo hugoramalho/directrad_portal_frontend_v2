@@ -7,7 +7,7 @@
                     left: -20px;
                     right: -20px;
                 };
-                .aetitle-list-table {
+                .list-table {
                     .mat-mdc-table {
                         .mat-mdc-header-cell {
                             &:last-child {
@@ -47,6 +47,11 @@
                             }
                         }
                     }
+                    .action-info {
+                        i {
+                            font-size: var(--iconButtonSize);
+                        }
+                    }
                     .mat-mdc-paginator {
                         padding: {
                             top: 15px;
@@ -77,7 +82,7 @@
             }
             &.rtl-enabled {
                 .mat-mdc-card-content {
-                    .aetitle-list-table {
+                    .list-table {
                         .mat-mdc-table {
                             .mat-mdc-header-cell {
                                 &:last-child {
@@ -263,7 +268,7 @@
                         left: -15px;
                         right: -15px;
                     };
-                    .aetitle-list-table {
+                    .list-table {
                         .mat-mdc-table {
                             .info {
                                 .image {
@@ -281,7 +286,7 @@
                 }
                 &.rtl-enabled {
                     .mat-mdc-card-content {
-                        .aetitle-list-table {
+                        .list-table {
                             .mat-mdc-table {
                                 .mat-mdc-header-cell {
                                     &:first-child {
@@ -380,7 +385,7 @@
                 }
                 &.rtl-enabled {
                     .mat-mdc-card-content {
-                        .aetitle-list-table {
+                        .list-table {
                             .mat-mdc-table {
                                 .mat-mdc-header-cell {
                                     &:first-child {

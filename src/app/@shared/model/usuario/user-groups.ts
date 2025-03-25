@@ -3,7 +3,6 @@
  *
  * Created at: 24/03/2025
  **/
-import {PacsHostType} from "../pacs/pacs-host-type";
 
 export enum UserGroups {
     ADMIN = 1,
@@ -14,7 +13,7 @@ export enum UserGroups {
 
 export class UserGroupsMapper {
     private static readonly descriptions: Record<UserGroups | number, string> = {
-        [UserGroups.ADMIN]: "Administrador Master - Directrad",
+        [UserGroups.ADMIN]: "Administrador do Sistema - Directrad",
         [UserGroups.CLINICA]: "Usuário Clínica",
         [UserGroups.TECNICO]: "Usuário Técnico",
         [UserGroups.PACS_ADMIN]: "Administrador do Pacs",

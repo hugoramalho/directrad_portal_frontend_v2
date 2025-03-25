@@ -17,19 +17,34 @@ import {PaginatedListInterface} from "../../model/http/paginated-list-interface"
 import {Aetitle} from "../../model/pacs/aetitle";
 import {PaginatedList} from "../../model/http/paginated-list";
 import {UserRis} from "../../model/usuario/user-ris";
+import {ApiResponseResource} from "../../model/http/api-response-resource";
 
 @Injectable({
     providedIn: 'root'
 })
 export class UsersRepository {
-    private baseUrl = `${environment.api_v1_base_url}/users/admins`;
+    private baseUrl = `${environment.api_v1_base_url}/users`;
     private usersSubject = new BehaviorSubject<Map<number, UserAdmin>>(new Map());
     pacs$ = this.usersSubject.asObservable();
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient
+    ) {
     }
 
-    queryAdmin(page: number = 1, page_size: number = 20, queryParams: Record<string, any> | null = null): Observable<UserAdmin[]> {
+    create(user: User): Observable<number>
+    {
+        return this.http.post<ApiResponseInterface<ApiResponseResource>>(
+            `${this.baseUrl}`,
+            user
+        ).pipe(
+            map(response => {
+                return response.data.id;
+            })
+        );
+    }
+
+    queryAdminsPaginated(page: number = 1, page_size: number = 20, queryParams: Record<string, any> | null = null): Observable<UserAdmin[]> {
         const cachedUsersMap = this.usersSubject.getValue();
         if (cachedUsersMap.size > 0) {
             return of(Array.from(cachedUsersMap.values()));
@@ -46,7 +61,7 @@ export class UsersRepository {
         params = params.set('page', page.toString());
         params = params.set('page_size', page_size.toString());
         return this.http.get<ApiResponseInterface<UserAdmin[]>>(
-            `${this.baseUrl}`,
+            `${this.baseUrl}/admins`,
             {params}
         ).pipe(
             map(response => response.data || []),
@@ -62,10 +77,10 @@ export class UsersRepository {
         );
     }
 
-    queryAllTele(): Observable<UserRis[]>
+    queryTeles(): Observable<UserRis[]>
     {
         return this.http.get<ApiResponseInterface<UserRis[]>>(
-            'api/v1/users/tele'
+            `${this.baseUrl}/tele`
         ).pipe(
             map(response => response.data || []),
             catchError(err => {
@@ -75,10 +90,10 @@ export class UsersRepository {
         );
     }
 
-    queryAllAdmins(): Observable<User[]>
+    queryAdmins(): Observable<User[]>
     {
         return this.http.get<ApiResponseInterface<User[]>>(
-            'api/v1/users/admins'
+            `${this.baseUrl}/admins`
         ).pipe(
             map(response => response.data || []),
             catchError(err => {
@@ -88,12 +103,12 @@ export class UsersRepository {
         );
     }
 
-    query(page: number = 1, page_size: number = 20, queryParams: Record<string, any> | null = null): Observable<PaginatedList<User[]>>
+    queryPaginated(
+        page: number = 1,
+        page_size: number = 20,
+        queryParams: Record<string, any> | null = null
+    ): Observable<PaginatedList<User[]>>
     {
-        // const cachedUsersMap = this.usersSubject.getValue();
-        // if (cachedUsersMap.size > 0) {
-        //     return of(Array.from(cachedUsersMap.values()));
-        // }
         let params = new HttpParams();
         if (queryParams) {
             Object.keys(queryParams).forEach((key) => {

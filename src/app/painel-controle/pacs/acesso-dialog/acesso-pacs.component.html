@@ -1,0 +1,99 @@
+<!--<div class="title">-->
+<!--    <h4>Acesso ao Pacs</h4>-->
+<!--    <h5><i>{{ pacs.identificacao }}</i></h5>-->
+<!--</div>-->
+<!--<mat-dialog-content class="modal-body">-->
+<!--    <em-->
+<!--        *ngIf="!hasCredentials"-->
+<!--        class="credentials-registered-disclaimer">Obs: Credenciais ainda não cadastradas</em>-->
+<!--    <form [formGroup]="credentialsForm" class="password-form">-->
+<!--        <div class="form-field-wrapper">-->
+<!--            <mat-form-field class="fixed-height-field">-->
+<!--                <mat-label>Username</mat-label>-->
+<!--                <input-->
+<!--                    matInput-->
+<!--                    formControlName="pacs_username">-->
+<!--            </mat-form-field>-->
+<!--        </div>-->
+<!--        <div class="form-field-wrapper">-->
+<!--            <mat-form-field-->
+<!--                *ngIf="hasCredentials"-->
+<!--                class="fixed-height-field current-password">-->
+<!--                <mat-label>Senha atual</mat-label>-->
+<!--                <input-->
+<!--                    matInput-->
+<!--                    [type]="hidePassword ? 'password' : 'text'"-->
+<!--                    formControlName="pacs_password">-->
+<!--                <button-->
+<!--                    mat-icon-button-->
+<!--                    matSuffix-->
+<!--                    (click)="hidePassword = !hidePassword">-->
+<!--                    <span class="material-symbols-outlined">-->
+<!--                        {{ hidePassword ? 'visibility_off' : 'visibility' }}-->
+<!--                    </span>-->
+<!--                </button>-->
+<!--            </mat-form-field>-->
+<!--            <mat-form-field class="fixed-height-field">-->
+<!--                <mat-label>Nova senha</mat-label>-->
+<!--                <input-->
+<!--                    matInput-->
+<!--                    [type]="hidePassword ? 'password' : 'text'"-->
+<!--                    formControlName="pacs_new_password">-->
+<!--                <button-->
+<!--                    *ngIf="!hasCredentials"-->
+<!--                    mat-icon-button-->
+<!--                    matSuffix-->
+<!--                    (click)="hidePassword = !hidePassword">-->
+<!--                    <span class="material-symbols-outlined">-->
+<!--                        {{ hidePassword ? 'visibility_off' : 'visibility' }}-->
+<!--                    </span>-->
+<!--                </button>-->
+<!--            </mat-form-field>-->
+
+<!--            <div class="error-container">-->
+<!--                <mat-error-->
+<!--                    *ngIf="credentialsForm.get('pacs_new_password')?.hasError('minlength')">-->
+<!--                    Mínimo 6 caracteres-->
+<!--                </mat-error>-->
+<!--                <mat-error-->
+<!--                    *ngIf="credentialsForm.get('pacs_new_password')?.hasError('hasNumber')">-->
+<!--                    Deve conter números-->
+<!--                </mat-error>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="form-field-wrapper">-->
+<!--            <mat-form-field class="fixed-height-field">-->
+<!--                <mat-label>Digite novamente a nova senha</mat-label>-->
+<!--                <input-->
+<!--                    matInput-->
+<!--                    [type]="hidePassword ? 'password' : 'text'"-->
+<!--                    formControlName="pacs_new_password_repeat">-->
+<!--            </mat-form-field>-->
+<!--            <div class="error-container">-->
+<!--                <mat-error *ngIf="credentialsForm.get('pacs_new_password_repeat')?.hasError('differentValues')">-->
+<!--                    Senhas não coincidem-->
+<!--                </mat-error>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</mat-dialog-content>-->
+<!--<mat-dialog-actions class="modal-footer">-->
+<!--    <button-->
+<!--        mat-button-->
+<!--        mat-raised-button-->
+<!--        type="button"-->
+<!--        class="btn btn-danger mdc-button mat-mdc-button btn-cancel"-->
+<!--        (click)="onCancel()">-->
+<!--        Cancelar-->
+<!--    </button>-->
+<!--    <button-->
+<!--        mat-button-->
+<!--        [ngClass]="{'btn-submit': true, 'disabled-style': credentialsForm.invalid}"-->
+<!--        mat-raised-button-->
+<!--        type="submit"-->
+<!--        class="btn btn-success btn-submit"-->
+<!--        (click)="onSubmit()"-->
+<!--        [disabled]="credentialsForm.invalid">-->
+<!--        Salvar-->
+<!--    </button>-->
+<!--</mat-dialog-actions>-->

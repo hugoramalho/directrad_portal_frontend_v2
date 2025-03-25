@@ -22,24 +22,24 @@ export class UsersService {
     ) {
     }
 
-    queryAllTele()
+    queryTeles()
     {
-        return this.usersRepository.queryAllTele();
+        return this.usersRepository.queryTeles();
     }
 
-    queryAllAdmins()
+    queryAdmins()
     {
-        return this.usersRepository.queryAllAdmins();
+        return this.usersRepository.queryAdmins();
     }
 
-    queryAdmin(page: number = 1, page_size: number = 20, queryParams: Record<string, any> | null = null)
+    queryAdminsPaginated(page: number = 1, page_size: number = 20, queryParams: Record<string, any> | null = null)
     {
-        return this.usersRepository.queryAdmin(page, page_size, queryParams);
+        return this.usersRepository.queryAdminsPaginated(page, page_size, queryParams);
     }
 
-    query(page: number = 1, page_size: number = 20,  queryParams: Record<string, any> | null = null)
+    queryPaginated(page: number = 1, page_size: number = 20, queryParams: Record<string, any> | null = null)
     {
-        return this.usersRepository.query(page, page_size, queryParams);
+        return this.usersRepository.queryPaginated(page, page_size, queryParams);
     }
 
 }

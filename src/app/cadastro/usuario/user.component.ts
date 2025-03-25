@@ -25,6 +25,9 @@ import {CustomizerSettingsService} from "../../customizer-settings/customizer-se
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {UsersService} from "../../@shared/service/usuario/users.service";
 import {User} from "../../@shared/model/usuario/user";
+import {MatIcon} from "@angular/material/icon";
+import {PacsHostType} from "../../@shared/model/pacs/pacs-host-type";
+import {CreateUserDialogComponent} from "./create-dialog/create-user.dialog.component";
 
 
 @Component({
@@ -44,7 +47,8 @@ import {User} from "../../@shared/model/usuario/user";
         MatSelectModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatPaginator
+        MatPaginator,
+        MatIcon
     ],
     templateUrl: './user.component.html',
     styleUrl: './user.component.scss'
@@ -77,37 +81,33 @@ export class CadastroUsuarioComponent {
         });
     }
 
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this.loadUsers(1, 20);
     }
 
-    private loadUsers(page: number = 1, page_size: number = 20): void
-    {
-        this.usersService.query(page, page_size).subscribe({
+    private loadUsers(page: number = 1, page_size: number = 20): void {
+        this.usersService.queryPaginated(page, page_size).subscribe({
             next: (result) => {
+                this.users = result.items;
                 this.dataSource.data = result.items;
                 this.currentLength = result.total;
                 this.isLoading = false;
             },
             error: (err) => {
-                console.error('Erro ao buscar os dados:', err);
                 this.isLoading = false;
             }
         });
     }
 
     /** Whether the number of selected elements matches the total number of rows. */
-    isAllSelected()
-    {
+    isAllSelected() {
         const numSelected = this.selection.selected.length;
         const numRows = this.dataSource.data.length;
         return numSelected === numRows;
     }
 
     /** Selects all rows if they are not all selected; otherwise clear selection. */
-    toggleAllRows()
-    {
+    toggleAllRows() {
         if (this.isAllSelected()) {
             this.selection.clear();
             return;
@@ -116,8 +116,7 @@ export class CadastroUsuarioComponent {
     }
 
     /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: User): string
-    {
+    checkboxLabel(row?: User): string {
         // if (!row) {
         //     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         // }
@@ -125,45 +124,37 @@ export class CadastroUsuarioComponent {
         return '';
     }
 
-    applyFilter(event: Event)
-    {
+    applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
-    toggleClass()
-    {
+    toggleClass() {
         this.classApplied = !this.classApplied;
     }
 
-    onPageChange(event: PageEvent)
-    {
+    onPageChange(event: PageEvent) {
         this.loadUsers(event.pageIndex + 1, event.pageSize);
     }
 
     // RTL Mode
-    toggleRTLEnabledTheme()
-    {
+    toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
 
-    openAddAetitleModal()
-    {
-        // const dialogRef = this.dialog.open(CreateAetitleComponent, {
-        //     width: 'auto', // Define o tamanho do modal
-        //     data: {}, // Dados iniciais se necessário
-        // });
-        // dialogRef.afterClosed().subscribe((result) => {
-        //     if (result) {
-        //         // O resultado do modal será retornado aqui
-        //         console.log('Modal result:', result);
-        //         this.handleAetitleResult(result);
-        //     }
-        // });
+    onCreateUser() {
+        this.dialog.open(CreateUserDialogComponent, {
+            width: 'auto', // Define o tamanho do modal
+            data: {}, // Dados iniciais se necessário
+        }).afterClosed()
+            .subscribe((result) => {
+
+            });
     }
 
     handleAetitleResult(result: any) {
         console.log('Aetitle salvo:', result);
     }
 
+    protected readonly PacsHostType = PacsHostType;
 }
