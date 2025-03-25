@@ -257,10 +257,10 @@
 <!--                            </li>-->
                             <li class="position-relative transition fw-medium">
                                 <i class="material-symbols-outlined">
-                                    settings
+                                    manage_accounts
                                 </i>
-                                Settings
-                                <a routerLink="/settings" class="link-btn d-block position-absolute"></a>
+                                Perfil
+                                <a routerLink="/usuario/config" class="link-btn d-block position-absolute"></a>
                             </li>
 <!--                            <li class="position-relative transition fw-medium">-->
 <!--                                <i class="material-symbols-outlined">-->
@@ -269,14 +269,15 @@
 <!--                                Support-->
 <!--                                <a routerLink="/settings/connections" class="link-btn d-block position-absolute"></a>-->
 <!--                            </li>-->
-                            <li class="position-relative transition fw-medium">
+                            <li class="position-relative transition fw-medium logout-link">
                                 <i class="material-symbols-outlined">
                                     logout
                                 </i>
                                 Logout
                                 <a
+                                    routerLink="/authentication"
                                     (click)="logout()"
-                                   class="link-btn d-block position-absolute"></a>
+                                    class="link-btn d-block position-absolute"></a>
                             </li>
                         </ul>
                     </div>

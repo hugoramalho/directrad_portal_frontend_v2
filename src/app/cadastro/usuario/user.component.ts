@@ -79,7 +79,6 @@ export class CadastroUsuarioComponent {
 
     ngOnInit(): void
     {
-        console.log('teste user');
         this.loadUsers(1, 20);
     }
 

@@ -314,8 +314,6 @@ export class WorklistComponent {
         });
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                console.log(`Ação realizada: ${result.action}, UID: ${result.uid}`);
-                // Execute ações específicas com base na resposta do diálogo
             }
         });
     }

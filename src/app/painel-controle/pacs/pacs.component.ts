@@ -34,6 +34,7 @@ import { NgIf } from '@angular/common';
 import {EditPacsDialogComponent} from "./edit-dialog/edit-pacs.dialog.component";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {CreatePacsDialogComponent} from "./cadastro-dialog/create-pacs.dialog.component";
+import {PacsCredentialsDialogComponent} from "./credentials-dialog/pacs-credentials.dialog.component";
 
 @Component({
     selector: 'app-cadastro-pacs',
@@ -59,6 +60,7 @@ import {CreatePacsDialogComponent} from "./cadastro-dialog/create-pacs.dialog.co
     styleUrl: './pacs.component.scss'
 })
 export class CadastroPacsComponent {
+    protected readonly PacsHostType = PacsHostType;
     isLoading = true;
     searchForm: FormGroup;
     dataSource = new MatTableDataSource<Pacs>([]);
@@ -124,7 +126,8 @@ export class CadastroPacsComponent {
         });
     }
 
-    onPageChange(event: PageEvent) {
+    onPageChange(event: PageEvent)
+    {
         this.loadPacs(event.pageIndex + 1, event.pageSize);
     }
 
@@ -239,14 +242,24 @@ export class CadastroPacsComponent {
         this.themeService.toggleRTLEnabledTheme();
     }
 
-    onAccess(pacs: Pacs) {
-        console.log('Acessando PACS:', pacs.identificacao);
-        // Adicione a lógica de acesso
+    onAccess(pacs: Pacs)
+    {
     }
 
-    onInstall(pacs: Pacs) {
-        console.log('Iniciando instalação do PACS:', pacs.identificacao);
-        // Adicione a lógica de instalação
+    onInstall(pacs: Pacs)
+    {
+    }
+
+    onCredentials(pacs: Pacs)
+    {
+        this.dialog.open(PacsCredentialsDialogComponent, {
+            width: '500px',
+            data: pacs
+        }).afterClosed().subscribe((result) => {
+            if (result) {
+                this.loadPacs();
+            }
+        });
     }
 
     onEdit(pacs: Pacs): void
@@ -262,9 +275,8 @@ export class CadastroPacsComponent {
         });
     }
 
-    onDelete(pacs: Pacs) {
-        console.log('Excluindo PACS:', pacs.identificacao);
-        // Adicione a lógica de exclusão
+    onDelete(pacs: Pacs)
+    {
     }
 
 }

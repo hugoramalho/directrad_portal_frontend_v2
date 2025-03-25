@@ -20,7 +20,7 @@ import {PacsHostMapper, PacsHostType} from "../../../@shared/model/pacs/pacs-hos
 import {UsersService} from "../../../@shared/service/usuario/users.service";
 import {UserRis} from "../../../@shared/model/usuario/user-ris";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+// import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {forkJoin} from "rxjs";
 import {User} from "../../../@shared/model/usuario/user";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -44,7 +44,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
         MatSelect,
         MatOption,
         MatProgressSpinner,
-        NgxMatSelectSearchModule
+        // NgxMatSelectSearchModule
     ]
 })
 export class CreatePacsDialogComponent

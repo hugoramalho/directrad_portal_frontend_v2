@@ -7,7 +7,6 @@
         height: auto;
         padding: 12px;
         position: fixed;
-
         .header-left-side {
             .burger-menu {
                 margin-right: 15px;
@@ -36,7 +35,6 @@
             }
             .search-box {
                 width: 360px;
-
                 i {
                     transform: translateY(-50%);
                     color: var(--blackColor);
@@ -71,7 +69,6 @@
         .header-right-side {
             position: relative;
             top: 2px;
-
             li {
                 .language-menu-btn {
                     width: auto;
@@ -443,14 +440,11 @@
             .menu-body {
                 li {
                     border-bottom: 1px dashed #e7e2e2;
-
                     .mdc-button {
-                        padding: 0;
                         width: 100%;
                         height: auto;
                         display: block;
                         padding: 14px 25px;
-
                         .mdc-button__label {
                             display: flex;
                             align-items: center;
@@ -470,6 +464,9 @@
                     }
                     &:last-child {
                         border-bottom: 0;
+                    }
+                    a:hover {
+                        cursor: pointer !important;
                     }
                 }
             }

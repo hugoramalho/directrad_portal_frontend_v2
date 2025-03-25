@@ -52,7 +52,6 @@ export class SidebarComponent {
             this.isToggled = isToggled;
         });
         this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
-        console.log(this.isAdmin);
         this.logoUrl = this.isToggled ? this.logoUrlClosed : this.logoUrlOpened;
     }
 

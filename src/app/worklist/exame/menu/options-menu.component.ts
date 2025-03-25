@@ -138,17 +138,18 @@ export class MenuEstudosComponent {
         });
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
         this.loadExames(); // Carregar os dados ao inicializar
     }
 
-    editar() {
-        console.log(`Editar estudo com UID: ${this.uid}`);
+    editar()
+    {
         this.dialogRef.close({action: 'editar', uid: this.uid});
     }
 
-    deletar() {
-        console.log(`Excluir estudo com UID: ${this.uid}`);
+    deletar()
+    {
         this.dialogRef.close({action: 'deletar', uid: this.uid});
     }
 

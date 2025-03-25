@@ -33,7 +33,6 @@ export class UserService {
     }
 
     verifyGroup(groupId: number | string): boolean {
-        console.log(this.userSubject.getValue()?.groups);
         return this.userSubject.getValue()?.groups?.some(group => group.group_id == groupId) ?? false;
     }
 

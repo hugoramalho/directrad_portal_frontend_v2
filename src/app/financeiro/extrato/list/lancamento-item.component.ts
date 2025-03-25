@@ -41,7 +41,6 @@
 //   //     if (action === 'edit') {
 //   //       this.dialogService.open(LancamentoDialogComponent, { context: { lancamento: item } });
 //   //     } else if (action === 'delete') {
-//   //       console.log('Item excluído:', item);
 //   //     }
 //   //   });
 //   // }

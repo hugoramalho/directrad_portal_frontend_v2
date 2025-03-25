@@ -95,19 +95,16 @@ export class LancamentoFinanceiroDataSource {
                 forkJoin({
                     categoria: this.categoriaDataSource.getCategoriaById(lancamento.categoria_id).pipe(
                         catchError(() => {
-                            console.log('erro categogria')
                             return of(null)
                         })
                     ),
                     conta_origem: this.contaDataSource.getContaById(lancamento.conta_origem_id).pipe(
                         catchError(() => {
-                            console.log('erro conta_origem')
                             return of(null)
                         })
                     ),
                     conta_destino: this.contaDataSource.getContaById(lancamento.conta_destino_id).pipe(
                         catchError(() => {
-                            console.log('erro conta_destino')
                             return of(null)
                         })
                     ),

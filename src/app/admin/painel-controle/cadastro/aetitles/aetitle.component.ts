@@ -96,17 +96,14 @@ export class CadastroAetitleComponent {
 
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
-                // O resultado do modal será retornado aqui
-                console.log('Modal result:', result);
                 this.handleAetitleResult(result);
             }
         });
     }
 
-    handleAetitleResult(result: any) {
-        // Lógica para lidar com os dados retornados pelo modal
-        console.log('Aetitle salvo:', result);
-        // Exemplo: salvar no backend, atualizar estado local, etc.
+    handleAetitleResult(result: any)
+    {
+
     }
 
 }

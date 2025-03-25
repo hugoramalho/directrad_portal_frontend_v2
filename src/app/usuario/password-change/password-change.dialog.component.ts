@@ -114,7 +114,6 @@ export class ChangePasswordDialogComponent {
                 this.dialogRef.close(response);
             },
             error: (error) => {
-                console.log(error);
                 this.snackBar.open('Falha ao alterar senha', 'Fechar', {
                     duration: 4000,
                     horizontalPosition: 'right',

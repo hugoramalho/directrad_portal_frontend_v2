@@ -104,12 +104,7 @@ export class ExtratoComponent implements AfterViewInit, OnInit {
 
 
     ngAfterViewInit() {
-
-        console.log('ngAfterViewInit');
-
         this.contaDatasource.getContas().subscribe(data => {
-            console.log('ngAfterViewInit contas', data);
-
             this.contas = data || this.contas;
             if (this.contas && this.contas?.length > 0) {
                 this.contaAtiva = this.contas[0];

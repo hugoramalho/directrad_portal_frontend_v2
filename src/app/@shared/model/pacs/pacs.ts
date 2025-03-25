@@ -6,7 +6,8 @@
 import {UserPermissions} from "../usuario/user-permissions";
 import {AbstractModel} from "../abstract-model";
 
-export interface Pacs {
+export interface Pacs
+{
     id: number | string;
     identificacao?: string | null;
     pacs_application_id?: number | null;

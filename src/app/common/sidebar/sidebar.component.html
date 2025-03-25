@@ -79,7 +79,7 @@
                                 *ngIf="isAdmin"
                                 class="sidemenu-item">
                                 <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Pacs Hosts
+                                    Hosts
                                 </a>
                             </li>
                             <li
@@ -151,7 +151,7 @@
 <!--                    </mat-expansion-panel>-->
                     <a
                         *ngIf="isAdmin"
-                        routerLink="/painel-controle"
+                        routerLink="/"
                         class="sidebar-menu-link"
                         routerLinkActive="active"
                         [routerLinkActiveOptions]="{exact: true}">
@@ -216,6 +216,7 @@
 <!--                    </mat-expansion-panel>-->
                     <a
                         (click)="logout()"
+                        routerLinkActive="active"
                         class="sidebar-menu-link">
                         <i class="material-symbols-outlined">
                             logout

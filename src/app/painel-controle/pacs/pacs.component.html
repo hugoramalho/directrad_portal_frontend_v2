@@ -150,21 +150,33 @@
                                         <i class="material-symbols-outlined">more_vert</i>
                                     </button>
                                     <mat-menu #menu="matMenu">
-                                        <ng-container *ngIf="!element.install_allow; else showInstall">
+                                        <ng-container
+                                            *ngIf="!element.install_allow; else showInstall">
                                             <button mat-menu-item (click)="onAccess(element)">
                                                 <mat-icon>login</mat-icon>
                                                 Acesso
                                             </button>
                                         </ng-container>
                                         <ng-template #showInstall>
-                                            <button mat-menu-item (click)="onInstall(element)">
+                                            <button
+                                                mat-menu-item
+                                                (click)="onInstall(element)">
                                                 <mat-icon>terminal</mat-icon>
                                                 Instalação
                                             </button>
                                         </ng-template>
-                                        <button mat-menu-item (click)="onEdit(element)">
+                                        <button
+                                            mat-menu-item
+                                            (click)="onEdit(element)">
                                             <mat-icon>edit</mat-icon>
-                                            Ver dados/Editar
+                                            Editar/Ver dados
+                                        </button>
+                                        <button
+                                            *ngIf="element.tipo_pacs_application === PacsHostType.PACS_CLIENTE"
+                                            mat-menu-item
+                                            (click)="onCredentials(element)">
+                                            <mat-icon>key</mat-icon>
+                                            Gerenciar credenciais
                                         </button>
                                         <button mat-menu-item (click)="onDelete(element)">
                                             <mat-icon>delete</mat-icon>

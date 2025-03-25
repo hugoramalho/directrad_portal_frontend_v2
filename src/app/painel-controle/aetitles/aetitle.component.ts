@@ -196,8 +196,6 @@ export class CadastroAetitleComponent {
         });
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
-                // O resultado do modal será retornado aqui
-                console.log('Modal result:', result);
                 this.handleAetitleResult(result);
             }
         });
@@ -221,8 +219,8 @@ export class CadastroAetitleComponent {
         });
     }
 
-    handleAetitleResult(result: any) {
-        console.log('Aetitle salvo:', result);
+    handleAetitleResult(result: any)
+    {
     }
 
 }
