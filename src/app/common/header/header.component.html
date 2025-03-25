@@ -240,10 +240,10 @@
                             <img src="assets/images/admin.png" alt="profile-image">
                             <div class="title">
                                 <a routerLink="/my-profile" class="d-inline-block fw-medium">
-                                    Mateo Luca
+                                    {{getUser()?.username}}
                                 </a>
                                 <span class="designation d-block text-body">
-                                    Admin
+                                    {{getUser()?.company}}
                                 </span>
                             </div>
                         </div>
@@ -274,7 +274,9 @@
                                     logout
                                 </i>
                                 Logout
-                                <a routerLink="/authentication/logout" class="link-btn d-block position-absolute"></a>
+                                <a
+                                    (click)="logout()"
+                                   class="link-btn d-block position-absolute"></a>
                             </li>
                         </ul>
                     </div>

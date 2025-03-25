@@ -1,8 +1,8 @@
 // import {Component, Inject} from '@angular/core';
 // import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 // import {FormControl, FormGroup} from '@angular/forms';
-// import {Estudo} from "../exame";
-// import {EstudoRepository} from "../exame.service";
+// import {Estudo} from "../estudos";
+// import {EstudoRepository} from "../estudos.service";
 //
 // @Component({
 //     standalone: true,
@@ -131,7 +131,6 @@ export class MenuEstudosComponent {
         this.estudoRepository.getEstudo(this.uid).subscribe({
             next: (exames: Estudo[]) => {
                 this.estudo = exames[0];
-                console.log('this.estudo', this.estudo);
             },
             error: (error) => {
                 console.error('Erro ao carregar os exames:', error);

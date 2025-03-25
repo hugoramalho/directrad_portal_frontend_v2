@@ -35,6 +35,7 @@
         "ngx-color-picker": "^16.0.0",
         "ngx-editor": "^16.0.1",
         "ngx-gauge": "^9.0.0",
+        "ngx-mat-select-search": "^8.0.0",
         "ngx-mat-timepicker": "^17.0.3",
         "ngx-owl-carousel-o": "^17.0.0",
         "ngx-scrollbar": "^13.0.3",

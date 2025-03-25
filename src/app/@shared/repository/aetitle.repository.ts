@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable, of, tap} from 'rxjs';
 import {CacheService} from "../cache/app.cache";
@@ -15,10 +15,15 @@ import {PaginatedListInterface} from "../model/http/paginated-list-interface";
 export class AETitleRepository {
     private baseUrl = '/api/v1/pacs'; // Base da API
     private aetitlesSubject = new BehaviorSubject<Aetitle[]>([]);
-    constructor(private http: HttpClient, private cacheService: CacheService) {}
+
+    constructor(
+        private http: HttpClient,
+        private cacheService: CacheService
+    ) {
+    }
 
     /** Obtém AETitles do cache ou API */
-    getPacsAETitles(pacsId: string|number|null): Observable<Aetitle[]> {
+    getPacsAETitles(pacsId: string | number | null): Observable<Aetitle[]> {
         const cachedAETitles = this.cacheService.getAETitles();
         if (cachedAETitles.length > 0) {
             return of(cachedAETitles); // Retorna cache se disponível
@@ -34,12 +39,24 @@ export class AETitleRepository {
     }
 
     /** Obtém AETitles do cache ou API */
-    getAETitles(): Observable<Aetitle[]> {
+    getAETitles(queryParams: Record<string, any> | null = null): Observable<Aetitle[]> {
+        let params = new HttpParams();
+        if (queryParams) {
+            Object.keys(queryParams).forEach((key) => {
+                const value = queryParams[key];
+                if (value !== null && value !== undefined && value !== '') {
+                    params = params.set(key, value);
+                }
+            });
+        }
         const cachedAETitles = this.cacheService.getAETitles();
         if (cachedAETitles.length > 0) {
             return of(cachedAETitles); // Retorna cache se disponível
         }
-        return this.http.get<ApiResponseInterface<Aetitle[]>>(`${this.baseUrl}/aetitles`).pipe(
+        return this.http.get<ApiResponseInterface<Aetitle[]>>(
+            `${this.baseUrl}/aetitles`,
+            {params}
+        ).pipe(
             map(response => response.data || []), // Extrai os dados da resposta
             tap(aetitles => this.aetitlesSubject.next(aetitles)), // Atualiza cache
             catchError(err => {
@@ -49,8 +66,7 @@ export class AETitleRepository {
         );
     }
 
-    query(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null): Observable<PaginatedList<Aetitle[]>>
-    {
+    query(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null): Observable<PaginatedList<Aetitle[]>> {
         let params = new HttpParams();
         if (queryParams) {
             Object.keys(queryParams).forEach((key) => {
@@ -81,14 +97,16 @@ export class AETitleRepository {
         );
     }
 
-    /** Cria um novo AETitle e atualiza o cache */
-    createAETitle(pacsId: string, aetitle: any): Observable<any> {
-        return this.http.post<{ id: string }>(`${this.baseUrl}/${pacsId}/aetitles`, aetitle).pipe(
+    createAETitle(aetitle: Aetitle): Observable<any>
+    {
+        return this.http.post<{ id: string }>(
+            `${this.baseUrl}/${aetitle.pacs_id}/aetitles`,
+            aetitle).pipe(
             tap(response => {
                 // Após criar, buscamos a entidade pelo ID retornado para garantir que temos os dados atualizados
-                this.getAETitleById(pacsId, response.id).subscribe(createdAETitle => {
-                    this.cacheService.addAETitle(createdAETitle);
-                });
+                // this.getAETitleById(pacsId, response.id).subscribe(createdAETitle => {
+                //     this.cacheService.addAETitle(createdAETitle);
+                // });
             })
         );
     }

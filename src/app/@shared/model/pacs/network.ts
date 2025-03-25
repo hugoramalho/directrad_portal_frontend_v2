@@ -4,7 +4,7 @@
  Created at: 07/03/2025
  **/
 
-export interface Aetitle {
+export interface PacsNetwork {
     id: number | string;
     pacs_index?: number | null;
     pacs_application_id?: number | null;

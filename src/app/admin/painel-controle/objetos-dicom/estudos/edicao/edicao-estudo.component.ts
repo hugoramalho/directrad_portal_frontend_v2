@@ -2,7 +2,7 @@
 // import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 // import { MatMenu } from '@angular/material/menu';
 // import { MatIcon } from '@angular/material/icon';
-// import { EstudoRepository } from '../exame.service';
+// import { EstudoRepository } from '../estudos.service';
 //
 //
 // @Component({

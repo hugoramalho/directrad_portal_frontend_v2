@@ -7,13 +7,22 @@
             [placeholder]="placeholder"
             maxlength="10"
             [matDatepicker]="picker"
+            [disabled]="disabled"
             [value]="displayValue"
             (input)="formatDateInput($event)"
             (keydown)="restrictToNumbers($event)"
             (blur)="validateAndSetDate($event)"
         />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker (closed)="onMaterialDateSelected(picker)"></mat-datepicker>
+        <mat-datepicker-toggle
+            [disabled]="disabled"
+            matSuffix
+            [for]="picker">
+        </mat-datepicker-toggle>
+        <mat-datepicker
+            [disabled]="disabled"
+            #picker
+            (closed)="onMaterialDateSelected(picker)">
+        </mat-datepicker>
     </mat-form-field>
 </ng-container>
 
@@ -23,6 +32,7 @@
     <div style="display: flex; align-items: center;">
         <input
             type="text"
+            [disabled]="disabled"
             [placeholder]="placeholder"
             maxlength="10"
             [value]="displayValue"
@@ -33,6 +43,7 @@
             style="flex: 1;"
         />
         <button
+            [disabled]="disabled"
             type="button"
             (click)="nativeDatePicker?.showPicker()"
             style="background: transparent; border: none; cursor: pointer; margin-left: 8px;"
@@ -41,6 +52,7 @@
         </button>
         <!-- Oculto, mas necessário para o Datepicker nativo -->
         <input
+            [disabled]="disabled"
             #nativeDatePicker
             type="date"
             style="opacity: 0; position: absolute; pointer-events: none;"

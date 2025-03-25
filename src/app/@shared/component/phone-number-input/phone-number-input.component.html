@@ -5,6 +5,7 @@
         <input
             matInput
             [value]="displayValue"
+            [disabled]="disabled"
             (input)="onInputChange($event)"
             (blur)="onTouched()"
             (keydown)="restrictToNumbers($event)"
@@ -19,6 +20,7 @@
 <!--    <label>{{ label }}</label>-->
     <input
         type="tel"
+        [disabled]="disabled"
         [value]="displayValue"
         (input)="onInputChange($event)"
         (blur)="onTouched()"

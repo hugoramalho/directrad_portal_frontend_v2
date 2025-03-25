@@ -26,6 +26,18 @@ import {PacsService} from "../../@shared/service/pacs/pacs.service";
 import {UserClinica} from "../../@shared/model/usuario/user-clinica";
 import {Pacs} from "../../@shared/model/pacs/pacs";
 import {PaginatedList} from "../../@shared/model/http/paginated-list";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {EditPacsDialogComponent} from "../pacs/edit-dialog/edit-pacs.dialog.component";
+import {PacsSyncStatus, PacsSyncStatusMapper} from "../../@shared/model/pacs/status-sync";
+import {TipoAetitle, TipoAetitleMapper} from "../../@shared/model/pacs/aetitle-type";
+import {DateFormatPipe} from "../../@shared/pipe/date-pipe";
+import {DatetimeFormatPipe} from "../../@shared/pipe/datetime-pipe";
+import {SelectPacsTypeComponent} from "../pacs/cadastro-dialog/pacs-type-choice.dialog.component";
+import {CreatePacsDialogComponent} from "../pacs/cadastro-dialog/create-pacs.dialog.component";
+import {SelectCreateAetitleTypeComponent} from "./create-dialog/aetitle-choice.dialog.component";
+import {UserGroups} from "../../@shared/model/usuario/user-groups";
+import {UserService} from "../../@shared/service/usuario/user.service";
+import {MatIcon} from "@angular/material/icon";
 
 
 @Component({
@@ -38,6 +50,7 @@ import {PaginatedList} from "../../@shared/model/http/paginated-list";
         RouterLink,
         MatTableModule,
         NgIf,
+        MatIcon,
         MatCheckboxModule,
         MatTooltipModule,
         MatFormFieldModule,
@@ -45,13 +58,17 @@ import {PaginatedList} from "../../@shared/model/http/paginated-list";
         MatSelectModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatPaginator
+        MatPaginator,
+        MatProgressSpinner,
+        DateFormatPipe,
+        DatetimeFormatPipe
     ],
     templateUrl: './aetitle.component.html',
     styleUrl: './aetitle.component.scss'
 })
 export class CadastroAetitleComponent {
-    isLoading: boolean = false;
+    isAdmin: boolean = false;
+    isLoading: boolean = true;
     classApplied = false;
     isToggled = false;
     currentLength: number = 0;
@@ -62,12 +79,12 @@ export class CadastroAetitleComponent {
     pacsList: Pacs[];
 
     displayedColumns: string[] = [
-        'select',
         'aetitle',
-        'tipo',
+        'tipo_aetitle',
         'pacs_relacionado',
-        'clinica_identificacao',
-        'status_sincronizacao_pacs',
+        'clinica_relacionada',
+        'status',
+        'ultima_sincronizacao_pacs',
         'action'
     ];
 
@@ -77,42 +94,43 @@ export class CadastroAetitleComponent {
         private aetitleService: AetitleService,
         private clinicaService: ClinicaService,
         private pacsService: PacsService,
+        private userService: UserService,
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
+        this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
         this.loadAetitles(1, 20);
     }
 
 
-    private loadAetitles(page: number = 1, page_size: number = 20): void
-    {
+    private loadAetitles(page: number = 1, page_size: number = 20): void {
+        this.isLoading = true;
         forkJoin({
             result1: this.clinicaService.query(),
             result2: this.aetitleService.queryAll(page, page_size),
             result3: this.pacsService.queryAll(),
         }).subscribe({
             next: ({result1, result2, result3,}) => {
-                console.log(result1, result2, result3);
-
                 this.clinicas = result1;
                 let aetitlesPaginatedList = result2;
                 this.pacsList = result3;
-                this.pacsList.forEach(pacs => {
-                    aetitlesPaginatedList.items.forEach(aetitle => {
+                aetitlesPaginatedList.items.forEach(aetitle => {
+                    aetitle.status = PacsSyncStatusMapper.getDescription(aetitle.status_sincronizacao_pacs as PacsSyncStatus);
+                    aetitle.tipo_aetitle = TipoAetitleMapper.getDescription(aetitle.tipo as TipoAetitle);
+                    this.pacsList.forEach(pacs => {
                         if (aetitle.pacs_id == pacs.id) {
                             aetitle.pacs_relacionado = pacs.identificacao;
                             return;
                         }
                     });
-                });
-                this.clinicas.forEach(clinica => {
-                    aetitlesPaginatedList.items.forEach(aetitle => {
+                    this.clinicas.forEach(clinica => {
                         if (aetitle.clinica_id == clinica.id) {
-                            aetitle.clinica_identificacao = clinica.nome_razao;
+                            aetitle.clinica_relacionada = clinica.nome;
                             return;
                         }
                     });
@@ -182,6 +200,24 @@ export class CadastroAetitleComponent {
                 console.log('Modal result:', result);
                 this.handleAetitleResult(result);
             }
+        });
+    }
+
+    createAetitle()
+    {
+        const dialogRef = this.dialog.open(SelectCreateAetitleTypeComponent, {
+            width: '400px',
+        });
+        // dialogRef.afterClosed().subscribe((result) => {
+        //     if (result) {
+        //         this.loadPacs(); // recarrega a lista se houve atualização
+        //     }
+        // });
+        dialogRef.afterClosed().subscribe(result => {
+            this.dialog.open(CreateAetitleComponent, {
+                width: '900px',
+                data: result as TipoAetitle
+            });
         });
     }
 

@@ -16,6 +16,7 @@ import {User} from "../../model/usuario/user";
 import {PaginatedListInterface} from "../../model/http/paginated-list-interface";
 import {Aetitle} from "../../model/pacs/aetitle";
 import {PaginatedList} from "../../model/http/paginated-list";
+import {UserRis} from "../../model/usuario/user-ris";
 
 @Injectable({
     providedIn: 'root'
@@ -54,6 +55,32 @@ export class UsersRepository {
                 usersArray.forEach(user => usersMap.set(user.id, user));
                 this.usersSubject.next(usersMap);
             }),
+            catchError(err => {
+                console.error('Erro ao obter Usuários:', err);
+                return of([]);
+            })
+        );
+    }
+
+    queryAllTele(): Observable<UserRis[]>
+    {
+        return this.http.get<ApiResponseInterface<UserRis[]>>(
+            'api/v1/users/tele'
+        ).pipe(
+            map(response => response.data || []),
+            catchError(err => {
+                console.error('Erro ao obter Usuários:', err);
+                return of([]);
+            })
+        );
+    }
+
+    queryAllAdmins(): Observable<User[]>
+    {
+        return this.http.get<ApiResponseInterface<User[]>>(
+            'api/v1/users/admins'
+        ).pipe(
+            map(response => response.data || []),
             catchError(err => {
                 console.error('Erro ao obter Usuários:', err);
                 return of([]);

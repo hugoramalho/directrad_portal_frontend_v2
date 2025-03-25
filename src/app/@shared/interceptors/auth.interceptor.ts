@@ -4,12 +4,19 @@
  **/
 
 import {Injectable} from '@angular/core';
-import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
 import {HTTP_HEADERS} from '../constants/http-headers.constants';
+import {catchError} from "rxjs/operators";
+import {AuthService} from "../service/auth/auth.service";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+
+    constructor(
+        private authService: AuthService
+    ) {}
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const JWT = localStorage.getItem('auth_token');
         if (JWT) {
@@ -19,8 +26,14 @@ export class AuthInterceptor implements HttpInterceptor {
                     [HTTP_HEADERS.CLIENT_APP]: 'PACS'
                 }
             });
-            // Envia a requisição clonada com o token
-            return next.handle(clonedRequest);
+            return next.handle(clonedRequest).pipe(
+                catchError((error: HttpErrorResponse) => {
+                    if ([401, 403].includes(error.status)) {
+                        this.authService.logout();
+                    }
+                    return throwError(() => error);
+                })
+            )
         }
         // Se não houver token, apenas segue a requisição original
         return next.handle(request);

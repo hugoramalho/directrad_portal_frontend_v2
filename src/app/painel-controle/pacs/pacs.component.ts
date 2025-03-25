@@ -13,7 +13,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {CustomizerSettingsService} from '../../customizer-settings/customizer-settings.service';
 import {PacsService} from "../../@shared/service/pacs/pacs.service";
-import {PacsElement} from "../../@shared/model/pacs/pacs-element";
 import {PaginatedList} from "../../@shared/model/http/paginated-list";
 import {ClinicaService} from "../../@shared/service/usuario/clinica.service";
 import {TeleUserService} from "../../@shared/service/usuario/tele.service";
@@ -29,11 +28,12 @@ import {UserAdmin} from "../../@shared/model/usuario/user-admin";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
-import {SelectPacsTypeComponent} from "./cadastro-dialog/cadastro_choice.dialog.component";
-import {CreateHostProprioComponent} from "./cadastro-dialog/cadastro_client_host.dialog.component";
-import {CreateHostCentralComponent} from "./cadastro-dialog/cadastro_central.dialog.component";
+import {SelectPacsTypeComponent} from "./cadastro-dialog/pacs-type-choice.dialog.component";
 import {MatIcon} from "@angular/material/icon";
 import { NgIf } from '@angular/common';
+import {EditPacsDialogComponent} from "./edit-dialog/edit-pacs.dialog.component";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import {CreatePacsDialogComponent} from "./cadastro-dialog/create-pacs.dialog.component";
 
 @Component({
     selector: 'app-cadastro-pacs',
@@ -52,7 +52,8 @@ import { NgIf } from '@angular/common';
         MatNativeDateModule,
         MatPaginator,
         MatIcon,
-        NgIf
+        NgIf,
+        MatProgressSpinner
     ],
     templateUrl: './pacs.component.html',
     styleUrl: './pacs.component.scss'
@@ -67,10 +68,9 @@ export class CadastroPacsComponent {
     clinicas: UserClinica[];
     teles: UserTele[];
     adminUsers: UserAdmin[];
-    pacsList: Pacs[];
+    pacsList: Pacs[] = [];
     aetitles: Aetitle[];
     displayedColumns: string[] = [
-        'select',
         'identificacao',
         'ip',
         'main_storage_aetitle',
@@ -101,43 +101,21 @@ export class CadastroPacsComponent {
         });
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
+        this.isLoading = true;
         forkJoin({
             result1: this.clinicaService.query(),
             result2: this.teleUserService.query(),
-            result3: this.pacsService.queryAll(),
-            result4: this.aetitleService.query(),
-            result5: this.usersService.queryAdmin(),
+            result3: this.aetitleService.query(),
+            result4: this.usersService.queryAdmin(),
         }).subscribe({
-            next: ({ result1, result2, result3, result4, result5 }) => {
+            next: ({ result1, result2, result3, result4 }) => {
                 this.clinicas = result1;
                 this.teles = result2;
-                this.pacsList = result3;
-                this.aetitles = result4;
-                this.adminUsers = result5;
-                this.pacsList.forEach(pacs => {
-                    pacs.host = PacsHostMapper.getDescription(pacs.tipo_pacs_application as PacsHostType);
-                    this.teles.forEach(tele => {
-                        if(pacs.tele_id == tele.id) {
-                            pacs.username_tele = tele.full_name;
-                            return;
-                        }
-                    });
-                    this.aetitles.forEach(aetitle => {
-                        if(pacs.aet_principal == aetitle.id) {
-                            pacs.main_storage_aetitle = aetitle.aetitle;
-                            return;
-                        }
-                    });
-                    this.adminUsers.forEach(user => {
-                        if(pacs.admin_id == user.id) {
-                            pacs.username_admin = user.username;
-                            return;
-                        }
-                    });
-                });
+                this.aetitles = result3;
+                this.adminUsers = result4;
                 this.loadPacs();
-                this.isLoading = false;
             },
             error: (err) => {
                 console.error('Erro ao buscar os dados:', err);
@@ -156,6 +134,9 @@ export class CadastroPacsComponent {
         this.pacsService.get(page, page_size, filters).subscribe({
             next: (pacsList: PaginatedList<Pacs[]>) => {
                 pacsList.items.forEach(pacs => {
+                    if(pacs.tipo_pacs !== PacsHostType.PACS_CLIENTE) {
+                        return;
+                    }
                     pacs.host = PacsHostMapper.getDescription(pacs.tipo_pacs_application as PacsHostType);
                     this.teles.forEach(tele => {
                         if(pacs.tele_id == tele.id) {
@@ -168,15 +149,16 @@ export class CadastroPacsComponent {
                             pacs.main_storage_aetitle = aetitle.aetitle;
                             return;
                         }
-                    })
+                    });
                     this.adminUsers.forEach(user => {
                         if(pacs.admin_id == user.id) {
                             pacs.username_admin = user.username;
                             return;
                         }
-                    })
+                    });
+                    this.pacsList.push(pacs);
                 })
-                this.dataSource.data = pacsList.items;
+                this.dataSource.data = this.pacsList;
                 this.currentLength = pacsList.total;
                 this.isLoading = false;
             },
@@ -192,12 +174,16 @@ export class CadastroPacsComponent {
         const dialogRef = this.dialog.open(SelectPacsTypeComponent, {
             width: '400px',
         });
+        // dialogRef.afterClosed().subscribe((result) => {
+        //     if (result) {
+        //         this.loadPacs(); // recarrega a lista se houve atualização
+        //     }
+        // });
         dialogRef.afterClosed().subscribe(result => {
-            if (result === 'host-central') {
-                this.dialog.open(CreateHostCentralComponent, { width: '900px' });
-                return;
-            }
-            this.dialog.open(CreateHostProprioComponent, { width: '900px' });
+            this.dialog.open(CreatePacsDialogComponent, {
+                width: '900px',
+                data: result as PacsHostType
+            });
         });
     }
 
@@ -215,7 +201,8 @@ export class CadastroPacsComponent {
     }
 
     /** Selects all rows if they are not all selected; otherwise clear selection. */
-    toggleAllRows() {
+    toggleAllRows()
+    {
         if (this.isAllSelected()) {
             this.selection.clear();
             return;
@@ -224,7 +211,8 @@ export class CadastroPacsComponent {
     }
 
     /** The label for the checkbox on the passed row */
-    checkboxLabel(row?: PacsElement): string {
+    checkboxLabel(row?: Pacs): string
+    {
         // if (!row) {
         //     return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
         // }
@@ -233,14 +221,16 @@ export class CadastroPacsComponent {
     }
 
     // Search Filter
-    applyFilter(event: Event) {
+    applyFilter(event: Event)
+    {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
     // Popup Trigger
     classApplied = false;
-    toggleClass() {
+    toggleClass()
+    {
         this.classApplied = !this.classApplied;
     }
 
@@ -259,9 +249,17 @@ export class CadastroPacsComponent {
         // Adicione a lógica de instalação
     }
 
-    onEdit(pacs: Pacs) {
-        console.log('Editando PACS:', pacs.identificacao);
-        // Adicione a lógica de edição
+    onEdit(pacs: Pacs): void
+    {
+        const dialogRef = this.dialog.open(EditPacsDialogComponent, {
+            width: '900px',
+            data: pacs
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.loadPacs(); // recarrega a lista se houve atualização
+            }
+        });
     }
 
     onDelete(pacs: Pacs) {

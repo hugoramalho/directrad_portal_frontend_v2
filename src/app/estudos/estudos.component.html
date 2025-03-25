@@ -1,0 +1,294 @@
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
+    <h5 class="mb-0">
+        Exames
+    </h5>
+    <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
+        <li class="breadcrumb-item position-relative">
+            <a routerLink="/" class="d-inline-block position-relative">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item position-relative">
+            Exames
+        </li>
+    </ol>
+</div>
+<mat-card class="daxa-card add-user-card mb-25 border-radius bg-white border-none d-block"
+[class.rtl-enabled]="themeService.isRTLEnabled()">
+    <mat-card-header>
+        <mat-card-title>
+            <h5 class="mt-0 mb-0">
+                Pesquisar estudos
+            </h5>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="form-container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Nome do paciente
+                            </mat-label>
+                            <input formControlName="patient_name" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Data nascimento paciente</mat-label>
+                            <input
+                                matInput
+                                placeholder="dia/mês/ano"
+                                maxlength="10"
+                                formControlName="patient_birth_date"
+                                [matDatepicker]="birthDatePicker"
+                                (input)="formatDateInput($event)"
+                                (blur)="validateAndSetDate($event)"/>
+                            <mat-datepicker-toggle matIconSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+                            <mat-datepicker #birthDatePicker></mat-datepicker>
+                            <mat-error *ngIf="searchForm.get('patient_birth_date')?.hasError('invalidDate')">
+                                Data inválida. Use o formato dia/mês/ano.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Registro do paciente
+                            </mat-label>
+                            <input formControlName="patient_id" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Modalidades
+                            </mat-label>
+                            <mat-select
+                                formControlName="modalities_in_study">
+                                <mat-select-trigger>
+                                    {{ getSelectedValues() }}
+                                </mat-select-trigger>
+                                @for (modalidade of studyModalities; track modalidade) {
+                                    <mat-option [value]="modalidade.value">
+                                        {{modalidade.name}}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div
+                    *ngIf="isAdmin"
+                    class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Pacs
+                            </mat-label>
+                            <mat-select  formControlName="pacs_id">
+                                <mat-option>
+                                    <input
+                                        #pacsSearchInput
+                                        matInput
+                                        placeholder="Buscar..."
+                                        (click)="$event.stopPropagation()"
+                                        (input)="onPacsSearch(pacsSearchInput.value)"
+                                        autocomplete="off"/>
+                                </mat-option>
+                                @for (pacs of pacsArray; track pacs) {
+                                    <mat-option [value]="pacs.id">
+                                        {{pacs.identificacao}}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Uid do exame
+                            </mat-label>
+                            <input  formControlName="study_uid" matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Data do exame
+                            </mat-label>
+                            <mat-select [(value)]="selectedDateRange" formControlName="dateOption" (selectionChange)="onOptionChange()" >
+                                <mat-option *ngFor="let option of dateRangeOptions" [value]="option.value">
+                                    {{ option.label }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <div *ngIf="selectedDateRange === 'specificDate'">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Escolha ou digite uma data</mat-label>
+                                <input formControlName="specificDate" matInput [matDatepicker]="specificDatePicker">
+                                <mat-hint>Dia/Mês/Ano</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="specificDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #specificDatePicker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="selectedDateRange === 'range'">
+                            <mat-form-field>
+                                <mat-label>Escolha ou digite um intervalo</mat-label>
+                                <mat-date-range-input [rangePicker]="rangePicker">
+                                    <input matStartDate formControlName="rangeStart" placeholder="Data início">
+                                    <input matEndDate formControlName="rangeEnd" placeholder="Data fim">
+                                </mat-date-range-input>
+                                <mat-hint>Dia/Mês/Ano – Dia/Mês/Ano</mat-hint>
+                                <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+                                <mat-date-range-picker #rangePicker></mat-date-range-picker>
+<!--                                @if (range.controls.start.hasError('matStartDateInvalid')) {-->
+<!--                                    <mat-error>Data de ínicio inválida</mat-error>-->
+<!--                                }-->
+<!--                                @if (range.controls.end.hasError('matEndDateInvalid')) {-->
+<!--                                    <mat-error>Data de fim inválida</mat-error>-->
+<!--                                }-->
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-box">
+                <button type="submit" mat-button>
+                    Buscar
+                </button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>
+
+<mat-card
+    class="daxa-card to-do-list-card mb-25 border-radius bg-white border-none d-block"
+    [class.rtl-enabled]="themeService.isRTLEnabled()">
+    <mat-card-content>
+        <div class="studies-table">
+            <div class="studies-list-table table-responsive">
+                <div class="loading-container" *ngIf="isLoading; else estudosTableTemplate">
+                    <mat-spinner></mat-spinner>
+                </div>
+                <ng-template #estudosTableTemplate>
+                    <table mat-table [dataSource]="dataSource">
+                        <ng-container matColumnDef="select">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                                              [checked]="selection.hasValue() && isAllSelected()"
+                                              [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                              [aria-label]="checkboxLabel()"
+                                >
+                                </mat-checkbox>
+                            </th>
+                            <td mat-cell *matCellDef="let row">
+                                <mat-checkbox (click)="$event.stopPropagation()"
+                                              (change)="$event ? selection.toggle(row) : null"
+                                              [checked]="selection.isSelected(row)"
+                                              [aria-label]="checkboxLabel(row)">
+                                </mat-checkbox>
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="paciente">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Paciente
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.PatientName }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="dataNascimento">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Data de nascimento
+                            </th>
+                            <td mat-cell *matCellDef="let element" class="text-black">
+                                {{ element.PatientBirthDate | dateFormat }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="dataExame">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Data do exame
+                            </th>
+                            <td mat-cell *matCellDef="let element" class="text-black">
+                                {{ element.StudyDate | dateFormat }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="modalidade">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Modalidade
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.StudyModality }}
+                            </td>
+                        </ng-container>
+                        <!-- Priority Column -->
+                        <ng-container matColumnDef="study">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Estudo
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.StudyDescription || 'Não informado' }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Ações
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                <div
+                                    *ngIf="isAdmin"
+                                    class="action-info">
+                                    <button type="button" mat-button (click)="criarAcessoRis(element)"
+                                            matTooltip="Criar acesso no RIS" matTooltipPosition="above">
+                                        <i class="material-symbols-outlined">key</i>
+                                    </button>
+                                    <button type="button" mat-button (click)="visualizarWeb(element)"
+                                            matTooltip="Download arquivo DICOM" matTooltipPosition="above">
+                                        <i class="material-symbols-outlined">download</i>
+                                    </button>
+                                    <button type="button" mat-button (click)="downloadEstudo(element)"
+                                            matTooltip="Visualizador web" matTooltipPosition="above">
+                                        <i class="material-symbols-outlined">visibility</i>
+                                    </button>
+                                    <button
+                                        type="button" mat-button
+                                        (click)="menuEstudos(element)"
+                                        matTooltip="Mais opções" matTooltipPosition="above">
+                                        <i class="material-symbols-outlined">more_vert</i>
+                                    </button>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </ng-template>
+            </div>
+            <mat-paginator
+                [length]="currentLength"
+                [pageSize]="20"
+                [pageSizeOptions]="[20,50]"
+                (page)="onPageChange($event)"
+                showFirstLastButtons>
+            </mat-paginator>
+        </div>
+    </mat-card-content>
+</mat-card>

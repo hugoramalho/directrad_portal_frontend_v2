@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterLink } from '@angular/router';
@@ -20,6 +20,16 @@ import {CadastroPacsComponent} from "./pacs/pacs.component";
 import {CadastroRotinaComponent} from "./rotinas/rotina.component";
 import {CadastroAcessoSshComponent} from "./ssh/ssh.component";
 import {CadastroAetitleComponent} from "./aetitles/aetitle.component";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {FormBuilder} from "@angular/forms";
+import {ClinicaService} from "../@shared/service/usuario/clinica.service";
+import {AetitleService} from "../@shared/service/pacs/aetitle.service";
+import {PacsService} from "../@shared/service/pacs/pacs.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {UserService} from "../@shared/service/usuario/user.service";
+import {PacsNetworkService} from "../@shared/service/pacs/network.service";
+import {forkJoin} from "rxjs";
+import {UserGroups} from "../@shared/model/usuario/user-groups";
 
 @Component({
     selector: 'app-painel-controle',
@@ -41,23 +51,16 @@ import {CadastroAetitleComponent} from "./aetitles/aetitle.component";
     styleUrl: './pacs-controle.component.scss'
 })
 export class PacsControleComponent {
- // //
-    // Tab group where the tab content is loaded lazily (when activated)
-    // tabLoadTimes: Date[] = [];
-    // getTimeLoaded(index: number) {
-    //     if (!this.tabLoadTimes[index]) {
-    //         this.tabLoadTimes[index] = new Date();
-    //     }
-    //     return this.tabLoadTimes[index];
-    // }
+    isAdmin: boolean = false;
 
-    // Tab group with paginated tabs
-    // lotsOfTabs = new Array(30).fill(0).map((_, index) => `Tab ${index}`);
-    isTerminalActive = false;
-
-    onTabChange(event: any): void {
-        if (event.index === 4) { // Índice da aba "Terminal"
-            this.isTerminalActive = true;
-        }
+    constructor(
+        private userService: UserService,
+    ) {
     }
+
+    ngOnInit()
+    {
+        this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
+    }
+
 }

@@ -8,12 +8,17 @@ import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {NgIf} from "@angular/common";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {Pacs} from "../../../@shared/model/pacs/pacs";
+import {PacsHostMapper, PacsHostType} from "../../../@shared/model/pacs/pacs-host-type";
+import {MatSnackBar} from "@angular/material/snack-bar";
+
 
 @Component({
     standalone: true,
     selector: 'app-create-host-central',
     templateUrl: './edit-pacs.dialog.component.html',
+    styleUrl: './edit-pacs.dialog.component.scss',
     imports: [
         MatButton,
         MatDialogActions,
@@ -29,23 +34,112 @@ import {ReactiveFormsModule} from "@angular/forms";
     ]
 })
 export class EditPacsDialogComponent {
-    constructor(
-        public dialogRef: MatDialogRef<EditPacsDialogComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: { pacs_id: number },
-        private pacsService: PacsService
-    ) {}
+    pacsForm!: FormGroup;
+    loading = true;
+    pacs_central = false;
+    pacs_host = '';
+    currentPage = 1;
+    usarChaveSSH = false;
 
-    save() {
-        // Lógica para salvar
+
+    constructor(
+        private formBuilder: FormBuilder,
+        private pacsService: PacsService,
+        private dialogRef: MatDialogRef<EditPacsDialogComponent>,
+        private snackBar: MatSnackBar,
+        @Inject(MAT_DIALOG_DATA) public pacs: Pacs
+    ) {
+    }
+
+    ngOnInit(): void
+    {
+        this.pacsForm = this.formBuilder.group({
+            id: [''],
+            tipo_pacs_application: [this.pacs.tipo_pacs_application],
+            identificacao: [''],
+            ip: [''],
+            dominio: [''],
+            worklist_ip: [''],
+            porta_wkl: [''],
+            porta_wado: [''],
+            porta_api: [''],
+            porta_nginx: [''],
+            porta_ssl: [''],
+            porta_dicom: [''],
+            pacs_ram_config: [''],
+            tamanho_pool: [''],
+            quantidade_threads: [''],
+            aetitle_storage_principal: [''],
+            aetitle_worklist: [''],
+            tele_id: [''],
+            admin_id: [''],
+            pacs_host_ssh_username: [''],
+            pacs_host_ssh_port: [''],
+            use_ssh_key: [''],
+            pacs_host_ssh_password: [''],
+            pacs_host_ssh_key: [''],
+        });        this.pacs_central = this.pacs.tipo_pacs_application !== "PACS_CLIENTE";
+        this.pacs_host = PacsHostMapper.getDescription(this.pacs.tipo_pacs_application as PacsHostType);
+        this.pacsForm.patchValue(this.pacs);
+    }
+
+    close(): void
+    {
+        this.dialogRef.close(false);
+    }
+
+    //Edicao pacs host client:
+    toggleSshInput()
+    {
+        this.usarChaveSSH = !this.usarChaveSSH;
+    }
+
+    onCancel()
+    {
         this.dialogRef.close();
     }
 
-    loadPacs(pacs_id: number)
+    goToNextPage()
     {
-        console.log('Carregar dados do PACS com ID:', pacs_id);
-        // Exemplo de chamada ao serviço para buscar dados do PACS
-        // this.pacsService.getPacsById(pacs_id).subscribe(pacs => {
-        //     this.pacsData = { ...pacs }; // Atualiza os dados do modal
-        // });
+        if (this.currentPage < 2) {
+            this.currentPage++;
+        }
+    }
+
+    goToPreviousPage()
+    {
+        if (this.currentPage > 1) {
+            this.currentPage--;
+        }
+    }
+
+    save()
+    {
+        // console.log('Salvando PACS:', this.pacsData);
+        // this.dialogRef.close(this.pacsData);
+    }
+
+    submit(): void
+    {
+        if (this.pacsForm.invalid) {
+            this.pacsForm.markAllAsTouched(); // força exibição dos erros
+            return;
+        }
+        const pacsData = this.pacsForm.value as Pacs;
+        this.pacsService.update(pacsData).subscribe({
+            next: (response) => {
+                this.snackBar.open('Pacs atualizado com sucesso', 'Fechar', {
+                    duration: 4000,
+                    horizontalPosition: 'right',
+                    verticalPosition: 'bottom',
+                    // panelClass: ['success-snackbar']
+                });
+                this.dialogRef.close(response); // você pode fechar passando o novo objeto criado
+            },
+            error: (error) => {
+                console.error('Erro ao atualizar PACS:', error);
+                // aqui você pode exibir um snackbar ou feedback visual
+            }
+        });
     }
 }

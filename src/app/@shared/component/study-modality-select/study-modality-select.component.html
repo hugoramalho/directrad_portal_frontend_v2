@@ -2,7 +2,11 @@
     <!-- Material Template -->
     <mat-form-field appearance="fill">
 <!--        <mat-label>{{ label }}</mat-label>-->
-        <mat-select [value]="value" (selectionChange)="onSelectionChange($event.value)" [multiple]="multiple">
+        <mat-select
+            [disabled]="disabled"
+            [value]="value"
+            (selectionChange)="onSelectionChange($event.value)"
+            [multiple]="multiple">
             <mat-option *ngFor="let modality of studyModalities" [value]="modality.value">
                 {{ modality.name }}
             </mat-option>
@@ -13,7 +17,11 @@
 <!-- Native Select -->
 <ng-template #nativeSelect>
 <!--    <label>{{ label }}</label>-->
-    <select [value]="value" (change)="onNativeSelectionChange($event)" [multiple]="multiple">
+    <select
+        [disabled]="disabled"
+        [value]="value"
+        (change)="onNativeSelectionChange($event)"
+        [multiple]="multiple">
         <option *ngFor="let modality of studyModalities" [value]="modality.value">
             {{ modality.name }}
         </option>

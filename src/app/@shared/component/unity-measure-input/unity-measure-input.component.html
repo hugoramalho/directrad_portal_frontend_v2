@@ -75,6 +75,7 @@
     <!-- Material Design Template -->
     <mat-form-field appearance="fill">
         <input
+            [disabled]="disabled"
             matInput
             type="text"
             [value]="displayValue"
@@ -90,7 +91,10 @@
 
     <!-- Select Unidade (Somente se houver mais de uma opção) -->
     <mat-form-field appearance="fill" *ngIf="unitOptions.length > 1">
-        <mat-select [value]="selectedUnit" (selectionChange)="onUnitChange($event.value)">
+        <mat-select
+            [disabled]="disabled"
+            [value]="selectedUnit"
+            (selectionChange)="onUnitChange($event.value)">
             <mat-option *ngFor="let option of unitOptions" [value]="option.value">
                 {{ option.label }}
             </mat-option>
@@ -102,6 +106,7 @@
 <ng-template #nativeInput>
     <div style="position: relative; display: inline-block; width: 100%;">
         <input
+            [disabled]="disabled"
             type="text"
             [value]="displayValue"
             (input)="onInputChange($event)"
@@ -110,7 +115,6 @@
             placeholder="{{ placeholder }}"
             style="padding-right: 60px;"
         />
-
         <span
             class="unit-suffix"
             [matTooltip]="getUnitFullName(selectedUnit)"
@@ -122,6 +126,7 @@
     <!-- Select Unidade (Somente se houver mais de uma opção) -->
     <label for="unitSelect" *ngIf="unitOptions.length > 1">Unidade:</label>
     <select
+        [disabled]="disabled"
         id="unitSelect"
         *ngIf="unitOptions.length > 1"
         [value]="selectedUnit"

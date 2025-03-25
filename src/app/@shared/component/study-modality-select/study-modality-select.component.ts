@@ -3,11 +3,13 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import {MatDatepickerInput} from "@angular/material/datepicker";
+import {MatInput} from "@angular/material/input";
 
 @Component({
     selector: 'app-study-modality-select',
     standalone: true,
-    imports: [CommonModule, MatFormFieldModule, MatSelectModule],
+    imports: [CommonModule, MatFormFieldModule, MatSelectModule, MatDatepickerInput, MatInput],
     templateUrl: './study-modality-select.component.html',
     providers: [
         {
@@ -25,8 +27,6 @@ export class StudyModalitySelectComponent implements ControlValueAccessor {
     @Input({transform: booleanAttribute}) multiple: boolean = false; // Permitir múltiplas seleções
     @Output() selectionChange = new EventEmitter<string[] | string>();
     @Input() disabled: boolean = false;
-
-
     value: string[] | string = ''; // Valor atual selecionado
 
     // Lista de modalidades de estudo
@@ -34,7 +34,9 @@ export class StudyModalitySelectComponent implements ControlValueAccessor {
         { value: 'US', name: 'Ultrassom (US)' },
         { value: 'CT', name: 'Tomografia Computadorizada (CT)' },
         { value: 'MR', name: 'Ressonância Magnética (MR)' },
-        { value: 'DR, DX', name: 'Raio X (DR|DX)' },
+        { value: 'CR', name: 'Radiografia Computadorizada (CR)' },
+        { value: 'DX', name: 'Raio X (DX)' },
+        { value: 'DR', name: 'Raio X (DR)' },
         { value: 'MG', name: 'Mamografia (MG)' },
         { value: 'PT', name: 'PET Scan (PT)' },
         { value: 'NM', name: 'Medicina Nuclear (MN)' },
@@ -44,7 +46,8 @@ export class StudyModalitySelectComponent implements ControlValueAccessor {
         { value: 'NM', name: 'Cintilografia (NM)' },
     ];
 
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
         this.value = this.initialValue ?? '';
     }
 
@@ -52,7 +55,8 @@ export class StudyModalitySelectComponent implements ControlValueAccessor {
     onChange: (value: string[] | string) => void = () => {};
     onTouched: () => void = () => {};
 
-    onSelectionChange(value: string[] | string): void {
+    onSelectionChange(value: string[] | string): void
+    {
         this.value = value;
         this.onChange(value);
         this.selectionChange.emit(value);

@@ -24,7 +24,7 @@ export interface Pacs {
     pacs_version?: number | null;
     tele_id?: number | null;
     cliente_id?: number | null;
-    pacs_ram_config?: number | null;
+    pacs_ram_config?: number | null | string;
     install_serial?: string | null;
     install_allow?: boolean | null;
     active?: boolean | null;

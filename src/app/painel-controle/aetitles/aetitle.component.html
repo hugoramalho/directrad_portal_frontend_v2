@@ -28,7 +28,9 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div
+                *ngIf="isAdmin"
+                class="col-sm-3">
                 <div class="mb-25">
                     <mat-form-field>
                         <mat-label>
@@ -63,7 +65,7 @@
     <mat-card-header>
         <mat-card-title>
             <div class="btn-box">
-                <button mat-flat-button class="daxa h-auto" (click)="toggleClass()">
+                <button mat-flat-button class="daxa h-auto" (click)="createAetitle()">
                     + Cadastrar novo Aetitle
                 </button>
             </div>
@@ -72,85 +74,71 @@
     <mat-card-content>
         <div class="aetitle-list-table">
             <div class="table-responsive">
-                <table mat-table [dataSource]="dataSource">
-                    <!-- Checkbox Column -->
-                    <ng-container matColumnDef="select">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <mat-checkbox
-                                (change)="$event ? toggleAllRows() : null"
-                                [checked]="selection.hasValue() && isAllSelected()"
-                                [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                [aria-label]="checkboxLabel()"
-                            >
-                            </mat-checkbox>
-                        </th>
-                        <td mat-cell *matCellDef="let row">
-                            <mat-checkbox
-                                (click)="$event.stopPropagation()"
-                                (change)="$event ? selection.toggle(row) : null"
-                                [checked]="selection.isSelected(row)"
-                                [aria-label]="checkboxLabel(row)"
-                            >
-                            </mat-checkbox>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="aetitle">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Aetitle
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.aetitle}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="tipo">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Tipo
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.tipo}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="pacs_relacionado">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Pacs Relacionado
-                        </th>
-                        <td mat-cell *matCellDef="let element" class="text-black">
-                            {{element.pacs_relacionado}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="clinica_identificacao">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Clínica
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.clinica_identificacao}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="status_sincronizacao_pacs">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Status Sincronização
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.status_sincronizacao_pacs}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Ações
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            <div class="action-info">
-                                <button type="button" mat-button matTooltip="Editar" matTooltipPosition="above">
-                                    <i class="material-symbols-outlined">
-                                        edit
-                                    </i>
-                                </button>
-                            </div>
-                        </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
+                <div class="loading-container" *ngIf="isLoading; else aetitleTableTemplate">
+                    <mat-spinner></mat-spinner>
+                </div>
+                <ng-template #aetitleTableTemplate>
+                    <table mat-table [dataSource]="dataSource">
+                        <ng-container matColumnDef="aetitle">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Aetitle
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.aetitle }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="tipo_aetitle">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Tipo
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.tipo_aetitle }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="pacs_relacionado">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Pacs Relacionado
+                            </th>
+                            <td mat-cell *matCellDef="let element" class="text-black">
+                                {{ element.pacs_relacionado }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="clinica_relacionada">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Clínica
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.clinica_relacionada }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="status">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Status Sincronização
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.status }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ultima_sincronizacao_pacs">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Última Sincronização em
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.ultima_sincronizacao_pacs | datetimeFormat }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Última Sincronização em
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.ultima_sincronizacao_pacs | datetimeFormat }}
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </ng-template>
                 <mat-paginator
                     [length]="currentLength"
                     [pageSize]="20"

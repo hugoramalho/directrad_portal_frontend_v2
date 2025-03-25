@@ -6,6 +6,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {MatTooltip} from "@angular/material/tooltip";
 import {MatInput} from "@angular/material/input";
 import {MatLabel} from "@angular/material/form-field";
+import {MatDatepickerInput} from "@angular/material/datepicker";
 
 @Component({
     standalone: true,
@@ -26,7 +27,8 @@ import {MatLabel} from "@angular/material/form-field";
         NgForOf,
         MatTooltip,
         MatInput,
-        NgIf
+        NgIf,
+        MatDatepickerInput
     ]
 })
 export class UnityMeasureInputComponent implements ControlValueAccessor {

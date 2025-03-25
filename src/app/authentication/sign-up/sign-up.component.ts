@@ -12,7 +12,15 @@ import { CustomizerSettingsService } from '../../customizer-settings/customizer-
 @Component({
     selector: 'app-sign-up',
     standalone: true,
-    imports: [RouterLink, MatFormFieldModule, MatInputModule, MatButtonModule, MatCheckboxModule, ReactiveFormsModule, NgIf],
+    imports: [
+        RouterLink,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        ReactiveFormsModule,
+        NgIf
+    ],
     templateUrl: './sign-up.component.html',
     styleUrl: './sign-up.component.scss'
 })

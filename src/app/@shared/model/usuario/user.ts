@@ -4,46 +4,13 @@
  Created at: 09/04/2024
  **/
 
-// export interface User {
-//     id: number;
-//     username: string;
-//     permissoes?: string[];
-//     tipo_usuario?: string | null;
-//     company?: string | null;
-//     clinica_id?: number | null;
-//     tele_id?: number | null;
-//     excluded?: boolean | null;
-//     active?: boolean | null;
-//     email?: string | null;
-//     phone?: string | null;
-//     groups?: { id: string; user_id: string; group_id: string }[];
-//     permissions: T;
-// }
-// export interface User<T = any> {
-//     id: string;
-//     username: string;
-//     first_name?: string;
-//     last_name: string;
-//     email?: string | null;
-//     phone?: string | null;
-//     company?: string | null;
-//     tipo_usuario?: string | null;
-//     active?: boolean;
-//     excluded: boolean;
-//     pacs_id: string;
-//     aetitle_id?: string | null;
-//     clinica_id?: string | null;
-//     tele_id: string | null;
-//     parent_id: string | null;
-//     last_login: string;
-//     created_on: string;
-// }
 import { UserPermissions } from "./user-permissions";
 
 export class User {
     id: number;
     username: string;
     email: string | null;
+    email_alternativo?: string | null;
     phone: string | null;
     company: string | null;
     tipo_usuario: string | null;
@@ -58,6 +25,20 @@ export class User {
     created_on?: string | null;
     groups: { id: string; user_id: string; group_id: string }[];
     permissions?: UserPermissions | null;
+    nome_completo?: string | null | undefined;
+    data_nascimento?: string | null | undefined;
+    documento?: string | null | undefined;
+    tipo_documento?: string | null | undefined;
+    telefone_codigo_pais?: string | null | undefined;
+    telefone_codigo_area?: string | null | undefined;
+    telefone_numero?: string | null | undefined;
+    endereco_cep?: string | null | undefined;
+    endereco_logradouro?: string | null | undefined;
+    endereco_numero?: string | null | undefined;
+    endereco_bairro?: string | null | undefined;
+    endereco_estado?: string | null | undefined;
+    endereco_cidade?: string | null | undefined;
+    endereco_pais?: string | null | undefined;
 
     constructor(data: any) {
         this.id = data.id;
@@ -74,6 +55,22 @@ export class User {
         this.last_login = data.last_login;
         this.created_on = data.created_on;
         this.groups = data.groups || [];
-        this.permissions = new UserPermissions(data.permissions); // Converte permissões automaticamente
+        this.permissions = new UserPermissions(data.permissions);
+        this.email = data?.email;
+        this.email_alternativo = data?.email_alternativo;
+        this.nome_completo = data?.nome_completo;
+        this.data_nascimento = data?.data_nascimento;
+        this.documento = data?.documento;
+        this.tipo_documento = data?.tipo_documento;
+        this.telefone_codigo_pais = data?.telefone_codigo_pais;
+        this.telefone_codigo_area = data?.telefone_codigo_area;
+        this.telefone_numero = data?.telefone_numero;
+        this.endereco_cep = data?.endereco_cep;
+        this.endereco_logradouro = data?.endereco_logradouro;
+        this.endereco_numero = data?.endereco_numero;
+        this.endereco_bairro = data?.endereco_bairro;
+        this.endereco_cidade = data?.endereco_cidade;
+        this.endereco_estado = data?.endereco_estado;
+        this.endereco_pais = data?.endereco_pais;
     }
 }

@@ -70,7 +70,6 @@ export class ContaFinanceiroDataSource {
         return this.cache.get(this.apiUrl)
             .pipe(
                 map(response => {
-                    console.log('contas get', response)
                     return response ?? null;
                 }),
                 catchError(err => {

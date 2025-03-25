@@ -25,9 +25,14 @@ export class AetitleService {
     ) {
     }
 
-    public query(): Observable<Aetitle[]>
+    public create(aetitleData: Aetitle)
     {
-        return this.aetitleRepository.getAETitles();
+        return this.aetitleRepository.createAETitle(aetitleData);
+    }
+
+    public query(queryParams: Record<string, any> | null = null): Observable<Aetitle[]>
+    {
+        return this.aetitleRepository.getAETitles(queryParams);
     }
 
     public queryAll(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null)

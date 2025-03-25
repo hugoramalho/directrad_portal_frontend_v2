@@ -22,6 +22,15 @@ export class UsersService {
     ) {
     }
 
+    queryAllTele()
+    {
+        return this.usersRepository.queryAllTele();
+    }
+
+    queryAllAdmins()
+    {
+        return this.usersRepository.queryAllAdmins();
+    }
 
     queryAdmin(page: number = 1, page_size: number = 20, queryParams: Record<string, any> | null = null)
     {

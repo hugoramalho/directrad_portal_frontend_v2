@@ -7,6 +7,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../../model/usuario/user';
+import {UsersRepository} from "../../repository/user/users.repository";
+import {UserRepository} from "../../repository/user/user.repository";
+
+
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +19,9 @@ export class UserService {
     private userSubject = new BehaviorSubject<User | null>(null);
     user$ = this.userSubject.asObservable();
 
-    constructor() {
+    constructor(
+        private userRepository: UserRepository
+    ) {
         this.loadUserFromStorage();
     }
 
@@ -24,6 +30,16 @@ export class UserService {
         const user = new User(apiUser); // Cria uma instância automaticamente convertida
         localStorage.setItem('user', JSON.stringify(user));
         this.userSubject.next(user);
+    }
+
+    verifyGroup(groupId: number | string): boolean {
+        console.log(this.userSubject.getValue()?.groups);
+        return this.userSubject.getValue()?.groups?.some(group => group.group_id == groupId) ?? false;
+    }
+
+    update(user: User)
+    {
+        return this.userRepository.update(user);
     }
 
 

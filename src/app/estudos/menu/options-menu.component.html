@@ -1,0 +1,100 @@
+<div class="title">
+    <h4>Menu de opções</h4>
+</div>
+<mat-dialog-content class="modal-body">
+    <div class="row">
+        <div class="col">
+            <button
+                mat-button
+                mat-raised-button
+                type="button"
+                class="btn btn-danger mdc-button mat-mdc-button options-button"
+                (click)="selectOption(STUDIES_OPTION_MENU.TAGS_DICOM)">
+                Informações do exame <br>
+                (Tags DICOM)
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button
+                mat-button
+                mat-raised-button
+                type="button"
+                class="btn btn-danger mdc-button mat-mdc-button options-button"
+                (click)="selectOption(STUDIES_OPTION_MENU.DIRECT_VIEWER)">
+                Abrir no DirectViewer
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button
+                mat-button
+                mat-raised-button
+                type="button"
+                class="btn btn-danger mdc-button mat-mdc-button options-button"
+                (click)="selectOption(STUDIES_OPTION_MENU.CREATE_RIS_ACCESS)">
+                Criar acesso no RIS
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button
+                mat-button
+                mat-raised-button
+                type="button"
+                class="btn btn-danger mdc-button mat-mdc-button options-button"
+                (click)="selectOption(STUDIES_OPTION_MENU.CREATE_RIS_LINK)">
+                Vincular com o RIS
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button
+                mat-button
+                mat-raised-button
+                type="button"
+                class="btn btn-danger mdc-button mat-mdc-button options-button"
+                (click)="selectOption(STUDIES_OPTION_MENU.EXPORT_STUDY)">
+                Exportar exame
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button
+                mat-button
+                mat-raised-button
+                type="button"
+                class="btn btn-danger mdc-button mat-mdc-button delete-button options-button"
+                (click)="selectOption(STUDIES_OPTION_MENU.DELETE_STUDY)">
+                Excluir exame
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button
+                mat-button
+                mat-raised-button
+                type="button"
+                class="btn btn-danger mdc-button mat-mdc-button delete-button options-button"
+                (click)="selectOption(STUDIES_OPTION_MENU.DELETE_STUDY_SERIES)">
+                Excluir série(s) do exame
+            </button>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions class="modal-footer">
+    <button
+        mat-button
+        mat-raised-button
+        type="button"
+        class="btn btn-danger mdc-button mat-mdc-button btn-cancel"
+        (click)="onClose()">
+        Cancelar
+    </button>
+</mat-dialog-actions>

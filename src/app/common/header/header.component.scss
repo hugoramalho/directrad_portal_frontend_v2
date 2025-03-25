@@ -7,11 +7,11 @@
         height: auto;
         padding: 12px;
         position: fixed;
-    
+
         .header-left-side {
             .burger-menu {
                 margin-right: 15px;
-    
+
                 span {
                     height: 1px;
                     width: 25px;
@@ -36,7 +36,7 @@
             }
             .search-box {
                 width: 360px;
-    
+
                 i {
                     transform: translateY(-50%);
                     color: var(--blackColor);
@@ -106,7 +106,7 @@
                         height: auto;
                         width: auto;
                         padding: 0;
-            
+
                         i {
                             font-size: 20px;
                             color: var(--blackColor);
@@ -266,7 +266,7 @@
                     .input-search {
                         background: rgba(255, 255, 255, .07);
                         color: var(--whiteColor);
-                        
+
                         &::placeholder {
                             color: rgba(255, 255, 255, .50);
                         }
@@ -349,7 +349,7 @@
             }
             .header-right-side {
                 padding-right: 0;
-                
+
                 li {
                     .language-menu-btn {
                         padding: 0 0 0 20px;
@@ -416,7 +416,7 @@
             &.right-sidebar {
                 right: 25px;
                 left: 282px;
-    
+
                 &.active, &.hide-sidebar {
                     left: 85px;
                 }
@@ -450,7 +450,7 @@
                         height: auto;
                         display: block;
                         padding: 14px 25px;
-                        
+
                         .mdc-button__label {
                             display: flex;
                             align-items: center;
@@ -486,7 +486,7 @@
                 .menu-body {
                     li {
                         border-color: rgba(255, 255, 255, 0.09);
-    
+
                         .mdc-button {
                             .mdc-button__label {
                                 color: var(--whiteColor);
@@ -528,6 +528,9 @@
                     bottom: 25px;
                 };
                 .link-btn {
+                    &:hover {
+                        cursor: pointer;
+                    }
                     font-size: 15px;
                 }
             }
@@ -545,7 +548,7 @@
                     }
                     .sub-title {
                         margin-bottom: 5px;
-                        
+
                         span {
                             font-size: 14.5px;
                             margin-left: 5px;
@@ -596,7 +599,7 @@
                     li {
                         border-color: rgba(255, 255, 255, 0.09);
                         color: var(--whiteColor);
-                        
+
                         &:first-child {
                             border-color: rgba(255, 255, 255, 0.09);
                         }
@@ -725,7 +728,7 @@
                     li {
                         border-color: rgba(255, 255, 255, 0.09);
                         color: var(--whiteColor);
-                        
+
                         .icon {
                             background: #293542;
                         }
@@ -847,13 +850,13 @@
             left: 15px;
             right: 15px;
             padding: 15px 15px 12px;
-        
+
             .header-left-side {
                 justify-content: center;
 
                 .search-box {
                     width: 280px;
-        
+
                     i {
                         font-size: 18px;
                     }
@@ -869,7 +872,7 @@
                 top: 0;
                 justify-content: center;
                 margin-top: 15px !important;
-    
+
                 li {
                     .language-menu-btn {
                         margin-right: 10px;
@@ -887,7 +890,7 @@
                     }
                     .messages-menu-btn {
                         margin-left: 15px;
-    
+
                         i {
                             margin-right: -7px;
                         }
@@ -900,7 +903,7 @@
                     }
                     .notifications-menu-btn {
                         margin-left: 12px;
-    
+
                         i {
                             margin-right: -10px;
                         }
@@ -914,7 +917,7 @@
                     .profile-menu-btn {
                         margin-left: 13px;
                         padding: 0 15px 0 0;
-    
+
                         img {
                             width: 35px;
                         }
@@ -933,7 +936,7 @@
             &.right-sidebar {
                 left: 15px;
                 right: 15px;
-    
+
                 &.active, &.hide-sidebar {
                     right: 15px;
                 }
@@ -1007,7 +1010,7 @@
                 &.right-sidebar {
                     right: 15px;
                     left: 15px;
-        
+
                     &.active, &.hide-sidebar {
                         left: 15px;
                     }
@@ -1019,7 +1022,7 @@
                 width: 200px;
                 max-width: 200px;
                 padding: 15px 0 0;
-    
+
                 .title {
                     padding: 0 15px 15px;
                 }
@@ -1027,7 +1030,7 @@
                     li {
                         .mdc-button {
                             padding: 13px 15px;
-                            
+
                             .mdc-button__label {
                                 font-size: 14px;
 
@@ -1044,7 +1047,7 @@
                 width: 300px;
                 padding: 15px 0;
                 max-width: 300px;
-    
+
                 .title {
                     padding: {
                         left: 15px;
@@ -1057,16 +1060,16 @@
                 }
                 .menu-body {
                     margin-bottom: 15px;
-    
+
                     li {
                         padding: 16px 15px 16px 69px;
-    
+
                         img {
                             left: 15px;
                         }
                         .sub-title {
                             margin-bottom: 5px;
-                            
+
                             span {
                                 font-size: 13px;
                             }
@@ -1091,7 +1094,7 @@
                 width: 300px;
                 padding: 15px 0;
                 max-width: 300px;
-    
+
                 .title {
                     padding: {
                         left: 15px;
@@ -1104,15 +1107,15 @@
                 }
                 .menu-body {
                     margin-bottom: 15px;
-    
+
                     li {
                         padding: 15px 15px 15px 64px;
-    
+
                         .icon {
                             left: 15px;
                             width: 40px;
                             height: 40px;
-    
+
                             i {
                                 font-size: 18px;
                             }
@@ -1135,7 +1138,7 @@
             }
             &.profile-menu-dropdown {
                 padding: 15px 0;
-    
+
                 .menu-header {
                     margin-bottom: 8px;
                     padding: {
@@ -1145,7 +1148,7 @@
                     };
                     .title {
                         margin-left: 11px;
-    
+
                         a {
                             font-size: 15px;
                         }
@@ -1158,7 +1161,7 @@
                     li {
                         padding: 8px 15px 8px 41px;
                         font-size: 14px;
-    
+
                         i {
                             left: 15px;
                             font-size: 18px;
@@ -1182,7 +1185,7 @@
             left: 25px;
             right: 25px;
             padding: 12px 15px;
-        
+
             .header-left-side {
                 .burger-menu {
                     margin-right: 20px;
@@ -1208,7 +1211,7 @@
                     }
                     .profile-menu-btn {
                         margin-left: 18px;
-    
+
                         img {
                             width: 35px;
                         }
@@ -1220,7 +1223,7 @@
             }
             &.right-sidebar {
                 right: 25px;
-    
+
                 &.active, &.hide-sidebar {
                     right: 25px;
                 }
@@ -1228,7 +1231,7 @@
             &.rtl-enabled {
                 left: 25px;
                 right: 25px;
-        
+
                 .header-left-side {
                     .burger-menu {
                         margin: {
@@ -1279,7 +1282,7 @@
                 &.right-sidebar {
                     right: 25px;
                     left: 25px;
-        
+
                     &.active, &.hide-sidebar {
                         left: 25px;
                     }
@@ -1289,7 +1292,7 @@
         .mat-mdc-menu-panel {
             &.language-menu-dropdown {
                 padding: 18px 0 0;
-    
+
                 .title {
                     padding: 0 20px 18px;
                 }
@@ -1297,7 +1300,7 @@
                     li {
                         .mdc-button {
                             padding: 13px 20px;
-                            
+
                             .mdc-button__label {
                                 font-size: 14px;
                             }
@@ -1309,7 +1312,7 @@
                 width: 350px;
                 padding: 20px 0;
                 max-width: 350px;
-    
+
                 .title {
                     padding: {
                         left: 20px;
@@ -1322,10 +1325,10 @@
                 }
                 .menu-body {
                     margin-bottom: 20px;
-    
+
                     li {
                         padding: 18px 20px 18px 75px;
-    
+
                         img {
                             left: 20px;
                         }
@@ -1352,7 +1355,7 @@
                 width: 350px;
                 padding: 20px 0;
                 max-width: 350px;
-    
+
                 .title {
                     padding: {
                         left: 20px;
@@ -1365,10 +1368,10 @@
                 }
                 .menu-body {
                     margin-bottom: 20px;
-    
+
                     li {
                         padding: 17px 20px 17px 74px;
-    
+
                         .icon {
                             left: 20px;
                         }
@@ -1389,10 +1392,10 @@
             &.profile-menu-dropdown {
                 .menu-header {
                     margin-bottom: 8px;
-                    
+
                     .title {
                         margin-left: 11px;
-    
+
                         a {
                             font-size: 16px;
                         }
@@ -1419,7 +1422,7 @@
     ::ng-deep {
         .header-area {
             left: 25px;
-        
+
             .header-left-side {
                 .search-box {
                     width: 320px;
@@ -1430,7 +1433,7 @@
             }
             &.right-sidebar {
                 right: 25px;
-    
+
                 &.active, &.hide-sidebar {
                     right: 25px;
                 }
@@ -1446,7 +1449,7 @@
                 &.right-sidebar {
                     right: 25px;
                     left: 25px;
-        
+
                     &.active, &.hide-sidebar {
                         left: 25px;
                     }
@@ -1469,7 +1472,7 @@
             }
             &.right-sidebar {
                 right: 262px;
-    
+
                 &.active, &.hide-sidebar {
                     right: 85px;
                 }
@@ -1485,7 +1488,7 @@
                 &.right-sidebar {
                     right: 25px;
                     left: 262px;
-        
+
                     &.active, &.hide-sidebar {
                         left: 85px;
                     }

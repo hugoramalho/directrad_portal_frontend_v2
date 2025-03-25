@@ -17,7 +17,8 @@ import {AppInitializerService} from "../usuario/app-init.service";
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
+export class AuthService
+{
     static readonly AUTH_TOKEN_KEY: string = "auth_token";
     static readonly USER_ID_KEY: string = "user_id";
     // private loginUrl = `${environment.api_v1_base_url}/idp/auth/portal`;
@@ -74,10 +75,15 @@ export class AuthService {
         return false;
     }
 
-    getUserId(): number | null {
-        const userId = localStorage.getItem(AuthService.USER_ID_KEY);
-        return userId ? parseInt(userId, 10) : null;
+    public getUser(): User | null
+    {
+        return this.userService.getUser();
     }
+
+    // getUserId(): number | null {
+    //     const userId = localStorage.getItem(AuthService.USER_ID_KEY);
+    //     return userId ? parseInt(userId, 10) : null;
+    // }
 
     clearUserData() {
         localStorage.removeItem(AuthService.AUTH_TOKEN_KEY);
@@ -93,16 +99,15 @@ export class AuthService {
         localStorage.setItem(this.tokenKey, token);
     }
 
-    logout(): void {
+    logout(): void
+    {
         localStorage.removeItem(this.tokenKey);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/authentication']);
     }
 
     getToken(): string | null {
         return localStorage.getItem(this.tokenKey);
     }
 
-    // getUser(): User | null {
-    //     return this.userService.getUser();
-    // }
+
 }

@@ -56,7 +56,6 @@ export class LancamentoFinanceiroDataSource {
         if(!conta){
             return of(null);
         }
-        console.log('contaa', conta);
         const url = `${this.apiUrl}/contas/${conta.id}?page=${page}&per_page=${perPage}`;
 
         return this.http.get<ApiResponseInterface<PaginatedListInterface<Lancamento[]>>>(url)
@@ -65,14 +64,10 @@ export class LancamentoFinanceiroDataSource {
                 switchMap(paginatedList => {
                     if (paginatedList && expand && paginatedList?.items) {
                         return this.expandLancamentos(paginatedList.items).pipe(
-                            map(expandedItems =>
-                                console.log('expandedItems', expandedItems)
-
-                            )
+                            // map(expandedItems =>
+                            // )
                         )
                     }
-                    console.log('paginatedList', paginatedList);
-
                     return of(paginatedList);  // Retorna como está se não expandir ou items for nulo
                 })
             );

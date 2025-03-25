@@ -56,14 +56,14 @@ export class CadastroUsuarioComponent {
     currentLength: number = 0;
     dataSource = new MatTableDataSource<User>([]);
     selection = new SelectionModel<User>(true, []);
-    aetitles: Aetitle[];
+    users: User[];
     displayedColumns: string[] = [
         'select',
-        'aetitle',
-        'tipo',
+        'company',
+        'username',
         'pacs_relacionado',
-        'clinica_identificacao',
-        'status_sincronizacao_pacs',
+        'clinica_relacionada',
+        'tele_relacionada',
         'action'
     ];
 
@@ -79,6 +79,7 @@ export class CadastroUsuarioComponent {
 
     ngOnInit(): void
     {
+        console.log('teste user');
         this.loadUsers(1, 20);
     }
 

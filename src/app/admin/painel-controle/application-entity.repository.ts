@@ -15,9 +15,9 @@
 // // //     return this.http.get<Exame[]>(`${this.apiUrl}/exames`);
 // // //   }
 //
-// // //   // Método para enviar um exame editado
-// // //   updateExame(exame: Exame): Observable<Exame> {
-// // //     return this.http.put<Exame>(`${this.apiUrl}/exames/${exame.id}`, exame);
+// // //   // Método para enviar um estudos editado
+// // //   updateExame(estudos: Exame): Observable<Exame> {
+// // //     return this.http.put<Exame>(`${this.apiUrl}/exames/${estudos.id}`, estudos);
 // // //   }
 // // // }
 // // // /

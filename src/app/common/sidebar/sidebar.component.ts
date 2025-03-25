@@ -1,20 +1,34 @@
-import { Component } from '@angular/core';
-import { NgScrollbarModule } from 'ngx-scrollbar';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
-import { ToggleService } from './toggle.service';
-import { NgClass } from '@angular/common';
-import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import {Component} from '@angular/core';
+import {NgScrollbarModule} from 'ngx-scrollbar';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {RouterLink, RouterLinkActive, RouterModule} from '@angular/router';
+import {ToggleService} from './toggle.service';
+import {NgClass, NgIf} from '@angular/common';
+import {CustomizerSettingsService} from '../../customizer-settings/customizer-settings.service';
+import {UserService} from "../../@shared/service/usuario/user.service";
+import {UserGroups} from "../../@shared/model/usuario/user-groups";
+import {Pacs} from "../../@shared/model/pacs/pacs";
+import {AuthService} from "../../@shared/service/auth/auth.service";
+import {MatTab} from "@angular/material/tabs";
 
 @Component({
     selector: 'app-sidebar',
     standalone: true,
-    imports: [NgScrollbarModule, MatExpansionModule, RouterLinkActive, RouterModule, RouterLink, NgClass],
+    imports: [
+        NgIf,
+        NgScrollbarModule,
+        MatExpansionModule,
+        RouterLinkActive,
+        RouterModule,
+        RouterLink,
+        NgClass,
+        MatTab
+    ],
     templateUrl: './sidebar.component.html',
     styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-
+    isAdmin: boolean = false;
     // isSidebarToggled
     isSidebarToggled = false;
 
@@ -27,7 +41,9 @@ export class SidebarComponent {
 
     constructor(
         private toggleService: ToggleService,
-        public themeService: CustomizerSettingsService
+        public themeService: CustomizerSettingsService,
+        private userService: UserService,
+        private authService: AuthService,
     ) {
         this.toggleService.isSidebarToggled$.subscribe(isSidebarToggled => {
             this.isSidebarToggled = isSidebarToggled;
@@ -35,8 +51,14 @@ export class SidebarComponent {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
-
+        this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
+        console.log(this.isAdmin);
         this.logoUrl = this.isToggled ? this.logoUrlClosed : this.logoUrlOpened;
+    }
+
+    ngOnInit(): void
+    {
+        this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
     }
 
     // Burger Menu Toggle
@@ -82,6 +104,11 @@ export class SidebarComponent {
     // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
+    }
+
+    logout()
+    {
+        this.authService.logout();
     }
 
 }

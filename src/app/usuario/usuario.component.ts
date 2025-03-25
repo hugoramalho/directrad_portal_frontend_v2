@@ -8,4 +8,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     templateUrl: './usuario.component.html',
     styleUrl: './usuario.component.scss'
 })
-export class UsuarioComponent {}
+export class UsuarioComponent
+{
+
+
+}

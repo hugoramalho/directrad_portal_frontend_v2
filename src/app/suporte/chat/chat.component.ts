@@ -34,14 +34,13 @@ export class ChatComponent {
         private mercureService: MercureService
     ) {
         const isToggled$ = this.themeService.isToggled$.pipe(first());
-        const messages$ = this.mercureService.subscribeToTopic('/chat').pipe(first());
+        // const messages$ = this.mercureService.subscribeToTopic('/chat').pipe(first());
 
         // Combinar os observáveis e aguardar a conclusão
-        forkJoin([isToggled$, messages$]).subscribe(([isToggled, initialMessages]) => {
-            this.isToggled = isToggled;
-            this.messages.push(...initialMessages);
-            console.log('Ambos os serviços concluíram');
-        });
+        // forkJoin([isToggled$, messages$]).subscribe(([isToggled, initialMessages]) => {
+        //     this.isToggled = isToggled;
+        //     this.messages.push(...initialMessages);
+        // });
     }
 
     sendMessage(): void {

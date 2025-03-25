@@ -81,114 +81,104 @@
     </mat-card-header>
     <mat-card-content>
         <div class="pacs-list-table">
-            <div class="table-responsive">
-                <table mat-table [dataSource]="dataSource">
-                    <!-- Checkbox Column -->
-                    <ng-container matColumnDef="select">
-                        <th mat-header-cell *matHeaderCellDef>
-                            <mat-checkbox
-                                (change)="$event ? toggleAllRows() : null"
-                                [checked]="selection.hasValue() && isAllSelected()"
-                                [indeterminate]="selection.hasValue() && !isAllSelected()"
-                                [aria-label]="checkboxLabel()">
-                            </mat-checkbox>
-                        </th>
-                        <td mat-cell *matCellDef="let row">
-                            <mat-checkbox (click)="$event.stopPropagation()"
-                                (change)="$event ? selection.toggle(row) : null"
-                                [checked]="selection.isSelected(row)"
-                                [aria-label]="checkboxLabel(row)"
-                            >
-                            </mat-checkbox>
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="identificacao">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Identificação
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.identificacao}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="ip">
-                        <th mat-header-cell *matHeaderCellDef>
-                            IP
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.ip}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="main_storage_aetitle">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Aetitle
-                        </th>
-                        <td mat-cell *matCellDef="let element" class="text-black">
-                            {{element.main_storage_aetitle}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="username_admin">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Admin
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.username_admin}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="username_tele">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Tele
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.username_tele}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="host">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Host
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            {{element.host}}
-                        </td>
-                    </ng-container>
-                    <ng-container matColumnDef="action">
-                        <th mat-header-cell *matHeaderCellDef>
-                            Ações
-                        </th>
-                        <td mat-cell *matCellDef="let element">
-                            <div class="action-info">
-                                <button
-                                    [matMenuTriggerFor]="menu"
-                                    type="button"
-                                    mat-button
-                                    matTooltip="Mais opções"
-                                    matTooltipPosition="above">
-                                    <i class="material-symbols-outlined">more_vert</i>
-                                </button>
-                                <mat-menu #menu="matMenu">
-                                    <ng-container *ngIf="!element.install_allow; else showInstall">
-                                        <button mat-menu-item (click)="onAccess(element)">
-                                            <mat-icon>login</mat-icon> Acesso
-                                        </button>
-                                    </ng-container>
-                                    <ng-template #showInstall>
-                                        <button mat-menu-item (click)="onInstall(element)">
-                                            <mat-icon>terminal</mat-icon> Instalação
-                                        </button>
-                                    </ng-template>
-                                    <button mat-menu-item (click)="onEdit(element)">
-                                        <mat-icon>edit</mat-icon> Editar
-                                    </button>
-                                    <button mat-menu-item (click)="onDelete(element)">
-                                        <mat-icon>delete</mat-icon> Excluir
-                                    </button>
-                                </mat-menu>
-                            </div>
-                        </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
+            <div class="loading-container" *ngIf="isLoading; else pacsTableTemplate">
+                <mat-spinner></mat-spinner>
             </div>
+            <ng-template #pacsTableTemplate>
+                <div class="table-responsive">
+                    <table mat-table [dataSource]="dataSource">
+                        <ng-container matColumnDef="identificacao">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Identificação
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.identificacao }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="ip">
+                            <th mat-header-cell *matHeaderCellDef>
+                                IP
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.ip }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="main_storage_aetitle">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Aetitle Principal
+                            </th>
+                            <td mat-cell *matCellDef="let element" class="text-black">
+                                {{ element.main_storage_aetitle }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="username_admin">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Usuário Admin
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.username_admin }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="username_tele">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Usuário Tele
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.username_tele }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="host">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Host
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.host }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef>
+                                Ações
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="action-info">
+                                    <button
+                                        [matMenuTriggerFor]="menu"
+                                        type="button"
+                                        mat-button
+                                        matTooltip="Mais opções"
+                                        matTooltipPosition="above">
+                                        <i class="material-symbols-outlined">more_vert</i>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <ng-container *ngIf="!element.install_allow; else showInstall">
+                                            <button mat-menu-item (click)="onAccess(element)">
+                                                <mat-icon>login</mat-icon>
+                                                Acesso
+                                            </button>
+                                        </ng-container>
+                                        <ng-template #showInstall>
+                                            <button mat-menu-item (click)="onInstall(element)">
+                                                <mat-icon>terminal</mat-icon>
+                                                Instalação
+                                            </button>
+                                        </ng-template>
+                                        <button mat-menu-item (click)="onEdit(element)">
+                                            <mat-icon>edit</mat-icon>
+                                            Ver dados/Editar
+                                        </button>
+                                        <button mat-menu-item (click)="onDelete(element)">
+                                            <mat-icon>delete</mat-icon>
+                                            Excluir
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </ng-template>
             <mat-paginator
                 [length]="currentLength"
                 [pageSize]="20"

@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import {MatDatepickerInput} from "@angular/material/datepicker";
+import {MatInput} from "@angular/material/input";
 
 @Component({
     selector: 'app-bool-select',
     standalone: true,
-    imports: [CommonModule, MatFormFieldModule, MatSelectModule],
+    imports: [CommonModule, MatFormFieldModule, MatSelectModule, MatDatepickerInput, MatInput],
     templateUrl: './bool-select.component.html',
     providers: [
         {

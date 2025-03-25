@@ -65,7 +65,6 @@ export class AppCache {
                 return of(null);
             }),
             tap(resources => {
-                console.log('resources', resources)
                 if(resources?.data){
                     this.cache[uri] = new BehaviorSubject(resources.data);
                     // resources.data.forEach(resource => {

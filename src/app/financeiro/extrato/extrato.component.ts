@@ -120,8 +120,6 @@ export class ExtratoComponent implements AfterViewInit, OnInit {
                 .pipe(
                     startWith({}),
                     switchMap(() => {
-                        console.log('pipe');
-
                         return this.loadLancamentos(
                             this.contaAtiva,
                             this.paginator.pageIndex + 1,
@@ -135,7 +133,6 @@ export class ExtratoComponent implements AfterViewInit, OnInit {
                     })
                 )
                 .subscribe((lancamentos) => {
-                    console.log('lanc', lancamentos);
                     this.lancamentos = lancamentos || this.lancamentos;
                     this.dataSource = new MatTableDataSource(this.lancamentos);
                 });

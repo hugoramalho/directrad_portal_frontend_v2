@@ -22,7 +22,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-    selector: 'app-edit-exame-table',
+    selector: 'app-edit-estudos-table',
     standalone: true,
     imports: [MatTableModule],
     templateUrl: './table.component.html',

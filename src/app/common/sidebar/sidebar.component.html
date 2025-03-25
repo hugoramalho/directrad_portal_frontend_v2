@@ -40,7 +40,12 @@
                             Estudos
                         </span>
                     </a>
-                    <a routerLink="/worklist" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a
+                        *ngIf="isAdmin"
+                        routerLink="/worklist"
+                        class="sidebar-menu-link"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             overview
                         </i>
@@ -70,19 +75,26 @@
 <!--                                    Objetos DICOM-->
 <!--                                </a>-->
 <!--                            </li>-->
-                            <li class="sidemenu-item">
-                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                            <li
+                                *ngIf="isAdmin"
+                                class="sidemenu-item">
+                                <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Pacs Hosts
                                 </a>
                             </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                            <li
+                                *ngIf="isAdmin"
+                                class="sidemenu-item">
+                                <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Instalação
                                 </a>
                             </li>
                         </ul>
                     </mat-expansion-panel>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
+                    <mat-expansion-panel
+                        *ngIf="isAdmin"
+                        (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = true">
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 <i class="material-symbols-outlined">
@@ -99,43 +111,50 @@
                                     Usuários
                                 </a>
                             </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Equipamentos
-                                </a>
-                            </li>
+<!--                            <li class="sidemenu-item">-->
+<!--                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">-->
+<!--                                    Equipamentos-->
+<!--                                </a>-->
+<!--                            </li>-->
                         </ul>
                     </mat-expansion-panel>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <i class="material-symbols-outlined">
-                                    domain
-                                </i>
-                                <span class="title">
-                                    Instituições
-                                </span>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <ul class="sidebar-sub-menu">
-                            <li class="sidemenu-item">
-                                <a routerLink="/usuario/config" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Instituições
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Contratos
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/usuario/config" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Usuários
-                                </a>
-                            </li>
-                        </ul>
-                    </mat-expansion-panel>
-                    <a routerLink="/painel-controle" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+<!--                    <mat-expansion-panel-->
+<!--                        *ngIf="isAdmin"-->
+<!--                        (opened)="panelOpenState = true" (closed)="panelOpenState = true">-->
+<!--                        <mat-expansion-panel-header>-->
+<!--                            <mat-panel-title>-->
+<!--                                <i class="material-symbols-outlined">-->
+<!--                                    domain-->
+<!--                                </i>-->
+<!--                                <span class="title">-->
+<!--                                    Instituições-->
+<!--                                </span>-->
+<!--                            </mat-panel-title>-->
+<!--                        </mat-expansion-panel-header>-->
+<!--                        <ul class="sidebar-sub-menu">-->
+<!--                            <li class="sidemenu-item">-->
+<!--                                <a routerLink="/usuario/config" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">-->
+<!--                                    Instituições-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="sidemenu-item">-->
+<!--                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">-->
+<!--                                    Contratos-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="sidemenu-item">-->
+<!--                                <a routerLink="/usuario/config" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">-->
+<!--                                    Usuários-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </mat-expansion-panel>-->
+                    <a
+                        *ngIf="isAdmin"
+                        routerLink="/painel-controle"
+                        class="sidebar-menu-link"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
                             analytics
                         </i>
@@ -143,47 +162,61 @@
                             Relatórios
                         </span>
                     </a>
-                    <a routerLink="/directprint" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a
+                        routerLink="/usuario/config"
+                        class="sidebar-menu-link"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}">
                         <i class="material-symbols-outlined">
-                            print
+                            person
                         </i>
                         <span class="title">
-                            DirectPrint
+                            Usuário
                         </span>
                     </a>
-                    <a routerLink="/directviewer" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                        <i class="material-symbols-outlined">
-                            visibility
-                        </i>
-                        <span class="title">
-                            DirectViewer
-                        </span>
-                    </a>
-                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">
-                        <mat-expansion-panel-header>
-                            <mat-panel-title>
-                                <i class="material-symbols-outlined">
-                                    person
-                                </i>
-                                <span class="title">
-                                    Usuário
-                                </span>
-                            </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <ul class="sidebar-sub-menu">
-                            <li class="sidemenu-item">
-                                <a routerLink="/usuario/config" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Configurações
-                                </a>
-                            </li>
-                            <li class="sidemenu-item">
-                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Suporte
-                                </a>
-                            </li>
-                        </ul>
-                    </mat-expansion-panel>
-                    <a routerLink="/logout" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+<!--                    <a routerLink="/directprint" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">-->
+<!--                        <i class="material-symbols-outlined">-->
+<!--                            print-->
+<!--                        </i>-->
+<!--                        <span class="title">-->
+<!--                            DirectPrint-->
+<!--                        </span>-->
+<!--                    </a>-->
+<!--                    <a routerLink="/directviewer" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">-->
+<!--                        <i class="material-symbols-outlined">-->
+<!--                            visibility-->
+<!--                        </i>-->
+<!--                        <span class="title">-->
+<!--                            DirectViewer-->
+<!--                        </span>-->
+<!--                    </a>-->
+<!--                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = true">-->
+<!--                        <mat-expansion-panel-header>-->
+<!--                            <mat-panel-title>-->
+<!--                                <i class="material-symbols-outlined">-->
+<!--                                    person-->
+<!--                                </i>-->
+<!--                                <span class="title">-->
+<!--                                    Usuário-->
+<!--                                </span>-->
+<!--                            </mat-panel-title>-->
+<!--                        </mat-expansion-panel-header>-->
+<!--                        <ul class="sidebar-sub-menu">-->
+<!--                            <li class="sidemenu-item">-->
+<!--                                <a routerLink="/usuario/config" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">-->
+<!--                                    Configurações-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                            <li class="sidemenu-item">-->
+<!--                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">-->
+<!--                                    Suporte-->
+<!--                                </a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </mat-expansion-panel>-->
+                    <a
+                        (click)="logout()"
+                        class="sidebar-menu-link">
                         <i class="material-symbols-outlined">
                             logout
                         </i>

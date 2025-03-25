@@ -2,7 +2,7 @@
     <mat-card-header>
         <mat-card-title>
             <h5 class="mt-0 mb-0">
-                Pesquisar Aetitle
+                Pesquisar Usuário
             </h5>
         </mat-card-title>
     </mat-card-header>
@@ -12,7 +12,7 @@
                 <div class="mb-25">
                     <mat-form-field>
                         <mat-label>
-                            Aetitle
+                            Username
                         </mat-label>
                         <input matInput>
                     </mat-form-field>
@@ -22,7 +22,7 @@
                 <div class="mb-25">
                     <mat-form-field>
                         <mat-label>
-                            Tipo Aetitle
+                            Tipo de usuário
                         </mat-label>
                         <input matInput>
                     </mat-form-field>
@@ -42,7 +42,7 @@
                 <div class="mb-25">
                     <mat-form-field>
                         <mat-label>
-                            Status
+                            Tele
                         </mat-label>
                         <input matInput>
                     </mat-form-field>
@@ -64,7 +64,7 @@
         <mat-card-title>
             <div class="btn-box">
                 <button mat-flat-button class="daxa h-auto" (click)="toggleClass()">
-                    + Cadastrar novo Aetitle
+                    + Cadastrar novo usuário
                 </button>
             </div>
         </mat-card-title>
@@ -94,44 +94,44 @@
                             </mat-checkbox>
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="aetitle">
+                    <ng-container matColumnDef="company">
                         <th mat-header-cell *matHeaderCellDef>
-                            Aetitle
+                            Identificação
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.aetitle}}
+                            {{element.company}}
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="tipo">
+                    <ng-container matColumnDef="username">
                         <th mat-header-cell *matHeaderCellDef>
-                            Tipo
+                            Username
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.tipo}}
+                            {{element.username}}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="pacs_relacionado">
                         <th mat-header-cell *matHeaderCellDef>
-                            Pacs Relacionado
+                            Pacs
                         </th>
                         <td mat-cell *matCellDef="let element" class="text-black">
                             {{element.pacs_relacionado}}
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="clinica_identificacao">
+                    <ng-container matColumnDef="clinica_relacionada">
                         <th mat-header-cell *matHeaderCellDef>
                             Clínica
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.clinica_identificacao}}
+                            {{element.clinica_relacionada}}
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="status_sincronizacao_pacs">
+                    <ng-container matColumnDef="tele_relacionada">
                         <th mat-header-cell *matHeaderCellDef>
-                            Status Sincronização
+                            Tele
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.status_sincronizacao_pacs}}
+                            {{element.tele_relacionada}}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="action">

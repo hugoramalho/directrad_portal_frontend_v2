@@ -1,0 +1,58 @@
+.mat-mdc-button {
+    border: 0;
+    height: auto;
+    min-width: auto;
+    min-height: auto;
+    padding: 13px 40px;
+    font-weight: normal;
+    //background-color: var(--daxaColor);
+    &.btn-submit {
+        color: var(--whiteColor);
+        margin-left: 10px;
+        background-color: var(--daxaColor);
+    }
+    &.btn-cancel {
+        margin-left: 10px;
+        color: var(--whiteColor);
+        background-color: var(--dangerColor);
+    }
+}
+
+mat-dialog-content {
+    overflow: hidden !important;
+    height: 40vh;
+    width: 100%;
+    .pacs-form {
+        mat-form-field {
+            margin-bottom: 0.5rem;
+        }
+        label {
+            display: block;
+            white-space: nowrap;
+        }
+        input {
+            display: block;
+        }
+        .pacs-access-data {
+            margin-top: 2rem;
+        }
+        .ssh-use-toggle {
+            mat-label {
+                margin-right: 1rem;
+            }
+        }
+        .ssh-key-input {
+            height: 7rem;
+        }
+        .pacs-access-data-header {
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+    width: 100%;
+}

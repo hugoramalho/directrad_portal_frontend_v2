@@ -389,6 +389,7 @@
                             left: 0;
                         }
                         &:hover, &.active {
+                            cursor: pointer;
                             color: var(--daxaColor);
                         }
                     }

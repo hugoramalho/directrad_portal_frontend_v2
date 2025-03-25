@@ -12,6 +12,7 @@ import {Pacs} from "../model/pacs/pacs";
 import {PaginatedListInterface} from "../model/http/paginated-list-interface";
 import {Estudo} from "../model/estudo/exame";
 import {PaginatedList} from "../model/http/paginated-list";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
     providedIn: 'root'
@@ -21,10 +22,23 @@ export class PacsRepository {
     private pacsSubject = new BehaviorSubject<Map<string, Pacs>>(new Map());
     pacs$ = this.pacsSubject.asObservable();
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient,
+        private snackBar: MatSnackBar
+    ) {
     }
 
-    // create()
+    find(pacs_id: number | string): Observable<Pacs[]> {
+        return this.http.get<ApiResponseInterface<Pacs[]>>(`${this.baseUrl}/${pacs_id}`)
+            .pipe(
+                map(response => {
+                    return response.data || [];
+                }),
+                catchError(err => {
+                    return of([]);
+                })
+            );
+    }
 
     get(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null): Observable<PaginatedList<Pacs[]>> {
         let params = new HttpParams();
@@ -57,10 +71,36 @@ export class PacsRepository {
         );
     }
 
+    create(pacsData: Pacs) {
+        return this.http.post<ApiResponseInterface<Pacs>>(`${this.baseUrl}`, pacsData)
+            .pipe(
+                map(response => response.data),
+                catchError(err => {
+                    this.snackBar.open('Erro ao criar Pacs', 'Fechar', {
+                        duration: 4000,
+                        horizontalPosition: 'right',
+                        verticalPosition: 'bottom',
+                        // panelClass: ['success-snackbar']
+                    });
+                    return of(null as any);
+                })
+            );
+    }
+
+    update(pacs: Pacs): Observable<Pacs> {
+        return this.http.put<ApiResponseInterface<Pacs>>(`${this.baseUrl}/${pacs.id}`, pacs)
+            .pipe(
+                map(response => response.data),
+                catchError(err => {
+                    return of(null as any);
+                })
+            );
+    }
+
     queryAll(): Observable<Pacs[]> {
         const cachedPacsMap = this.pacsSubject.getValue();
         if (cachedPacsMap.size > 0) {
-            return of(Array.from(cachedPacsMap.values())); // Retorna os valores do Map como array
+            return of(Array.from(cachedPacsMap.values()));
         }
         return this.http.get<ApiResponseInterface<Pacs[]>>(`${this.baseUrl}`)
             .pipe(
@@ -71,11 +111,6 @@ export class PacsRepository {
                     return of([]);
                 })
             );
-    }
-
-    /** Obtém um PACS específico */
-    getPacsById(pacsId: string): Observable<any> {
-        return this.http.get<any>(`${this.baseUrl}/${pacsId}`);
     }
 
     /** Obtém um PACS específico pelo ID do cache ou da API */

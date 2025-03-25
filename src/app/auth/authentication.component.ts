@@ -6,6 +6,5 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     standalone: true,
     imports: [RouterLink, RouterOutlet],
     templateUrl: './authentication.component.html',
-    styleUrl: './authentication.component.scss'
 })
 export class AuthenticationComponent {}

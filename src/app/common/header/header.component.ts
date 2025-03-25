@@ -5,6 +5,7 @@ import { ToggleService } from '../sidebar/toggle.service';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
+import {AuthService} from "../../@shared/service/auth/auth.service";
 
 @Component({
     selector: 'app-header',
@@ -23,7 +24,8 @@ export class HeaderComponent {
 
     constructor(
         private toggleService: ToggleService,
-        public themeService: CustomizerSettingsService
+        public themeService: CustomizerSettingsService,
+        private authService: AuthService
     ) {
         this.toggleService.isSidebarToggled$.subscribe(isSidebarToggled => {
             this.isSidebarToggled = isSidebarToggled;
@@ -83,6 +85,16 @@ export class HeaderComponent {
     // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
+    }
+
+    logout()
+    {
+        this.authService.logout();
+    }
+
+    getUser()
+    {
+        return this.authService.getUser();
     }
 
 }

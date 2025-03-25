@@ -1,0 +1,128 @@
+<div
+    class="modal-header row">
+    <h5 class="modal-title">Cadastrar novo PACS no Host Central da Oracle</h5>
+</div>
+<mat-dialog-content
+    class="modal-body">
+        <form class="pacs-form" [formGroup]="userForm">
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <mat-form-field>
+                        <mat-label>Identificação do usuário</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            class="form-control"
+                            formControlName="identificacao"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 form-group">
+                    <mat-form-field>
+                        <mat-label>Tipo Usuário</mat-label>
+                        <mat-select
+                            class="form-control"
+                            formControlName="tipo_usuario">
+                            <mat-option>Pacs Admin</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <mat-form-field>
+                        <mat-label>Username</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            class="form-control"
+                            required
+                            formControlName="username"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 form-group">
+                    <mat-form-field>
+                        <mat-label>Usuário Tele relacionado</mat-label>
+                        <mat-select
+                            class="form-control"
+                            formControlName="tele_id">
+                            <mat-option>Selecione</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <mat-form-field>
+                        <mat-label>Senha</mat-label>
+                        <input
+                            matInput
+                            type="password"
+                            class="form-control"
+                            required
+                            formControlName="password"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 form-group">
+                    <mat-form-field>
+                        <mat-label>Digite novamente a senha</mat-label>
+                        <input
+                            #senhaNovamente
+                            matInput
+                            type="password"
+                            class="form-control"
+                            required
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 form-group">
+                    <mat-form-field>
+                        <mat-label>Email</mat-label>
+                        <input
+                            matInput
+                            type="email"
+                            class="form-control"
+                            required
+                            formControlName="email"
+                        />
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6 form-group">
+                    <mat-form-field>
+                        <mat-label>Telefone</mat-label>
+                        <input
+                            matInput
+                            type="text"
+                            class="form-control"
+                            formControlName="email"
+                        />
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+</mat-dialog-content>
+<mat-dialog-actions
+    class="modal-footer">
+    <button
+        mat-raised-button
+        mat-button
+        type="submit"
+        class="btn btn-success btn-submit"
+        (click)="submit()">
+        Salvar
+    </button>
+    <button
+        mat-raised-button
+        mat-button
+        type="button"
+        class="btn btn-danger mdc-button mat-mdc-button btn-cancel"
+        (click)="onCancel()">
+        Cancelar
+    </button>
+</mat-dialog-actions>
+

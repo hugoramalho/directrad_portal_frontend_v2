@@ -26,6 +26,7 @@ export class DataInputComponent implements ControlValueAccessor {
     @Output() dateChange = new EventEmitter<Date>();
     @Input() disabled: boolean = false;
     @Input() initialValue: string | null = null;
+    @Input() dateFormat: string = 'Y-m-d';
 
     @ViewChild('picker') picker: any;
     @ViewChild('inputElement') inputElement!: ElementRef;
@@ -140,11 +141,17 @@ export class DataInputComponent implements ControlValueAccessor {
         this.picker.open(); // Abre o calendário
     }
 
-    private formatDateToDisplay(date: Date | undefined): string {
+    private formatDateToDisplay(date: Date | string | undefined): string {
         if (!date) return '';
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
+        // Se for string, converte para Date
+        const dateObj = typeof date === 'string' ? new Date(date) : date;
+        // Verifica se é um Date válido
+        if (!(dateObj instanceof Date) || isNaN(dateObj.getTime())) {
+            return '';
+        }
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const year = dateObj.getFullYear();
         return `${day}/${month}/${year}`;
     }
 }
