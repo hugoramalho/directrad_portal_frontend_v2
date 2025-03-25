@@ -13,12 +13,13 @@ import {PaginatedListInterface} from "../model/http/paginated-list-interface";
 import {Estudo} from "../model/estudo/exame";
 import {PaginatedList} from "../model/http/paginated-list";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PacsRepository {
-    private baseUrl = '/api/v1/pacs';
+    private baseUrl = `${environment.api_v1_base_url}/pacs`;
     private pacsSubject = new BehaviorSubject<Map<string, Pacs>>(new Map());
     pacs$ = this.pacsSubject.asObservable();
 

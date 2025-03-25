@@ -14,12 +14,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ExportRuleRepository {
-    private baseUrl = '/api/v1/pacs';
+    private baseUrl = `${environment.api_v1_base_url}/pacs`;
     private exportRulesSubject = new BehaviorSubject<{ [pacsId: string]: any[] }>({});
 
     constructor(private http: HttpClient) {}

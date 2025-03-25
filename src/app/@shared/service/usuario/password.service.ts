@@ -10,13 +10,14 @@ import {HttpClient} from "@angular/common/http";
 import {tap} from "rxjs";
 import {UserPasswordUpdate} from "../../model/usuario/user-password-update";
 import {ApiResponseInterface} from "../../model/http/api-response-interface";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PasswordService
 {
-    private baseUrl = '/api/v1/users'; // Base da API
+    private baseUrl = `${environment.api_v1_base_url}/users`;
 
     constructor(
         private http: HttpClient

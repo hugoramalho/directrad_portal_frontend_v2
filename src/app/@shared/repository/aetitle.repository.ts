@@ -8,12 +8,13 @@ import {catchError, map} from "rxjs/operators";
 import {Pacs} from "../model/pacs/pacs";
 import {PaginatedList} from "../model/http/paginated-list";
 import {PaginatedListInterface} from "../model/http/paginated-list-interface";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AETitleRepository {
-    private baseUrl = '/api/v1/pacs'; // Base da API
+    private baseUrl = `${environment.api_v1_base_url}/pacs`;
     private aetitlesSubject = new BehaviorSubject<Aetitle[]>([]);
 
     constructor(

@@ -13,12 +13,13 @@ import {PaginatedList} from "../../model/http/paginated-list";
 import {PaginatedListInterface} from "../../model/http/paginated-list-interface";
 import {PacsNetwork} from "../../model/pacs/network";
 import {Pacs} from "../../model/pacs/pacs";
+import {environment} from "../../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PacsNetworkRepository {
-    private baseUrl = '/api/v1/pacs'; // Base da API
+    private baseUrl = `${environment.api_v1_base_url}/pacs`;
     private aetitlesSubject = new BehaviorSubject<PacsNetwork[]>([]);
 
     constructor(private http: HttpClient) {
