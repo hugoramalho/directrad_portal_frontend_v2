@@ -77,7 +77,6 @@ export class CadastroAetitleComponent {
     aetitles: Aetitle[];
     clinicas: UserClinica[];
     pacsList: Pacs[];
-
     displayedColumns: string[] = [
         'aetitle',
         'tipo_aetitle',
@@ -101,8 +100,7 @@ export class CadastroAetitleComponent {
         });
     }
 
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
         this.loadAetitles(1, 20);
     }
@@ -146,6 +144,32 @@ export class CadastroAetitleComponent {
         });
     }
 
+    onEdit(aetitle: Aetitle) {
+
+    }
+
+    onDelete(aetitle: Aetitle) {
+
+    }
+
+    onCreateAetitle() {
+        const dialogRef = this.dialog.open(SelectCreateAetitleTypeComponent, {
+            width: '400px',
+        });
+        // dialogRef.afterClosed().subscribe((result) => {
+        //     if (result) {
+        //         this.loadPacs(); // recarrega a lista se houve atualização
+        //     }
+        // });
+        dialogRef.afterClosed().subscribe(result => {
+            this.dialog.open(CreateAetitleComponent, {
+                width: '900px',
+                data: result as TipoAetitle
+            });
+        });
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
         const numSelected = this.selection.selected.length;
@@ -188,39 +212,4 @@ export class CadastroAetitleComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
-    openAddAetitleModal() {
-        const dialogRef = this.dialog.open(CreateAetitleComponent, {
-            width: 'auto', // Define o tamanho do modal
-            data: {}, // Dados iniciais se necessário
-        });
-        dialogRef.afterClosed().subscribe((result) => {
-            if (result) {
-                this.handleAetitleResult(result);
-            }
-        });
-    }
-
-    createAetitle()
-    {
-        const dialogRef = this.dialog.open(SelectCreateAetitleTypeComponent, {
-            width: '400px',
-        });
-        // dialogRef.afterClosed().subscribe((result) => {
-        //     if (result) {
-        //         this.loadPacs(); // recarrega a lista se houve atualização
-        //     }
-        // });
-        dialogRef.afterClosed().subscribe(result => {
-            this.dialog.open(CreateAetitleComponent, {
-                width: '900px',
-                data: result as TipoAetitle
-            });
-        });
-    }
-
-    handleAetitleResult(result: any)
-    {
-    }
-
 }

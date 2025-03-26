@@ -84,6 +84,11 @@
                         }
                     }
                 }
+                .action-info {
+                    i {
+                        font-size: var(--iconButtonSize);
+                    }
+                }
             }
             &.rtl-enabled {
                 .mat-mdc-card-content {

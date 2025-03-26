@@ -32,7 +32,7 @@ export class UsersRepository {
     ) {
     }
 
-    create(user: User): Observable<number>
+    create(user: any): Observable<number>
     {
         return this.http.post<ApiResponseInterface<ApiResponseResource>>(
             `${this.baseUrl}`,

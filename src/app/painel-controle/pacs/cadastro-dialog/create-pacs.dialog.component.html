@@ -407,7 +407,7 @@
                 <div class="flex justify-content-start mb-25">
                     <mat-label
                         style="white-space: nowrap; display: inline; margin-right: 1rem">
-                        Cadastrar Aetitles
+                        Cadastrar Aetitles no Pacs
                     </mat-label>
                     <mat-slide-toggle
                         (change)="toggleCadastroAetitle()"
@@ -491,7 +491,7 @@
                             </mat-option>
                             @for (item of filteredAdmins; track item) {
                                 <mat-option [value]="item.id">
-                                    {{ item.username }}
+                                    {{ item.username }} - {{ item?.company}}
                                 </mat-option>
                             }
                         </mat-select>

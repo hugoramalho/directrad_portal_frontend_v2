@@ -23,6 +23,7 @@
                                 </mat-label>
                                 <input
                                     matInput
+                                    oninput="this.value = this.value.replace(/[^A-Za-z0-9_@.]/g, '').toLowerCase()"
                                     formControlName="username"
                                 >
                             </mat-form-field>
@@ -324,7 +325,7 @@
                 </div>
                 <div class="row">
                     <em class="form-subtitle">Permissões de usuário</em>
-                    <ng-container formGroupName="groups">
+                    <ng-container formGroupName="group">
                         <div class="col-xl-3">
                             <div class="mb-25">
                                 <mat-form-field>

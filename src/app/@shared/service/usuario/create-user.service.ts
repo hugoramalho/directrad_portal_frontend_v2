@@ -22,7 +22,7 @@ export class CreateUserService {
     ) {
     }
 
-    create(user: User)
+    create(user: any)
     {
         return this.usersRepository.create(user);
     }

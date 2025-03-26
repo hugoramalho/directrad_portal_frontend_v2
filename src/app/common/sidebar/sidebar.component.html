@@ -78,14 +78,14 @@
                             <li
                                 *ngIf="isAdmin"
                                 class="sidemenu-item">
-                                <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
-                                    Hosts
+                                <a routerLink="/painel-controle/pacs-applications" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Hosts/Applications
                                 </a>
                             </li>
                             <li
                                 *ngIf="isAdmin"
                                 class="sidemenu-item">
-                                <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                <a routerLink="/painel-controle/pacs-instalacao" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
                                     Instalação
                                 </a>
                             </li>
@@ -151,7 +151,7 @@
 <!--                    </mat-expansion-panel>-->
                     <a
                         *ngIf="isAdmin"
-                        routerLink="/"
+                        routerLink="/relatorios"
                         class="sidebar-menu-link"
                         routerLinkActive="active"
                         [routerLinkActiveOptions]="{exact: true}">
