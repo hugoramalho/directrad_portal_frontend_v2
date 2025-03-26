@@ -165,6 +165,7 @@ export class CreatePacsDialogComponent {
 
     toggleCadastroAetitle(){
         this.habilitarCadastroAetitle = !this.habilitarCadastroAetitle;
+        console.log('aquiiiii', this.habilitarCadastroAetitle);
     }
 
     submit(): void {
