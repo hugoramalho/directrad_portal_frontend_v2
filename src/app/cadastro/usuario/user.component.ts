@@ -70,6 +70,7 @@ import {EmptyValuePipe} from "../../@shared/pipe/empty-value.pipe";
     styleUrl: './user.component.scss'
 })
 export class CadastroUsuarioComponent {
+    protected readonly PacsHostType = PacsHostType;
     isLoading: boolean = false;
     classApplied = false;
     isToggled = false;
@@ -221,9 +222,4 @@ export class CadastroUsuarioComponent {
             });
     }
 
-    handleAetitleResult(result: any) {
-        console.log('Aetitle salvo:', result);
-    }
-
-    protected readonly PacsHostType = PacsHostType;
 }

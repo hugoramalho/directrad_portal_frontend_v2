@@ -74,7 +74,6 @@ export class CreateUserDialogComponent {
         .filter(([key, value]) => typeof value === 'number')
         .map(([key, value]) => ({ key, value: value as number }));
 
-
     public multiple: boolean = false;
     isToggled = false;
     user: User | null = null;
@@ -231,7 +230,7 @@ export class CreateUserDialogComponent {
                             Validators.maxLength(256),
                         ]],
                     }),
-                    groups: this.formBuilder.group({
+                    group: this.formBuilder.group({
                         group_id: ['', [
                             Validators.required,
                         ]],
@@ -259,7 +258,7 @@ export class CreateUserDialogComponent {
                         enable_delete_series: [false, [
                             Validators.required,
                         ]],
-                        enabled_modalities: [[''], [
+                        enabled_modalities: [[null], [
                             Validators.required,
                         ]],
                         enable_edit_study: [false, [
@@ -288,78 +287,23 @@ export class CreateUserDialogComponent {
             this.userForm.markAllAsTouched(); // força exibição dos erros
             return;
         }
-        const user = new User(this.userForm.value);
-        this.createUserService.create(user).subscribe({
+        // const user = new User(this.userForm.value);
+        this.createUserService.create(this.userForm.value).subscribe({
             next: (response) => {
-                this.snackBar.open('Usuário atualizado com sucesso', 'Fechar', {
+                this.snackBar.open('Usuário cadastradi com sucesso', 'Fechar', {
                     duration: 4000,
                     horizontalPosition: 'right',
                     verticalPosition: 'bottom',
                     // panelClass: ['success-snackbar']
                 });
+                this.dialogRef.close(response);
             },
             error: (error) => {
-                console.error('Erro ao atualizar usuário:', error);
+                console.error('Erro ao cadastrar usuário:', error);
             }
         });
     }
 
-    goToNextPage() {
-        if (this.currentPage < 2) {
-            this.currentPage++;
-        }
-    }
-
-    goToPreviousPage() {
-        if (this.currentPage > 1) {
-            this.currentPage--;
-        }
-    }
-
-    onCancel() {
-        this.dialogRef.close();
-    }
-
-    toggleRTLEnabledTheme() {
-        this.themeService.toggleRTLEnabledTheme();
-    }
-
-    formatDateInput(event: Event): void {
-        const input = event.target as HTMLInputElement;
-        let value = input.value.replace(/\D+/g, '');
-        if (value.length > 2) {
-            value = value.slice(0, 2) + '/' + value.slice(2);
-        }
-        if (value.length > 5) {
-            value = value.slice(0, 5) + '/' + value.slice(5);
-        }
-        value = value.slice(0, 10);
-        input.value = value;
-    }
-
-    validateAndSetDate(event: Event): void {
-        const input = event.target as HTMLInputElement;
-        const value = input.value;
-        const regex = /^\d{2}\/\d{2}\/\d{4}$/;
-        if (!regex.test(value)) {
-            this.userForm.get('data_nascimento')?.setErrors({invalidDate: true});
-            return;
-        }
-        const [month, day, year] = value.split('/').map(Number);
-        const date = new Date(year, month - 1, day);
-        if (
-            date.getFullYear() !== year ||
-            date.getMonth() + 1 !== month ||
-            date.getDate() !== day
-        ) {
-            this.userForm.get('data_nascimento')?.setErrors({invalidDate: true});
-            return;
-        }
-        this.userForm.patchValue({
-            patient_birth_date: date,
-        });
-        this.userForm.get('data_nascimento')?.setErrors(null);
-    }
     //------------------------------------------------------------------------------------------------------------------
     onTeleSearch(value: string) {
         this.filteredTeleUsers = this.teleUsers.filter(user =>
@@ -383,5 +327,56 @@ export class CreateUserDialogComponent {
             this.userForm.get('pacs_id')?.value == aetitle.pacs_id &&
             aetitle.aetitle?.toLowerCase().includes(value.toLowerCase())
         );
+    }
+    formatDateInput(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        let value = input.value.replace(/\D+/g, '');
+        if (value.length > 2) {
+            value = value.slice(0, 2) + '/' + value.slice(2);
+        }
+        if (value.length > 5) {
+            value = value.slice(0, 5) + '/' + value.slice(5);
+        }
+        value = value.slice(0, 10);
+        input.value = value;
+    }
+    validateAndSetDate(event: Event): void {
+        const input = event.target as HTMLInputElement;
+        const value = input.value;
+        const regex = /^\d{2}\/\d{2}\/\d{4}$/;
+        if (!regex.test(value)) {
+            this.userForm.get('data_nascimento')?.setErrors({invalidDate: true});
+            return;
+        }
+        const [day, month, year] = value.split('/').map(Number);
+        const date = new Date(year, month - 1, day);
+        if (
+            date.getFullYear() !== year ||
+            date.getMonth() + 1 !== month ||
+            date.getDate() !== day
+        ) {
+            this.userForm.get('data_nascimento')?.setErrors({invalidDate: true});
+            return;
+        }
+        this.userForm.patchValue({
+            patient_birth_date: date,
+        });
+        this.userForm.get('data_nascimento')?.setErrors(null);
+    }
+    goToNextPage() {
+        if (this.currentPage < 2) {
+            this.currentPage++;
+        }
+    }
+    goToPreviousPage() {
+        if (this.currentPage > 1) {
+            this.currentPage--;
+        }
+    }
+    onCancel() {
+        this.dialogRef.close();
+    }
+    toggleRTLEnabledTheme() {
+        this.themeService.toggleRTLEnabledTheme();
     }
 }
