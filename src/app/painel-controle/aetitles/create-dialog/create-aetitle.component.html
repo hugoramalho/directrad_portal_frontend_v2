@@ -21,6 +21,7 @@
                             (selectionChange)="queryAetitles(pacsSelect.value)"
                             formControlName="pacs_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #pacsSearchInput
                                     matInput
@@ -46,6 +47,7 @@
                             class="form-control"
                             formControlName="clinica_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #clinicasSearchInput
                                     matInput
@@ -64,6 +66,19 @@
                 </div>
             </div>
             <div class="row">
+                <div class="flex justify-content-start mb-25">
+                    <mat-label
+                        style="white-space: nowrap; display: inline; margin-right: 1rem">
+                        Cadastrar Aetitle no Pacs
+                    </mat-label>
+                    <mat-slide-toggle
+                        (change)="toggleCadastroAetitlePacs()"
+                        class="form-control"
+                        formControlName="pacs_register"
+                        style="display: inline">
+                    </mat-slide-toggle>
+                </div>
+<!--                <em>Caso desmarcado, o cadastro será realizado somente no banco de dados do Portal</em>-->
                 <div class="col-md-12 form-group">
                     <mat-form-field>
                         <mat-label>Aetitle</mat-label>
@@ -87,6 +102,7 @@
                             class="form-control"
                             formControlName="access_control_aetitles_ids">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #aetitleAccessSearchInput
                                     matInput
@@ -145,6 +161,7 @@
                             (selectionChange)="queryNetworks(pacsSelect.value)"
                             formControlName="pacs_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #pacsSearchInput
                                     matInput
@@ -170,6 +187,7 @@
                             class="form-control"
                             formControlName="clinica_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #clinicasSearchInput
                                     matInput
@@ -234,6 +252,7 @@
                             class="form-control"
                             formControlName="external_network_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #externalNetworkSearchInput
                                     matInput
@@ -320,6 +339,7 @@
                             class="form-control"
                             formControlName="pacs_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #pacsSearchInput
                                     matInput
@@ -345,6 +365,7 @@
                             class="form-control"
                             formControlName="clinica_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #clinicasSearchInput
                                     matInput
@@ -420,6 +441,7 @@
                             class="form-control"
                             formControlName="pacs_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #pacsSearchInput
                                     matInput
@@ -445,6 +467,7 @@
                             class="form-control"
                             formControlName="clinica_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #clinicasSearchInput
                                     matInput

@@ -27,7 +27,7 @@ export interface Aetitle {
     updated_at?: string | null;
     created_user_id?: number | null;
     updated_user_id?: number | null;
-    //
+    //------------------------------------------------------------------------------------------------------------------
     pacs_relacionado?: string | null | undefined;
     clinica_relacionada?: string | null | undefined;
     status?: string | undefined | null;

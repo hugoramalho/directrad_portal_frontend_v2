@@ -47,7 +47,7 @@ export interface Pacs
     updated_at?: string | null;
     updated_user_id?: number | null;
     trash?: boolean | null;
-    //
+    //------------------------------------------------------------------------------------------------------------------
     username_tele?: string | null | undefined;
     username_admin?: string | null | undefined;
     main_storage_aetitle?: string | null | undefined;

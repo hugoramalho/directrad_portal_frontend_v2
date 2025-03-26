@@ -209,6 +209,7 @@
                                 class="form-control"
                                 formControlName="tele_id">
                                 <mat-option>
+                                    <mat-icon>search</mat-icon>
                                     <input
                                         #teleSearchInput
                                         matInput
@@ -240,6 +241,7 @@
                                 class="form-control"
                                 formControlName="admin_id">
                                 <mat-option>
+                                    <mat-icon>search</mat-icon>
                                     <input
                                         #adminSearchInput
                                         matInput
@@ -402,11 +404,23 @@
                 </div>
             </div>
             <div class="row">
+                <div class="flex justify-content-start mb-25">
+                    <mat-label
+                        style="white-space: nowrap; display: inline; margin-right: 1rem">
+                        Cadastrar Aetitles
+                    </mat-label>
+                    <mat-slide-toggle
+                        (change)="toggleCadastroAetitle()"
+                        class="form-control"
+                        style="display: inline">
+                    </mat-slide-toggle>
+                </div>
                 <div class="col-md-6 form-group">
                     <mat-form-field>
                         <mat-label>AeTitle Principal (Storage)</mat-label>
                         <input
                             matInput
+                            [disabled]="!habilitarCadastroAetitle"
                             type="text"
                             class="form-control"
                             formControlName="aetitle_storage_principal"
@@ -418,6 +432,7 @@
                         <mat-label>AeTitle Worklist - Pacs Central (Opcional)</mat-label>
                         <input
                             matInput
+                            [disabled]="!habilitarCadastroAetitle"
                             type="text"
                             class="form-control"
                             formControlName="aetitle_worklist"
@@ -433,6 +448,7 @@
                             class="form-control"
                             formControlName="tele_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #teleSearchInput
                                     matInput
@@ -464,6 +480,7 @@
                             class="form-control"
                             formControlName="admin_id">
                             <mat-option>
+                                <mat-icon>search</mat-icon>
                                 <input
                                     #adminSearchInput
                                     matInput

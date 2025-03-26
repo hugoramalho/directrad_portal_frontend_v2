@@ -28,6 +28,16 @@ import {CreateUserService} from "../../../@shared/service/usuario/create-user.se
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {sameValueValidator} from "../../../@shared/validators/same-value.validator";
 import {PasswordValidators} from "../../../@shared/validators/password.validator";
+import {AetitleService} from "../../../@shared/service/pacs/aetitle.service";
+import {ClinicaService} from "../../../@shared/service/usuario/clinica.service";
+import {PacsService} from "../../../@shared/service/pacs/pacs.service";
+import {forkJoin} from "rxjs";
+import {UserTele} from "../../../@shared/model/usuario/user-tele";
+import {UserClinica} from "../../../@shared/model/usuario/user-clinica";
+import {Aetitle} from "../../../@shared/model/pacs/aetitle";
+import {Pacs} from "../../../@shared/model/pacs/pacs";
+import {MatIconModule} from "@angular/material/icon";
+import {StatusVerificacaoContato} from "../../../@shared/model/usuario/status-contact-verification";
 
 @Component({
     selector: 'app-account.ts-settings',
@@ -53,7 +63,8 @@ import {PasswordValidators} from "../../../@shared/validators/password.validator
         MatDialogActions,
         MatDialogContent,
         MatProgressSpinner,
-        KeyValuePipe
+        KeyValuePipe,
+        MatIconModule
     ]
 })
 export class CreateUserDialogComponent {
@@ -72,9 +83,22 @@ export class CreateUserDialogComponent {
     states = BRAZILIAN_STATES_ORDERED;
     currentPage: number = 1;
     isLoading: boolean = true;
+    aetitles: Aetitle[] = [];
+    filteredAetitles: Aetitle[] = [];
+    teleUsers: UserTele[] = [];
+    filteredTeleUsers: UserTele[] = [];
+    pacsList: Pacs[] = [];
+    filteredPacsList: Pacs[] = [];
+    clinicas: UserClinica[] = [];
+    filteredClinicas: UserClinica[] = [];
+
 
     constructor(
         public themeService: CustomizerSettingsService,
+        private aetitleService: AetitleService,
+        private pacsService: PacsService,
+        private usersService: UsersService,
+        private clinicaService: ClinicaService,
         private userService: UserService,
         private createUserService: CreateUserService,
         private snackBar: MatSnackBar,
@@ -88,42 +112,175 @@ export class CreateUserDialogComponent {
 
     ngOnInit() {
         this.isLoading = true;
-        this.userForm = this.formBuilder.group({
-            id: [''],
-            username: [''],
-            password: ['', [
-                Validators.required,
-                Validators.minLength(6),
-                PasswordValidators.hasUpperAndLowerCase(),
-                PasswordValidators.hasNumber(),
-                PasswordValidators.hasSpecialCharacter()
-            ]],
-            password_repeat: [''],
-            email: [''],
-            email_alternativo: [''],
-            phone: [''],
-            company: [''],
-            nome_completo: [''],
-            data_nascimento: [''],
-            tipo_documento: [''],
-            documento: [''],
-            telefone_codigo_pais: ['55'],
-            telefone_codigo_area: ['27'],
-            telefone_numero: [''],
-            endereco_cep: [''],
-            endereco_logradouro: [''],
-            endereco_numero: [''],
-            endereco_bairro: [''],
-            endereco_cidade: [''],
-            endereco_estado: [''],
-            endereco_pais: [''],
-            groups_ids: [''],
-        }, {
-            validators: [
-                sameValueValidator('password', 'password_repeat'),
-            ]
+        forkJoin({
+            result1: this.aetitleService.query(),
+            result2: this.clinicaService.query(),
+            result3: this.pacsService.query(),
+            result4: this.usersService.queryTeles()
+        }).subscribe({
+            next: ({result1, result2, result3, result4}) => {
+                this.aetitles = result1;
+                this.clinicas = result2;
+                this.filteredClinicas = result2;
+                this.pacsList = result3;
+                this.filteredPacsList = result3;
+                this.teleUsers = result4;
+                this.filteredTeleUsers = result4;
+                this.userForm = this.formBuilder.group({
+                    id: [''],
+                    username: ['',[
+                        Validators.required,
+                        Validators.minLength(6)]
+                    ],
+                    password: ['', [
+                        Validators.required,
+                        Validators.minLength(6),
+                        PasswordValidators.hasUpperAndLowerCase(),
+                        PasswordValidators.hasNumber(),
+                        PasswordValidators.hasSpecialCharacter()]
+                    ],
+                    password_repeat: ['', [
+                        Validators.required
+                    ]],
+                    company: ['', [
+                        Validators.required,
+                        Validators.minLength(6),
+                    ]],
+                    pacs_id: ['', [
+                        Validators.required,
+                    ]],
+                    aetitle_id: ['', [
+                        Validators.required,
+                    ]],
+                    clinica_id: ['', [
+                        Validators.required,
+                    ]],
+                    tele_id: ['', [
+                        Validators.required,
+                    ]],
+                    contato: this.formBuilder.group({
+                        email_principal: this.formBuilder.group({
+                            email: ['', [
+                                Validators.required,
+                                Validators.email,
+                            ]],
+                            status_verificacao: [StatusVerificacaoContato.NAO_VERIFICADO],
+                            verificado_em: [null]
+                        }),
+                        email_alternativo: this.formBuilder.group({
+                            email: ['', [
+                                Validators.email,
+                            ]],
+                            status_verificacao: [StatusVerificacaoContato.NAO_VERIFICADO],
+                            verificado_em: [null]
+                        }),
+                        telefone_principal: this.formBuilder.group({
+                            codigo_pais: ['55', [
+                                Validators.maxLength(45),
+
+                            ]],
+                            codigo_area: ['27', [
+                                Validators.maxLength(45),
+
+                            ]],
+                            numero: ['',[
+                                Validators.maxLength(45)
+                            ]],
+                            status_verificacao: [StatusVerificacaoContato.NAO_VERIFICADO]
+                        }),
+                    }),
+                    pessoa: this.formBuilder.group({
+                        nome_completo: ['', [
+                            Validators.required,
+                            Validators.maxLength(45),
+
+                        ]],
+                        data_nascimento: ['', [
+                            Validators.maxLength(45),
+
+                        ]],
+                        tipo_documento: ['', [
+                            Validators.maxLength(45),
+
+                        ]],
+                        documento: ['', [
+                            Validators.maxLength(45),
+
+                        ]]
+                    }),
+                    endereco: this.formBuilder.group({
+                        cep: ['', [
+                            Validators.maxLength(45),
+                        ]],
+                        logradouro: ['', [
+                            Validators.maxLength(256),
+                        ]],
+                        numero: ['', [
+                            Validators.maxLength(10),
+                        ]],
+                        bairro: ['', [
+                            Validators.maxLength(180),
+                        ]],
+                        cidade: ['', [
+                            Validators.maxLength(100),
+                        ]],
+                        estado: ['', [
+                            Validators.maxLength(10),
+                        ]],
+                        complemento: ['',[
+                            Validators.maxLength(256),
+                        ]],
+                    }),
+                    groups: this.formBuilder.group({
+                        group_id: ['', [
+                            Validators.required,
+                        ]],
+                        user_id: [null]
+                    }),
+                    permissions: this.formBuilder.group({
+                        enable_create_access: [false, [
+                            Validators.required,
+                        ]],
+                        enable_delete_exam: [false, [
+                            Validators.required,
+                        ]],
+                        enable_link_ris: [false, [
+                            Validators.required,
+                        ]],
+                        enable_export_exam: [false, [
+                            Validators.required,
+                        ]],
+                        enable_merge: [false, [
+                            Validators.required,
+                        ]],
+                        enable_group_selected_exams: [false, [
+                            Validators.required,
+                        ]],
+                        enable_delete_series: [false, [
+                            Validators.required,
+                        ]],
+                        enabled_modalities: [[''], [
+                            Validators.required,
+                        ]],
+                        enable_edit_study: [false, [
+                            Validators.required,
+                        ]],
+                    })
+                }, {
+                    validators: [
+                        sameValueValidator('password', 'password_repeat'),
+                    ]
+                });
+                this.userForm.get('pacs_id')?.valueChanges.subscribe(pacsId => {
+                    this.filteredAetitles = this.aetitles.filter(aet => aet.pacs_id === pacsId);
+                    this.userForm.get('aetitle_id')?.reset();
+                });
+                this.isLoading = false;
+            },
+            error: (error) => {
+                this.isLoading = false;
+            }
         });
-        this.isLoading = false;
     }
 
     submit(): void {
@@ -202,5 +359,29 @@ export class CreateUserDialogComponent {
             patient_birth_date: date,
         });
         this.userForm.get('data_nascimento')?.setErrors(null);
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    onTeleSearch(value: string) {
+        this.filteredTeleUsers = this.teleUsers.filter(user =>
+            user.username?.toLowerCase().includes(value.toLowerCase()) ||
+            user.full_name?.toLowerCase().includes(value.toLowerCase())
+        );
+    }
+    onClinicasSearch(value: string) {
+        this.filteredClinicas = this.clinicas.filter(clinica =>
+            clinica.nome?.toLowerCase().includes(value.toLowerCase()) ||
+            clinica.nome_razao?.toLowerCase().includes(value.toLowerCase())
+        );
+    }
+    onPacsSearch(value: string) {
+        this.filteredPacsList = this.pacsList.filter(pacs =>
+            pacs.identificacao?.toLowerCase().includes(value.toLowerCase())
+        );
+    }
+    onAetitlesSearch(value: string) {
+        this.filteredAetitles = this.aetitles.filter(aetitle =>
+            this.userForm.get('pacs_id')?.value == aetitle.pacs_id &&
+            aetitle.aetitle?.toLowerCase().includes(value.toLowerCase())
+        );
     }
 }

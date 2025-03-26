@@ -6,6 +6,17 @@
 .modal-body {
     overflow-x: hidden;
     height: 100vh;
+    min-width: 60vw;
+    .loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+    }
+    .mat-spinner {
+        width: 50px;
+        height: 50px;
+    }
     .mat-form-field-disabled .mat-form-field-underline {
         background-image: linear-gradient(to right, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.42) 33%, transparent 0%);
         background-size: 4px 100%;
@@ -36,6 +47,9 @@
         .disclaimer-topic {
             //color: var(--warningColor);
             margin-bottom: 0;
+        }
+        .danger-topic {
+            color: var(--dangerColor);
         }
     }
     .btn-box {

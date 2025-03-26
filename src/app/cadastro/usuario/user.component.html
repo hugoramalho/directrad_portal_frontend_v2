@@ -103,7 +103,7 @@
                             Identificação
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.company}}
+                            <span [innerHTML]="element.company | emptyValue"></span>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="username">
@@ -116,7 +116,7 @@
                     </ng-container>
                     <ng-container matColumnDef="user_groups">
                         <th mat-header-cell *matHeaderCellDef>
-                            Tipo(s) de usuário
+                            Tipo de usuário
                         </th>
                         <td mat-cell *matCellDef="let element" class="text-black">
                             <mat-chip-set>
@@ -131,7 +131,7 @@
                             Pacs
                         </th>
                         <td mat-cell *matCellDef="let element" class="text-black">
-                            {{element.pacs ?? "Não Associado"}}
+                            <span [innerHTML]="element.pacs | emptyValue"></span>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="clinica">
@@ -139,7 +139,7 @@
                             Clínica
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.clinica ?? "Não Associado"}}
+                            <span [innerHTML]="element.clinica | emptyValue"></span>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="tele">
@@ -147,7 +147,7 @@
                             Tele
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.tele ?? "Não Associado"}}
+                            <span [innerHTML]="element.tele | emptyValue"></span>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="action">

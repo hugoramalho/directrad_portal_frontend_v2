@@ -24,6 +24,7 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {forkJoin} from "rxjs";
 import {User} from "../../../@shared/model/usuario/user";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
     standalone: true,
@@ -44,12 +45,13 @@ import {MatSnackBar} from "@angular/material/snack-bar";
         MatSelect,
         MatOption,
         MatProgressSpinner,
+        MatIcon,
         // NgxMatSelectSearchModule
     ]
 })
-export class CreatePacsDialogComponent
-{
+export class CreatePacsDialogComponent {
     protected readonly PacsHostType = PacsHostType;
+    habilitarCadastroAetitle: boolean = false;
     pacsForm: FormGroup;
     currentPage = 1;
     usarChaveSSH = false;
@@ -69,9 +71,9 @@ export class CreatePacsDialogComponent
     ) {
     }
 
-    ngOnInit()
-    {
+    ngOnInit() {
         this.isLoading = true;
+        this.habilitarCadastroAetitle = false;
         if (this.tipo_pacs_application == PacsHostType.PACS_CLIENTE) {
             this.pacsForm = this.formBuilder.group({
                 tipo_pacs_application: [PacsHostType.PACS_CLIENTE],
@@ -127,47 +129,44 @@ export class CreatePacsDialogComponent
         });
     }
 
-    onTeleSearch(value: string)
-    {
+    onTeleSearch(value: string) {
         this.filteredTeles = this.teleUsers.filter(user =>
             user.full_name?.toLowerCase().includes(value.toLowerCase())
         );
     }
 
-    onAdminSearch(value: string)
-    {
+    onAdminSearch(value: string) {
         this.filteredAdmins = this.adminUsers.filter(user =>
             user.username?.toLowerCase().includes(value.toLowerCase())
         );
     }
 
 
-    toggleSshInput()
-    {
+    toggleSshInput() {
         this.usarChaveSSH = !this.usarChaveSSH;
     }
 
-    onCancel()
-    {
+    onCancel() {
         this.dialogRef.close();
     }
 
-    goToNextPage()
-    {
+    goToNextPage() {
         if (this.currentPage < 2) {
             this.currentPage++;
         }
     }
 
-    goToPreviousPage()
-    {
+    goToPreviousPage() {
         if (this.currentPage > 1) {
             this.currentPage--;
         }
     }
 
-    submit(): void
-    {
+    toggleCadastroAetitle(){
+        this.habilitarCadastroAetitle = !this.habilitarCadastroAetitle;
+    }
+
+    submit(): void {
         if (this.pacsForm.invalid) {
             this.pacsForm.markAllAsTouched(); // força exibição dos erros
             return;
