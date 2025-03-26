@@ -28,6 +28,9 @@
                             &:first-child {
                                 padding-right: 0;
                             }
+                            mat-chip-set {
+                                max-width: 20rem;
+                            }
                         }
                         .daxa-badge {
                             color: var(--daxaColor);

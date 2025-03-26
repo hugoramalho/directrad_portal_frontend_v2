@@ -28,6 +28,18 @@ import {User} from "../../@shared/model/usuario/user";
 import {MatIcon} from "@angular/material/icon";
 import {PacsHostType} from "../../@shared/model/pacs/pacs-host-type";
 import {CreateUserDialogComponent} from "./create-dialog/create-user.dialog.component";
+import {UserService} from "../../@shared/service/usuario/user.service";
+import {UserGroups, UserGroupsMapper} from "../../@shared/model/usuario/user-groups";
+import {AetitleService} from "../../@shared/service/pacs/aetitle.service";
+import {forkJoin} from "rxjs";
+import {PacsSyncStatus, PacsSyncStatusMapper} from "../../@shared/model/pacs/status-sync";
+import {TipoAetitle, TipoAetitleMapper} from "../../@shared/model/pacs/aetitle-type";
+import {ClinicaService} from "../../@shared/service/usuario/clinica.service";
+import {PacsService} from "../../@shared/service/pacs/pacs.service";
+import {UserClinica} from "../../@shared/model/usuario/user-clinica";
+import {Pacs} from "../../@shared/model/pacs/pacs";
+import {UserTele} from "../../@shared/model/usuario/user-tele";
+import {MatChip, MatChipSet} from "@angular/material/chips";
 
 
 @Component({
@@ -48,7 +60,9 @@ import {CreateUserDialogComponent} from "./create-dialog/create-user.dialog.comp
         MatDatepickerModule,
         MatNativeDateModule,
         MatPaginator,
-        MatIcon
+        MatIcon,
+        MatChipSet,
+        MatChip
     ],
     templateUrl: './user.component.html',
     styleUrl: './user.component.scss'
@@ -61,20 +75,31 @@ export class CadastroUsuarioComponent {
     dataSource = new MatTableDataSource<User>([]);
     selection = new SelectionModel<User>(true, []);
     users: User[];
+    clinicas: UserClinica[];
+    teleUsers: UserTele[];
+    pacsList: Pacs[];
+    aetitles: Aetitle[];
+    isAdmin: boolean = false;
     displayedColumns: string[] = [
         'select',
         'company',
         'username',
-        'pacs_relacionado',
-        'clinica_relacionada',
-        'tele_relacionada',
+        'user_groups',
+        'pacs',
+        'clinica',
+        'tele',
         'action'
     ];
 
     constructor(
         public themeService: CustomizerSettingsService,
         private dialog: MatDialog,
-        private usersService: UsersService
+        private usersService: UsersService,
+        private userService: UserService,
+        private aetitleService: AetitleService,
+        private clinicaService: ClinicaService,
+        private pacsService: PacsService
+
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -82,13 +107,55 @@ export class CadastroUsuarioComponent {
     }
 
     ngOnInit(): void {
-        this.loadUsers(1, 20);
+        this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
+        this.isLoading = true;
+        forkJoin({
+            result1: this.clinicaService.query(),
+            result2: this.usersService.queryTeles(),
+            result3: this.pacsService.query(),
+            result4: this.aetitleService.query()
+        }).subscribe({
+            next: ({result1, result2, result3, result4}) => {
+                this.clinicas = result1;
+                this.teleUsers = result2;
+                this.pacsList = result3;
+                this.aetitles = result4;
+                this.loadUsers(1, 20);
+            },
+            error: (err) => {
+                console.error('Erro ao buscar os dados:', err);
+                this.isLoading = false;
+            }
+        });
+
     }
 
     private loadUsers(page: number = 1, page_size: number = 20): void {
         this.usersService.queryPaginated(page, page_size).subscribe({
             next: (result) => {
-                this.users = result.items;
+                result.items.forEach(user => {
+                    user?.groups?.map(group => {
+                        group.group_name = UserGroupsMapper.getDescription(group.group_id);
+                    })
+                    this.teleUsers.forEach(teleUser => {
+                        if (teleUser.id == user.tele_id) {
+                            user.tele = teleUser.username;
+                            return;
+                        }
+                    });
+                    this.clinicas.forEach(clinica => {
+                        if (user.clinica_id === clinica.id) {
+                            user.clinica = clinica.nome;
+                            return;
+                        }
+                    });
+                    this.pacsList.forEach(pacs => {
+                        if (user.pacs_id === pacs.id) {
+                            user.pacs = pacs.identificacao;
+                            return;
+                        }
+                    });
+                });
                 this.dataSource.data = result.items;
                 this.currentLength = result.total;
                 this.isLoading = false;

@@ -103,7 +103,7 @@ export class CreateAetitleComponent {
         });
         forkJoin({
             result1: this.clinicaService.query(),
-            result2: this.pacsService.queryAll(),
+            result2: this.pacsService.query(),
             result3: this.aetitleService.query(),
             result4: this.pacsNetworkService.query(this.userService.getUser()?.pacs_id, {type: 'EXTERNAL'})
         }).subscribe({

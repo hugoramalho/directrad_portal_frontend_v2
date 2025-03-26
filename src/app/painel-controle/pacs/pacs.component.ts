@@ -134,7 +134,7 @@ export class CadastroPacsComponent {
     private loadPacs(page: number = 1, page_size: number = 20): void
     {
         const filters = this.getSearchFilters();
-        this.pacsService.get(page, page_size, filters).subscribe({
+        this.pacsService.queryPaginated(page, page_size, filters).subscribe({
             next: (pacsList: PaginatedList<Pacs[]>) => {
                 pacsList.items.forEach(pacs => {
                     if(pacs.tipo_pacs !== PacsHostType.PACS_CLIENTE) {

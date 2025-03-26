@@ -61,7 +61,8 @@
     class="daxa-card to-do-list-card mb-25 mt-25 border-radius bg-white border-none d-block"
     [class.rtl-enabled]="themeService.isRTLEnabled()">
     <mat-card-header>
-        <mat-card-title>
+        <mat-card-title
+        *ngIf="isAdmin">
             <div class="btn-box">
                 <button
                     mat-flat-button
@@ -113,28 +114,40 @@
                             {{element.username}}
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="pacs_relacionado">
+                    <ng-container matColumnDef="user_groups">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Tipo(s) de usuário
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="text-black">
+                            <mat-chip-set>
+                                @for (group of element?.groups; track group.id) {
+                                    <mat-chip>{{ group.group_name }}</mat-chip>
+                                }
+                            </mat-chip-set>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="pacs">
                         <th mat-header-cell *matHeaderCellDef>
                             Pacs
                         </th>
                         <td mat-cell *matCellDef="let element" class="text-black">
-                            {{element.pacs_relacionado}}
+                            {{element.pacs ?? "Não Associado"}}
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="clinica_relacionada">
+                    <ng-container matColumnDef="clinica">
                         <th mat-header-cell *matHeaderCellDef>
                             Clínica
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.clinica_relacionada}}
+                            {{element.clinica ?? "Não Associado"}}
                         </td>
                     </ng-container>
-                    <ng-container matColumnDef="tele_relacionada">
+                    <ng-container matColumnDef="tele">
                         <th mat-header-cell *matHeaderCellDef>
                             Tele
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.tele_relacionada}}
+                            {{element.tele ?? "Não Associado"}}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="action">

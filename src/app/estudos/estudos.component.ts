@@ -135,7 +135,7 @@ export class EstudosComponent {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
-        this.pacsService.queryAll().subscribe((pacsArray: Pacs[]) => {
+        this.pacsService.query().subscribe((pacsArray: Pacs[]) => {
             this.pacsArray = pacsArray;
             this.filteredPacs = pacsArray;
             this.pacsMap = new Map(pacsArray.map(pacs => [pacs.id, pacs]));

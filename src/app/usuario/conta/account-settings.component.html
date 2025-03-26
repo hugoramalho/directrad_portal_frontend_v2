@@ -39,7 +39,7 @@
                             formControlName="groups_ids"
                             [disabled]="true"
                             class="read-only-select">
-                            @for (group of groupOptions; track group.id) {
+                            @for (group of groupNames; track group.id) {
                                 <mat-option [value]="group.id">
                                     {{ group.description }}
                                 </mat-option>

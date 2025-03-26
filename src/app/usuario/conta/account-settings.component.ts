@@ -36,7 +36,7 @@ export class AccountSettingsComponent {
     user: User | null = null;
     userForm: FormGroup;
     userGroups: string[];
-    groupOptions: { id: string; description: string }[];
+    groupNames: { id: string; description: string }[];
     states = BRAZILIAN_STATES_ORDERED;
     canChangePassword: boolean = false;
 
@@ -55,7 +55,7 @@ export class AccountSettingsComponent {
 
     ngOnInit() {
         this.user = this.userService.getUser();
-        this.userGroups = this.user?.groups.map(group => group.id) || [];
+        this.userGroups = this.user?.groups?.map(group => group.id) || [];
         this.canChangePassword = this.userService.verifyGroup(UserGroups.ADMIN) || this.userService.verifyGroup(UserGroups.PACS_ADMIN);
         this.userForm = this.formBuilder.group({
             id: [''],
@@ -80,7 +80,7 @@ export class AccountSettingsComponent {
             endereco_pais: [''],
             groups_ids: [{value: this.userGroups, disabled: true}],
         });
-        this.groupOptions = this.user?.groups.map(group => ({
+        this.groupNames = this.user?.groups?.map(group => ({
             id: group.id,
             description: UserGroupsMapper.getDescription(group.group_id)
         })) || [];

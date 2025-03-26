@@ -39,14 +39,14 @@ export class PacsService {
         return this.pacsRepository.find(id);
     }
 
-    get(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null)
+    queryPaginated(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null)
     {
-        return this.pacsRepository.get(page, page_size, queryParams);
+        return this.pacsRepository.queryPaginated(page, page_size, queryParams);
     }
 
-    queryAll()
+    query()
     {
-        return this.pacsRepository.queryAll();
+        return this.pacsRepository.query();
     }
 
 }

@@ -13,7 +13,7 @@ export enum UserGroups {
 
 export class UserGroupsMapper {
     private static readonly descriptions: Record<UserGroups | number, string> = {
-        [UserGroups.ADMIN]: "Administrador do Sistema - Directrad",
+        [UserGroups.ADMIN]: "Administrador do Sistema",
         [UserGroups.CLINICA]: "Usuário Clínica",
         [UserGroups.TECNICO]: "Usuário Técnico",
         [UserGroups.PACS_ADMIN]: "Administrador do Pacs",

@@ -82,7 +82,6 @@
                             <mat-form-field>
                                 <mat-label>Tipo de Documento</mat-label>
                                 <mat-select
-                                    multiple
                                     formControlName="tipo_documento">
                                     <mat-option value="CPF">
                                         CPF
@@ -312,14 +311,13 @@
                         geral do Portal</p>
                     <p class="disclaimer-topic">Para cadastrar admistradores de Pacs a nível de usuário cliente, escolha
                         o grupo: "{{ UserGroupsMapper.getDescription(UserGroups.PACS_ADMIN) }}"</p>
-                    <p class="disclaimer-topic">Permissões definidas como sim garantirão ao usuário executar a ação.</p>
                 </div>
                 <div class="row">
                     <em class="form-subtitle">Permissões de usuário</em>
-                    <div class="col-xl-6">
+                    <div class="col-xl-5">
                         <div class="mb-25">
                             <mat-form-field>
-                                <mat-label>Grupos de Permissão</mat-label>
+                                <mat-label>Tipo(s) de usuário</mat-label>
                                 <mat-select
                                     multiple
                                     formControlName="groups_ids"
@@ -333,7 +331,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-xl-3 form-group">
+                    <div class="col-xl-2 form-group">
                         <div class="mb-25">
                             <mat-form-field>
                                 <mat-label>Criar acesso</mat-label>
@@ -348,7 +346,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-xl-3 form-group">
+                    <div class="col-xl-2 form-group">
                         <div class="mb-25">
                             <mat-form-field>
                                 <mat-label>Excluir exame</mat-label>
@@ -363,7 +361,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-xl-3 form-group">
+                    <div class="col-xl-2 form-group">
                         <div class="mb-25">
                             <mat-form-field>
                                 <mat-label>Exportar exame</mat-label>
@@ -378,7 +376,14 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-xl-3 form-group">
+                    <div class="col-xl-3 form-group mb-25">
+                        <mat-form-field>
+                            <mat-label>Modalidades de exames permitidas para visualização</mat-label>
+                            <mat-select formControlName="endereco_estado">
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-2 form-group">
                         <div class="mb-25">
                             <mat-form-field>
                                 <mat-label>Vincular com o RIS</mat-label>
@@ -393,7 +398,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-xl-3 form-group">
+                    <div class="col-xl-2 form-group">
                         <div class="mb-25">
                             <mat-form-field>
                                 <mat-label>Agrupar exames selecionados</mat-label>
@@ -408,7 +413,7 @@
                             </mat-form-field>
                         </div>
                     </div>
-                    <div class="col-xl-3 form-group mb-25">
+                    <div class="col-xl-2 form-group mb-25">
                         <mat-form-field>
                             <mat-label>Excluir séries de exames</mat-label>
                             <mat-select formControlName="endereco_estado">
@@ -421,14 +426,7 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div class="col-xl-3 form-group mb-25">
-                        <mat-form-field>
-                            <mat-label>Modalidades de exames permitidas para visualização</mat-label>
-                            <mat-select formControlName="endereco_estado">
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-xl-3 form-group mb-25">
+                    <div class="col-xl-2 form-group mb-25">
                         <mat-form-field>
                             <mat-label>Edição de exame</mat-label>
                             <mat-select formControlName="endereco_estado">
@@ -441,6 +439,62 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
+                    <div class="row">
+                        <em class="form-subtitle">Dados do Pacs</em>
+                        <div class="col-xl-3 form-group mb-25">
+                            <mat-form-field>
+                                <mat-label>Pacs relacionado</mat-label>
+                                <mat-select formControlName="endereco_estado">
+                                    <mat-option [value]=true>
+                                        Sim
+                                    </mat-option>
+                                    <mat-option [value]=false>
+                                        Não
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xl-3 form-group mb-25">
+                            <mat-form-field>
+                                <mat-label>Aetitle relacionado</mat-label>
+                                <mat-select formControlName="endereco_estado">
+                                    <mat-option [value]=true>
+                                        Sim
+                                    </mat-option>
+                                    <mat-option [value]=false>
+                                        Não
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xl-3 form-group mb-25">
+                            <mat-form-field>
+                                <mat-label>Usuário Tele relaciondo</mat-label>
+                                <mat-select formControlName="endereco_estado">
+                                    <mat-option [value]=true>
+                                        Sim
+                                    </mat-option>
+                                    <mat-option [value]=false>
+                                        Não
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-xl-3 form-group mb-25">
+                            <mat-form-field>
+                                <mat-label>Clínica relacionada</mat-label>
+                                <mat-select formControlName="endereco_estado">
+                                    <mat-option [value]=true>
+                                        Sim
+                                    </mat-option>
+                                    <mat-option [value]=false>
+                                        Não
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </form>

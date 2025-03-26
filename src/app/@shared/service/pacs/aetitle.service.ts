@@ -35,7 +35,7 @@ export class AetitleService {
         return this.aetitleRepository.getAETitles(queryParams);
     }
 
-    public queryAll(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null)
+    public queryPaginated(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null)
     {
         return this.aetitleRepository.query(page, page_size, queryParams);
     }

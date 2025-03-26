@@ -18,12 +18,12 @@ export class User {
     excluded?: boolean | null;
     pacs_id: string;
     aetitle_id?: string | null;
-    clinica_id?: string | null;
-    tele_id?: string | null;
+    clinica_id?: string | null | number;
+    tele_id?: string | null | number | undefined;
     parent_id?: string | null;
     last_login?: string | null;
     created_on?: string | null;
-    groups: { id: string; user_id: string; group_id: string }[];
+    groups: { id: string; user_id: string; group_id: string, group_name?: string }[] | null;
     permissions?: UserPermissions | null;
     nome_completo?: string | null | undefined;
     data_nascimento?: string | null | undefined;
@@ -39,6 +39,12 @@ export class User {
     endereco_estado?: string | null | undefined;
     endereco_cidade?: string | null | undefined;
     endereco_pais?: string | null | undefined;
+    //------------------------------------------------------------------------------------------------------------------
+    aetitle?: string | undefined;
+    clinica?: string | undefined | null;
+    pacs?: string | undefined | null;
+    tele?: string | undefined | null;
+
 
     constructor(data: any) {
         this.id = data.id;

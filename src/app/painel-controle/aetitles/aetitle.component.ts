@@ -112,8 +112,8 @@ export class CadastroAetitleComponent {
         this.isLoading = true;
         forkJoin({
             result1: this.clinicaService.query(),
-            result2: this.aetitleService.queryAll(page, page_size),
-            result3: this.pacsService.queryAll(),
+            result2: this.aetitleService.queryPaginated(page, page_size),
+            result3: this.pacsService.query(),
         }).subscribe({
             next: ({result1, result2, result3,}) => {
                 this.clinicas = result1;

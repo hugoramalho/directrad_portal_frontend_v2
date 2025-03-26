@@ -21,5 +21,6 @@ import {RouterOutlet} from "@angular/router";
     ],
     templateUrl: './cadastro.component.html',
 })
-export class CadastroComponent {
+export class CadastroComponent
+{
 }

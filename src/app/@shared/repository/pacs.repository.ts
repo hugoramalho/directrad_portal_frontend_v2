@@ -41,7 +41,7 @@ export class PacsRepository {
             );
     }
 
-    get(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null): Observable<PaginatedList<Pacs[]>> {
+    queryPaginated(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null): Observable<PaginatedList<Pacs[]>> {
         let params = new HttpParams();
         if (queryParams) {
             Object.keys(queryParams).forEach((key) => {
@@ -98,7 +98,7 @@ export class PacsRepository {
             );
     }
 
-    queryAll(): Observable<Pacs[]> {
+    query(): Observable<Pacs[]> {
         const cachedPacsMap = this.pacsSubject.getValue();
         if (cachedPacsMap.size > 0) {
             return of(Array.from(cachedPacsMap.values()));
