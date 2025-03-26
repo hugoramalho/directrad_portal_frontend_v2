@@ -96,15 +96,17 @@
                             </mat-label>
                             <mat-select  formControlName="pacs_id">
                                 <mat-option>
+                                    <mat-icon>search</mat-icon>
                                     <input
                                         #pacsSearchInput
                                         matInput
                                         placeholder="Buscar..."
+                                        (keydown)="$event.stopPropagation()"
                                         (click)="$event.stopPropagation()"
                                         (input)="onPacsSearch(pacsSearchInput.value)"
                                         autocomplete="off"/>
                                 </mat-option>
-                                @for (pacs of pacsArray; track pacs) {
+                                @for (pacs of filteredPacsList; track pacs) {
                                     <mat-option [value]="pacs.id">
                                         {{pacs.identificacao}}
                                     </mat-option>

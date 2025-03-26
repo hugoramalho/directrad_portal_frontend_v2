@@ -28,6 +28,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserService} from "../../../@shared/service/usuario/user.service";
 import {PacsNetwork} from "../../../@shared/model/pacs/network";
 import {PacsNetworkService} from "../../../@shared/service/pacs/network.service";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
     standalone: true,
@@ -52,7 +53,8 @@ import {PacsNetworkService} from "../../../@shared/service/pacs/network.service"
         MatDialogTitle,
         MatLabel,
         MatProgressSpinner,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatIcon
     ]
 
 })

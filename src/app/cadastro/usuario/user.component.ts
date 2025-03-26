@@ -40,6 +40,7 @@ import {UserClinica} from "../../@shared/model/usuario/user-clinica";
 import {Pacs} from "../../@shared/model/pacs/pacs";
 import {UserTele} from "../../@shared/model/usuario/user-tele";
 import {MatChip, MatChipSet} from "@angular/material/chips";
+import {EmptyValuePipe} from "../../@shared/pipe/empty-value.pipe";
 
 
 @Component({
@@ -62,7 +63,8 @@ import {MatChip, MatChipSet} from "@angular/material/chips";
         MatPaginator,
         MatIcon,
         MatChipSet,
-        MatChip
+        MatChip,
+        EmptyValuePipe
     ],
     templateUrl: './user.component.html',
     styleUrl: './user.component.scss'

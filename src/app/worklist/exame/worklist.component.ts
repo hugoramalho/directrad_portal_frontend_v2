@@ -19,7 +19,7 @@ import {Estudo} from './worklist';
 import {MenuEstudosComponent} from './menu/options-menu.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
-import {DateFormatPipe} from '../../@shared/pipe/date-pipe';
+import {DateFormatPipe} from '../../@shared/pipe/date.pipe';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DcmQueryParams} from "../../@shared/dcm/query-params";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";

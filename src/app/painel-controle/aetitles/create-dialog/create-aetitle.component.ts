@@ -28,6 +28,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserService} from "../../../@shared/service/usuario/user.service";
 import {PacsNetwork} from "../../../@shared/model/pacs/network";
 import {PacsNetworkService} from "../../../@shared/service/pacs/network.service";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
     standalone: true,
@@ -52,13 +53,15 @@ import {PacsNetworkService} from "../../../@shared/service/pacs/network.service"
         MatDialogTitle,
         MatLabel,
         MatProgressSpinner,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatIcon
     ]
 
 })
 export class CreateAetitleComponent {
     protected readonly TipoAetitle = TipoAetitle;
     createNewExternalNetwork = false;
+    cadastroAetitlePacs: boolean = false;
     isLoading: boolean = true;
     isSaving = false;
     aetitleForm: FormGroup;
@@ -100,6 +103,7 @@ export class CreateAetitleComponent {
             external_network_name: [''],
             external_network_host: [''],
             external_network_port: [''],
+            pacs_register: [false],
         });
         forkJoin({
             result1: this.clinicaService.query(),
@@ -177,6 +181,10 @@ export class CreateAetitleComponent {
     toggleCreateNewExternalNetwork()
     {
         this.createNewExternalNetwork = !this.createNewExternalNetwork;
+    }
+
+    toggleCadastroAetitlePacs() {
+        this.cadastroAetitlePacs = !this.cadastroAetitlePacs;
     }
 
     submit(): void

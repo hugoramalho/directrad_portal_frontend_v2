@@ -14,6 +14,7 @@ import {Estudo} from "../model/estudo/exame";
 import {PaginatedList} from "../model/http/paginated-list";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {environment} from "../../../environments/environment";
+import {PacsHostType} from "../model/pacs/pacs-host-type";
 
 @Injectable({
     providedIn: 'root'

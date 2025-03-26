@@ -20,7 +20,7 @@ import {Estudo} from '../@shared/model/estudo/exame';
 import {MenuEstudosDialogComponent} from './menu/options-menu.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
-import {DateFormatPipe} from '../@shared/pipe/date-pipe';
+import {DateFormatPipe} from '../@shared/pipe/date.pipe';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DcmQueryParams} from "../@shared/dcm/query-params";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
@@ -35,8 +35,9 @@ import {UserService} from "../@shared/service/usuario/user.service";
 import {UserGroups} from "../@shared/model/usuario/user-groups";
 import {MatTab} from "@angular/material/tabs";
 import {STUDIES_OPTION_MENU} from "./menu/options-menu.enum";
-import {DatetimeFormatPipe} from "../@shared/pipe/datetime-pipe";
+import {DatetimeFormatPipe} from "../@shared/pipe/datetime.pipe";
 import {EstudoViewerService} from "../@shared/service/estudo/study-viewer.service";
+import {MatIcon} from "@angular/material/icon";
 
 
 @Component({
@@ -65,7 +66,8 @@ import {EstudoViewerService} from "../@shared/service/estudo/study-viewer.servic
         FormsModule,
         MatPaginatorModule,
         MatTab,
-        DatetimeFormatPipe
+        DatetimeFormatPipe,
+        MatIcon
     ],
     templateUrl: './estudos.component.html',
     styleUrl: './estudos.component.scss'
@@ -81,8 +83,8 @@ export class EstudosComponent {
     searchForm: FormGroup;
     classApplied = false;
     pacsMap = new Map<string | number, Pacs>();
-    pacsArray: Pacs[];
-    filteredPacs: Pacs[] = [];
+    pacsList: Pacs[] = [];
+    filteredPacsList: Pacs[] = [];
     selectedPacs: Pacs | undefined;
     isAdmin: boolean = false;
     displayedColumns: string[] = [
@@ -136,8 +138,8 @@ export class EstudosComponent {
             this.isToggled = isToggled;
         });
         this.pacsService.query().subscribe((pacsArray: Pacs[]) => {
-            this.pacsArray = pacsArray;
-            this.filteredPacs = pacsArray;
+            this.pacsList = pacsArray;
+            this.filteredPacsList = pacsArray;
             this.pacsMap = new Map(pacsArray.map(pacs => [pacs.id, pacs]));
             let pacsId = this.userService.getUser()?.pacs_id;
             if(pacsId) {
@@ -173,9 +175,8 @@ export class EstudosComponent {
         this.loadExames(1, this.paginator?.pageSize || 20);
     }
 
-    onPacsSearch(value: string)
-    {
-        this.filteredPacs = this.pacsArray.filter(pacs =>
+    onPacsSearch(value: string) {
+        this.filteredPacsList = this.pacsList.filter(pacs =>
             pacs.identificacao?.toLowerCase().includes(value.toLowerCase())
         );
     }

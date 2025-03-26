@@ -64,278 +64,371 @@
                     </div>
                     <h4 style="margin-bottom: 0.8rem"> Dados adicionais do Usuário responsável</h4>
                     <em class="form-subtitle">Identificação:</em>
-                    <div class="col-xl-3">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Nome completo - Usuário responsável
-                                </mat-label>
-                                <input
-                                    placeholder="Opcional"
-                                    matInput
-                                    formControlName="nome_completo">
-                            </mat-form-field>
+                    <ng-container formGroupName="pessoa">
+                        <div class="col-xl-3">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>
+                                        Nome completo - Usuário responsável
+                                    </mat-label>
+                                    <input
+                                        placeholder="Opcional"
+                                        matInput
+                                        formControlName="nome_completo">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>Tipo de Documento</mat-label>
-                                <mat-select
-                                    formControlName="tipo_documento">
-                                    <mat-option value="CPF">
-                                        CPF
-                                    </mat-option>
-                                    <mat-option value="CPF">
-                                        RG
-                                    </mat-option>
-                                    <mat-option value="PASSAPORTE">
-                                        Passaporte
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
+                        <div class="col-xl-3">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>Tipo de Documento</mat-label>
+                                    <mat-select
+                                        formControlName="tipo_documento">
+                                        <mat-option value="CPF">
+                                            CPF
+                                        </mat-option>
+                                        <mat-option value="CPF">
+                                            RG
+                                        </mat-option>
+                                        <mat-option value="PASSAPORTE">
+                                            Passaporte
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Documento
-                                </mat-label>
-                                <input
-                                    placeholder="Opcional"
-                                    matInput
-                                    formControlName="documento">
-                            </mat-form-field>
+                        <div class="col-xl-3">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>
+                                        Documento
+                                    </mat-label>
+                                    <input
+                                        placeholder="Opcional"
+                                        matInput
+                                        formControlName="documento">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="mb-25">
-                            <mat-form-field appearance="fill">
-                                <mat-label>Data de nascimento</mat-label>
-                                <input
-                                    matInput
-                                    placeholder="dia/mês/ano"
-                                    maxlength="10"
-                                    formControlName="data_nascimento"
-                                    [matDatepicker]="birthDatePicker"
-                                    (input)="formatDateInput($event)"
-                                    (blur)="validateAndSetDate($event)"/>
-                                <mat-datepicker-toggle matIconSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
-                                <mat-datepicker #birthDatePicker></mat-datepicker>
-                                <mat-error *ngIf="userForm.get('patient_birth_date')?.hasError('invalidDate')">
-                                    Data inválida. Use o formato dia/mês/ano.
-                                </mat-error>
-                            </mat-form-field>
+                        <div class="col-xl-3">
+                            <div class="mb-25">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Data de nascimento</mat-label>
+                                    <input
+                                        matInput
+                                        placeholder="dia/mês/ano"
+                                        maxlength="10"
+                                        formControlName="data_nascimento"
+                                        [matDatepicker]="birthDatePicker"
+                                        (input)="formatDateInput($event)"
+                                        (blur)="validateAndSetDate($event)"/>
+                                    <mat-datepicker-toggle matIconSuffix
+                                                           [for]="birthDatePicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #birthDatePicker></mat-datepicker>
+                                    <mat-error *ngIf="userForm.get('patient_birth_date')?.hasError('invalidDate')">
+                                        Data inválida. Use o formato dia/mês/ano.
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
+                    </ng-container>
                     <em class="form-subtitle">Contato:</em>
-                    <div class="col-xl-1">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Telefone País
-                                </mat-label>
-                                <mat-select
-                                    multiple
-                                    formControlName="telefone_codigo_pais">
-                                    <mat-option
-                                        value="55">
-                                        Brasil
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-xl-1">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Telefone Área
-                                </mat-label>
-                                <input
-                                    placeholder="Opcional"
-                                    matInput
-                                    type="text"
-                                    formControlName="telefone_codigo_area"
-                                >
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Telefone Número - WhatsApp
-                                </mat-label>
-                                <input
-                                    placeholder="Opcional"
-                                    matInput
-                                    type="text"
-                                    formControlName="telefone_numero"
-                                >
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Email Pessoal
-                                </mat-label>
-                                <input
-                                    placeholder="Opcional"
-                                    matInput
-                                    type="email"
-                                    formControlName="email"
-                                >
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Email Corporativo
-                                </mat-label>
-                                <input
-                                    placeholder="Opcional"
-                                    matInput
-                                    type="email"
-                                    formControlName="email_alternativo"
-                                >
-                            </mat-form-field>
-                        </div>
-                    </div>
+                    <ng-container formGroupName="contato">
+                        <ng-container formGroupName="telefone_principal">
+                            <div class="col-xl-1">
+                                <div class="mb-25">
+                                    <mat-form-field>
+                                        <mat-label>
+                                            Telefone País
+                                        </mat-label>
+                                        <mat-select
+                                            formControlName="codigo_pais">
+                                            <mat-option value='55'>
+                                                Brasil
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-xl-1">
+                                <div class="mb-25">
+                                    <mat-form-field>
+                                        <mat-label>
+                                            Telefone Área
+                                        </mat-label>
+                                        <input
+                                            placeholder="Opcional"
+                                            matInput
+                                            type="text"
+                                            formControlName="codigo_area"
+                                        >
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-xl-4">
+                                <div class="mb-25">
+                                    <mat-form-field>
+                                        <mat-label>
+                                            Número do telefone/WhatsApp
+                                        </mat-label>
+                                        <input
+                                            placeholder="Opcional"
+                                            matInput
+                                            type="text"
+                                            formControlName="numero"
+                                        >
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container formGroupName="email_principal">
+                            <div class="col-xl-3">
+                                <div class="mb-25">
+                                    <mat-form-field>
+                                        <mat-label>
+                                            Email Pessoal
+                                        </mat-label>
+                                        <input
+                                            placeholder="Opcional"
+                                            matInput
+                                            type="email"
+                                            formControlName="email"
+                                        >
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container formGroupName="email_alternativo">
+                            <div class="col-xl-3">
+                                <div class="mb-25">
+                                    <mat-form-field>
+                                        <mat-label>
+                                            Email Corporativo
+                                        </mat-label>
+                                        <input
+                                            placeholder="Opcional"
+                                            matInput
+                                            type="email"
+                                            formControlName="email">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
                     <em class="form-subtitle">Endereço:</em>
-                    <div class="col-xl-2">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    CEP
-                                </mat-label>
-                                <input
-                                    placeholder="Opcional"
-                                    matInput
-                                    formControlName="endereco_cep"
-                                >
-                            </mat-form-field>
+                    <ng-container formGroupName="endereco">
+                        <div class="col-xl-2">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>
+                                        CEP
+                                    </mat-label>
+                                    <input
+                                        placeholder="Opcional"
+                                        matInput
+                                        formControlName="cep">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-1">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>Estado</mat-label>
-                                <mat-select formControlName="endereco_estado">
-                                    @for (state of states; track state.sigla) {
-                                        <mat-option [value]="state.sigla">{{ state.nome }}</mat-option>
-                                    }
-                                </mat-select>
-                            </mat-form-field>
+                        <div class="col-xl-1">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>Estado</mat-label>
+                                    <mat-select formControlName="estado">
+                                        @for (state of states; track state.sigla) {
+                                            <mat-option [value]="state.sigla">{{ state.nome }}</mat-option>
+                                        }
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Cidade
-                                </mat-label>
-                                <input
-                                    placeholder="Opcional"
-                                    matInput
-                                    formControlName="endereco_cidade"
-                                >
-                            </mat-form-field>
+                        <div class="col-xl-3">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>
+                                        Cidade
+                                    </mat-label>
+                                    <input
+                                        placeholder="Opcional"
+                                        matInput
+                                        formControlName="cidade">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-1">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Número
-                                </mat-label>
-                                <input
-                                    matInput
-                                    type="text"
-                                    formControlName="endereco_logradouro"
-                                >
-                            </mat-form-field>
+                        <div class="col-xl-1">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>
+                                        Número
+                                    </mat-label>
+                                    <input
+                                        matInput
+                                        type="text"
+                                        formControlName="numero">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-2">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Logradouro
-                                </mat-label>
-                                <input
-                                    matInput
-                                    formControlName="endereco_logradouro"
-                                >
-                            </mat-form-field>
+                        <div class="col-xl-2">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>
+                                        Logradouro
+                                    </mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="logradouro">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-3">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Bairro
-                                </mat-label>
-                                <input
-                                    matInput
-                                    formControlName="endereco_logradouro"
-                                >
-                            </mat-form-field>
+                        <div class="col-xl-3">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>
+                                        Bairro
+                                    </mat-label>
+                                    <input
+                                        matInput
+                                        formControlName="bairro">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>
-                                    Complemento do Endereço
-                                </mat-label>
-                                <input
-                                    matInput
-                                    type="text"
-                                    formControlName="endereco_logradouro"
-                                >
-                            </mat-form-field>
+                        <div class="col-xl-6">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>
+                                        Complemento do Endereço
+                                    </mat-label>
+                                    <input
+                                        matInput
+                                        type="text"
+                                        formControlName="complemento">
+                                </mat-form-field>
+                            </div>
                         </div>
-                    </div>
+                    </ng-container>
                 </div>
             </div>
             <div [hidden]="!(currentPage === 2)">
                 <div class="disclaimer">
-                    <p class="disclaimer-topic">O Grupo de usuário:
-                        "{{ UserGroupsMapper.getDescription(UserGroups.ADMIN) }}" define permissões de adminstrador
-                        geral do Portal</p>
-                    <p class="disclaimer-topic">Para cadastrar admistradores de Pacs a nível de usuário cliente, escolha
-                        o grupo: "{{ UserGroupsMapper.getDescription(UserGroups.PACS_ADMIN) }}"</p>
+                    <p class="disclaimer-topic">O tipo de usuário:
+                        <i>"{{ UserGroupsMapper.getDescription(UserGroups.ADMIN) }}"</i> define permissões de usuários que são <strong>funcionários da DirectRad</strong>.</p>
+                    <p class="disclaimer-topic">Para cadastrar admistradores de Pacs a nível de <strong>usuários que são clientes da DirectRad (clínicas, hospitais, etc)</strong>, escolha
+                        a opção: <i>"{{ UserGroupsMapper.getDescription(UserGroups.PACS_ADMIN) }}"</i>.</p>
+                    <p
+                        *ngIf="userForm.get('groups.group_id')?.value === UserGroups.ADMIN"
+                        class="disclaimer-topic danger-topic">
+                        <strong>Atenção: Você escolheu o tipo de usuário: <i>"{{ UserGroupsMapper.getDescription(UserGroups.ADMIN) }}"</i>, lembre-se de que essa opção deve ser usada apenas para criar usuários que são funcionários da DirectRad.
+                        <br>Esse usuário terá permissões de Adminstrador do sistema como funcionário da DirectRad.
+                        </strong>
+                    </p>
                 </div>
                 <div class="row">
                     <em class="form-subtitle">Permissões de usuário</em>
-                    <div class="col-xl-5">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>Tipo(s) de usuário</mat-label>
-                                <mat-select
-                                    multiple
-                                    formControlName="groups_ids"
-                                    class="read-only-select">
-                                    @for (group of numericUserGroups; track group.key) {
-                                        <mat-option [value]="group.value">
-                                            {{ UserGroupsMapper.getDescription(group.value) }}
+                    <ng-container formGroupName="groups">
+                        <div class="col-xl-3">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>Tipo de usuário</mat-label>
+                                    <mat-select
+                                        formControlName="group_id"
+                                        class="read-only-select">
+                                        @for (group of numericUserGroups; track group.key) {
+                                            <mat-option [value]="group.value">
+                                                {{ UserGroupsMapper.getDescription(group.value) }}
+                                            </mat-option>
+                                        }
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container formGroupName="permissions">
+                        <div class="col-xl-2 form-group">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>Criar acesso</mat-label>
+                                    <mat-select formControlName="enable_create_access">
+                                        <mat-option [value]=true>
+                                            Sim
                                         </mat-option>
-                                    }
+                                        <mat-option [value]=false>
+                                            Não
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 form-group">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>Excluir exame</mat-label>
+                                    <mat-select formControlName="enable_delete_exam">
+                                        <mat-option [value]=true>
+                                            Sim
+                                        </mat-option>
+                                        <mat-option [value]=false>
+                                            Não
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 form-group">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>Exportar exame</mat-label>
+                                    <mat-select formControlName="enable_export_exam">
+                                        <mat-option [value]=true>
+                                            Sim
+                                        </mat-option>
+                                        <mat-option [value]=false>
+                                            Não
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 form-group">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>Vincular com o RIS</mat-label>
+                                    <mat-select formControlName="enable_link_ris">
+                                        <mat-option [value]=true>
+                                            Sim
+                                        </mat-option>
+                                        <mat-option [value]=false>
+                                            Não
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 form-group mb-25">
+                            <mat-form-field>
+                                <mat-label>Modalidades de exames permitidas</mat-label>
+                                <mat-select formControlName="enabled_modalities">
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                    </div>
-                    <div class="col-xl-2 form-group">
-                        <div class="mb-25">
+                        <div class="col-xl-2 form-group">
+                            <div class="mb-25">
+                                <mat-form-field>
+                                    <mat-label>Agrupar exames</mat-label>
+                                    <mat-select formControlName="enable_group_selected_exams">
+                                        <mat-option [value]=true>
+                                            Sim
+                                        </mat-option>
+                                        <mat-option [value]=false>
+                                            Não
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 form-group mb-25">
                             <mat-form-field>
-                                <mat-label>Criar acesso</mat-label>
-                                <mat-select formControlName="endereco_estado">
+                                <mat-label>Excluir séries de exames</mat-label>
+                                <mat-select formControlName="enable_delete_series">
                                     <mat-option [value]=true>
                                         Sim
                                     </mat-option>
@@ -345,12 +438,10 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                    </div>
-                    <div class="col-xl-2 form-group">
-                        <div class="mb-25">
+                        <div class="col-xl-2 form-group mb-25">
                             <mat-form-field>
-                                <mat-label>Excluir exame</mat-label>
-                                <mat-select formControlName="endereco_estado">
+                                <mat-label>Edição de exame</mat-label>
+                                <mat-select formControlName="enable_edit_study">
                                     <mat-option [value]=true>
                                         Sim
                                     </mat-option>
@@ -360,136 +451,104 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                    </div>
-                    <div class="col-xl-2 form-group">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>Exportar exame</mat-label>
-                                <mat-select formControlName="endereco_estado">
-                                    <mat-option [value]=true>
-                                        Sim
-                                    </mat-option>
-                                    <mat-option [value]=false>
-                                        Não
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 form-group mb-25">
-                        <mat-form-field>
-                            <mat-label>Modalidades de exames permitidas para visualização</mat-label>
-                            <mat-select formControlName="endereco_estado">
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-xl-2 form-group">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>Vincular com o RIS</mat-label>
-                                <mat-select formControlName="endereco_estado">
-                                    <mat-option [value]=true>
-                                        Sim
-                                    </mat-option>
-                                    <mat-option [value]=false>
-                                        Não
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 form-group">
-                        <div class="mb-25">
-                            <mat-form-field>
-                                <mat-label>Agrupar exames selecionados</mat-label>
-                                <mat-select formControlName="endereco_estado">
-                                    <mat-option [value]=true>
-                                        Sim
-                                    </mat-option>
-                                    <mat-option [value]=false>
-                                        Não
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="col-xl-2 form-group mb-25">
-                        <mat-form-field>
-                            <mat-label>Excluir séries de exames</mat-label>
-                            <mat-select formControlName="endereco_estado">
-                                <mat-option [value]=true>
-                                    Sim
-                                </mat-option>
-                                <mat-option [value]=false>
-                                    Não
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="col-xl-2 form-group mb-25">
-                        <mat-form-field>
-                            <mat-label>Edição de exame</mat-label>
-                            <mat-select formControlName="endereco_estado">
-                                <mat-option [value]=true>
-                                    Sim
-                                </mat-option>
-                                <mat-option [value]=false>
-                                    Não
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
+                    </ng-container>
                     <div class="row">
                         <em class="form-subtitle">Dados do Pacs</em>
                         <div class="col-xl-3 form-group mb-25">
                             <mat-form-field>
                                 <mat-label>Pacs relacionado</mat-label>
-                                <mat-select formControlName="endereco_estado">
-                                    <mat-option [value]=true>
-                                        Sim
+                                <mat-select formControlName="pacs_id">
+                                    <mat-option>
+                                        <mat-icon>search</mat-icon>
+                                        <input
+                                            (focus)="true"
+                                            #pacsSearchInput
+                                            class="mat-input-element"
+                                            matInput
+                                            placeholder="Buscar..."
+                                            (keydown)="$event.stopPropagation()"
+                                            (click)="$event.stopPropagation()"
+                                            (input)="onPacsSearch(pacsSearchInput.value)"
+                                            autocomplete="off"/>
                                     </mat-option>
-                                    <mat-option [value]=false>
-                                        Não
-                                    </mat-option>
+                                    @for (pacs of filteredPacsList; track pacs.id) {
+                                        <mat-option [value]="pacs.id">
+                                            {{ pacs.identificacao }}
+                                        </mat-option>
+                                    }
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-xl-3 form-group mb-25">
                             <mat-form-field>
                                 <mat-label>Aetitle relacionado</mat-label>
-                                <mat-select formControlName="endereco_estado">
-                                    <mat-option [value]=true>
-                                        Sim
-                                    </mat-option>
-                                    <mat-option [value]=false>
-                                        Não
-                                    </mat-option>
+                                <mat-select formControlName="aetitle_id">
+                                    @if (!userForm.get('pacs_id')?.value) {
+                                        <mat-option disabled>Selecione o Pacs</mat-option>
+                                    }
+                                    @if (userForm.get('pacs_id')?.value) {
+                                        <mat-option>
+                                            <mat-icon>search</mat-icon>
+                                            <input
+                                                #aetitlesSearchInput
+                                                class="mat-input-element"
+                                                matInput
+                                                placeholder="Buscar..."
+                                                (click)="$event.stopPropagation()"
+                                                (input)="onAetitlesSearch(aetitlesSearchInput.value)"
+                                                autocomplete="off"/>
+                                        </mat-option>
+                                        @for (aetitle of filteredAetitles; track aetitle.id) {
+                                            <mat-option
+                                                [value]="aetitle.id">
+                                                {{ aetitle.aetitle }}
+                                            </mat-option>
+                                        }
+                                    }
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-xl-3 form-group mb-25">
                             <mat-form-field>
-                                <mat-label>Usuário Tele relaciondo</mat-label>
-                                <mat-select formControlName="endereco_estado">
-                                    <mat-option [value]=true>
-                                        Sim
+                                <mat-label>Usuário Tele relacionado</mat-label>
+                                <mat-select formControlName="tele_id">
+                                    <mat-option>
+                                        <mat-icon>search</mat-icon>
+                                        <input
+                                            #teleSearchInput
+                                            matInput
+                                            placeholder="Buscar..."
+                                            (click)="$event.stopPropagation()"
+                                            (input)="onTeleSearch(teleSearchInput.value)"
+                                            autocomplete="off"/>
                                     </mat-option>
-                                    <mat-option [value]=false>
-                                        Não
-                                    </mat-option>
+                                    @for (teleUser of filteredTeleUsers; track teleUser.id) {
+                                        <mat-option [value]="teleUser.id">
+                                            {{ teleUser.full_name }}
+                                        </mat-option>
+                                    }
                                 </mat-select>
                             </mat-form-field>
                         </div>
                         <div class="col-xl-3 form-group mb-25">
                             <mat-form-field>
                                 <mat-label>Clínica relacionada</mat-label>
-                                <mat-select formControlName="endereco_estado">
-                                    <mat-option [value]=true>
-                                        Sim
+                                <mat-select formControlName="clinica_id">
+                                    <mat-option>
+                                        <mat-icon>search</mat-icon>
+                                        <input
+                                            #clinicaSearchInput
+                                            matInput
+                                            placeholder="Buscar..."
+                                            (click)="$event.stopPropagation()"
+                                            (input)="onClinicasSearch(clinicaSearchInput.value)"
+                                            autocomplete="off"/>
                                     </mat-option>
-                                    <mat-option [value]=false>
-                                        Não
-                                    </mat-option>
+                                    @for (clinica of filteredClinicas; track clinica.id) {
+                                        <mat-option [value]="clinica.id">
+                                            {{ clinica.nome || clinica.nome_razao }}
+                                        </mat-option>
+                                    }
                                 </mat-select>
                             </mat-form-field>
                         </div>
