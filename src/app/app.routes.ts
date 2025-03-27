@@ -20,7 +20,8 @@ import {AuthGuard} from "./@shared/guards/auth.guard";
 
 export const routes: Routes = [
     {
-        path: '', component: EstudosComponent,
+        path: '',
+        component: EstudosComponent,
         canActivate: [AuthGuard],
     },
     {
@@ -39,6 +40,9 @@ export const routes: Routes = [
     {
         path: 'login',
         component: AuthenticationComponent,
+        children: [
+            {path: '', component: SignInComponent}
+        ]
     },
     {
         path: 'exames', component: EstudosComponent,
