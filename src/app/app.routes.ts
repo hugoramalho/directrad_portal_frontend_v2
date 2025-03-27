@@ -37,6 +37,10 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'login',
+        component: SignUpComponent,
+    },
+    {
         path: 'exames', component: EstudosComponent,
         canActivate: [AuthGuard],
     },
