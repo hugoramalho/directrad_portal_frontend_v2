@@ -33,6 +33,9 @@ mat-dialog-content {
         height: 50px;
     }
     .pacs-form {
+        mat-option.search-option .mat-pseudo-checkbox {
+            display: none !important;
+        }
         mat-form-field {
             margin-bottom: 0.5rem;
         }

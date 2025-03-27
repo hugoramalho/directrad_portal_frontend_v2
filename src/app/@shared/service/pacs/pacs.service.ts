@@ -26,23 +26,19 @@ export class PacsService {
     ) {
     }
 
-    create(pacsData: Pacs)
-    {
+    create(pacsData: Pacs) {
         return this.pacsRepository.create(pacsData);
     }
 
-    update(pacsData: Pacs)
-    {
+    update(pacsData: Pacs) {
         return this.pacsRepository.update(pacsData);
     }
 
-    find(id: number | string)
-    {
+    find(id: number | string) {
         return this.pacsRepository.find(id);
     }
 
-    queryPaginated(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null)
-    {
+    queryPaginated(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null) {
         return this.pacsRepository.queryPaginated(page, page_size, queryParams).pipe(
             map(response => {
                 response.items = response.items.filter(pacs => {
@@ -53,8 +49,7 @@ export class PacsService {
         );
     }
 
-    query()
-    {
+    query() {
         return this.pacsRepository.query().pipe(
             map(response => {
                 return response.filter(pacs => {
@@ -62,6 +57,36 @@ export class PacsService {
                 })
             })
         );
+    }
+
+    search(
+        allPacs: Pacs[],
+        page: number = 1,
+        pageSize: number = 10,
+        filters: Record<string, any> = {}
+    ): PaginatedList<Pacs[]> {
+        let filtered = allPacs.filter(pacs => pacs.tipo_pacs === PacsHostType.PACS_CLIENTE);
+        Object.entries(filters).forEach(([key, value]) => {
+            if (value && typeof value === 'string') {
+                filtered = filtered.filter(pacs =>
+                    (pacs[key as keyof Pacs] ?? '')
+                        .toString()
+                        .toLowerCase()
+                        .includes(value.toLowerCase())
+                );
+            }
+        });
+        const total = filtered.length;
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const paginated = filtered.slice(startIndex, endIndex);
+        return {
+            count: paginated.length,
+            items: paginated,
+            total: total,
+            page: page,
+            page_size: pageSize,
+        };
     }
 
 }

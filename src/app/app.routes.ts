@@ -49,7 +49,11 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         component: PacsControleComponent,
         children: [
-            {path: '', component: PacsControleComponent},
+            {
+                path: '',
+                canActivate: [AuthGuard],
+                component: PacsControleComponent
+            },
             // {path: 'suporte', component: SuporteUsuarioComponent},
             // {path: 'config', component: AccountSettingsComponent}
         ]
@@ -59,8 +63,16 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         component: CadastroComponent,
         children: [
-            {path: '', component: CadastroComponent},
-            {path: 'usuarios', component: CadastroUsuarioComponent},
+            {
+                path: '',
+                canActivate: [AuthGuard],
+                component: CadastroComponent
+            },
+            {
+                path: 'usuarios',
+                canActivate: [AuthGuard],
+                component: CadastroUsuarioComponent
+            },
         ]
     },
     {
@@ -68,9 +80,17 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         component: UsuarioComponent,
         children: [
-            {path: '', component: AccountSettingsComponent},
+            {
+                path: '',
+                canActivate: [AuthGuard],
+                component: AccountSettingsComponent
+            },
             // {path: 'suporte', component: SuporteUsuarioComponent},
-            {path: 'config', component: AccountSettingsComponent}
+            {
+                path: 'config',
+                canActivate: [AuthGuard],
+                component: AccountSettingsComponent
+            }
         ]
     },
 

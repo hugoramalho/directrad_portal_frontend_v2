@@ -20,7 +20,7 @@
 
 mat-dialog-content {
     overflow: hidden !important;
-    height: 40vh;
+    height: 50vh;
     width: 100%;
     .loading-container {
         display: flex;
@@ -33,6 +33,9 @@ mat-dialog-content {
         height: 50px;
     }
     .pacs-form {
+        .form-subtitle {
+            margin: 0.5rem 0 0.3rem 0.2rem;
+        }
         mat-form-field {
             margin-bottom: 0.5rem;
         }

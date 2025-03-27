@@ -1,7 +1,7 @@
 <div
     *ngIf="tipo_aetitle === TipoAetitle.STORAGE"
     class="modal-header row">
-    <h5 class="modal-title">Novo Aetitle de armazenamento</h5>
+    <h5 class="modal-title">Editar Aetitle de armazenamento</h5>
 </div>
 <mat-dialog-content
     *ngIf="tipo_aetitle === TipoAetitle.STORAGE"
@@ -124,15 +124,11 @@
 <div
     *ngIf="tipo_aetitle === TipoAetitle.EXTERNAL"
     class="modal-header row">
-    <h5 class="modal-title">Novo Aetitle de Exportação</h5>
+    <h5 class="modal-title">Editar Aetitle de Exportação</h5>
 </div>
 <mat-dialog-content
     *ngIf="tipo_aetitle === TipoAetitle.EXTERNAL"
     class="modal-body">
-    <p>
-        Ao cadastrar esse Aetitle, os estudos enviados para esse Aetitle no Pacs escolhido, serão redirecionados para o
-        Aetitle de mesmo nome no Pacs de destino
-    </p>
     <div class="loading-container" *ngIf="isLoading; else aetitleFormTemplate">
         <mat-spinner></mat-spinner>
     </div>
@@ -302,16 +298,12 @@
 <div
     *ngIf="tipo_aetitle === TipoAetitle.LONGO_PRAZO"
     class="modal-header row">
-    <h5 class="modal-title">Novo Aetitle de Longo Prazo </h5>
+    <h5 class="modal-title">Editar Aetitle de Longo Prazo </h5>
     <h4 class="modal-title">Pacs OVH</h4>
 </div>
 <mat-dialog-content
     *ngIf="tipo_aetitle === TipoAetitle.LONGO_PRAZO"
     class="modal-body">
-    <p>
-        Ao cadastrar esse Aetitle, os estudos enviados para esse Aetitle no Pacs escolhido, serão redirecionados para o
-        Aetitle de mesmo nome no Pacs de destino
-    </p>
     <div class="loading-container" *ngIf="isLoading; else aetitleFormTemplate">
         <mat-spinner></mat-spinner>
     </div>
@@ -408,12 +400,6 @@
 <mat-dialog-content
     *ngIf="tipo_aetitle === TipoAetitle.WORKLIST"
     class="modal-body">
-    <p>
-        Atenção: ao cadastrar o Aetitle de Worklist para o pacs selecionado, a worklist desse cliente será direcionada
-        para o Pacs de Worklist central da Oracle
-        <br>
-        Realize esse cadastro somente se o cliente não possui Worklist própria, caso contrário o cadastro precisará ser corrigido
-    </p>
     <div class="loading-container" *ngIf="isLoading; else aetitleFormTemplate">
         <mat-spinner></mat-spinner>
     </div>

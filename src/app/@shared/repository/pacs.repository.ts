@@ -36,7 +36,7 @@ export class PacsRepository {
                 map(response => {
                     return response.data || [];
                 }),
-                catchError(err => {
+                catchError(error => {
                     return of([]);
                 })
             );
@@ -52,6 +52,7 @@ export class PacsRepository {
                 }
             });
         }
+        console.log(params, queryParams);
         params = params.set('page', page.toString());
         params = params.set('page_size', page_size.toString());
         return this.http.get<ApiResponseInterface<PaginatedListInterface<Pacs[]>>>(
