@@ -6,7 +6,7 @@
 
 
 export interface Aetitle {
-    id: number | string;
+    id: number | string | any;
     uuid?: string | null;
     pacs_index?: number;
     is_main_aetitle?: boolean;

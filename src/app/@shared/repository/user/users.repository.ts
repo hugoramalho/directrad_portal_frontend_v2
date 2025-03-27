@@ -18,6 +18,7 @@ import {Aetitle} from "../../model/pacs/aetitle";
 import {PaginatedList} from "../../model/http/paginated-list";
 import {UserRis} from "../../model/usuario/user-ris";
 import {ApiResponseResource} from "../../model/http/api-response-resource";
+import {UserService} from "../../service/usuario/user.service";
 
 @Injectable({
     providedIn: 'root'
@@ -28,7 +29,8 @@ export class UsersRepository {
     pacs$ = this.usersSubject.asObservable();
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private userService: UserService,
     ) {
     }
 
@@ -84,7 +86,6 @@ export class UsersRepository {
         ).pipe(
             map(response => response.data || []),
             catchError(err => {
-                console.error('Erro ao obter Usuários:', err);
                 return of([]);
             })
         );

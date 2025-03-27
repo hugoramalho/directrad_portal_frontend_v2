@@ -12,6 +12,8 @@ import {TagDicom} from "../../model/estudo/tag-dicom";
 import {AETitleRepository} from "../../repository/aetitle.repository";
 import {Aetitle} from "../../model/pacs/aetitle";
 import {PaginatedList} from "../../model/http/paginated-list";
+import {UserService} from "../usuario/user.service";
+import {PacsHostType} from "../../model/pacs/pacs-host-type";
 
 @Injectable({
     providedIn: 'root',
@@ -22,7 +24,8 @@ export class AetitleService {
 
     constructor(
         private http: HttpClient,
-        private aetitleRepository: AETitleRepository
+        private aetitleRepository: AETitleRepository,
+        private userService: UserService,
     ) {
     }
 
@@ -38,8 +41,15 @@ export class AetitleService {
 
     public query(queryParams: Record<string, any> | null = null): Observable<Aetitle[]>
     {
-        return this.aetitleRepository.getAETitles(queryParams);
+        return this.aetitleRepository.getAETitles(queryParams).pipe(
+            map(aetitles => {
+                return aetitles.filter(aetitle => {
+                    return aetitle.pacs_id == this.userService.getUser()?.pacs_id;
+                })
+            })
+        );
     }
+
 
     public queryPaginated(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null)
     {

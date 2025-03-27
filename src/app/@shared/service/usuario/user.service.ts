@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 import { User } from '../../model/usuario/user';
 import {UsersRepository} from "../../repository/user/users.repository";
 import {UserRepository} from "../../repository/user/user.repository";
+import {UserGroups} from "../../model/usuario/user-groups";
 
 
 
@@ -63,6 +64,6 @@ export class UserService {
 
     /** Verifica se o usuário é admin */
     isAdmin(): boolean {
-        return this.getUser()?.groups?.some(group => group.group_id === 'admin') ?? false;
+        return this.verifyGroup(UserGroups.ADMIN);
     }
 }
