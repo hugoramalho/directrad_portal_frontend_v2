@@ -98,8 +98,7 @@ export class AETitleRepository {
         );
     }
 
-    createAETitle(aetitle: Aetitle): Observable<any>
-    {
+    create(aetitle: Aetitle): Observable<any> {
         return this.http.post<{ id: string }>(
             `${this.baseUrl}/${aetitle.pacs_id}/aetitles`,
             aetitle).pipe(
@@ -118,14 +117,14 @@ export class AETitleRepository {
     }
 
     /** Atualiza um AETitle na API e no cache */
-    updateAETitle(pacsId: string, aetitle: any): Observable<any> {
-        return this.http.put<any>(`${this.baseUrl}/${pacsId}/aetitles/${aetitle.id}`, aetitle).pipe(
+    update(aetitle: any): Observable<any> {
+        return this.http.put<any>(`${this.baseUrl}/${aetitle.pacs_id}/aetitles/${aetitle.id}`, aetitle).pipe(
             tap(() => this.cacheService.updateAETitle(aetitle))
         );
     }
 
     /** Remove um AETitle da API e do cache */
-    deleteAETitle(pacsId: string, id: string): Observable<void> {
+    delete(pacsId: string, id: string): Observable<void> {
         return this.http.delete<void>(`${this.baseUrl}/${pacsId}/aetitles/${id}`).pipe(
             tap(() => this.cacheService.removeAETitle(id))
         );

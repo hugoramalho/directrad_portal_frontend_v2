@@ -1,17 +1,31 @@
 <div
-    *ngIf="tipo_aetitle === TipoAetitle.STORAGE"
+    *ngIf="aetitle.tipo === TipoAetitle.STORAGE"
     class="modal-header row">
     <h5 class="modal-title">Editar Aetitle de armazenamento</h5>
 </div>
 <mat-dialog-content
-    *ngIf="tipo_aetitle === TipoAetitle.STORAGE"
+    *ngIf="aetitle.tipo === TipoAetitle.STORAGE"
     class="modal-body">
     <div class="loading-container" *ngIf="isLoading; else aetitleFormTemplate">
         <mat-spinner></mat-spinner>
     </div>
     <ng-template #aetitleFormTemplate>
-        <form class="pacs-form" [formGroup]="aetitleForm">
+        <form
+            class="pacs-form"
+            [formGroup]="aetitleForm">
             <div class="row">
+                <div class="flex justify-content-start mb-25">
+                    <mat-label
+                        style="white-space: nowrap; display: inline; margin-right: 1rem">
+                        Atualizar Aetitle no Pacs também
+                    </mat-label>
+                    <mat-slide-toggle
+                        (change)="toggleCadastroAetitlePacs()"
+                        class="form-control"
+                        formControlName="sync_pacs_aetitle"
+                        style="display: inline">
+                    </mat-slide-toggle>
+                </div>
                 <div class="col-md-12 form-group">
                     <mat-form-field>
                         <mat-label>Pacs</mat-label>
@@ -122,12 +136,12 @@
 </mat-dialog-content>
 
 <div
-    *ngIf="tipo_aetitle === TipoAetitle.EXTERNAL"
+    *ngIf="aetitle.tipo === TipoAetitle.EXTERNAL"
     class="modal-header row">
     <h5 class="modal-title">Editar Aetitle de Exportação</h5>
 </div>
 <mat-dialog-content
-    *ngIf="tipo_aetitle === TipoAetitle.EXTERNAL"
+    *ngIf="aetitle.tipo === TipoAetitle.EXTERNAL"
     class="modal-body">
     <div class="loading-container" *ngIf="isLoading; else aetitleFormTemplate">
         <mat-spinner></mat-spinner>
@@ -135,6 +149,18 @@
     <ng-template #aetitleFormTemplate>
         <form class="pacs-form" [formGroup]="aetitleForm">
             <div class="row">
+                <div class="flex justify-content-start mb-25">
+                    <mat-label
+                        style="white-space: nowrap; display: inline; margin-right: 1rem">
+                        Atualizar Aetitle no Pacs também
+                    </mat-label>
+                    <mat-slide-toggle
+                        (change)="toggleCadastroAetitlePacs()"
+                        class="form-control"
+                        formControlName="sync_pacs_aetitle"
+                        style="display: inline">
+                    </mat-slide-toggle>
+                </div>
                 <div class="col-md-12 form-group">
                     <mat-form-field>
                         <mat-label>Pacs</mat-label>
@@ -296,13 +322,13 @@
 
 
 <div
-    *ngIf="tipo_aetitle === TipoAetitle.LONGO_PRAZO"
+    *ngIf="aetitle.tipo === TipoAetitle.LONGO_PRAZO"
     class="modal-header row">
     <h5 class="modal-title">Editar Aetitle de Longo Prazo </h5>
     <h4 class="modal-title">Pacs OVH</h4>
 </div>
 <mat-dialog-content
-    *ngIf="tipo_aetitle === TipoAetitle.LONGO_PRAZO"
+    *ngIf="aetitle.tipo === TipoAetitle.LONGO_PRAZO"
     class="modal-body">
     <div class="loading-container" *ngIf="isLoading; else aetitleFormTemplate">
         <mat-spinner></mat-spinner>
@@ -310,9 +336,21 @@
     <ng-template #aetitleFormTemplate>
         <form class="pacs-form" [formGroup]="aetitleForm">
             <div class="row">
+                <div class="flex justify-content-start mb-25">
+                    <mat-label
+                        style="white-space: nowrap; display: inline; margin-right: 1rem">
+                        Atualizar Aetitle no Pacs também
+                    </mat-label>
+                    <mat-slide-toggle
+                        (change)="toggleCadastroAetitlePacs()"
+                        class="form-control"
+                        formControlName="sync_pacs_aetitle"
+                        style="display: inline">
+                    </mat-slide-toggle>
+                </div>
                 <div class="col-md-12 form-group">
                     <mat-form-field>
-                        <mat-label>Pacs do cliente</mat-label>
+                        <mat-label>Pacs associado</mat-label>
                         <mat-select
                             #pacsSelect
                             class="form-control"
@@ -392,13 +430,12 @@
 </mat-dialog-content>
 
 <div
-    *ngIf="tipo_aetitle === TipoAetitle.WORKLIST"
+    *ngIf="aetitle.tipo === TipoAetitle.WORKLIST"
     class="modal-header row">
-    <h5 class="modal-title">Novo Aetitle de Worklist </h5>
-    <h4 class="modal-title">Pacs OVH</h4>
+    <h5 class="modal-title">Editar Aetitle de Worklist </h5>
 </div>
 <mat-dialog-content
-    *ngIf="tipo_aetitle === TipoAetitle.WORKLIST"
+    *ngIf="aetitle.tipo === TipoAetitle.WORKLIST"
     class="modal-body">
     <div class="loading-container" *ngIf="isLoading; else aetitleFormTemplate">
         <mat-spinner></mat-spinner>
@@ -406,9 +443,21 @@
     <ng-template #aetitleFormTemplate>
         <form class="pacs-form" [formGroup]="aetitleForm">
             <div class="row">
+                <div class="flex justify-content-start mb-25">
+                    <mat-label
+                        style="white-space: nowrap; display: inline; margin-right: 1rem">
+                        Atualizar Aetitle no Pacs também
+                    </mat-label>
+                    <mat-slide-toggle
+                        (change)="toggleCadastroAetitlePacs()"
+                        class="form-control"
+                        formControlName="sync_pacs_aetitle"
+                        style="display: inline">
+                    </mat-slide-toggle>
+                </div>
                 <div class="col-md-12 form-group">
                     <mat-form-field>
-                        <mat-label>Pacs do cliente</mat-label>
+                        <mat-label>Pacs associado</mat-label>
                         <mat-select
                             #pacsSelect
                             class="form-control"
@@ -495,7 +544,7 @@
         type="submit"
         class="btn btn-success btn-submit"
         [disabled]="isSaving"
-        (click)="submit()">
+        (click)="onSubmit()">
         <mat-progress-spinner
             *ngIf="isSaving"
             diameter="20"
@@ -503,7 +552,7 @@
             color="accent"
             style="display: inline-block; vertical-align: middle; margin-right: 8px;"
         ></mat-progress-spinner>
-        {{ isSaving ? 'Cadastrando...' : 'Cadastrar' }}
+        {{ isSaving ? 'Salvando...' : 'Salvar' }}
     </button>
     <button
         mat-raised-button

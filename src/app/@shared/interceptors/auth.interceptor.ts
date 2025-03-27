@@ -9,12 +9,14 @@ import {Observable, throwError} from 'rxjs';
 import {HTTP_HEADERS} from '../constants/http-headers.constants';
 import {catchError} from "rxjs/operators";
 import {AuthService} from "../service/auth/auth.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
     constructor(
-        private authService: AuthService
+        private authService: AuthService,
+        private snackBar: MatSnackBar,
     ) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -31,6 +33,20 @@ export class AuthInterceptor implements HttpInterceptor {
                     if ([401, 403].includes(error.status)) {
                         this.authService.logout();
                     }
+                    let errorMessage = 'Unknown error occurred';
+                    errorMessage = error.error instanceof ErrorEvent
+                        ? error.error.message
+                        : error.message;
+                    this.snackBar.open(
+                        errorMessage || 'Falha na requisição',
+                        'Fechar',
+                        {
+                            duration: 10000,
+                            horizontalPosition: 'right',
+                            verticalPosition: 'bottom',
+                            panelClass: ['success-snackbar']
+                        }
+                    );
                     return throwError(() => error);
                 })
             )

@@ -7,7 +7,7 @@ import {
     MatDialogContent, MatDialogTitle
 } from '@angular/material/dialog';
 import {MatFormField} from "@angular/material/form-field";
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
 import {NgForOf, NgSwitch, NgSwitchCase, NgIf} from "@angular/common";
@@ -29,12 +29,13 @@ import {UserService} from "../../../@shared/service/usuario/user.service";
 import {PacsNetwork} from "../../../@shared/model/pacs/network";
 import {PacsNetworkService} from "../../../@shared/service/pacs/network.service";
 import {MatIcon} from "@angular/material/icon";
+import {User} from "../../../@shared/model/usuario/user";
 
 @Component({
     standalone: true,
     selector: 'app-add-aetitle',
-    templateUrl: './create-aetitle.component.html',
-    styleUrls: ['./create-aetitle.component.scss'],
+    templateUrl: './edit-aetitle.component.html',
+    styleUrls: ['./edit-aetitle.component.scss'],
     imports: [
         MatFormField,
         FormsModule,
@@ -58,7 +59,7 @@ import {MatIcon} from "@angular/material/icon";
     ]
 
 })
-export class CreateAetitleComponent {
+export class EditAetitleComponent {
     protected readonly TipoAetitle = TipoAetitle;
     createNewExternalNetwork = false;
     isLoading: boolean = true;
@@ -72,10 +73,10 @@ export class CreateAetitleComponent {
     aetitlesAccessFiltered: Aetitle[] = [];
     externalNetworks: PacsNetwork[] = [];
     filteredExternalNetworks: PacsNetwork[] = [];
-
+    cadastroAetitlePacs: boolean = true;
 
     constructor(
-        public dialogRef: MatDialogRef<CreateAetitleComponent>,
+        public dialogRef: MatDialogRef<EditAetitleComponent>,
         private formBuilder: FormBuilder,
         private clinicaService: ClinicaService,
         private aetitleService: AetitleService,
@@ -83,20 +84,22 @@ export class CreateAetitleComponent {
         private snackBar: MatSnackBar,
         private userService: UserService,
         private pacsNetworkService: PacsNetworkService,
-        @Inject(MAT_DIALOG_DATA) public tipo_aetitle: TipoAetitle
+        @Inject(MAT_DIALOG_DATA) public aetitle: Aetitle
     ) {
     }
 
     ngOnInit() {
         this.isLoading = true;
         this.aetitleForm = this.formBuilder.group({
-            tipo: [this.tipo_aetitle],
-            aetitle: [''],
+            id: [this.aetitle.id, Validators.required],
+            tipo: [this.aetitle.tipo, Validators.required],
+            aetitle: ['', Validators.required],
             descricao: [''],
-            pacs_id: [this.userService.getUser()?.pacs_id],
-            clinica_id: [''],
-            access_control_aetitles_ids: [''],
+            pacs_id: [this.aetitle.pacs_id, Validators.required],
+            clinica_id: [this.aetitle.clinica_id],
+            access_control_aetitles_ids: [this.aetitle?.access_control_aetitles_ids],
             new_external_network: [false],
+            sync_pacs_aetitle: [false],
             external_network_id: [''],
             external_network_name: [''],
             external_network_host: [''],
@@ -106,7 +109,7 @@ export class CreateAetitleComponent {
             result1: this.clinicaService.query(),
             result2: this.pacsService.query(),
             result3: this.aetitleService.query(),
-            result4: this.pacsNetworkService.query(this.userService.getUser()?.pacs_id, {type: 'EXTERNAL'})
+            result4: this.pacsNetworkService.query(this.userService.getUser()?.pacs_id, {type: 'EXTERNAL'}),
         }).subscribe({
             next: ({result1, result2, result3, result4}) => {
                 this.clinicas = result1;
@@ -117,10 +120,10 @@ export class CreateAetitleComponent {
                 this.aetitlesAccessFiltered = result3;
                 this.externalNetworks = result4;
                 this.filteredExternalNetworks = result4;
+                this.aetitleForm.patchValue(this.aetitle);
                 this.isLoading = false;
             },
             error: (err) => {
-                console.error('Erro ao buscar os dados:', err);
                 this.isLoading = false;
             }
         });
@@ -171,7 +174,7 @@ export class CreateAetitleComponent {
         this.createNewExternalNetwork = !this.createNewExternalNetwork;
     }
 
-    submit(): void {
+    onSubmit(): void {
         if (this.aetitleForm.invalid) {
             this.aetitleForm.markAllAsTouched();
             return;
@@ -179,10 +182,9 @@ export class CreateAetitleComponent {
         const pacsData = this.aetitleForm.value as Aetitle;
         this.isSaving = true;
         this.aetitleForm.disable();
-
-        this.aetitleService.create(pacsData).subscribe({
+        this.aetitleService.update(pacsData).subscribe({
             next: (response) => {
-                this.snackBar.open('Aetitle criado com sucesso', 'Fechar', {
+                this.snackBar.open('Aetitle atualizado com sucesso', 'Fechar', {
                     duration: 4000,
                     horizontalPosition: 'right',
                     verticalPosition: 'bottom',
@@ -192,7 +194,7 @@ export class CreateAetitleComponent {
                 this.dialogRef.close(response);
             },
             error: (error) => {
-                this.snackBar.open('Falha ao criar Aetitle', 'Fechar', {
+                this.snackBar.open('Falha ao atualizar Aetitle', 'Fechar', {
                     duration: 4000,
                     horizontalPosition: 'right',
                     verticalPosition: 'bottom',
@@ -205,5 +207,9 @@ export class CreateAetitleComponent {
 
     onCancel() {
         this.dialogRef.close();
+    }
+
+    toggleCadastroAetitlePacs() {
+        this.cadastroAetitlePacs = !this.cadastroAetitlePacs;
     }
 }

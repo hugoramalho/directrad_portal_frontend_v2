@@ -35,6 +35,7 @@ import {EditPacsDialogComponent} from "./edit-dialog/edit-pacs.dialog.component"
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
 import {CreatePacsDialogComponent} from "./cadastro-dialog/create-pacs.dialog.component";
 import {PacsCredentialsDialogComponent} from "./credentials-dialog/pacs-credentials.dialog.component";
+import {EmptyValuePipe} from "../../@shared/pipe/empty-value.pipe";
 
 @Component({
     selector: 'app-cadastro-pacs',
@@ -56,7 +57,8 @@ import {PacsCredentialsDialogComponent} from "./credentials-dialog/pacs-credenti
         NgIf,
         MatProgressSpinner,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        EmptyValuePipe
     ],
     templateUrl: './pacs.component.html',
     styleUrl: './pacs.component.scss'

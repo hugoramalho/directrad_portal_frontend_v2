@@ -164,7 +164,28 @@ button {
 /* Min width 1600px */
 @media only screen and (min-width: 1600px) {}
 
+//----------------------------------------------------------------------------------------------------------------------
 .dialog-title {
     font-size: 1.5rem !important;
     display: inline !important;
+}
+.danger-snackbar {
+    background-color: #ff4d4d !important; // vermelho mais vivo
+    color: white !important;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 20px !important;
+    border-radius: 8px;
+    max-width: 500px !important;
+    min-width: 300px !important;
+    width: auto !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.success-snackbar {
+    background-color: #4caf50 !important; // verde
+    color: white !important;
+    font-size: 16px;
+    font-weight: bold;
 }

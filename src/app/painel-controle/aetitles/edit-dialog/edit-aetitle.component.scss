@@ -1,6 +1,5 @@
 .mat-mdc-button {
     border: 0;
-    height: auto;
     min-width: auto;
     min-height: auto;
     padding: 13px 40px;
@@ -20,7 +19,7 @@
 
 mat-dialog-content {
     overflow-x: hidden !important;
-    height: 40vh;
+    height: 50vh;
     width: 100%;
     .loading-container {
         display: flex;

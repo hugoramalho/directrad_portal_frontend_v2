@@ -15,6 +15,7 @@ export interface Aetitle {
     aetitle: string;
     aetitle_new_name?: string | null;
     aetitle_destino?: number | null;
+    access_control_aetitles_ids?: undefined | null | number[] | string[];
     tipo: string | null;
     description?: string | null;
     clinica_id?: number | null;

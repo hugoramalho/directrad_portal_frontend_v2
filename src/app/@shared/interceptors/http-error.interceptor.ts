@@ -1,42 +1,63 @@
-// /**
-//  Created by: Hugo Ramalho <ramalho.hg@gmail.com>
+/**
+ Created by: Hugo Ramalho <ramalho.hg@gmail.com>
 
-//  Created at: 09/04/2024
-//  **/
+ Created at: 09/04/2024
+ **/
+/**
+ Created by: Hugo Ramalho <ramalho.hg@gmail.com>
 
-// import { Injectable } from '@angular/core';
-// import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-// import { Observable, throwError } from 'rxjs';
-// import { catchError } from 'rxjs/operators';
-// import { MatDialog } from '@angular/material/dialog';
-// // import { ErrorDialogComponent } from './error-dialog/error-dialog.component';  // Ajuste o caminho conforme necessário
+ Created at: 09/04/2024
+ **/
+import {Injectable} from '@angular/core';
+import {
+    HttpEvent,
+    HttpInterceptor,
+    HttpHandler,
+    HttpRequest,
+    HttpErrorResponse
+} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {MatDialog} from '@angular/material/dialog';
+import {AuthService} from "../service/auth/auth.service";
+import {Router} from '@angular/router';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
-// @Injectable()
-// export class HttpErrorInterceptor implements HttpInterceptor {
+@Injectable()
+export class HttpErrorInterceptor implements HttpInterceptor {
 
-//     constructor(private dialog: MatDialog) {}
+    constructor(
+        private dialog: MatDialog,
+        private authService: AuthService,
+        private router: Router,
+        private snackBar: MatSnackBar,
+    ) {}
 
-//     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-//         return next.handle(request)
-//             .pipe(
-//                 catchError((error: HttpErrorResponse) => {
-//                     let errorMessage = 'Unknown error occurred';
-//                     if (error.error instanceof ErrorEvent) {
-//                         // Client-side error
-//                         errorMessage = `Error: ${error.error.message}`;
-//                     } else {
-//                         // Server-side error
-//                         errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-//                     }
-//                     this.openErrorDialog(errorMessage);
-//                     return throwError(errorMessage);
-//                 })
-//             );
-//     }
-
-//     private openErrorDialog(message: string): void {
-//         this.dialog.open(ErrorDialogComponent, {
-//             data: { message: message }
-//         });
-//     }
-// }
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        return next.handle(request).pipe(
+            catchError((error: HttpErrorResponse) => {
+                console.log(error.status);
+                if (error.status === 401) {
+                    this.authService.logout();
+                    this.router.navigate(['/authentication']);
+                    return throwError(() => new Error('Unauthorized'));
+                }
+                let errorMessage = 'Unknown error occurred';
+                errorMessage = error.error instanceof ErrorEvent
+                    ? error.error.message
+                    : error.message;
+                this.snackBar.open(
+                    errorMessage || 'Falha na requisição',
+                    'Fechar',
+                    {
+                        duration: 10000,
+                        horizontalPosition: 'right',
+                        verticalPosition: 'bottom',
+                        panelClass: ['success-snackbar']
+                    }
+                );
+                return throwError(() => new Error(errorMessage));
+            })
+        );
+    }
+}
