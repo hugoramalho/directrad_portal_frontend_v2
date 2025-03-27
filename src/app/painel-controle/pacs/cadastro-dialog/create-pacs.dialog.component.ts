@@ -83,6 +83,7 @@ export class CreatePacsDialogComponent {
                 worklist_ip: [''],
                 porta_wkl: [''],
                 porta_wado: [''],
+                porta_wado_local: [''],
                 porta_api: [''],
                 porta_nginx: [''],
                 porta_ssl: [''],

@@ -58,6 +58,8 @@ export class EditPacsDialogComponent {
     filteredAdminUsers: UserAdmin[] = [];
     teleUsers: UserTele[] = [];
     filteredTeleUsers: UserTele[] = [];
+    editLegacyTable: boolean = false;
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -72,6 +74,8 @@ export class EditPacsDialogComponent {
 
     ngOnInit(): void {
         this.isLoading = true;
+        this.pacs_central = this.pacs.tipo_pacs_application !== "PACS_CLIENTE";
+        this.pacs_host = PacsHostMapper.getDescription(this.pacs.tipo_pacs_application as PacsHostType);
         this.pacsForm = this.formBuilder.group({
             id: [''],
             tipo_pacs_application: [this.pacs.tipo_pacs_application],
@@ -104,7 +108,13 @@ export class EditPacsDialogComponent {
             result3: this.usersService.queryTeles(),
         }).subscribe({
             next: ({result1, result2, result3}) => {
-                this.aetitles = result1;
+                this.aetitles = result1.filter(aetitle => {
+                    if(this.pacs_central) {
+                        return aetitle.pacs_application_id == this.pacs.pacs_application_id ||
+                            aetitle.pacs_id == this.pacs.id;
+                    }
+                    return aetitle.pacs_id == this.pacs.id;
+                });
                 this.adminUsers = result2;
                 this.filteredAdminUsers = result2;
                 this.teleUsers = result3;
@@ -115,6 +125,7 @@ export class EditPacsDialogComponent {
                 this.filteredStorageAetitles = this.aetitles.filter(aetitle =>
                     aetitle.tipo == TipoAetitle.STORAGE
                 );
+                console.log(this.pacs, this.aetitles);
                 this.pacsForm.patchValue(this.pacs);
                 this.isLoading = false;
             },
@@ -122,8 +133,7 @@ export class EditPacsDialogComponent {
                 this.isLoading = false;
             }
         });
-        this.pacs_central = this.pacs.tipo_pacs_application !== "PACS_CLIENTE";
-        this.pacs_host = PacsHostMapper.getDescription(this.pacs.tipo_pacs_application as PacsHostType);
+
     }
 
     submit(): void {
@@ -154,42 +164,80 @@ export class EditPacsDialogComponent {
 
 
     //------------------------------------------------------------------------------------------------------------------
+    toggleHabilitarEdicaoTabelaLegada() {
+        this.editLegacyTable = !this.editLegacyTable;
+        if(this.editLegacyTable) {
+            this.pacsForm.get('ip')?.enable();
+            this.pacsForm.get('dominio')?.enable();
+            this.pacsForm.get('worklist_ip')?.enable();
+            this.pacsForm.get('porta_wkl')?.enable();
+            this.pacsForm.get('porta_wado')?.enable();
+            this.pacsForm.get('porta_api')?.enable();
+            this.pacsForm.get('porta_nginx')?.enable();
+            this.pacsForm.get('porta_ssl')?.enable();
+            this.pacsForm.get('porta_dicom')?.enable();
+            this.pacsForm.get('pacs_ram_config')?.enable();
+            this.pacsForm.get('tamanho_pool')?.enable();
+            this.pacsForm.get('quantidade_threads')?.enable();
+            return;
+        }
+        this.pacsForm.get('ip')?.disable();
+        this.pacsForm.get('dominio')?.disable();
+        this.pacsForm.get('worklist_ip')?.disable();
+        this.pacsForm.get('porta_wkl')?.disable();
+        this.pacsForm.get('porta_wado')?.disable();
+        this.pacsForm.get('porta_api')?.disable();
+        this.pacsForm.get('porta_nginx')?.disable();
+        this.pacsForm.get('porta_ssl')?.disable();
+        this.pacsForm.get('porta_dicom')?.disable();
+        this.pacsForm.get('pacs_ram_config')?.disable();
+        this.pacsForm.get('tamanho_pool')?.disable();
+        this.pacsForm.get('quantidade_threads')?.disable();
+    }
+
     onWorklistAetitlesSearch(value: string) {
         this.filteredWorklistAetitles = this.aetitles.filter(aetitle =>
             aetitle.tipo == TipoAetitle.WORKLIST &&
             aetitle.aetitle?.toLowerCase().includes(value.toLowerCase())
         );
     }
+
     onStorageAetitlesSearch(value: string) {
         this.filteredStorageAetitles = this.aetitles.filter(aetitle =>
             aetitle.tipo == TipoAetitle.STORAGE &&
             aetitle.aetitle?.toLowerCase().includes(value.toLowerCase())
         );
     }
+
     onTeleSearch(value: string) {
         this.filteredTeleUsers = this.teleUsers.filter(user =>
             user.full_name?.toLowerCase().includes(value.toLowerCase())
         );
     }
+
     onAdminSearch(value: string) {
         this.filteredAdminUsers = this.adminUsers.filter(user =>
             user.username?.toLowerCase().includes(value.toLowerCase())
         );
     }
+
     //------------------------------------------------------------------------------------------------------------------
     goToNextPage() {
         if (this.currentPage < 2) {
             this.currentPage++;
         }
     }
+
     goToPreviousPage() {
         if (this.currentPage > 1) {
             this.currentPage--;
         }
     }
+
     onCancel() {
         this.dialogRef.close();
     }
+
     //------------------------------------------------------------------------------------------------------------------
 
 

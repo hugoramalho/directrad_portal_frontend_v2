@@ -7,50 +7,69 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            Identificação
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
+        <form
+            [formGroup]="searchForm">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Identificação
+                            </mat-label>
+                            <input
+                                (keydown.enter)="onSearch()"
+                                formControlName="identificacao"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Usuário administrador
+                            </mat-label>
+                            <input
+                                (keydown.enter)="onSearch()"
+                                formControlName="admin_user"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Aetitle principal
+                            </mat-label>
+                            <input
+                                (keydown.enter)="onSearch()"
+                                type="text"
+                                formControlName="aetitle_storage_principal"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Endereço IP
+                            </mat-label>
+                            <input
+                                (keydown.enter)="onSearch()"
+                                type="text"
+                                formControlName="ip"
+                                matInput>
+                        </mat-form-field>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            Usuário administrador
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            Aetitle principal
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            Endereço IP
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
+        </form>
         <div class="btn-box">
-            <button mat-button>
+            <button
+                mat-button
+                (click)="onSearch()">
                 Buscar
             </button>
         </div>
@@ -64,7 +83,7 @@
             <div class="btn-box">
                 <button
                     mat-flat-button
-                    (click)="openCreatePacsModal()"
+                    (click)="onCreate()"
                     class="daxa h-auto add-new-task-btn">
                     + Cadastrar novo PACS
                 </button>
@@ -165,6 +184,12 @@
                                                 Instalação
                                             </button>
                                         </ng-template>
+                                        <button
+                                            mat-menu-item
+                                            (click)="onSyncPacs(element)">
+                                            <mat-icon>cached</mat-icon>
+                                            Sincronização
+                                        </button>
                                         <button
                                             mat-menu-item
                                             (click)="onEdit(element)">

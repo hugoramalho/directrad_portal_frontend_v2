@@ -274,6 +274,63 @@ export class CreateUserDialogComponent {
                     this.filteredAetitles = this.aetitles.filter(aet => aet.pacs_id === pacsId);
                     this.userForm.get('aetitle_id')?.reset();
                 });
+                this.userForm.get('group.group_id')?.valueChanges.subscribe(groupId => {
+                    if(groupId == UserGroups.ADMIN) {
+                        this.userForm.get('tele_id')?.setValue('');
+                        this.userForm.get('tele_id')?.disable();
+                        this.userForm.get('clinica_id')?.setValue('');
+                        this.userForm.get('clinica_id')?.disable();
+                        this.userForm.get('aetitle_id')?.setValue('');
+                        this.userForm.get('aetitle_id')?.disable();
+                        this.userForm.get('pacs_id')?.setValue('');
+                        this.userForm.get('pacs_id')?.disable();
+                        this.userForm.get('permissions.enable_create_access')?.setValue(true);
+                        this.userForm.get('permissions.enable_create_access')?.disable();
+                        this.userForm.get('permissions.enable_delete_exam')?.setValue(true);
+                        this.userForm.get('permissions.enable_delete_exam')?.disable();
+                        this.userForm.get('permissions.enable_link_ris')?.setValue(true);
+                        this.userForm.get('permissions.enable_link_ris')?.disable();
+                        this.userForm.get('permissions.enable_export_exam')?.setValue(true);
+                        this.userForm.get('permissions.enable_export_exam')?.disable();
+                        this.userForm.get('permissions.enable_merge')?.setValue(true);
+                        this.userForm.get('permissions.enable_merge')?.disable();
+                        this.userForm.get('permissions.enable_group_selected_exams')?.setValue(true);
+                        this.userForm.get('permissions.enable_group_selected_exams')?.disable();
+                        this.userForm.get('permissions.enable_delete_series')?.setValue(true);
+                        this.userForm.get('permissions.enable_delete_series')?.disable();
+                        this.userForm.get('permissions.enabled_modalities')?.setValue([null])
+                        this.userForm.get('permissions.enabled_modalities')?.disable();
+                        this.userForm.get('permissions.enable_edit_study')?.setValue(true);
+                        this.userForm.get('permissions.enable_edit_study')?.disable();
+                        return;
+                    }
+                    this.userForm.get('tele_id')?.enable();
+                    this.userForm.get('tele_id')?.setValue('');
+                    this.userForm.get('clinica_id')?.enable();
+                    this.userForm.get('clinica_id')?.setValue('');
+                    this.userForm.get('aetitle_id')?.enable();
+                    this.userForm.get('aetitle_id')?.setValue('');
+                    this.userForm.get('pacs_id')?.enable();
+                    this.userForm.get('pacs_id')?.setValue('');
+                    this.userForm.get('permissions.enable_create_access')?.enable();
+                    this.userForm.get('permissions.enable_create_access')?.setValue(false);
+                    this.userForm.get('permissions.enable_delete_exam')?.enable();
+                    this.userForm.get('permissions.enable_delete_exam')?.setValue(false);
+                    this.userForm.get('permissions.enable_link_ris')?.enable();
+                    this.userForm.get('permissions.enable_link_ris')?.setValue(false);
+                    this.userForm.get('permissions.enable_export_exam')?.enable();
+                    this.userForm.get('permissions.enable_export_exam')?.setValue(false);
+                    this.userForm.get('permissions.enable_merge')?.enable();
+                    this.userForm.get('permissions.enable_merge')?.setValue(false);
+                    this.userForm.get('permissions.enable_group_selected_exams')?.enable();
+                    this.userForm.get('permissions.enable_group_selected_exams')?.setValue(false);
+                    this.userForm.get('permissions.enable_delete_series')?.enable();
+                    this.userForm.get('permissions.enable_delete_series')?.setValue(false);
+                    this.userForm.get('permissions.enabled_modalities')?.enable();
+                    this.userForm.get('permissions.enabled_modalities')?.setValue([null])
+                    this.userForm.get('permissions.enable_edit_study')?.enable();
+                    this.userForm.get('permissions.enable_edit_study')?.setValue(false);
+                });
                 this.isLoading = false;
             },
             error: (error) => {

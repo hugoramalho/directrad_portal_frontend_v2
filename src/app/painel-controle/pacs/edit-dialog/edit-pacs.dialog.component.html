@@ -1,8 +1,7 @@
 <div class="modal-header row" *ngIf="!pacs_central">
     <h5 class="modal-title">Editar PACS - Host próprio</h5>
 </div>
-
-<mat-dialog-content class="modal-body"  *ngIf="!pacs_central">
+<mat-dialog-content class="modal-body" *ngIf="!pacs_central">
     <div class="loading-container" *ngIf="isLoading; else pacsFormTemplate">
         <mat-spinner></mat-spinner>
     </div>
@@ -10,7 +9,7 @@
         <form class="pacs-form" [formGroup]="pacsForm">
             <div *ngIf="currentPage === 1">
                 <div class="row">
-                    <div class="col-md-8 form-group">
+                    <div class="col-md-16 form-group">
                         <mat-form-field>
                             <mat-label>Nome do Pacs</mat-label>
                             <input
@@ -21,19 +20,106 @@
                             />
                         </mat-form-field>
                     </div>
-                    <div class="col-md-4 form-group">
+                </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
                         <mat-form-field>
-                            <mat-label>Endereço IP</mat-label>
-                            <input
-                                matInput
-                                type="text"
-                                class="form-control"
-                                formControlName="ip"
-                            />
+                            <mat-label>AeTitle Principal (Storage)</mat-label>
+                            <mat-select formControlName="aet_principal">
+                                <mat-option>
+                                    <mat-icon>search</mat-icon>
+                                    <input
+                                        #storageAetitleSearchInput
+                                        class="mat-input-element"
+                                        matInput
+                                        (keydown)="$event.stopPropagation()"
+                                        (click)="$event.stopPropagation()"
+                                        (input)="onStorageAetitlesSearch(storageAetitleSearchInput.value)"
+                                        autocomplete="off"/>
+                                </mat-option>
+                                @for (aetitle of filteredStorageAetitles; track aetitle.id) {
+                                    <mat-option [value]="aetitle.id">
+                                        {{ aetitle.aetitle }}
+                                    </mat-option>
+                                }
+                            </mat-select>
                         </mat-form-field>
                     </div>
-
+                    <div class="col-md-6 form-group">
+                        <mat-form-field>
+                            <mat-label>AeTitle Worklist (Opcional)</mat-label>
+                            <mat-select formControlName="aet_worklist">
+                                <mat-option>
+                                    <mat-icon>search</mat-icon>
+                                    <input
+                                        #worklistAetitleSearchInput
+                                        class="mat-input-element"
+                                        matInput
+                                        (keydown)="$event.stopPropagation()"
+                                        (click)="$event.stopPropagation()"
+                                        (input)="onWorklistAetitlesSearch(worklistAetitleSearchInput.value)"
+                                        autocomplete="off"/>
+                                </mat-option>
+                                @for (aetitle of filteredWorklistAetitles; track aetitle.id) {
+                                    <mat-option [value]="aetitle.id">
+                                        {{ aetitle.aetitle }}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <mat-form-field>
+                            <mat-label>Usuário Tele</mat-label>
+                            <mat-select
+                                class="form-control"
+                                formControlName="tele_id">
+                                <mat-option>
+                                    <mat-icon>search</mat-icon>
+                                    <input
+                                        #teleUserSearchInput
+                                        matInput
+                                        placeholder="Buscar..."
+                                        (click)="$event.stopPropagation()"
+                                        (input)="onTeleSearch(teleUserSearchInput.value)"
+                                        autocomplete="off"/>
+                                </mat-option>
+                                @for (item of filteredTeleUsers; track item) {
+                                    <mat-option [value]="item.id">
+                                        {{ item.full_name }}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <mat-form-field>
+                            <mat-label>Conta Admin do PACS</mat-label>
+                            <mat-select
+                                class="form-control"
+                                formControlName="admin_id">
+                                <mat-option>
+                                    <mat-icon>search</mat-icon>
+                                    <input
+                                        #adminUserSearchInput
+                                        matInput
+                                        placeholder="Buscar..."
+                                        (click)="$event.stopPropagation()"
+                                        (input)="onAdminSearch(adminUserSearchInput.value)"
+                                        autocomplete="off"/>
+                                </mat-option>
+                                @for (item of filteredAdminUsers; track item) {
+                                    <mat-option [value]="item.id">
+                                        {{ item.username }} - {{ item?.name }}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <em class="form-subtitle">Dados do Host</em>
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <mat-form-field>
@@ -229,7 +315,7 @@
                                         placeholder="Buscar..."
                                         (click)="$event.stopPropagation()"
                                         (input)="onTeleSearch(teleUserSearchInput.value)"
-                                        autocomplete="off" />
+                                        autocomplete="off"/>
                                 </mat-option>
                                 @for (item of filteredTeleUsers; track item) {
                                     <mat-option [value]="item.id">
@@ -238,13 +324,13 @@
                                 }
                             </mat-select>
                         </mat-form-field>
-<!--                        <button-->
-<!--                            mat-raised-button-->
-<!--                            mat-button-->
-<!--                            type="submit"-->
-<!--                            class="btn btn-success btn-submit">-->
-<!--                            Cadastrar novo usuário Tele-->
-<!--                        </button>-->
+                        <!--                        <button-->
+                        <!--                            mat-raised-button-->
+                        <!--                            mat-button-->
+                        <!--                            type="submit"-->
+                        <!--                            class="btn btn-success btn-submit">-->
+                        <!--                            Cadastrar novo usuário Tele-->
+                        <!--                        </button>-->
                     </div>
                     <div class="col-md-6 form-group">
                         <mat-form-field>
@@ -260,27 +346,26 @@
                                         placeholder="Buscar..."
                                         (click)="$event.stopPropagation()"
                                         (input)="onAdminSearch(adminUserSearchInput.value)"
-                                        autocomplete="off" />
+                                        autocomplete="off"/>
                                 </mat-option>
                                 @for (item of filteredAdminUsers; track item) {
                                     <mat-option [value]="item.id">
-                                        {{ item.username }} - {{ item?.name}}
+                                        {{ item.username }} - {{ item?.name }}
                                     </mat-option>
                                 }
                             </mat-select>
                         </mat-form-field>
-<!--                        <button-->
-<!--                            mat-raised-button-->
-<!--                            mat-button-->
-<!--                            type="submit"-->
-<!--                            class="btn btn-success btn-submit"-->
-<!--                        >-->
-<!--                            Cadastrar novo usuário Pacs Admin-->
-<!--                        </button>-->
+                        <!--                        <button-->
+                        <!--                            mat-raised-button-->
+                        <!--                            mat-button-->
+                        <!--                            type="submit"-->
+                        <!--                            class="btn btn-success btn-submit"-->
+                        <!--                        >-->
+                        <!--                            Cadastrar novo usuário Pacs Admin-->
+                        <!--                        </button>-->
                     </div>
                 </div>
                 <div class="pacs-access-data">
-                    <hr/>
                     <div class="row pacs-access-data-header">
                         <div class="col-md-6 form-group">
                             <h5 style="display: inline"> Dados de acesso ao Host </h5>
@@ -343,7 +428,6 @@
         </form>
     </ng-template>
 </mat-dialog-content>
-
 <mat-dialog-actions class="modal-footer" *ngIf="!pacs_central">
     <button
         *ngIf="currentPage > 1"
@@ -387,7 +471,7 @@
 </mat-dialog-actions>
 
 <div class="modal-header row" *ngIf="pacs_central">
-    <h5 class="modal-title">Editar PACS | {{pacs_host}}</h5>
+    <h5 class="modal-title">Editar PACS | {{ pacs_host }}</h5>
 </div>
 <mat-dialog-content class="modal-body" *ngIf="pacs_central">
     <div class="loading-container" *ngIf="isLoading; else pacsFormTemplate">
@@ -471,7 +555,7 @@
                                     placeholder="Buscar..."
                                     (click)="$event.stopPropagation()"
                                     (input)="onTeleSearch(teleUserSearchInput.value)"
-                                    autocomplete="off" />
+                                    autocomplete="off"/>
                             </mat-option>
                             @for (item of filteredTeleUsers; track item) {
                                 <mat-option [value]="item.id">
@@ -480,13 +564,6 @@
                             }
                         </mat-select>
                     </mat-form-field>
-<!--                    <button-->
-<!--                        mat-raised-button-->
-<!--                        mat-button-->
-<!--                        type="submit"-->
-<!--                        class="btn btn-success btn-submit">-->
-<!--                        Cadastrar novo usuário Tele-->
-<!--                    </button>-->
                 </div>
                 <div class="col-md-6 form-group">
                     <mat-form-field>
@@ -502,24 +579,165 @@
                                     placeholder="Buscar..."
                                     (click)="$event.stopPropagation()"
                                     (input)="onAdminSearch(adminUserSearchInput.value)"
-                                    autocomplete="off" />
+                                    autocomplete="off"/>
                             </mat-option>
                             @for (item of filteredAdminUsers; track item) {
                                 <mat-option [value]="item.id">
-                                    {{ item.username }} - {{ item?.name}}
+                                    {{ item.username }} - {{ item?.name }}
                                 </mat-option>
                             }
                         </mat-select>
                     </mat-form-field>
-<!--                    <button-->
-<!--                        mat-raised-button-->
-<!--                        mat-button-->
-<!--                        type="submit"-->
-<!--                        class="btn btn-success btn-submit">-->
-<!--                        Cadastrar novo usuário Pacs Admin-->
-<!--                    </button>-->
                 </div>
             </div>
+            <div class="flex justify-content-start mb-25">
+                <mat-label
+                    style="white-space: nowrap; display: inline; margin-right: 1rem">
+                    Editar dados da tabela legada
+                </mat-label>
+                <mat-slide-toggle
+                    (change)="toggleHabilitarEdicaoTabelaLegada()"
+                    class="form-control"
+                    style="display: inline">
+                </mat-slide-toggle>
+            </div>
+            <ng-container *ngIf="editLegacyTable">
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Endereço IP</mat-label>
+                            <input
+                                matInput
+                                type="text"
+                                class="form-control"
+                                formControlName="ip"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Domínio</mat-label>
+                            <input
+                                matInput
+                                type="text"
+                                class="form-control"
+                                formControlName="dominio"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>IP Worklist</mat-label>
+                            <input
+                                matInput
+                                type="text"
+                                class="form-control"
+                                formControlName="worklist_ip"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Porta worklist (Padrão: 3000)</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_wkl"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Porta WADO (Padrão: 8090)</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_wado"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Porta API (Padrão: 3966)</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_api"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Porta HTTP (Padrão: 80)</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_nginx"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Porta HTTPS/SSL (Padrão: 443)</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_ssl"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Porta DICOM (Padrão: 11112)</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_dicom"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Total de RAM alocada</mat-label>
+                            <mat-select
+                                class="form-control"
+                                formControlName="pacs_ram_config">
+                                <mat-option value="4">4GB</mat-option>
+                                <mat-option value="8">8GB</mat-option>
+                                <mat-option value="16">16GB</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Pools (Padrão: 50, Max: 500)</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="tamanho_pool"
+                            />
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <mat-form-field>
+                            <mat-label>Threads (Padrão: 100, Max: 600)</mat-label>
+                            <input
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="quantidade_threads"
+                            />
+                        </mat-form-field>
+                    </div>
+                </div>
+            </ng-container>
         </form>
     </ng-template>
 </mat-dialog-content>

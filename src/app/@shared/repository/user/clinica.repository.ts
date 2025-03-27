@@ -38,7 +38,6 @@ export class ClinicaRepository {
                 this.clinicsSubject.next(clinicsMap);
             }),
             catchError(err => {
-                console.error('Erro ao obter clínicas:', err);
                 return of([]);
             })
         );

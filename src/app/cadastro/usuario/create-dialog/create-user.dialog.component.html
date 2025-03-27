@@ -312,14 +312,18 @@
             <div [hidden]="!(currentPage === 2)">
                 <div class="disclaimer">
                     <p class="disclaimer-topic">O tipo de usuário:
-                        <i>"{{ UserGroupsMapper.getDescription(UserGroups.ADMIN) }}"</i> define permissões de usuários que são <strong>funcionários da DirectRad</strong>.</p>
-                    <p class="disclaimer-topic">Para cadastrar admistradores de Pacs a nível de <strong>usuários que são clientes da DirectRad (clínicas, hospitais, etc)</strong>, escolha
+                        <i>"{{ UserGroupsMapper.getDescription(UserGroups.ADMIN) }}"</i> define permissões de usuários
+                        que são <strong>funcionários da DirectRad</strong>.</p>
+                    <p class="disclaimer-topic">Para cadastrar admistradores de Pacs a nível de <strong>usuários que são
+                        clientes da DirectRad (clínicas, hospitais, etc)</strong>, escolha
                         a opção: <i>"{{ UserGroupsMapper.getDescription(UserGroups.PACS_ADMIN) }}"</i>.</p>
                     <p
-                        *ngIf="userForm.get('groups.group_id')?.value === UserGroups.ADMIN"
+                        *ngIf="userForm.get('group.group_id')?.value === UserGroups.ADMIN"
                         class="disclaimer-topic danger-topic">
-                        <strong>Atenção: Você escolheu o tipo de usuário: <i>"{{ UserGroupsMapper.getDescription(UserGroups.ADMIN) }}"</i>, lembre-se de que essa opção deve ser usada apenas para criar usuários que são funcionários da DirectRad.
-                        <br>Esse usuário terá permissões de Adminstrador do sistema como funcionário da DirectRad.
+                        <strong>Atenção: Você escolheu o tipo de usuário:
+                            <i>"{{ UserGroupsMapper.getDescription(UserGroups.ADMIN) }}"</i>, lembre-se de que essa
+                            opção deve ser usada apenas para criar usuários que são funcionários da DirectRad.
+                            <br>Esse usuário terá permissões de Adminstrador do sistema como funcionário da DirectRad.
                         </strong>
                     </p>
                 </div>
@@ -554,7 +558,6 @@
                             </mat-form-field>
                         </div>
                     </div>
-
                 </div>
             </div>
         </form>

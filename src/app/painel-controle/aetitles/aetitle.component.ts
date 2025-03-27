@@ -20,7 +20,6 @@ import {CreateAetitleComponent} from "./create-dialog/create-aetitle.component";
 import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {AetitleService} from "../../@shared/service/pacs/aetitle.service";
 import {forkJoin} from "rxjs";
-import {PacsHostMapper, PacsHostType} from "../../@shared/model/pacs/pacs-host-type";
 import {ClinicaService} from "../../@shared/service/usuario/clinica.service";
 import {PacsService} from "../../@shared/service/pacs/pacs.service";
 import {UserClinica} from "../../@shared/model/usuario/user-clinica";
@@ -34,10 +33,12 @@ import {DateFormatPipe} from "../../@shared/pipe/date.pipe";
 import {DatetimeFormatPipe} from "../../@shared/pipe/datetime.pipe";
 import {SelectPacsTypeComponent} from "../pacs/cadastro-dialog/pacs-type-choice.dialog.component";
 import {CreatePacsDialogComponent} from "../pacs/cadastro-dialog/create-pacs.dialog.component";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SelectCreateAetitleTypeComponent} from "./create-dialog/aetitle-choice.dialog.component";
 import {UserGroups} from "../../@shared/model/usuario/user-groups";
 import {UserService} from "../../@shared/service/usuario/user.service";
 import {MatIcon} from "@angular/material/icon";
+import {EmptyValuePipe} from "../../@shared/pipe/empty-value.pipe";
 
 
 @Component({
@@ -61,7 +62,9 @@ import {MatIcon} from "@angular/material/icon";
         MatPaginator,
         MatProgressSpinner,
         DateFormatPipe,
-        DatetimeFormatPipe
+        DatetimeFormatPipe,
+        ReactiveFormsModule,
+        EmptyValuePipe
     ],
     templateUrl: './aetitle.component.html',
     styleUrl: './aetitle.component.scss'
@@ -69,6 +72,7 @@ import {MatIcon} from "@angular/material/icon";
 export class CadastroAetitleComponent {
     isAdmin: boolean = false;
     isLoading: boolean = true;
+    searchForm: FormGroup;
     classApplied = false;
     isToggled = false;
     currentLength: number = 0;
@@ -80,7 +84,7 @@ export class CadastroAetitleComponent {
     displayedColumns: string[] = [
         'aetitle',
         'tipo_aetitle',
-        'pacs_relacionado',
+        'pacs_identificacao',
         'clinica_relacionada',
         'status',
         'ultima_sincronizacao_pacs',
@@ -89,6 +93,7 @@ export class CadastroAetitleComponent {
 
     constructor(
         public themeService: CustomizerSettingsService,
+        private formBuilder: FormBuilder,
         private dialog: MatDialog,
         private aetitleService: AetitleService,
         private clinicaService: ClinicaService,
@@ -98,13 +103,40 @@ export class CadastroAetitleComponent {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
+        this.searchForm = this.formBuilder.group({
+            aetitle: [''],
+            tipo: [''],
+            pacs_identificacao: ['']
+        });
     }
+
+    // ngOnInit(): void {
+    //     this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
+    //     this.loadAetitles(1, 20);
+    // }
 
     ngOnInit(): void {
         this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
-        this.loadAetitles(1, 20);
-    }
+        this.isLoading = true;
+        forkJoin({
+            result1: this.clinicaService.query(),
+            result2: this.aetitleService.query(), // <-- sem paginação!
+            result3: this.pacsService.query(),
+        }).subscribe({
+            next: ({result1, result2, result3}) => {
+                this.clinicas = result1;
+                this.aetitles = result2;
+                this.pacsList = result3;
 
+
+                this.runFrontendSearch(); // primeira busca já renderiza a tabela
+                this.isLoading = false;
+            },
+            error: (err) => {
+                this.isLoading = false;
+            }
+        });
+    }
 
     private loadAetitles(page: number = 1, page_size: number = 20): void {
         this.isLoading = true;
@@ -122,7 +154,7 @@ export class CadastroAetitleComponent {
                     aetitle.tipo_aetitle = TipoAetitleMapper.getDescription(aetitle.tipo as TipoAetitle);
                     this.pacsList.forEach(pacs => {
                         if (aetitle.pacs_id == pacs.id) {
-                            aetitle.pacs_relacionado = pacs.identificacao;
+                            aetitle.pacs_identificacao = pacs.identificacao;
                             return;
                         }
                     });
@@ -144,6 +176,33 @@ export class CadastroAetitleComponent {
         });
     }
 
+    private runFrontendSearch(page: number = 1, pageSize: number = 20): void {
+        this.isLoading = true;
+        const filters = this.searchForm.value;
+        const result = this.aetitleService.search(this.aetitles, page, pageSize, filters);
+        this.dataSource.data = result.items.map(aetitle => {
+            aetitle.status = PacsSyncStatusMapper.getDescription(aetitle.status_sincronizacao_pacs as PacsSyncStatus);
+            aetitle.tipo_aetitle = TipoAetitleMapper.getDescription(aetitle.tipo as TipoAetitle);
+            aetitle.pacs_identificacao = this.pacsList.find(p => p.id == aetitle.pacs_id)?.identificacao ?? '';
+            aetitle.clinica_relacionada = this.clinicas.find(c => c.id == aetitle.clinica_id)?.nome ?? '';
+            return aetitle;
+        });
+        this.currentLength = result.total;
+        this.isLoading = false;
+    }
+
+//----------------------------------------------------------------------------------------------------------------------
+    onCreate() {
+        this.dialog.open(SelectCreateAetitleTypeComponent, {
+            width: '400px',
+        }).afterClosed().subscribe(result => {
+            this.dialog.open(CreateAetitleComponent, {
+                width: '900px',
+                data: result as TipoAetitle
+            });
+        });
+    }
+
     onEdit(aetitle: Aetitle) {
 
     }
@@ -152,24 +211,7 @@ export class CadastroAetitleComponent {
 
     }
 
-    onCreateAetitle() {
-        const dialogRef = this.dialog.open(SelectCreateAetitleTypeComponent, {
-            width: '400px',
-        });
-        // dialogRef.afterClosed().subscribe((result) => {
-        //     if (result) {
-        //         this.loadPacs(); // recarrega a lista se houve atualização
-        //     }
-        // });
-        dialogRef.afterClosed().subscribe(result => {
-            this.dialog.open(CreateAetitleComponent, {
-                width: '900px',
-                data: result as TipoAetitle
-            });
-        });
-    }
 
-    //------------------------------------------------------------------------------------------------------------------
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
         const numSelected = this.selection.selected.length;
@@ -204,11 +246,18 @@ export class CadastroAetitleComponent {
         this.classApplied = !this.classApplied;
     }
 
-    onPageChange(event: PageEvent) {
-        this.loadAetitles(event.pageIndex + 1, event.pageSize);
+    // onPageChange(event: PageEvent) {
+    //     this.loadAetitles(event.pageIndex + 1, event.pageSize);
+    // }
+
+    onSearch() {
+        this.runFrontendSearch();
     }
 
-    // RTL Mode
+    onPageChange(event: PageEvent) {
+        this.runFrontendSearch(event.pageIndex + 1, event.pageSize);
+    }
+
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }

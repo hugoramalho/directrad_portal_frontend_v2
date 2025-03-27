@@ -1,7 +1,7 @@
 /**
  * Created by: Hugo Ramalho <ramalho.hg@gmail.com>
  *
- * Created at: 24/03/2025
+ * Created at: 19/03/2025
  **/
 
 import {Component, Inject} from '@angular/core';
@@ -26,8 +26,8 @@ import {Pacs} from "../../../@shared/model/pacs/pacs";
 @Component({
     standalone: true,
     selector: 'app-pacs-credentials',
-    templateUrl: './pacs-credentials.dialog.component.html',
-    styleUrl: './pacs-credentials.dialog.component.scss',
+    templateUrl: './pacs-sync.dialog.component.html',
+    styleUrl: './pacs-sync.dialog.component.scss',
     imports: [
         MatButton,
         MatDialogActions,
@@ -47,7 +47,8 @@ import {Pacs} from "../../../@shared/model/pacs/pacs";
         NgClass
     ]
 })
-export class PacsCredentialsDialogComponent {
+export class PacsSyncDialogComponent
+{
     credentialsForm!: FormGroup;
     loading = true;
     hidePassword: boolean = true;
@@ -58,7 +59,7 @@ export class PacsCredentialsDialogComponent {
     constructor(
         private formBuilder: FormBuilder,
         private pacsCredentialsService: PacsCredentialsService,
-        private dialogRef: MatDialogRef<PacsCredentialsDialogComponent>,
+        private dialogRef: MatDialogRef<PacsSyncDialogComponent>,
         private snackBar: MatSnackBar,
         public themeService: CustomizerSettingsService,
         @Inject(MAT_DIALOG_DATA) public pacs: Pacs
@@ -68,7 +69,8 @@ export class PacsCredentialsDialogComponent {
         });
     }
 
-    ngOnInit(): void {
+    ngOnInit(): void
+    {
         this.hasCredentials = !!this.pacs.pacs_credentials_id;
         console.log(this.pacs.pacs_credentials_id);
         this.credentialsForm = this.formBuilder.group({
@@ -89,7 +91,7 @@ export class PacsCredentialsDialogComponent {
                 sameValueValidator('new_password', 'new_password_repeat'),
             ]
         });
-        if (this.hasCredentials) {
+        if(this.hasCredentials) {
             this.pacsCredentials.id = this.pacs.pacs_credentials_id;
             this.pacsCredentials.pacs_id = this.pacs.id;
             this.pacsCredentialsService.find(this.pacsCredentials).subscribe(
@@ -101,7 +103,23 @@ export class PacsCredentialsDialogComponent {
         }
     }
 
-    onSubmit(): void {
+    private initializeForm(): void
+    {
+
+    }
+
+    close(): void
+    {
+        this.dialogRef.close(false);
+    }
+
+    onCancel()
+    {
+        this.dialogRef.close();
+    }
+
+    onSubmit(): void
+    {
         if (this.credentialsForm.invalid) {
             this.credentialsForm.markAllAsTouched(); // força exibição dos erros
             return;
@@ -127,18 +145,19 @@ export class PacsCredentialsDialogComponent {
             }
         });
     }
-
 //----------------------------------------------------------------------------------------------------------------------
-    onCancel() {
-        this.dialogRef.close();
-    }
-    toggleTheme() {
+    toggleTheme()
+    {
         this.themeService.toggleTheme();
     }
-    toggleCardBorderTheme() {
+
+    toggleCardBorderTheme()
+    {
         this.themeService.toggleCardBorderTheme();
     }
-    toggleRTLEnabledTheme() {
+
+    toggleRTLEnabledTheme()
+    {
         this.themeService.toggleRTLEnabledTheme();
     }
 }

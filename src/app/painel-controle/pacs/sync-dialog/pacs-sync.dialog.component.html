@@ -5,8 +5,7 @@
 <mat-dialog-content class="modal-body">
     <em
         *ngIf="!hasCredentials"
-        class="credentials-registered-disclaimer">Obs: Credenciais ainda não cadastradas
-    </em>
+        class="credentials-registered-disclaimer">Obs: Credenciais ainda não cadastradas</em>
     <form [formGroup]="credentialsForm" class="password-form">
         <div class="form-field-wrapper">
             <mat-form-field class="fixed-height-field">
@@ -50,6 +49,7 @@
                     </span>
                 </button>
             </mat-form-field>
+
             <div class="error-container">
                 <mat-error
                     *ngIf="credentialsForm.get('pacs_new_password')?.hasError('minlength')">
@@ -63,7 +63,7 @@
         </div>
         <div class="form-field-wrapper">
             <mat-form-field class="fixed-height-field">
-                <mat-label>Digits novamente a nova senha</mat-label>
+                <mat-label>Digite novamente a nova senha</mat-label>
                 <input
                     matInput
                     [type]="hidePassword ? 'password' : 'text'"

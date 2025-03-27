@@ -7,55 +7,80 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            Aetitle
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
+        <form
+            [formGroup]="searchForm">
+            <div class="row">
+                <div
+                    *ngIf="isAdmin"
+                    class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                PACS
+                            </mat-label>
+                            <input
+                                (keydown.enter)="onSearch()"
+                                matInput
+                                formControlName="pacs_identificacao">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Aetitle
+                            </mat-label>
+                            <input
+                                (keydown.enter)="onSearch()"
+                                matInput
+                                formControlName="aetitle">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Tipo Aetitle
+                            </mat-label>
+                            <mat-select
+                                (selectionChange)="onSearch()"
+                                class="form-control"
+                                formControlName="tipo">
+                                <mat-option
+                                    [value]="">
+                                    <i>Todos os tipos</i>
+                                </mat-option>
+                                <mat-option
+                                    [value]="'storage'">
+                                    Armazenamento
+                                </mat-option>
+                                <mat-option
+                                    [value]="'worklist'">
+                                    Worklist
+                                </mat-option>
+                                <mat-option
+                                    [value]="'long_term'">
+                                    Longo Prazo
+                                </mat-option>
+                                <mat-option
+                                    [value]="'exporter'">
+                                    Exportação
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            Tipo Aetitle
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
+            <div class="btn-box">
+                <button
+                    (click)="onSearch()"
+                    mat-button>
+                    Buscar
+                </button>
             </div>
-            <div
-                *ngIf="isAdmin"
-                class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            PACS
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            Status
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-        <div class="btn-box">
-            <button mat-button>
-                Buscar
-            </button>
-        </div>
+        </form>
     </mat-card-content>
 </mat-card>
 
@@ -65,7 +90,7 @@
     <mat-card-header>
         <mat-card-title>
             <div class="btn-box">
-                <button mat-flat-button class="daxa h-auto" (click)="onCreateAetitle()">
+                <button mat-flat-button class="daxa h-auto" (click)="onCreate()">
                     + Cadastrar novo Aetitle
                 </button>
             </div>
@@ -95,12 +120,12 @@
                                 {{ element.tipo_aetitle }}
                             </td>
                         </ng-container>
-                        <ng-container matColumnDef="pacs_relacionado">
+                        <ng-container matColumnDef="pacs_identificacao">
                             <th mat-header-cell *matHeaderCellDef>
                                 Pacs Relacionado
                             </th>
                             <td mat-cell *matCellDef="let element" class="text-black">
-                                {{ element.pacs_relacionado }}
+                                <span [innerHTML]="element.pacs_identificacao | emptyValue"></span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="clinica_relacionada">
@@ -108,7 +133,7 @@
                                 Clínica
                             </th>
                             <td mat-cell *matCellDef="let element">
-                                {{ element.clinica_relacionada }}
+                                <span [innerHTML]="element.clinica_relacionada | emptyValue"></span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="status">
@@ -124,7 +149,7 @@
                                 Última Sincronização em
                             </th>
                             <td mat-cell *matCellDef="let element">
-                                {{ element.ultima_sincronizacao_pacs | datetimeFormat }}
+                                <span [innerHTML]="element.ultima_sincronizacao_pacs | emptyValue"></span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="action">
