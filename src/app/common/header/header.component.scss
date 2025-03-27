@@ -203,8 +203,8 @@
                     padding: 0 18px 0 0;
 
                     img {
-                        width: 40px;
-                        border-radius: 50%;
+                        width: 1.5rem;
+                        //border-radius: 50%;
                     }
                     &::after {
                         top: 50%;
@@ -225,8 +225,8 @@
                         bottom: 3px;
                         width: 11px;
                         height: 11px;
-                        border: 2px solid var(--whiteColor);
-                        background-color: #2ecc71;
+                        //border: 2px solid var(--whiteColor);
+                        //background-color: #2ecc71;
                     }
                 }
             }
@@ -762,8 +762,8 @@
                     bottom: 20px;
                 };
                 img {
-                    width: 40px;
-                    border-radius: 50%;
+                    width: 1.5rem;
+                    //border-radius: 50%;
                 }
                 .title {
                     margin-left: 12px;

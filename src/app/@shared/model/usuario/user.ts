@@ -16,7 +16,7 @@ export class User {
     tipo_usuario: string | null;
     active: boolean;
     excluded?: boolean | null;
-    pacs_id: string;
+    pacs_id: string | null | number | any;
     aetitle_id?: string | null;
     clinica_id?: string | null | number;
     tele_id?: string | null | number | undefined;
