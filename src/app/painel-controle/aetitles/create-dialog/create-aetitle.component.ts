@@ -103,7 +103,7 @@ export class CreateAetitleComponent {
             external_network_name: [''],
             external_network_host: [''],
             external_network_port: [''],
-            pacs_register: [false],
+            sync_pacs_aetitle: [false],
         });
         forkJoin({
             result1: this.clinicaService.query(),

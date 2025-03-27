@@ -149,7 +149,7 @@
                                 Última Sincronização em
                             </th>
                             <td mat-cell *matCellDef="let element">
-                                <span [innerHTML]="element.ultima_sincronizacao_pacs | emptyValue"></span>
+                                <span [innerHTML]="element.ultima_sincronizacao_pacs | unknownValue"></span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="action">

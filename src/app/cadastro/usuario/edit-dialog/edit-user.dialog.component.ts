@@ -42,8 +42,8 @@ import {StatusVerificacaoContato} from "../../../@shared/model/usuario/status-co
 @Component({
     selector: 'app-account.ts-settings',
     standalone: true,
-    templateUrl: './create-user.dialog.component.html',
-    styleUrl: './create-user.dialog.component.scss',
+    templateUrl: './edit-user.dialog.component.html',
+    styleUrl: './edit-user.dialog.component.scss',
     imports: [
         RouterLink,
         MatButtonModule,
@@ -67,18 +67,17 @@ import {StatusVerificacaoContato} from "../../../@shared/model/usuario/status-co
         MatIconModule
     ]
 })
-export class CreateUserDialogComponent {
+export class EditUserDialogComponent {
     protected readonly UserGroupsMapper = UserGroupsMapper;
     protected readonly UserGroups = UserGroups;
     protected readonly numericUserGroups = Object.entries(UserGroups)
-        .filter(([key, value]) => typeof value === 'number')
+        .filter(([_, value]) => typeof value === 'number')
         .map(([key, value]) => ({ key, value: value as number }));
 
     public multiple: boolean = false;
     isToggled = false;
     userForm: FormGroup;
     userGroups: string[];
-    user: User | null = null;
     states = BRAZILIAN_STATES_ORDERED;
     currentPage: number = 1;
     isLoading: boolean = true;
@@ -102,7 +101,8 @@ export class CreateUserDialogComponent {
         private createUserService: CreateUserService,
         private snackBar: MatSnackBar,
         private formBuilder: FormBuilder,
-        public dialogRef: MatDialogRef<CreateUserDialogComponent>,
+        public dialogRef: MatDialogRef<EditUserDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public user: User
     ) {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -143,7 +143,7 @@ export class CreateUserDialogComponent {
                     ]],
                     company: ['', [
                         Validators.required,
-                        Validators.minLength(4),
+                        Validators.minLength(6),
                     ]],
                     pacs_id: ['', [
                         Validators.required,
@@ -230,12 +230,7 @@ export class CreateUserDialogComponent {
                             Validators.maxLength(256),
                         ]],
                     }),
-                    group: this.formBuilder.group({
-                        group_id: ['', [
-                            Validators.required,
-                        ]],
-                        user_id: [null]
-                    }),
+                    groups: [[]],
                     permissions: this.formBuilder.group({
                         enable_create_access: [false, [
                             Validators.required,
@@ -258,7 +253,9 @@ export class CreateUserDialogComponent {
                         enable_delete_series: [false, [
                             Validators.required,
                         ]],
-                        enabled_modalities: [[null]],
+                        enabled_modalities: [[null], [
+                            Validators.required,
+                        ]],
                         enable_edit_study: [false, [
                             Validators.required,
                         ]],
@@ -276,20 +273,12 @@ export class CreateUserDialogComponent {
                     if(groupId == UserGroups.ADMIN) {
                         this.userForm.get('tele_id')?.setValue('');
                         this.userForm.get('tele_id')?.disable();
-                        this.userForm.get('tele_id')?.setValidators([Validators.required]);
-                        this.userForm.get('tele_id')?.updateValueAndValidity();
                         this.userForm.get('clinica_id')?.setValue('');
                         this.userForm.get('clinica_id')?.disable();
-                        this.userForm.get('clinica_id')?.setValidators([Validators.required]);
-                        this.userForm.get('clinica_id')?.updateValueAndValidity();
                         this.userForm.get('aetitle_id')?.setValue('');
                         this.userForm.get('aetitle_id')?.disable();
-                        this.userForm.get('aetitle_id')?.setValidators([Validators.required]);
-                        this.userForm.get('aetitle_id')?.updateValueAndValidity();
                         this.userForm.get('pacs_id')?.setValue('');
                         this.userForm.get('pacs_id')?.disable();
-                        this.userForm.get('pacs_id')?.setValidators([Validators.required]);
-                        this.userForm.get('pacs_id')?.updateValueAndValidity();
                         this.userForm.get('permissions.enable_create_access')?.setValue(true);
                         this.userForm.get('permissions.enable_create_access')?.disable();
                         this.userForm.get('permissions.enable_delete_exam')?.setValue(true);
@@ -312,23 +301,12 @@ export class CreateUserDialogComponent {
                     }
                     this.userForm.get('tele_id')?.enable();
                     this.userForm.get('tele_id')?.setValue('');
-                    this.userForm.get('tele_id')?.setValue('');
-                    this.userForm.get('tele_id')?.setValidators(null);
-                    this.userForm.get('tele_id')?.updateValueAndValidity();
                     this.userForm.get('clinica_id')?.enable();
                     this.userForm.get('clinica_id')?.setValue('');
-                    this.userForm.get('clinica_id')?.setValue('');
-                    this.userForm.get('clinica_id')?.setValidators(null);
-                    this.userForm.get('clinica_id')?.updateValueAndValidity();
                     this.userForm.get('aetitle_id')?.enable();
                     this.userForm.get('aetitle_id')?.setValue('');
-                    this.userForm.get('aetitle_id')?.setValue('');
-                    this.userForm.get('aetitle_id')?.setValidators(null);
-                    this.userForm.get('aetitle_id')?.updateValueAndValidity();
                     this.userForm.get('pacs_id')?.enable();
                     this.userForm.get('pacs_id')?.setValue('');
-                    this.userForm.get('pacs_id')?.setValidators(null);
-                    this.userForm.get('pacs_id')?.updateValueAndValidity();
                     this.userForm.get('permissions.enable_create_access')?.enable();
                     this.userForm.get('permissions.enable_create_access')?.setValue(false);
                     this.userForm.get('permissions.enable_delete_exam')?.enable();
@@ -348,7 +326,11 @@ export class CreateUserDialogComponent {
                     this.userForm.get('permissions.enable_edit_study')?.enable();
                     this.userForm.get('permissions.enable_edit_study')?.setValue(false);
                 });
-
+                this.userForm.patchValue({
+                    ...this.user,
+                    groups: this.user?.groups?.map(g => +g.group_id) || []
+                })
+                this.userForm.get('groups')?.disable();
                 this.isLoading = false;
             },
             error: (error) => {
@@ -358,15 +340,16 @@ export class CreateUserDialogComponent {
     }
 
     submit(): void {
+        const selectedGroupIds = this.userForm.value.groups; // array de number
+
         if (this.userForm.invalid) {
             this.userForm.markAllAsTouched(); // força exibição dos erros
-            console.log('aquiiiiii2');
             return;
         }
         // const user = new User(this.userForm.value);
         this.createUserService.create(this.userForm.value).subscribe({
             next: (response) => {
-                this.snackBar.open('Usuário cadastrado com sucesso', 'Fechar', {
+                this.snackBar.open('Usuário cadastradi com sucesso', 'Fechar', {
                     duration: 4000,
                     horizontalPosition: 'right',
                     verticalPosition: 'bottom',
@@ -455,4 +438,5 @@ export class CreateUserDialogComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
+
 }

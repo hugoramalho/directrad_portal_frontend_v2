@@ -39,6 +39,8 @@ import {UserGroups} from "../../@shared/model/usuario/user-groups";
 import {UserService} from "../../@shared/service/usuario/user.service";
 import {MatIcon} from "@angular/material/icon";
 import {EmptyValuePipe} from "../../@shared/pipe/empty-value.pipe";
+import {unknownValuePipe} from "../../@shared/pipe/unknown-value";
+import {EditAetitleComponent} from "./edit-dialog/edit-aetitle.component";
 
 
 @Component({
@@ -64,7 +66,8 @@ import {EmptyValuePipe} from "../../@shared/pipe/empty-value.pipe";
         DateFormatPipe,
         DatetimeFormatPipe,
         ReactiveFormsModule,
-        EmptyValuePipe
+        EmptyValuePipe,
+        unknownValuePipe
     ],
     templateUrl: './aetitle.component.html',
     styleUrl: './aetitle.component.scss'
@@ -109,11 +112,6 @@ export class CadastroAetitleComponent {
             pacs_identificacao: ['']
         });
     }
-
-    // ngOnInit(): void {
-    //     this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
-    //     this.loadAetitles(1, 20);
-    // }
 
     ngOnInit(): void {
         this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
@@ -204,7 +202,11 @@ export class CadastroAetitleComponent {
     }
 
     onEdit(aetitle: Aetitle) {
-
+        this.dialog.open(EditAetitleComponent, {
+            data: aetitle,
+            width: '900px',
+        }).afterClosed().subscribe(result => {
+        });
     }
 
     onDelete(aetitle: Aetitle) {

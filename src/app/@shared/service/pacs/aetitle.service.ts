@@ -28,7 +28,12 @@ export class AetitleService {
 
     public create(aetitleData: Aetitle)
     {
-        return this.aetitleRepository.createAETitle(aetitleData);
+        return this.aetitleRepository.create(aetitleData);
+    }
+
+    public update(aetitleData: Aetitle)
+    {
+        return this.aetitleRepository.update(aetitleData);
     }
 
     public query(queryParams: Record<string, any> | null = null): Observable<Aetitle[]>

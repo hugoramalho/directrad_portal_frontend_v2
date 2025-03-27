@@ -38,7 +38,7 @@ export class PacsSyncStatusMapper {
         [PacsSyncStatus.FALHA_ALTERACAO]: "Falha na alteração no Pacs",
         [PacsSyncStatus.FALHA_EXCLUSAO]: "Falha na exclusão no Pacs",
         [PacsSyncStatus.FALHA_CONEXAO]: "Falha na conexão com Pacs",
-        [PacsSyncStatus.NAO_CRIADO]: "Não criado no Pacs",
+        [PacsSyncStatus.NAO_CRIADO]: "Sincronização pendente",
     };
 
     static getDescription(type: PacsSyncStatus): string {

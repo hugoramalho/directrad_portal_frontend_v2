@@ -1,12 +1,12 @@
 <div
-        *ngIf="tipo_pacs_application === PacsHostType.PACS_CLIENTE"
-        class="modal-header row"
+    *ngIf="tipo_pacs_application === PacsHostType.PACS_CLIENTE"
+    class="modal-header row"
 >
     <h5 class="modal-title">Cadastrar novo PACS</h5>
 </div>
 <mat-dialog-content
-        *ngIf="tipo_pacs_application === PacsHostType.PACS_CLIENTE"
-        class="modal-body"
+    *ngIf="tipo_pacs_application === PacsHostType.PACS_CLIENTE"
+    class="modal-body"
 >
     <div class="loading-container" *ngIf="isLoading; else pacsFormTemplate">
         <mat-spinner></mat-spinner>
@@ -14,7 +14,7 @@
     <ng-template #pacsFormTemplate>
         <form class="pacs-form" [formGroup]="pacsForm">
             <div
-                    [hidden]="!(currentPage === 1)">
+                [hidden]="!(currentPage === 1)">
                 <p>
                     Caso esse PACS use o worklist central, utilizar como "IP Worklist" o DDNS "pacs.rad.direct" e "Porta
                     worklist" a
@@ -25,10 +25,10 @@
                         <mat-form-field>
                             <mat-label>Nome do Pacs</mat-label>
                             <input
-                                    matInput
-                                    type="text"
-                                    class="form-control"
-                                    formControlName="identificacao"
+                                matInput
+                                type="text"
+                                class="form-control"
+                                formControlName="identificacao"
                             />
                         </mat-form-field>
                     </div>
@@ -36,10 +36,10 @@
                         <mat-form-field>
                             <mat-label>Endereço IP</mat-label>
                             <input
-                                    matInput
-                                    type="text"
-                                    class="form-control"
-                                    formControlName="ip"
+                                matInput
+                                type="text"
+                                class="form-control"
+                                formControlName="ip"
                             />
                         </mat-form-field>
                     </div>
@@ -50,10 +50,10 @@
                         <mat-form-field>
                             <mat-label>Domínio</mat-label>
                             <input
-                                    matInput
-                                    type="text"
-                                    class="form-control"
-                                    formControlName="dominio"
+                                matInput
+                                type="text"
+                                class="form-control"
+                                formControlName="dominio"
                             />
                         </mat-form-field>
                     </div>
@@ -61,10 +61,10 @@
                         <mat-form-field>
                             <mat-label>IP Worklist</mat-label>
                             <input
-                                    matInput
-                                    type="text"
-                                    class="form-control"
-                                    formControlName="worklist_ip"
+                                matInput
+                                type="text"
+                                class="form-control"
+                                formControlName="worklist_ip"
                             />
                         </mat-form-field>
                     </div>
@@ -72,10 +72,10 @@
                         <mat-form-field>
                             <mat-label>Porta worklist (Padrão: 3000)</mat-label>
                             <input
-                                    matInput
-                                    type="number"
-                                    class="form-control"
-                                    formControlName="porta_wkl"
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_wkl"
                             />
                         </mat-form-field>
                     </div>
@@ -85,10 +85,10 @@
                         <mat-form-field>
                             <mat-label>Porta WADO (Padrão: 8090)</mat-label>
                             <input
-                                    matInput
-                                    type="number"
-                                    class="form-control"
-                                    formControlName="porta_wado"
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_wado"
                             />
                         </mat-form-field>
                     </div>
@@ -107,10 +107,10 @@
                         <mat-form-field>
                             <mat-label>Porta API (Padrão: 3966)</mat-label>
                             <input
-                                    matInput
-                                    type="number"
-                                    class="form-control"
-                                    formControlName="porta_api"
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_api"
                             />
                         </mat-form-field>
                     </div>
@@ -118,10 +118,10 @@
                         <mat-form-field>
                             <mat-label>Porta HTTP (Padrão: 80)</mat-label>
                             <input
-                                    matInput
-                                    type="number"
-                                    class="form-control"
-                                    formControlName="porta_nginx"
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_nginx"
                             />
                         </mat-form-field>
                     </div>
@@ -131,10 +131,10 @@
                         <mat-form-field>
                             <mat-label>Porta HTTPS/SSL (Padrão: 443)</mat-label>
                             <input
-                                    matInput
-                                    type="number"
-                                    class="form-control"
-                                    formControlName="porta_ssl"
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_ssl"
                             />
                         </mat-form-field>
                     </div>
@@ -142,10 +142,10 @@
                         <mat-form-field>
                             <mat-label>Porta DICOM (Padrão: 11112)</mat-label>
                             <input
-                                    matInput
-                                    type="number"
-                                    class="form-control"
-                                    formControlName="porta_dicom"
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="porta_dicom"
                             />
                         </mat-form-field>
                     </div>
@@ -153,8 +153,8 @@
                         <mat-form-field>
                             <mat-label>Total de RAM alocada</mat-label>
                             <mat-select
-                                    class="form-control"
-                                    formControlName="pacs_ram_config">
+                                class="form-control"
+                                formControlName="pacs_ram_config">
                                 <mat-option value="4">4GB</mat-option>
                                 <mat-option value="8">8GB</mat-option>
                                 <mat-option value="16">16GB</mat-option>
@@ -167,10 +167,10 @@
                         <mat-form-field>
                             <mat-label>Pools (Padrão: 50, Max: 500)</mat-label>
                             <input
-                                    matInput
-                                    type="number"
-                                    class="form-control"
-                                    formControlName="tamanho_pool"
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="tamanho_pool"
                             />
                         </mat-form-field>
                     </div>
@@ -178,10 +178,10 @@
                         <mat-form-field>
                             <mat-label>Threads (Padrão: 100, Max: 600)</mat-label>
                             <input
-                                    matInput
-                                    type="number"
-                                    class="form-control"
-                                    formControlName="quantidade_threads"
+                                matInput
+                                type="number"
+                                class="form-control"
+                                formControlName="quantidade_threads"
                             />
                         </mat-form-field>
                     </div>
@@ -193,10 +193,10 @@
                         <mat-form-field>
                             <mat-label>AeTitle Principal (Storage)</mat-label>
                             <input
-                                    matInput
-                                    type="text"
-                                    class="form-control"
-                                    formControlName="aetitle_storage_principal"
+                                matInput
+                                type="text"
+                                class="form-control"
+                                formControlName="aetitle_storage_principal"
                             />
                         </mat-form-field>
                     </div>
@@ -204,10 +204,10 @@
                         <mat-form-field>
                             <mat-label>AeTitle Worklist (Opcional)</mat-label>
                             <input
-                                    matInput
-                                    type="text"
-                                    class="form-control"
-                                    formControlName="aetitle_worklist"
+                                matInput
+                                type="text"
+                                class="form-control"
+                                formControlName="aetitle_worklist"
                             />
                         </mat-form-field>
                     </div>
@@ -217,8 +217,8 @@
                         <mat-form-field>
                             <mat-label>Usuário Tele</mat-label>
                             <mat-select
-                                    class="form-control"
-                                    formControlName="tele_id">
+                                class="form-control"
+                                formControlName="tele_id">
                                 <mat-option>
                                     <mat-icon>search</mat-icon>
                                     <input
@@ -249,8 +249,8 @@
                         <mat-form-field>
                             <mat-label>Usuário Admin</mat-label>
                             <mat-select
-                                    class="form-control"
-                                    formControlName="admin_id">
+                                class="form-control"
+                                formControlName="admin_id">
                                 <mat-option>
                                     <mat-icon>search</mat-icon>
                                     <input
@@ -286,10 +286,10 @@
                         <div class="col-md-6 form-group ssh-use-toggle">
                             <mat-label>Usar chave SSH</mat-label>
                             <mat-slide-toggle
-                                    (change)="toggleSshInput()"
-                                    class="form-control"
-                                    formControlName="use_ssh_key"
-                                    name="usarChaveSSH"
+                                (change)="toggleSshInput()"
+                                class="form-control"
+                                formControlName="use_ssh_key"
+                                name="usarChaveSSH"
                             ></mat-slide-toggle>
                         </div>
                     </div>
@@ -298,10 +298,10 @@
                             <mat-form-field>
                                 <mat-label>Usuário SSH</mat-label>
                                 <input
-                                        matInput
-                                        type="text"
-                                        class="form-control"
-                                        formControlName="pacs_host_ssh_username"
+                                    matInput
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="pacs_host_ssh_username"
                                 />
                             </mat-form-field>
                         </div>
@@ -309,10 +309,10 @@
                             <mat-form-field>
                                 <mat-label>Porta SSH</mat-label>
                                 <input
-                                        matInput
-                                        type="number"
-                                        class="form-control"
-                                        formControlName="pacs_host_ssh_port"
+                                    matInput
+                                    type="number"
+                                    class="form-control"
+                                    formControlName="pacs_host_ssh_port"
                                 />
                             </mat-form-field>
                         </div>
@@ -320,18 +320,18 @@
                             <mat-form-field *ngIf="!usarChaveSSH">
                                 <mat-label>Senha SSH</mat-label>
                                 <input
-                                        matInput
-                                        type="password"
-                                        class="form-control"
-                                        formControlName="pacs_host_ssh_password"
+                                    matInput
+                                    type="password"
+                                    class="form-control"
+                                    formControlName="pacs_host_ssh_password"
                                 />
                             </mat-form-field>
                             <mat-form-field *ngIf="usarChaveSSH">
                                 <mat-label>Chave SSH</mat-label>
                                 <textarea
-                                        matInput
-                                        class="form-control ssh-key-input"
-                                        formControlName="pacs_host_ssh_password"
+                                    matInput
+                                    class="form-control ssh-key-input"
+                                    formControlName="pacs_host_ssh_password"
                                 ></textarea>
                             </mat-form-field>
                         </div>
@@ -342,72 +342,69 @@
     </ng-template>
 </mat-dialog-content>
 <mat-dialog-actions
-        *ngIf="tipo_pacs_application === PacsHostType.PACS_CLIENTE"
-        class="modal-footer"
->
+    *ngIf="tipo_pacs_application === PacsHostType.PACS_CLIENTE"
+    class="modal-footer">
     <button
-            *ngIf="currentPage > 1"
-            mat-raised-button
-            mat-button
-            type="button"
-            class="btn btn-secondary"
-            (click)="goToPreviousPage()"
-    >
+        *ngIf="currentPage > 1"
+        mat-raised-button
+        mat-button
+        type="button"
+        class="btn btn-secondary"
+        (click)="goToPreviousPage()">
         Voltar
     </button>
     <button
-            *ngIf="currentPage === 1"
-            mat-raised-button
-            mat-button
-            type="button"
-            class="btn btn-primary"
-            (click)="goToNextPage()"
-    >
+        *ngIf="currentPage === 1"
+        mat-raised-button
+        mat-button
+        type="button"
+        class="btn btn-primary"
+        (click)="goToNextPage()">
         Próximo
     </button>
     <button
-            *ngIf="currentPage === 2"
-            mat-raised-button
-            mat-button
-            type="submit"
-            class="btn btn-success btn-submit"
-            (click)="submit()"
-    >
+        *ngIf="currentPage === 2"
+        mat-raised-button
+        mat-button
+        type="submit"
+        class="btn btn-success btn-submit"
+        (click)="submit()">
         Cadastrar
     </button>
     <button
-            mat-raised-button
-            mat-button
-            type="button"
-            class="btn btn-danger mdc-button mat-mdc-button btn-cancel"
-            (click)="onCancel()"
-    >
+        mat-raised-button
+        mat-button
+        type="button"
+        class="btn btn-danger mdc-button mat-mdc-button btn-cancel"
+        (click)="onCancel()">
         Cancelar
     </button>
 </mat-dialog-actions>
 
 <div
-        *ngIf="tipo_pacs_application === PacsHostType.PACS_CENTRAL_ORACLE"
-        class="modal-header row">
+    *ngIf="tipo_pacs_application === PacsHostType.PACS_CENTRAL_ORACLE"
+    class="modal-header row">
     <h5 class="modal-title">Cadastrar novo PACS no Host Central da Oracle</h5>
 </div>
 <mat-dialog-content
-        *ngIf="tipo_pacs_application === PacsHostType.PACS_CENTRAL_ORACLE"
-        class="modal-body">
+    *ngIf="tipo_pacs_application === PacsHostType.PACS_CENTRAL_ORACLE"
+    class="modal-body">
     <div class="loading-container" *ngIf="isLoading; else pacsFormTemplate">
         <mat-spinner></mat-spinner>
     </div>
     <ng-template #pacsFormTemplate>
-        <form class="pacs-form" [formGroup]="pacsForm">
+        <form
+            class="pacs-form"
+            [formGroup]="pacsForm">
             <div class="row">
                 <div class="col-md-12 form-group">
                     <mat-form-field>
                         <mat-label>Nome do Pacs</mat-label>
                         <input
-                                matInput
-                                type="text"
-                                class="form-control"
-                                formControlName="identificacao"
+                            matInput
+                            type="text"
+                            class="form-control"
+                            formControlName="identificacao"
                         />
                     </mat-form-field>
                 </div>
@@ -415,23 +412,24 @@
             <div class="row">
                 <div class="flex justify-content-start mb-25">
                     <mat-label
-                            style="white-space: nowrap; display: inline; margin-right: 1rem">
+                        style="white-space: nowrap; display: inline; margin-right: 1rem">
                         Cadastrar Aetitles no Pacs
                     </mat-label>
                     <mat-slide-toggle
-                            (change)="toggleCadastroAetitle()"
-                            class="form-control"
-                            style="display: inline">
+                        (change)="toggleCadastroAetitle()"
+                        class="form-control"
+                        formControlName="pacs_register"
+                        style="display: inline">
                     </mat-slide-toggle>
                 </div>
                 <div class="col-md-6 form-group">
                     <mat-form-field>
                         <mat-label>AeTitle Principal (Storage)</mat-label>
                         <input
-                                [disabled]="!habilitarCadastroAetitle"
-                                type="text"
-                                class="form-control"
-                                formControlName="aetitle_storage_principal"
+                            [disabled]="!habilitarCadastroAetitle"
+                            type="text"
+                            class="form-control"
+                            formControlName="aetitle_storage_principal"
                         />
                     </mat-form-field>
                 </div>
@@ -439,11 +437,11 @@
                     <mat-form-field>
                         <mat-label>AeTitle Worklist - Pacs Central (Opcional)</mat-label>
                         <input
-                                matInput
-                                [disabled]="!habilitarCadastroAetitle"
-                                type="text"
-                                class="form-control"
-                                formControlName="aetitle_worklist"
+                            matInput
+                            [disabled]="!habilitarCadastroAetitle"
+                            type="text"
+                            class="form-control"
+                            formControlName="aetitle_worklist"
                         />
                     </mat-form-field>
                 </div>
@@ -453,8 +451,8 @@
                     <mat-form-field>
                         <mat-label>Usuário Tele</mat-label>
                         <mat-select
-                                class="form-control"
-                                formControlName="tele_id">
+                            class="form-control"
+                            formControlName="tele_id">
                             <mat-option>
                                 <mat-icon>search</mat-icon>
                                 <input
@@ -485,8 +483,8 @@
                     <mat-form-field>
                         <mat-label>Usuário Admin</mat-label>
                         <mat-select
-                                class="form-control"
-                                formControlName="admin_id">
+                            class="form-control"
+                            formControlName="admin_id">
                             <mat-option>
                                 <mat-icon>search</mat-icon>
                                 <input
@@ -518,22 +516,22 @@
     </ng-template>
 </mat-dialog-content>
 <mat-dialog-actions
-        *ngIf="tipo_pacs_application === PacsHostType.PACS_CENTRAL_ORACLE"
-        class="modal-footer">
+    *ngIf="tipo_pacs_application === PacsHostType.PACS_CENTRAL_ORACLE"
+    class="modal-footer">
     <button
-            mat-raised-button
-            mat-button
-            type="button"
-            class="btn btn-danger mdc-button mat-mdc-button btn-cancel"
-            (click)="onCancel()">
+        mat-raised-button
+        mat-button
+        type="button"
+        class="btn btn-danger mdc-button mat-mdc-button btn-cancel"
+        (click)="onCancel()">
         Cancelar
     </button>
     <button
-            mat-raised-button
-            mat-button
-            type="submit"
-            class="btn btn-success btn-submit"
-            (click)="submit()">
+        mat-raised-button
+        mat-button
+        type="submit"
+        class="btn btn-success btn-submit"
+        (click)="submit()">
         Salvar
     </button>
 </mat-dialog-actions>

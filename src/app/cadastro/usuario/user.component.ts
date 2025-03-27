@@ -41,6 +41,7 @@ import {Pacs} from "../../@shared/model/pacs/pacs";
 import {UserTele} from "../../@shared/model/usuario/user-tele";
 import {MatChip, MatChipSet} from "@angular/material/chips";
 import {EmptyValuePipe} from "../../@shared/pipe/empty-value.pipe";
+import {EditUserDialogComponent} from "./edit-dialog/edit-user.dialog.component";
 
 
 @Component({
@@ -169,6 +170,8 @@ export class CadastroUsuarioComponent {
         });
     }
 
+
+//----------------------------------------------------------------------------------------------------------------------
     /** Whether the number of selected elements matches the total number of rows. */
     isAllSelected() {
         const numSelected = this.selection.selected.length;
@@ -211,11 +214,19 @@ export class CadastroUsuarioComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-
-    onCreateUser() {
+    onCreate() {
         this.dialog.open(CreateUserDialogComponent, {
             width: 'auto', // Define o tamanho do modal
             data: {}, // Dados iniciais se necessário
+        }).afterClosed()
+            .subscribe((result) => {
+
+            });
+    }
+    onEdit(user: User) {
+        this.dialog.open(EditUserDialogComponent, {
+            width: 'auto', // Define o tamanho do modal
+            data: user, // Dados iniciais se necessário
         }).afterClosed()
             .subscribe((result) => {
 

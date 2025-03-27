@@ -135,7 +135,7 @@
                                 Usuário Admin
                             </th>
                             <td mat-cell *matCellDef="let element">
-                                {{ element.username_admin }}
+                                <span [innerHTML]="element.username_admin | emptyValue"></span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="username_tele">
@@ -143,7 +143,7 @@
                                 Usuário Tele
                             </th>
                             <td mat-cell *matCellDef="let element">
-                                {{ element.username_tele }}
+                                <span [innerHTML]="element.username_tele | emptyValue"></span>
                             </td>
                         </ng-container>
                         <ng-container matColumnDef="host">

@@ -62,12 +62,12 @@
     [class.rtl-enabled]="themeService.isRTLEnabled()">
     <mat-card-header>
         <mat-card-title
-        *ngIf="isAdmin">
+            *ngIf="isAdmin">
             <div class="btn-box">
                 <button
                     mat-flat-button
                     class="daxa h-auto"
-                    (click)="onCreateUser()">
+                    (click)="onCreate()">
                     + Cadastrar novo usuário
                 </button>
             </div>
@@ -111,7 +111,7 @@
                             Username
                         </th>
                         <td mat-cell *matCellDef="let element">
-                            {{element.username}}
+                            {{ element.username }}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="user_groups">
@@ -119,11 +119,15 @@
                             Tipo de usuário
                         </th>
                         <td mat-cell *matCellDef="let element" class="text-black">
-                            <mat-chip-set>
-                                @for (group of element?.groups; track group.id) {
-                                    <mat-chip>{{ group.group_name }}</mat-chip>
-                                }
-                            </mat-chip-set>
+                            @for (group of element?.groups; track group.id) {
+                                {{ group.group_name }}
+                            }
+                            <!--                            <mat-chip-set>-->
+                            <!--                                -->
+                            <!--                                @for (group of element?.groups; track group.id) {-->
+                            <!--                                    <mat-chip>{{ group.group_name }}</mat-chip>-->
+                            <!--                                }-->
+                            <!--                            </mat-chip-set>-->
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="pacs">
@@ -166,6 +170,7 @@
                                 </button>
                                 <mat-menu #menu="matMenu">
                                     <button
+                                        (click)="onEdit(element)"
                                         mat-menu-item>
                                         <mat-icon>edit</mat-icon>
                                         Editar/Ver dados

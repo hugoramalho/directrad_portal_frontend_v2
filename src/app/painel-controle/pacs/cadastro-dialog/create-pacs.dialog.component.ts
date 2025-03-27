@@ -20,7 +20,6 @@ import {PacsHostMapper, PacsHostType} from "../../../@shared/model/pacs/pacs-hos
 import {UsersService} from "../../../@shared/service/usuario/users.service";
 import {UserRis} from "../../../@shared/model/usuario/user-ris";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-// import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {forkJoin} from "rxjs";
 import {User} from "../../../@shared/model/usuario/user";
 import {MatSnackBar} from "@angular/material/snack-bar";
@@ -46,7 +45,6 @@ import {MatIcon} from "@angular/material/icon";
         MatOption,
         MatProgressSpinner,
         MatIcon,
-        // NgxMatSelectSearchModule
     ]
 })
 export class CreatePacsDialogComponent {
@@ -100,6 +98,7 @@ export class CreatePacsDialogComponent {
                 use_ssh_key: [''],
                 pacs_host_ssh_password: [''],
                 pacs_host_ssh_key: [''],
+                pacs_register: [false],
             });
         } else if (this.tipo_pacs_application == PacsHostType.PACS_CENTRAL_ORACLE) {
             this.pacsForm = this.formBuilder.group({
@@ -109,9 +108,9 @@ export class CreatePacsDialogComponent {
                 aetitle_worklist: [''],
                 tele_id: [''],
                 admin_id: [''],
+                pacs_register: [true],
             });
         }
-
         forkJoin({
             result1: this.usersService.queryAdmins(),
             result2: this.usersService.queryTeles(),
@@ -123,14 +122,13 @@ export class CreatePacsDialogComponent {
                 this.teleUsers = result2;
                 this.isLoading = false;
             },
-            error: (err) => {
-                console.error('Erro ao buscar os dados:', err);
+            error: (error) => {
                 this.isLoading = false;
             }
         });
     }
 
-    //------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
     onTeleSearch(value: string) {
         this.filteredTeles = this.teleUsers.filter(user =>
             user.full_name?.toLowerCase().includes(value.toLowerCase())
@@ -142,7 +140,6 @@ export class CreatePacsDialogComponent {
             user.username?.toLowerCase().includes(value.toLowerCase())
         );
     }
-
 
     toggleSshInput() {
         this.usarChaveSSH = !this.usarChaveSSH;
