@@ -7,7 +7,7 @@
 
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
 import {NgIf} from "@angular/common";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
@@ -72,45 +72,6 @@ export class CreatePacsDialogComponent {
     ngOnInit() {
         this.isLoading = true;
         this.habilitarCadastroAetitle = false;
-        if (this.tipo_pacs_application == PacsHostType.PACS_CLIENTE) {
-            this.pacsForm = this.formBuilder.group({
-                tipo_pacs_application: [PacsHostType.PACS_CLIENTE],
-                identificacao: [''],
-                ip: [''],
-                dominio: [''],
-                worklist_ip: [''],
-                porta_wkl: [''],
-                porta_wado: [''],
-                porta_wado_local: [''],
-                porta_api: [''],
-                porta_nginx: [''],
-                porta_ssl: [''],
-                porta_dicom: [''],
-                pacs_ram_config: [''],
-                tamanho_pool: [''],
-                quantidade_threads: [''],
-                aetitle_storage_principal: [''],
-                aetitle_worklist: [''],
-                tele_id: [''],
-                admin_id: [''],
-                pacs_host_ssh_username: [''],
-                pacs_host_ssh_port: [''],
-                use_ssh_key: [''],
-                pacs_host_ssh_password: [''],
-                pacs_host_ssh_key: [''],
-                pacs_register: [false],
-            });
-        } else if (this.tipo_pacs_application == PacsHostType.PACS_CENTRAL_ORACLE) {
-            this.pacsForm = this.formBuilder.group({
-                tipo_pacs_application: [PacsHostType.PACS_CENTRAL_ORACLE],
-                identificacao: [''],
-                aetitle_storage_principal: [''],
-                aetitle_worklist: [''],
-                tele_id: [''],
-                admin_id: [''],
-                pacs_register: [true],
-            });
-        }
         forkJoin({
             result1: this.usersService.queryAdmins(),
             result2: this.usersService.queryTeles(),
@@ -121,6 +82,37 @@ export class CreatePacsDialogComponent {
                 this.filteredTeles = result2;
                 this.teleUsers = result2;
                 this.isLoading = false;
+
+                this.pacsForm = this.formBuilder.group({
+                    tipo_pacs_application: ['', Validators.required],
+                    identificacao: [''],
+                    ip: [''],
+                    dominio: [''],
+                    worklist_ip: [''],
+                    porta_wkl: [''],
+                    porta_wado: [''],
+                    porta_wado_local: [''],
+                    porta_api: [''],
+                    porta_nginx: [''],
+                    porta_ssl: [''],
+                    porta_dicom: [''],
+                    pacs_ram_config: [''],
+                    tamanho_pool: [''],
+                    quantidade_threads: [''],
+                    aetitle_storage_principal: [''],
+                    aetitle_worklist: [''],
+                    tele_id: [''],
+                    admin_id: [''],
+                    pacs_host_ssh_username: [''],
+                    pacs_host_ssh_port: [''],
+                    use_ssh_key: [''],
+                    pacs_host_ssh_password: [''],
+                    pacs_host_ssh_key: [''],
+                    sync_pacs_aetitle: [false],
+                });
+                this.pacsForm.get('tipo_pacs_application')?.setValue(
+                    this.tipo_pacs_application
+                );
             },
             error: (error) => {
                 this.isLoading = false;
@@ -161,7 +153,7 @@ export class CreatePacsDialogComponent {
         }
     }
 
-    toggleCadastroAetitle(){
+    toggleCadastroAetitle() {
         this.habilitarCadastroAetitle = !this.habilitarCadastroAetitle;
         console.log('aquiiiii', this.habilitarCadastroAetitle);
     }
