@@ -38,7 +38,7 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: SignUpComponent,
+        component: AuthenticationComponent,
     },
     {
         path: 'exames', component: EstudosComponent,
