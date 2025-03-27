@@ -12,7 +12,9 @@
         <mat-spinner></mat-spinner>
     </div>
     <ng-template #pacsFormTemplate>
-        <form class="pacs-form" [formGroup]="pacsForm">
+        <form
+            class="pacs-form"
+            [formGroup]="pacsForm">
             <div
                 [hidden]="!(currentPage === 1)">
                 <p>
@@ -92,17 +94,6 @@
                             />
                         </mat-form-field>
                     </div>
-<!--                    <div class="col-md-4 form-group">-->
-<!--                        <mat-form-field>-->
-<!--                            <mat-label>Porta WADO Local (Padrão: 8090)</mat-label>-->
-<!--                            <input-->
-<!--                                matInput-->
-<!--                                type="number"-->
-<!--                                class="form-control"-->
-<!--                                formControlName="porta_wado_local"-->
-<!--                            />-->
-<!--                        </mat-form-field>-->
-<!--                    </div>-->
                     <div class="col-md-4 form-group">
                         <mat-form-field>
                             <mat-label>Porta API (Padrão: 3966)</mat-label>
@@ -410,23 +401,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="flex justify-content-start mb-25">
-                    <mat-label
-                        style="white-space: nowrap; display: inline; margin-right: 1rem">
-                        Cadastrar Aetitles no Pacs
-                    </mat-label>
-                    <mat-slide-toggle
-                        (change)="toggleCadastroAetitle()"
-                        class="form-control"
-                        formControlName="pacs_register"
-                        style="display: inline">
-                    </mat-slide-toggle>
-                </div>
                 <div class="col-md-6 form-group">
                     <mat-form-field>
                         <mat-label>AeTitle Principal (Storage)</mat-label>
                         <input
-                            [disabled]="!habilitarCadastroAetitle"
+                            matInput
                             type="text"
                             class="form-control"
                             formControlName="aetitle_storage_principal"
@@ -438,7 +417,6 @@
                         <mat-label>AeTitle Worklist - Pacs Central (Opcional)</mat-label>
                         <input
                             matInput
-                            [disabled]="!habilitarCadastroAetitle"
                             type="text"
                             class="form-control"
                             formControlName="aetitle_worklist"

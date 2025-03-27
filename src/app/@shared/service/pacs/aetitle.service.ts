@@ -14,6 +14,7 @@ import {Aetitle} from "../../model/pacs/aetitle";
 import {PaginatedList} from "../../model/http/paginated-list";
 import {UserService} from "../usuario/user.service";
 import {PacsHostType} from "../../model/pacs/pacs-host-type";
+import {UserGroups} from "../../model/usuario/user-groups";
 
 @Injectable({
     providedIn: 'root',
@@ -44,7 +45,10 @@ export class AetitleService {
         return this.aetitleRepository.getAETitles(queryParams).pipe(
             map(aetitles => {
                 return aetitles.filter(aetitle => {
-                    return aetitle.pacs_id == this.userService.getUser()?.pacs_id;
+                    if(!this.userService.verifyGroup(UserGroups.ADMIN)) {
+                        return aetitle.pacs_id == this.userService.getUser()?.pacs_id;
+                    }
+                    return true;
                 })
             })
         );
