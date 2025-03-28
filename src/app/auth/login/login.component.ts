@@ -44,7 +44,6 @@ export class LoginComponent {
             this.isToggled = isToggled;
         });
     }
-
     hide = true;
     authForm: FormGroup;
     onSubmit(): void {
@@ -55,7 +54,7 @@ export class LoginComponent {
             ).subscribe({
                 next: () => {
                     this.snackBar.open('Login realizado com sucesso!', 'Fechar', {
-                        duration: 3000,
+                        duration: 4000,
                         horizontalPosition: 'center',
                         verticalPosition: 'top',
                         panelClass: ['success-snackbar']
@@ -64,7 +63,7 @@ export class LoginComponent {
                 },
                 error: () => {
                     this.snackBar.open('Falha na autenticação!', 'Fechar', {
-                        duration: 3000,
+                        duration: 4000,
                         horizontalPosition: 'center',
                         verticalPosition: 'top',
                         panelClass: ['error-snackbar']

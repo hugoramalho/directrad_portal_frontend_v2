@@ -189,3 +189,37 @@ button {
     font-size: 16px;
     font-weight: bold;
 }
+.elem-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    filter: grayscale(50%);
+    cursor: not-allowed;
+    input,
+    select,
+    textarea,
+    button,
+    mat-select,
+    mat-input,
+    mat-button {
+        pointer-events: none !important;
+        background-color: #f5f5f5 !important;
+        color: #aaa !important;
+    }
+}
+.elem-enabled {
+    pointer-events: auto;
+    opacity: 1;
+    filter: none;
+    cursor: default;
+    input,
+    select,
+    textarea,
+    button,
+    mat-select,
+    mat-input,
+    mat-button {
+        pointer-events: auto !important;
+        background-color: inherit !important;
+        color: inherit !important;
+    }
+}

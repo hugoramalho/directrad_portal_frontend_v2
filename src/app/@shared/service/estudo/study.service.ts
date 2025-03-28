@@ -45,13 +45,14 @@ export class EstudoService {
         );
     }
 
-    public getEstudos(page: number = 1, page_size: number = 10, queryParams: Record<string, any> | null = null): Observable<PaginatedListInterface<Estudo[]>> {
+    public getEstudos(
+        page: number = 1,
+        page_size: number = 10,
+        queryParams: Record<string, any> | null = null
+    ): Observable<PaginatedListInterface<Estudo[]>> {
         let params = new HttpParams();
         let offset = (page - 1) * page_size;
         let limit = (page_size);
-
-        let user = this.userService.getUser()
-
         if (queryParams) {
             Object.keys(queryParams).forEach((key) => {
                 const value = queryParams[key];
@@ -62,6 +63,7 @@ export class EstudoService {
         }
         params = params.set('offset', offset.toString());
         params = params.set('limit', limit.toString());
+        console.log(params);
         return this.http
             // .get<ApiResponseInterface<PaginatedListInterface<Estudo[]>>>(
             //     `${this.baseUrl}/pacs/${user?.pacs_id}/aetitles/${user?.aetitle_id}/studies`,

@@ -12,7 +12,6 @@ import {UserRepository} from "../../repository/user/user.repository";
 import {UserGroups} from "../../model/usuario/user-groups";
 
 
-
 @Injectable({
     providedIn: 'root'
 })

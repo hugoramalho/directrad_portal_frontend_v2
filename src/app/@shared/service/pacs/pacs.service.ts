@@ -12,6 +12,8 @@ import {PaginatedList} from "../../model/http/paginated-list";
 import {Pacs} from "../../model/pacs/pacs";
 import {map} from "rxjs/operators";
 import {PacsHostType} from "../../model/pacs/pacs-host-type";
+import {UserService} from "../usuario/user.service";
+import {UserGroups} from "../../model/usuario/user-groups";
 
 @Injectable({
     providedIn: 'root',
@@ -22,6 +24,7 @@ export class PacsService {
 
     constructor(
         private http: HttpClient,
+        private userService: UserService,
         private pacsRepository: PacsRepository,
     ) {
     }
@@ -53,7 +56,10 @@ export class PacsService {
         return this.pacsRepository.query().pipe(
             map(response => {
                 return response.filter(pacs => {
-                    return pacs.tipo_pacs == PacsHostType.PACS_CLIENTE;
+                    if(this.userService.verifyGroup(UserGroups.ADMIN)) {
+                        return pacs.tipo_pacs == PacsHostType.PACS_CLIENTE;
+                    }
+                    return pacs.id == this.userService.getUser()?.pacs_id;
                 })
             })
         );
