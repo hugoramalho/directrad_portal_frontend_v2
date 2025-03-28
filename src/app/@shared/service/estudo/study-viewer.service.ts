@@ -16,12 +16,13 @@ import {PacsService} from "../pacs/pacs.service";
 import {AetitleService} from "../pacs/aetitle.service";
 import {UserService} from "../usuario/user.service";
 import {StudyViewerRedirect} from "../../model/estudo/study-viewer-redirect";
+import {Pacs} from "../../model/pacs/pacs";
+import {Aetitle} from "../../model/pacs/aetitle";
 
 @Injectable({
     providedIn: 'root',
 })
-export class EstudoViewerService
-{
+export class EstudoViewerService {
     private baseUrl = `${environment.api_v1_base_url}`;
 
     constructor(
@@ -30,12 +31,15 @@ export class EstudoViewerService
     ) {
     }
 
-    openViewer(estudo: Estudo): void
-    {
+    openViewer(pacs: Pacs | undefined, aetitle: Aetitle | undefined, estudo: Estudo): void {
+        if (!pacs || !aetitle) {
+            return;
+        }
+        console.log(estudo);
         let isLocal = false;
         this.http.get<ApiResponseInterface<StudyViewerRedirect>>(
-            `${this.baseUrl}/pacs/${estudo?.pacs_id}/studies/${estudo.StudyInstanceUID}/viewer?local=${isLocal}`,
-            ).subscribe(response => {
+            `${this.baseUrl}/pacs/${pacs.id}/aetitles/${aetitle.id}/studies/${estudo.StudyInstanceUID}/viewer?local=${isLocal}`,
+        ).subscribe(response => {
             const viewerWindow = window.open(response.data.viewer_url, '_blank');
             if (viewerWindow) {
                 viewerWindow.focus();

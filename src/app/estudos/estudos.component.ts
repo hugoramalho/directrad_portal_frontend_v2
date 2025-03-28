@@ -38,6 +38,9 @@ import {STUDIES_OPTION_MENU} from "./menu/options-menu.enum";
 import {DatetimeFormatPipe} from "../@shared/pipe/datetime.pipe";
 import {EstudoViewerService} from "../@shared/service/estudo/study-viewer.service";
 import {MatIcon} from "@angular/material/icon";
+import {AetitleService} from "../@shared/service/pacs/aetitle.service";
+import {forkJoin} from "rxjs";
+import {Aetitle} from "../@shared/model/pacs/aetitle";
 
 
 @Component({
@@ -82,7 +85,7 @@ export class EstudosComponent {
     selection = new SelectionModel<Estudo>(true, []);
     searchForm: FormGroup;
     classApplied = false;
-    pacsMap = new Map<string | number, Pacs>();
+    pacsMap = new Map<string | number, Pacs | undefined>();
     pacsList: Pacs[] = [];
     filteredPacsList: Pacs[] = [];
     selectedPacs: Pacs | undefined;
@@ -118,6 +121,8 @@ export class EstudosComponent {
         {value: "BMD", name: "Densitometria óssea (BMD)"},
         {value: "NM", name: "Cintilografia (NM)"},
     ];
+    aetitles: Aetitle[] = [];
+    selectedAetitle: Aetitle | undefined;
 
     constructor(
         public themeService: CustomizerSettingsService,
@@ -126,38 +131,25 @@ export class EstudosComponent {
         private dialog: MatDialog,
         private formBuilder: FormBuilder,
         private pacsService: PacsService,
+        private aetitleService: AetitleService,
         private userService: UserService,
         private estudoViewerService: EstudoViewerService
     ) {
     }
 
-    ngOnInit(): void
-    {
+    ngOnInit(): void {
         this.isAdmin = this.userService.verifyGroup(UserGroups.ADMIN);
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
-        this.pacsService.query().subscribe((pacsArray: Pacs[]) => {
-            this.pacsList = pacsArray;
-            this.filteredPacsList = pacsArray;
-            this.pacsMap = new Map(pacsArray.map(pacs => [pacs.id, pacs]));
-            let pacsId = this.userService.getUser()?.pacs_id;
-            if(pacsId) {
-                this.selectedPacs = this.pacsMap.get(pacsId);
-            }
-        });
         // Definir "Últimos 7 dias" como opção inicial
         this.selectedDateRange = 'last7Days';
-
         // Data de hoje e de 7 dias atrás
         const today = new Date();
         const last7Days = new Date(today);
         last7Days.setDate(today.getDate() - 7);
-
-        // Formatar para "YYYYMMDD-YYYYMMDD"
         const studyDateRange = `${this.formatDateToYmd(last7Days)}-${this.formatDateToYmd(today)}`;
-
-        // Inicializar o formulário com os filtros corretos
+        // Formatar para "YYYYMMDD-YYYYMMDD"
         this.searchForm = this.formBuilder.group({
             study_date: [studyDateRange], // Define a data inicial no formato correto
             study_uid: [''],
@@ -169,10 +161,36 @@ export class EstudosComponent {
             specificDate: [null],
             rangeStart: [last7Days], // Preenche os campos auxiliares para UI
             rangeEnd: [today],
-            pacs_id: [this.userService.getUser()?.pacs_id]
+            pacs_id: [null]
         });
-        // Carregar exames automaticamente com este filtro inicial
-        this.loadExames(1, this.paginator?.pageSize || 20);
+        forkJoin({
+            result1: this.pacsService.query(),
+            result2: this.aetitleService.query()
+        }).subscribe({
+            next: ({result1, result2}) => {
+                this.pacsList = result1;
+                this.filteredPacsList = result1;
+                this.pacsMap = new Map(result1.map(pacs => [pacs.id, pacs]));
+                this.aetitles = result2;
+                this.aetitles.forEach(aetitle => {
+                    if(aetitle.id == this.userService.getUser()?.aetitle_id) {
+                        this.selectedAetitle = aetitle;
+                    }
+                });
+                this.pacsList.forEach(pacs => {
+                    if(pacs.id == this.userService.getUser()?.pacs_id) {
+                        this.selectedPacs = pacs;
+                        return;
+                    }
+                });
+                console.log('aqui', this.selectedPacs);
+                this.searchForm.get('pacs_id')?.setValue(this.selectedPacs?.id);
+                this.loadExames(1, this.paginator?.pageSize || 20);
+            },
+            error: (err) => {
+                this.isLoading = false;
+            }
+        });
     }
 
     onPacsSearch(value: string) {
@@ -181,8 +199,7 @@ export class EstudosComponent {
         );
     }
 
-    formatDateInput(event: Event): void
-    {
+    formatDateInput(event: Event): void {
         const input = event.target as HTMLInputElement;
         let value = input.value.replace(/\D+/g, '');
         if (value.length > 2) {
@@ -195,8 +212,7 @@ export class EstudosComponent {
         input.value = value;
     }
 
-    validateAndSetDate(event: Event): void
-    {
+    validateAndSetDate(event: Event): void {
         const input = event.target as HTMLInputElement;
         const value = input.value;
 
@@ -255,22 +271,20 @@ export class EstudosComponent {
         const filters = this.getSearchFilters();
         this.estudoService.getEstudos(page, page_size, filters).subscribe({
             next: (examesList: PaginatedList<Estudo[]>) => {
-                this.dataSource.data = examesList.items; // Atualiza a tabela com os dados recebidos
+                console.log(examesList);
+                this.dataSource.data = examesList.items;
                 this.currentLength = examesList.total;
                 this.isLoading = false;
             },
             error: (error) => {
-                console.error('Erro ao carregar os exames:', error);
                 this.isLoading = false;
             }
         });
     }
 
-    private getSearchFilters(): Record<string, any>
-    {
+    private getSearchFilters(): Record<string, any> {
         const filters = {...this.searchForm.value};
         const today = new Date();
-
         switch (filters.dateOption) {
             case 'since-start':
                 filters.study_date = null;
@@ -308,23 +322,19 @@ export class EstudosComponent {
                 filters.study_date = start && end ? `${start}-${end}` : null;
                 break;
         }
-
         if (filters.patient_birth_date) {
             filters.patient_birth_date = this.formatDateToYmd(filters.patient_birth_date);
         }
-
         // Removendo campos auxiliares desnecessários antes de enviar os filtros
         delete filters.specificDate;
         delete filters.rangeStart;
         delete filters.rangeEnd;
         delete filters.dateOption;
-
         return filters;
     }
 
 
-    public onSearch(): void
-    {
+    public onSearch(): void {
         this.isLoading = true;
         const filters = {...this.searchForm.value};
         const today = new Date();
@@ -378,6 +388,7 @@ export class EstudosComponent {
         this.estudoService.getEstudos(1, 10, filters).subscribe({
             next: (examesList: PaginatedList<Estudo[]>) => {
                 this.dataSource.data = examesList.items;
+                this.currentLength = examesList.total;
                 this.isLoading = false;
             },
             error: (error) => {
@@ -386,17 +397,16 @@ export class EstudosComponent {
         });
     }
 
+//----------------------------------------------------------------------------------------------------------------------
     /** Whether the number of selected elements matches the total number of rows. */
-    isAllSelected()
-    {
+    isAllSelected() {
         const numSelected = this.selection.selected.length;
         const numRows = this.dataSource.data.length;
         return numSelected === numRows;
     }
 
     /** Selects all rows if they are not all selected; otherwise clear selection. */
-    toggleAllRows()
-    {
+    toggleAllRows() {
         if (this.isAllSelected()) {
             this.selection.clear();
             return;
@@ -413,7 +423,6 @@ export class EstudosComponent {
         return '';
     }
 
-    // Search Filter
     applyFilter(event: Event) {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -431,17 +440,21 @@ export class EstudosComponent {
 
     }
 
-    visualizarWeb(estudo: Estudo)
-    {
-        this.estudoViewerService.openViewer(estudo);
+    visualizarWeb(estudo: Estudo | any) {
+        let pacs;
+        this.pacsList.forEach(pacsAux => {
+            if(pacsAux.id == this.searchForm.get('pacs_id')?.getRawValue()) {
+                pacs = pacsAux;
+            }
+        });
+        this.estudoViewerService.openViewer(pacs, this.selectedAetitle, estudo);
     }
 
     downloadEstudo(uid: string) {
 
     }
 
-    menuEstudos(estudo: Estudo)
-    {
+    menuEstudos(estudo: Estudo) {
         this.dialog.open(MenuEstudosDialogComponent, {
             maxHeight: '70vh'
         }).afterClosed().subscribe(result => {
@@ -456,8 +469,6 @@ export class EstudosComponent {
         });
     }
 
-
-    // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }

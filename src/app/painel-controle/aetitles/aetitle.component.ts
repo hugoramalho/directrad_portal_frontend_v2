@@ -126,7 +126,6 @@ export class CadastroAetitleComponent {
                 this.aetitles = result2;
                 this.pacsList = result3;
 
-
                 this.runFrontendSearch(); // primeira busca já renderiza a tabela
                 this.isLoading = false;
             },

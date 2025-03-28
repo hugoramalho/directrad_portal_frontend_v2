@@ -192,7 +192,7 @@
 // import {FinanceiroCadastroMenuComponent} from "./financeiro/cadastro/menu/financeiro-cadastro-menu.component";
 // import {FinanceiroCadastroContaComponent} from "./financeiro/cadastro/conta/contas.component";
 // import {FinanceiroCacheResolver} from "./financeiro/cache.resolver";
-// import { PacsControleComponent } from './painel-controle/pacs-controle.component';
+// import { MonitoramentoComponent } from './painel-controle/pacs-controle.component';
 // import {SuporteUsuarioComponent} from "./usuario/suporte/suporte-usuario.component";
 // import {UsuarioComponent} from "./usuario/usuario.component";
 // import {WorklistComponent} from "./worklist/estudos/worklist.component";
@@ -226,9 +226,9 @@
 //     {path: 'worklist', component: WorklistComponent},
 //     {
 //         path: 'painel-controle',
-//         component: PacsControleComponent,
+//         component: MonitoramentoComponent,
 //         children: [
-//             {path: '', component: PacsControleComponent},
+//             {path: '', component: MonitoramentoComponent},
 //             // {path: 'suporte', component: SuporteUsuarioComponent},
 //             // {path: 'config', component: AccountSettingsComponent}
 //         ]

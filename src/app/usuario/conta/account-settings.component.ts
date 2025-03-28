@@ -16,7 +16,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserGroups, UserGroupsMapper} from "../../@shared/model/usuario/user-groups";
 import {MatChip, MatChipListbox} from "@angular/material/chips";
 import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {BRAZILIAN_STATES_ORDERED} from "../../@shared/model/utils/estados";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {ChangePasswordDialogComponent} from "../password-change/password-change.dialog.component";
@@ -24,7 +24,7 @@ import {ChangePasswordDialogComponent} from "../password-change/password-change.
 @Component({
     selector: 'app-account.ts-settings',
     standalone: true,
-    imports: [RouterLink, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule, FileUploadModule, ReactiveFormsModule, FormsModule, MatChip, MatChipListbox, MatDatepicker, MatDatepickerInput, MatDatepickerToggle, NgIf, MatSlideToggle],
+    imports: [RouterLink, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule, FileUploadModule, ReactiveFormsModule, FormsModule, MatChip, MatChipListbox, MatDatepicker, MatDatepickerInput, MatDatepickerToggle, NgIf, MatSlideToggle, NgClass],
     templateUrl: './account-settings.component.html',
     styleUrl: './account-settings.component.scss'
 })

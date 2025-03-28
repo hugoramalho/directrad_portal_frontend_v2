@@ -52,6 +52,8 @@
                 *ngIf="canChangePassword"
                 class="btn-box">
                 <button
+                    [disabled]="!this.habilitarEdicao"
+                    [ngClass]="!this.habilitarEdicao ?'elem-disabled' : 'elem-enabled'"
                     (click)="openChangePasswordDialog()"
                     mat-button>
                     Alterar senha
@@ -68,8 +70,7 @@
                         <input
                             placeholder="Opcional"
                             matInput
-                            formControlName="nome_completo"
-                        >
+                            formControlName="nome_completo">
                     </mat-form-field>
                 </div>
             </div>
@@ -295,18 +296,17 @@
                         <input
                             matInput
                             type="text"
-                            formControlName="endereco_logradouro"
-                        >
+                            formControlName="endereco_logradouro">
                     </mat-form-field>
                 </div>
             </div>
         </div>
-
     </form>
     <div
-        *ngIf="habilitarEdicao"
         class="btn-box">
         <button
+            [disabled]="!this.habilitarEdicao"
+            [ngClass]="!this.habilitarEdicao ?'elem-disabled' : 'elem-enabled'"
             (click)="submit()"
             mat-button>
             Atualizar dados

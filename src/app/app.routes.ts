@@ -84,6 +84,18 @@ export const routes: Routes = [
         ]
     },
     {
+        path: 'monitoramento',
+        canActivate: [AuthGuard],
+        component: CadastroComponent,
+        children: [
+            {
+                path: 'logs',
+                canActivate: [AuthGuard],
+                component: CadastroComponent
+            },
+        ]
+    },
+    {
         path: 'usuario',
         canActivate: [AuthGuard],
         component: UsuarioComponent,

@@ -1,26 +1,14 @@
 // To Do List
 .mat-mdc-card {
     &.daxa-card {
-        &.to-do-list-card {
+        &.pacs-list-card {
             .mat-mdc-card-content {
                 margin: {
                     left: -20px;
                     right: -20px;
                 };
-                .studies-list-table  {
-                    .disclaimer-studies-not-found, .disclaimer-pacs-not-selected {
-                        display: flex !important;
-                        align-items: center !important;
-                        justify-content: center !important;
-                        flex-direction: column !important;
-                    }
+                .pacs-list-table {
                     .mat-mdc-table {
-                        .mat-mdc-row {
-                            transition: background-color 0.3s ease !important;
-                            &:hover {
-                                background-color: rgba(0, 0, 0, 0.04) !important;
-                            }
-                        }
                         .mat-mdc-header-cell {
                             &:last-child {
                                 text-align: right;
@@ -59,35 +47,23 @@
                             }
                         }
                     }
-                }
-                .add-new-task-btn {
-                    padding: {
-                        top: 20px;
-                        left: 20px;
-                        right: 20px;
-                    };
-                    .mat-mdc-button {
-                        padding: 0;
-                        height: auto;
-                        min-width: auto;
-                        font: {
-                            size: var(--fontSize) !important;
-                            weight: normal;
+                    .mat-mdc-paginator {
+                        padding: {
+                            top: 15px;
+                            left: 20px;
+                            right: 20px;
                         };
-                        &:not(:disabled) {
-                            color: var(--daxaColor);
-                        }
                     }
-                }
-                .loading-container {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    height: 200px; /* Altura ajustável */
-                }
-                .mat-spinner {
-                    width: 50px;
-                    height: 50px;
+                    .loading-container {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 200px; /* Altura ajustável */
+                    }
+                    .mat-spinner {
+                        width: 50px;
+                        height: 50px;
+                    }
                 }
                 .action-info {
                     i {
@@ -97,16 +73,8 @@
             }
             &.rtl-enabled {
                 .mat-mdc-card-content {
-                    .studies-list-table  {
+                    .pacs-list-table {
                         .mat-mdc-table {
-                            .mat-mdc-row {
-                                transition: background-color 0.3s ease !important;
-                                &:hover {
-                                    .mat-mdc-cell {
-                                        background-color: rgba(0, 0, 0, 0.04) !important;
-                                    }
-                                }
-                            }
                             .mat-mdc-header-cell {
                                 &:last-child {
                                     text-align: left;
@@ -136,23 +104,9 @@
         }
     }
 }
-::ng-deep {
-}
+
 // Add New Task Popup
 ::ng-deep {
-    .mat-mdc-card {
-        &.daxa-card {
-            .studies-table {
-                .mat-mdc-paginator {
-                    padding: {
-                        top: 15px;
-                        left: 20px;
-                        right: 20px;
-                    };
-                }
-            }
-        }
-    }
     .mat-mdc-table {
         .mat-mdc-row {
             transition: background-color 0.2s ease !important;
@@ -210,6 +164,7 @@
             };
             .daxa-card {
                 width: 100%;
+
                 .mat-mdc-card-header {
                     border-bottom: 1px solid #eeeeee;
                     margin: {
@@ -269,21 +224,41 @@
                 transform: none;
             }
         }
+        &.rtl-enabled {
+            .popup-dialog {
+                .daxa-card {
+                    .mat-mdc-card-content {
+                        .btn-box {
+                            text-align: left;
+
+                            .mat-mdc-button {
+                                &:first-child {
+                                    margin: {
+                                        right: 0;
+                                        left: 10px;
+                                    };
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
 /* Max width 767px */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width : 767px) {
     // To Do List
     .mat-mdc-card {
         &.daxa-card {
-            &.to-do-list-card {
+            &.pacs-list-card {
                 .mat-mdc-card-content {
                     margin: {
                         left: -15px;
                         right: -15px;
                     };
-                    .studies-list-table  {
+                    .pacs-list-table {
                         .mat-mdc-table {
                             .info {
                                 .image {
@@ -301,7 +276,7 @@
                 }
                 &.rtl-enabled {
                     .mat-mdc-card-content {
-                        .studies-list-table  {
+                        .pacs-list-table {
                             .mat-mdc-table {
                                 .mat-mdc-header-cell {
                                     &:first-child {
@@ -327,7 +302,7 @@
     ::ng-deep {
         .mat-mdc-card {
             &.daxa-card {
-                &.to-do-list-card {
+                &.pacs-list-card {
                     .mat-mdc-card-header {
                         .mat-mdc-card-header-text {
                             display: block;
@@ -341,6 +316,7 @@
             }
         }
     }
+
     // Add New Task Popup
     ::ng-deep {
         .add-new-task-popup {
@@ -381,13 +357,16 @@
             }
         }
     }
+
 }
+
 /* Min width 576px to Max width 767px */
-@media only screen and (min-width: 576px) and (max-width: 767px) {
+@media only screen and (min-width : 576px) and (max-width : 767px) {
+
     // To Do List
     .mat-mdc-card {
         &.daxa-card {
-            &.to-do-list-card {
+            &.pacs-list-card {
                 .mat-mdc-card-content {
                     margin: {
                         left: -20px;
@@ -396,7 +375,7 @@
                 }
                 &.rtl-enabled {
                     .mat-mdc-card-content {
-                        .studies-list-table  {
+                        .pacs-list-table {
                             .mat-mdc-table {
                                 .mat-mdc-header-cell {
                                     &:first-child {
@@ -419,14 +398,16 @@
             }
         }
     }
+
 }
 
 /* Min width 768px to Max width 991px */
-@media only screen and (min-width: 768px) and (max-width: 991px) {
+@media only screen and (min-width : 768px) and (max-width : 991px) {
+
     // To Do List
     .mat-mdc-card {
         &.daxa-card {
-            &.to-do-list-card {
+            &.pacs-list-card {
                 .mat-mdc-card-content {
                     .add-new-task-btn {
                         .mat-mdc-button {
@@ -437,17 +418,22 @@
             }
         }
     }
+
 }
+
 /* Min width 992px to Max width 1199px */
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-}
+@media only screen and (min-width : 992px) and (max-width : 1199px) {}
+
 /* Min width 1200px to Max width 1399px */
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {
-}
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
+
 /* Min width 1600px */
-@media only screen and (min-width: 1600px) {
-}
+@media only screen and (min-width: 1600px) {}
+
+
+
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 .mat-mdc-card {
     &.daxa-card {
         &.add-user-card {
@@ -474,17 +460,14 @@
                             padding: 0 3px 0 0;
                             cursor: pointer;
                         }
-
                         .mdc-label {
                             cursor: pointer;
                             color: var(--bodyColor);
                         }
-
                         &:last-child {
                             margin-right: 0;
                         }
                     }
-
                     .mat-mdc-checkbox {
                         margin-bottom: 12px;
                         display: block;
@@ -501,32 +484,26 @@
                                 width: 100%;
                                 height: 100%;
                             }
-
                             .mdc-checkbox__background {
                                 top: 0;
                                 left: 0;
                             }
-
                             .mat-mdc-checkbox-ripple, .mdc-checkbox__ripple {
                                 border-radius: 2px;
                             }
-
                             .mat-mdc-checkbox-touch-target {
                                 width: 100%;
                                 height: 100%;
                             }
                         }
-
                         .mdc-label {
                             color: var(--bodyColor);
                             margin-left: 5px;
                         }
-
                         &:last-child {
                             margin-bottom: 0;
                         }
                     }
-
                     .btn-box {
                         .mat-mdc-button {
                             border: 0;
@@ -544,38 +521,49 @@
                             }
                         }
                     }
-
-                    &.rtl-enabled {
-                        .popup-dialog {
-                            .daxa-card {
-                                .mat-mdc-card-content {
-                                    .btn-box {
-                                        text-align: left;
-
-                                        .mat-mdc-button {
-                                            &:first-child {
-                                                margin: {
-                                                    right: 0;
-                                                    left: 10px;
-                                                };
-                                            }
-                                        }
-                                    }
+                }
+                &.rtl-enabled {
+                    .mat-mdc-card-content {
+                        .mat-mdc-radio-button {
+                            margin: {
+                                right: 0;
+                                left: 30px;
+                            };
+                            &:last-child {
+                                margin-left: 0;
+                            }
+                        }
+                        .mat-mdc-checkbox {
+                            .mdc-label {
+                                padding: {
+                                    left: 0;
+                                    right: 4px;
+                                };
+                                margin: {
+                                    left: 0;
+                                    right: 5px;
+                                };
+                            }
+                        }
+                        .btn-box {
+                            .mat-mdc-button {
+                                &:not(:first-child) {
+                                    margin: {
+                                        left: 0;
+                                        right: 10px;
+                                    };
                                 }
                             }
                         }
                     }
-
                 }
-
-
             }
         }
     }
 }
 
 /* Max width 767px */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width : 767px) {
 
     .mat-mdc-card {
         &.daxa-card {
@@ -584,7 +572,6 @@
                     .title {
                         margin-bottom: 15px;
                     }
-
                     .main-label {
                         margin-bottom: 10px;
                     }
@@ -607,7 +594,6 @@
                             }
                         }
                     }
-
                     &.rtl-enabled {
                         .mat-mdc-card-content {
                             .btn-box {
@@ -630,21 +616,16 @@
 }
 
 /* Min width 576px to Max width 767px */
-@media only screen and (min-width: 576px) and (max-width: 767px) {
-}
+@media only screen and (min-width : 576px) and (max-width : 767px) {}
 
 /* Min width 768px to Max width 991px */
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-}
+@media only screen and (min-width : 768px) and (max-width : 991px) {}
 
 /* Min width 992px to Max width 1199px */
-@media only screen and (min-width: 992px) and (max-width: 1199px) {
-}
+@media only screen and (min-width : 992px) and (max-width : 1199px) {}
 
 /* Min width 1200px to Max width 1399px */
-@media only screen and (min-width: 1200px) and (max-width: 1399px) {
-}
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {}
 
 /* Min width 1600px */
-@media only screen and (min-width: 1600px) {
-}
+@media only screen and (min-width: 1600px) {}
