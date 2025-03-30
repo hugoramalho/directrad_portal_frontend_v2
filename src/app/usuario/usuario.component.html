@@ -1,1 +1,38 @@
-<router-outlet></router-outlet>
+<div class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-between">
+    <h4 class="mb-0">
+        Perfil do usuário: <i>{{ user?.username }}</i>
+    </h4>
+    <ol class="breadcrumb list-unstyled mt-0 mb-0 pl-0">
+        <li class="breadcrumb-item position-relative">
+            <a routerLink="/exames" class="d-inline-block position-relative">
+                <i class="ri-home-8-line"></i>
+                Home
+            </a>
+        </li>
+        <li class="breadcrumb-item position-relative">
+            Usuário
+        </li>
+    </ol>
+</div>
+<div>
+    <ul>
+        <li>
+            Nessa página você pode editar seus dados como senha, dados de contato, endereço.
+        </li>
+    </ul>
+</div>
+<mat-tab-group
+    mat-stretch-tabs="false"
+    mat-align-tabs="start"
+    [dynamicHeight]="true"
+    animationDuration="0ms"
+    [disableRipple]="true">
+    <mat-tab
+        *ngIf="verifyUserGroup(UserGroups.ADMIN)"
+        label="Cadastro">
+        <app-account-settings></app-account-settings>
+    </mat-tab>
+    <mat-tab label="Preferências">
+        <app-user-preferences></app-user-preferences>
+    </mat-tab>
+</mat-tab-group>

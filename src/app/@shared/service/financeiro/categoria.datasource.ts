@@ -39,7 +39,7 @@ export class CategoriaFinanceiroDataSource {
                     response=> response || null),
                 catchError(err => {
                     // Pode-se decidir logar o erro, mostrar uma mensagem para o usuário, etc.
-                    console.error('Erro ao obter dados da conta:', err);
+                    console.error('Erro ao obter dados da dados-cadastro:', err);
                     // Retorna um Observable que emite 'null' como fallback
                     return of(null);
                 })

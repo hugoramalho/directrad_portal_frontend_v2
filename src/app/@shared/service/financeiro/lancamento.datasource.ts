@@ -134,9 +134,9 @@ export class LancamentoFinanceiroDataSource {
         );
     }
 
-    // getLancamentosConta(conta: Conta | null | undefined): Observable<PaginatedList<Lancamento[]>> | null {
-    //     if (conta) {
-    //         const url = this.apiUrl + '/contas/' + conta.id;
+    // getLancamentosConta(dados-cadastro: Conta | null | undefined): Observable<PaginatedList<Lancamento[]>> | null {
+    //     if (dados-cadastro) {
+    //         const url = this.apiUrl + '/contas/' + dados-cadastro.id;
     //         return this.http.get<ApiResponsePaginated<PaginatedList<Lancamento[]>>>(url)
     //             .pipe(map(response => response.data));
     //     }
@@ -147,19 +147,19 @@ export class LancamentoFinanceiroDataSource {
     //         .pipe(map(response => response.data));
     // }
 
-    // create(conta: Conta): Observable<Conta> {
-    //     return this.http.post<ApiResponse<Conta>>(this.apiUrl, conta).pipe(
+    // create(dados-cadastro: Conta): Observable<Conta> {
+    //     return this.http.post<ApiResponse<Conta>>(this.apiUrl, dados-cadastro).pipe(
     //         tap((response) => {
-    //             // Recarrega o cache após cadastrar conta
+    //             // Recarrega o cache após cadastrar dados-cadastro
     //             this.loadLancamentos();
     //         })
     //     );
     // }
     //
-    // update(conta: Conta): Observable<Conta> {
-    //     return this.http.put<ApiResponse<Conta>>(`${this.apiUrl}/${conta.id}`, conta).pipe(
+    // update(dados-cadastro: Conta): Observable<Conta> {
+    //     return this.http.put<ApiResponse<Conta>>(`${this.apiUrl}/${dados-cadastro.id}`, dados-cadastro).pipe(
     //         tap((response) => {
-    //             // Recarrega o cache após atualizar a conta
+    //             // Recarrega o cache após atualizar a dados-cadastro
     //             this.loadLancamentos();
     //         })
     //     );

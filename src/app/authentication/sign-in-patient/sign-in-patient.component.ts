@@ -12,7 +12,7 @@ import {AuthService} from "../../@shared/service/auth/auth.service";
 import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
-    selector: 'app-sign-in',
+    selector: 'app-sign-in-patient',
     standalone: true,
     imports: [
         RouterLink,
@@ -23,10 +23,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
         ReactiveFormsModule,
         NgIf
     ],
-    templateUrl: './sign-in.component.html',
-    styleUrl: './sign-in.component.scss'
+    templateUrl: './sign-in-patient.component.html',
+    styleUrl: './sign-in-patient.component.scss'
 })
-export class SignInComponent {
+export class SignInPatientComponent {
     isToggled = false;
     constructor(
         private fb: FormBuilder,
@@ -34,17 +34,15 @@ export class SignInComponent {
         public themeService: CustomizerSettingsService,
         private authService: AuthService,
         private snackBar: MatSnackBar
-
     ) {
         this.authForm = this.fb.group({
-            password: ['', [Validators.required, Validators.minLength(8)]],
-            username: ['']
+            codigo_acesso: ['', [Validators.required, Validators.minLength(8)]],
+            data_nascimento: ['']
         });
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
     }
-
     hide = true;
     authForm: FormGroup;
     onSubmit(): void {
@@ -74,12 +72,8 @@ export class SignInComponent {
         }
     }
 
-    onPatientAccess()
-    {
-        this.router.navigate(['/authentication/patient']);
-    }
-
     toggleTheme() {
+        console.log('this.isToggled', this.themeService.isToggled$);
         this.themeService.toggleTheme();
     }
 

@@ -45,7 +45,7 @@ export class ContaFinanceiroDataSource {
                 }),
                 catchError(err => {
                     // Pode-se decidir logar o erro, mostrar uma mensagem para o usuário, etc.
-                    console.error('Erro ao obter dados da conta:', err);
+                    console.error('Erro ao obter dados da dados-cadastro:', err);
                     // Retorna um Observable que emite 'null' como fallback
                     return of(null);
                 })
@@ -59,7 +59,7 @@ export class ContaFinanceiroDataSource {
         //         }),
         //         catchError(err => {
         //             // Pode-se decidir logar o erro, mostrar uma mensagem para o usuário, etc.
-        //             console.error('Erro ao obter dados da conta:', err);
+        //             console.error('Erro ao obter dados da dados-cadastro:', err);
         //             // Retorna um Observable que emite 'null' como fallback
         //             return of(null);
         //         })
@@ -73,7 +73,7 @@ export class ContaFinanceiroDataSource {
                     return response ?? null;
                 }),
                 catchError(err => {
-                    console.error('Erro ao obter dados da conta:', err);
+                    console.error('Erro ao obter dados da dados-cadastro:', err);
                     return of(null);
                 })
             );
@@ -93,19 +93,19 @@ export class ContaFinanceiroDataSource {
     //     return this.contasCache.asObservable();
     // }
 
-    // create(conta: Conta): Observable<Conta> {
-    //     return this.http.post<ApiResponse<Conta>>(this.contasUrl, conta).pipe(
+    // create(dados-cadastro: Conta): Observable<Conta> {
+    //     return this.http.post<ApiResponse<Conta>>(this.contasUrl, dados-cadastro).pipe(
     //         tap((response) => {
-    //             // Recarrega o cache após cadastrar conta
+    //             // Recarrega o cache após cadastrar dados-cadastro
     //             this.loadContas();
     //         })
     //     );
     // }
     //
-    // update(conta: Conta): Observable<Conta> {
-    //     return this.http.put<ApiResponse<Conta>>(`${this.contasUrl}/${conta.id}`, conta).pipe(
+    // update(dados-cadastro: Conta): Observable<Conta> {
+    //     return this.http.put<ApiResponse<Conta>>(`${this.contasUrl}/${dados-cadastro.id}`, dados-cadastro).pipe(
     //         tap((response) => {
-    //             // Recarrega o cache após atualizar a conta
+    //             // Recarrega o cache após atualizar a dados-cadastro
     //             this.loadContas();
     //         })
     //     );

@@ -5,10 +5,15 @@
                 class="daxa-form ml-auto mr-auto border-radius bg-white"
                 [class.card-borderd-theme]="themeService.isCardBorder()"
                 [class.component-dark-theme]="themeService.isDark()"
-                [class.rtl-enabled]="themeService.isRTLEnabled()"
-            >
+                [class.rtl-enabled]="themeService.isRTLEnabled()">
                 <div class="title text-center">
-                    <img src= 'assets/images/logos/direct-rad-logo1.png' alt="logo-icon">
+                    <img
+                        *ngIf="themeService.isDark()"
+                        src= 'assets/images/logos/direct-rad-logo1.png' alt="logo-icon">
+                    <img
+                        *ngIf="!themeService.isDark()"
+                        src= 'assets/images/logos/direct-rad_logo-topo.png' alt="logo-icon">
+
 <!--                    <h3>-->
 <!--                        Login-->
 <!--                    </h3>-->
@@ -39,7 +44,10 @@
                             <mat-label>
                                 Senha
                             </mat-label>
-                            <input matInput [type]="hide ? 'password' : 'text'" id="password" formControlName="password">
+                            <input
+                                matInput [type]="hide ? 'password' : 'text'"
+                                id="password"
+                                formControlName="password">
                             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                                 <span class="material-symbols-outlined">
                                     {{hide ? 'visibility_off' : 'visibility'}}
@@ -57,12 +65,19 @@
                         <mat-checkbox>
                             Manter conectado
                         </mat-checkbox>
-                        <a routerLink="/authentication/forgot-password" class="d-inline-block text-daxa">
-                            Esqueci minha senha
-                        </a>
+<!--                        <a routerLink="/authentication/forgot-password" class="d-inline-block text-daxa">-->
+<!--                            Esqueci minha senha-->
+<!--                        </a>-->
                     </div>
                     <button mat-button class="btn" type="submit" [disabled]="authForm.invalid">
                         Login
+                    </button>
+                    <button
+                        (click)="onPatientAccess()"
+                        mat-button
+                        class="btn"
+                        type="submit">
+                        Área do Paciente
                     </button>
 <!--                    <div class="signin-with-socials text-center">-->
 <!--                        <div class="or position-relative">-->

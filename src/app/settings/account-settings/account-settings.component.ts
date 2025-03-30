@@ -11,8 +11,8 @@
 //     selector: 'app-account.ts-settings',
 //     standalone: true,
 //     imports: [RouterLink, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule, FileUploadModule],
-//     templateUrl: './account-settings.component.html',
-//     styleUrl: './account-settings.component.scss'
+//     templateUrl: './user-preferences.component.html',
+//     styleUrl: './user-preferences.component.scss'
 // })
 // export class AccountSettingsComponent {
 //

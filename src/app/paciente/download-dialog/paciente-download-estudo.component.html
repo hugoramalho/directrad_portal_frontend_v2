@@ -1,0 +1,98 @@
+<h1 class="dialog-title" *ngIf="!isLoading" mat-dialog-title>Download de estudo</h1>
+<span class="spacer"></span>
+<h3 style="display: inline" *ngIf="!isLoading" class="mb-25" mat-dialog-title>uid: {{ estudo.StudyInstanceUID }}</h3>
+
+<mat-dialog-content>
+    <div class="loading-container" *ngIf="isLoading; else downloadEstudoTemplate">
+        <mat-spinner></mat-spinner>
+    </div>
+    <ng-template #downloadEstudoTemplate>
+        <div class="table-container">
+            <table
+                mat-table
+                [dataSource]="estudoTags"
+                class="mat-elevation-z8">
+                <ng-container matColumnDef="serie">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef>
+                        Série
+                    </th>
+                    <td
+                        mat-cell
+                        *matCellDef="let element">
+                        {{ element.serie }}
+                    </td>
+                </ng-container>
+                <ng-container
+                    matColumnDef="modalidade">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef>
+                        Modalidade
+                    </th>
+                    <td
+                        mat-cell
+                        *matCellDef="let element">
+                        {{ element.modalidade }}
+                    </td>
+                </ng-container>
+                <ng-container
+                    matColumnDef="data">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef>
+                        Data
+                    </th>
+                    <td
+                        mat-cell
+                        *matCellDef="let element">
+                        {{ element.data }}
+                    </td>
+                </ng-container>
+                <ng-container
+                    matColumnDef="total_imagens">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef>
+                        Total de imagens
+                    </th>
+                    <td
+                        mat-cell
+                        *matCellDef="let element">
+                        {{ element.total_imagens }}
+                    </td>
+                </ng-container>
+                <ng-container
+                    matColumnDef="download">
+                    <th
+                        mat-header-cell
+                        *matHeaderCellDef>
+                        Download
+                    </th>
+                    <td
+                        mat-cell>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+        <button mat-raised-button
+                class="daxa h-auto mdc-button mdc-button--unelevated mat-mdc-unelevated-button mat-unthemed mat-mdc-button-base left-button">
+            <mat-icon>download</mat-icon>
+            Donwnload do estudo
+        </button>
+        <button mat-raised-button
+                class="daxa h-auto mdc-button mdc-button--unelevated mat-mdc-unelevated-button mat-unthemed mat-mdc-button-base left-button">
+            <mat-icon>download</mat-icon>
+            Donwnload do estudo completo
+        </button>
+    </ng-template>
+</mat-dialog-content>
+<mat-dialog-actions *ngIf="!isLoading" class="custom-dialog-actions">
+    <span class="spacer"></span>
+    <button mat-button (click)="onCancel()">Cancelar</button>
+</mat-dialog-actions>
+
+

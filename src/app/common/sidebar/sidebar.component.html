@@ -162,6 +162,33 @@
                             Relatórios
                         </span>
                     </a>
+                    <mat-expansion-panel
+                        *ngIf="isAdmin"
+                        (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <i class="material-symbols-outlined">
+                                    manage_accounts
+                                </i>
+                                <span class="title">
+                                    Admin
+                                </span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <ul class="sidebar-sub-menu">
+                            <li class="sidemenu-item">
+                                <a routerLink="/admin/logs" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">
+                                    Logs
+                                </a>
+                            </li>
+                            <!--                            <li class="sidemenu-item">-->
+                            <!--                                <a routerLink="/usuario/suporte" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link">-->
+                            <!--                                    Equipamentos-->
+                            <!--                                </a>-->
+                            <!--                            </li>-->
+                        </ul>
+                    </mat-expansion-panel>
                     <a
                         routerLink="/usuario/config"
                         class="sidebar-menu-link"
@@ -173,16 +200,6 @@
                         <span class="title">
                             Usuário
                         </span>
-                    </a>
-                    <a
-                        *ngIf="isAdmin"
-                        routerLink="/moitoramento/logs"
-                        routerLinkActive="active"
-                        class="sidebar-menu-link">
-                        <i class="material-symbols-outlined">
-                            monitor_heart
-                        </i>
-                        <span class="title">Monitoramento</span>
                     </a>
 <!--                    <a routerLink="/directprint" class="sidebar-menu-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">-->
 <!--                        <i class="material-symbols-outlined">-->

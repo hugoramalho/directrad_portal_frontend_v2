@@ -103,7 +103,7 @@
 // import { MaterialSymbolsComponent } from './icons/material-symbols/material-symbols.component';
 // import { RemixiconComponent } from './icons/remixicon/remixicon.component';
 // import { AuthenticationComponent } from './auth/authentication.component';
-// import { SignInComponent } from './authentication/sign-in/sign-in.component';
+// import { SignInPatientComponent } from './authentication/sign-in/sign-in.component';
 // import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 // import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 // import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
@@ -190,7 +190,7 @@
 // import {FinanceiroComponent} from "./financeiro/financeiro.component";
 // import {ExtratoComponent} from "./financeiro/extrato/extrato.component";
 // import {FinanceiroCadastroMenuComponent} from "./financeiro/cadastro/menu/financeiro-cadastro-menu.component";
-// import {FinanceiroCadastroContaComponent} from "./financeiro/cadastro/conta/contas.component";
+// import {FinanceiroCadastroContaComponent} from "./financeiro/cadastro/dados-cadastro/contas.component";
 // import {FinanceiroCacheResolver} from "./financeiro/cache.resolver";
 // import { MonitoramentoComponent } from './painel-controle/pacs-controle.component';
 // import {SuporteUsuarioComponent} from "./usuario/suporte/suporte-usuario.component";
@@ -425,7 +425,7 @@
 //         path: 'authentication',
 //         component: AuthenticationComponent,
 //         children: [
-//             {path: '', component: SignInComponent},
+//             {path: '', component: SignInPatientComponent},
 //             {path: 'sign-up', component: SignUpComponent},
 //             {path: 'forgot-password', compdaxa tempelonent: ForgotPasswordComponent},
 //             {path: 'reset-password', component: ResetPasswordComponent},

@@ -7,11 +7,6 @@
         "pathRewrite": {
             "^/api/v2": "/api/v2"
         },
-        "headers": {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "*"
-        }
     },
     "/api/v2/idp": {
         "target": "https://idp.directrad.com.br.dev",
@@ -20,11 +15,6 @@
         "logLevel": "debug",
         "pathRewrite": {
             "^/api/v2/idp": "/api/v2/idp"
-        },
-        "headers": {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-            "Access-Control-Allow-Headers": "*"
         }
     }
 }

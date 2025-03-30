@@ -26,7 +26,7 @@
 //
 //   setConfigUtilizacao(): void {
 //     this.config = this.usuariosService.usuario.config.mdweb || {};
-//     this.utilizacao = this.usuariosService.usuario.conta.config;
+//     this.utilizacao = this.usuariosService.usuario.dados-cadastro.config;
 //   }
 //
 //   addObserverUtilizacao(observer: () => void): void {

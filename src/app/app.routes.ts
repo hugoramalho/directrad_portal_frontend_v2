@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
 import {NotFoundComponent} from './common/not-found/not-found.component';
 import {EstudosComponent} from './estudos/estudos.component';
-import {AccountSettingsComponent} from "./usuario/conta/account-settings.component";
+import {AccountSettingsComponent} from "./usuario/dados-cadastro/account-settings.component";
 import {PacsControleComponent} from './painel-controle/pacs-controle.component';
 import {SuporteUsuarioComponent} from "./usuario/suporte/suporte-usuario.component";
 import {UsuarioComponent} from "./usuario/usuario.component";
@@ -17,6 +17,7 @@ import {LockScreenComponent} from "./authentication/lock-screen/lock-screen.comp
 import {ConfirmEmailComponent} from "./authentication/confirm-email/confirm-email.component";
 import {LogoutComponent} from "./authentication/logout/logout.component";
 import {AuthGuard} from "./@shared/guards/auth.guard";
+import {SignInPatientComponent} from "./authentication/sign-in-patient/sign-in-patient.component";
 
 export const routes: Routes = [
     {
@@ -28,7 +29,14 @@ export const routes: Routes = [
         path: 'authentication',
         component: AuthenticationComponent,
         children: [
-            {path: '', component: SignInComponent},
+            {
+                path: '',
+                component: SignInComponent
+            },
+            {
+                path: 'patient',
+                component: SignInPatientComponent
+            },
             {path: 'sign-up', component: SignUpComponent},
             {path: 'forgot-password', component: ForgotPasswordComponent},
             {path: 'reset-password', component: ResetPasswordComponent},
@@ -41,7 +49,14 @@ export const routes: Routes = [
         path: 'login',
         component: AuthenticationComponent,
         children: [
-            {path: '', component: SignInComponent}
+            {
+                path: '',
+                component: SignInComponent
+            },
+            {
+                path: 'patient',
+                component: SignInPatientComponent
+            }
         ]
     },
     {
@@ -84,7 +99,7 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'monitoramento',
+        path: 'admin',
         canActivate: [AuthGuard],
         component: CadastroComponent,
         children: [
@@ -113,6 +128,12 @@ export const routes: Routes = [
             }
         ]
     },
-
-    {path: '**', component: NotFoundComponent} // This line will remain down from the whole pages component list
+    {
+        path: 'page-not-found',
+        component: NotFoundComponent
+    },
+    {
+        path: '**',
+        redirectTo: 'page-not-found',
+    }
 ];

@@ -5,6 +5,7 @@
  **/
 
 import { UserPermissions } from "./user-permissions";
+import {UsersPreferences} from "./users-preferences";
 
 export class User {
     id: number;
@@ -24,7 +25,8 @@ export class User {
     last_login?: string | null;
     created_on?: string | null;
     groups: { id: string; user_id: string; group_id: string, group_name?: string }[] | null;
-    permissions?: UserPermissions | null;
+    permissions?: UserPermissions | any;
+    preferences?: UsersPreferences | any;
     nome_completo?: string | null | undefined;
     data_nascimento?: string | null | undefined;
     documento?: string | null | undefined;

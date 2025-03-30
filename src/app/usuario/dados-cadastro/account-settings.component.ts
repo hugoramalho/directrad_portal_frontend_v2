@@ -1,5 +1,3 @@
-
-
 import {Component} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -20,15 +18,47 @@ import {NgClass, NgIf} from "@angular/common";
 import {BRAZILIAN_STATES_ORDERED} from "../../@shared/model/utils/estados";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {ChangePasswordDialogComponent} from "../password-change/password-change.dialog.component";
+import {CadastroAetitleComponent} from "../../painel-controle/aetitles/aetitle.component";
+import {CadastroPacsComponent} from "../../painel-controle/pacs/pacs.component";
+import {MatTab, MatTabGroup} from "@angular/material/tabs";
+import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from "@angular/material/card";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
-    selector: 'app-account.ts-settings',
+    selector: 'app-account-settings',
     standalone: true,
-    imports: [RouterLink, MatButtonModule, MatInputModule, MatFormFieldModule, MatSelectModule, FileUploadModule, ReactiveFormsModule, FormsModule, MatChip, MatChipListbox, MatDatepicker, MatDatepickerInput, MatDatepickerToggle, NgIf, MatSlideToggle, NgClass],
+    imports: [
+        RouterLink,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        FileUploadModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatChip,
+        MatChipListbox,
+        MatDatepicker,
+        MatDatepickerInput,
+        MatDatepickerToggle,
+        NgIf,
+        MatSlideToggle,
+        NgClass,
+        CadastroAetitleComponent,
+        CadastroPacsComponent,
+        MatTab,
+        MatTabGroup,
+        MatCard,
+        MatCardContent,
+        MatCardHeader,
+        MatCardTitle,
+        MatIcon
+    ],
     templateUrl: './account-settings.component.html',
     styleUrl: './account-settings.component.scss'
 })
 export class AccountSettingsComponent {
+    protected readonly UserGroups = UserGroups;
     protected readonly UserGroupsMapper = UserGroupsMapper;
     habilitarEdicao: boolean = false;
     public multiple: boolean = false;
@@ -88,8 +118,7 @@ export class AccountSettingsComponent {
         this.userForm.disable();
     }
 
-    openChangePasswordDialog()
-    {
+    openChangePasswordDialog() {
         this.dialog.open(ChangePasswordDialogComponent, {
             width: '400px',
             data: this.user as User
@@ -123,10 +152,6 @@ export class AccountSettingsComponent {
                 console.error('Erro ao atualizar usuário:', error);
             }
         });
-    }
-
-    onCancel() {
-        // this.dialogRef.close();
     }
 
     toggleRTLEnabledTheme() {

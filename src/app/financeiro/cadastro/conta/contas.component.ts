@@ -28,7 +28,7 @@ interface CardSettings {
 }
 
 @Component({
-    selector: 'app-financeiro-conta',
+    selector: 'app-financeiro-dados-cadastro',
     imports: [
         MatCardModule,
         MatMenuModule,

@@ -1,5 +1,5 @@
 import {NgIf} from '@angular/common';
-import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
@@ -17,24 +17,17 @@ import {MatPaginator, MatPaginatorModule, PageEvent} from "@angular/material/pag
 import {CustomizerSettingsService} from '../customizer-settings/customizer-settings.service';
 import {EstudoService} from '../@shared/service/estudo/study.service';
 import {Estudo} from '../@shared/model/estudo/exame';
-import {MenuEstudosDialogComponent} from './menu/options-menu.component';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import {CommonModule} from '@angular/common';
 import {DateFormatPipe} from '../@shared/pipe/date.pipe';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {DcmQueryParams} from "../@shared/dcm/query-params";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
-import {dateValidator} from "../@shared/date.validator";
-import {EditarEstudoDialogComponent} from "./edicao/edicao-estudo.component";
-import {PaginatedListInterface} from "../@shared/model/http/paginated-list-interface";
 import {PaginatedList} from "../@shared/model/http/paginated-list";
-import {tap} from "rxjs/operators";
 import {PacsService} from "../@shared/service/pacs/pacs.service";
 import {Pacs} from "../@shared/model/pacs/pacs";
 import {UserService} from "../@shared/service/usuario/user.service";
 import {UserGroups} from "../@shared/model/usuario/user-groups";
 import {MatTab} from "@angular/material/tabs";
-import {STUDIES_OPTION_MENU} from "./menu/options-menu.enum";
 import {DatetimeFormatPipe} from "../@shared/pipe/datetime.pipe";
 import {EstudoViewerService} from "../@shared/service/estudo/study-viewer.service";
 import {MatIcon} from "@angular/material/icon";
@@ -47,7 +40,6 @@ import {Aetitle} from "../@shared/model/pacs/aetitle";
     selector: 'app-to-do-list',
     standalone: true,
     imports: [
-        // MenuContextoEstudosComponent,
         MatCardModule,
         MatMenuModule,
         MatButtonModule,
@@ -68,14 +60,13 @@ import {Aetitle} from "../@shared/model/pacs/aetitle";
         MatProgressSpinner,
         FormsModule,
         MatPaginatorModule,
-        MatTab,
         DatetimeFormatPipe,
         MatIcon
     ],
-    templateUrl: './estudos.component.html',
-    styleUrl: './estudos.component.scss'
+    templateUrl: './paciente.component.html',
+    styleUrl: './paciente.component.scss'
 })
-export class EstudosComponent {
+export class PacienteComponent {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     isToggled: boolean = false;
     isLoading: boolean = true;
@@ -454,26 +445,6 @@ export class EstudosComponent {
 
     }
 
-    menuEstudos(estudo: Estudo) {
-        this.dialog.open(MenuEstudosDialogComponent, {
-            maxHeight: '70vh'
-        }).afterClosed().subscribe(result => {
-            if (result) {
-                if (result == STUDIES_OPTION_MENU.TAGS_DICOM) {
-                    this.dialog.open(EditarEstudoDialogComponent, {
-                        data: estudo,
-                        maxHeight: '70vh'
-                    })
-                }
-                if (result == STUDIES_OPTION_MENU.DOWNLOAD_STUDY) {
-                    this.dialog.open(EditarEstudoDialogComponent, {
-                        data: estudo,
-                        maxHeight: '70vh'
-                    })
-                }
-            }
-        });
-    }
 
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();

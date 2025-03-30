@@ -1,16 +1,21 @@
-<mat-card class="daxa-card error-card mb-25 pt-0 border-radius bg-white border-none d-block text-center">
-    <mat-card-content>
-<!--        <img src="assets/images/error.png" alt="error-image">-->
+<div class="flex-container">
+    <mat-card class="daxa-card error-card mb-25 pt-0 border-radius bg-white border-none d-block text-center">
+        <mat-card-content>
+            <!--        <img src="assets/images/error.png" alt="error-image">-->
+            <mat-icon
+                class="not-found-icon">
+                help
+            </mat-icon>
+            <h3>
+                Página não encontrada
+            </h3>
+            <a mat-button routerLink="/">
+                Voltar para Home
+            </a>
+        </mat-card-content>
+    </mat-card>
+</div>
 
-        <mat-icon style="font-size: 10rem; height: auto; width: auto; margin: 5rem" >help</mat-icon>
-        <h3>
-            Página não encontrada
-        </h3>
-<!--        <p>-->
-<!--            But no worries! Our team is looking ever where while you wait safely.-->
-<!--        </p>-->
-        <a mat-button routerLink="/">
-            Voltar para Home
-        </a>
-    </mat-card-content>
-</mat-card>
+
+
+

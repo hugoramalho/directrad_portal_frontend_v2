@@ -1,0 +1,75 @@
+<div class="sign-in-area">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div
+                class="daxa-form ml-auto mr-auto border-radius bg-white"
+                [class.card-borderd-theme]="themeService.isCardBorder()"
+                [class.component-dark-theme]="themeService.isDark()"
+                [class.rtl-enabled]="themeService.isRTLEnabled()">
+                <div class="title text-center">
+                    <img
+                        *ngIf="themeService.isDark()"
+                        src= 'assets/images/logos/direct-rad-logo1.png' alt="logo-icon">
+                    <img
+                        *ngIf="!themeService.isDark()"
+                        src= 'assets/images/logos/direct-rad_logo-topo.png' alt="logo-icon">
+<!--                    <p class="text-black">-->
+<!--                        Don’t have an account yet? <a routerLink="/authentication/sign-up" class="text-daxa">Sign Up</a>-->
+<!--                    </p>-->
+                </div>
+                <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+<!--                        <label class="main-label d-block lh-1 text-black">-->
+<!--                            Email Address-->
+<!--                        </label>-->
+                        <mat-form-field>
+                            <mat-label>
+                                Código de acesso
+                            </mat-label>
+                            <input
+
+                                matInput
+                                type="text"
+                                id="codigo_acesso"
+                                formControlName="codigo_acesso">
+                        </mat-form-field>
+<!--                        <div class="error text-danger" *ngIf="authForm.get('email')!.hasError('required') && authForm.get('email')!.touched">-->
+<!--                            Digite o username-->
+<!--                        </div>-->
+<!--                        <div class="error text-danger" *ngIf="authForm.get('email')!.hasError('email') && authForm.get('email')!.touched">-->
+<!--                            Please enter a valid email address.-->
+<!--                        </div>-->
+                    </div>
+                    <div class="form-group">
+                        <mat-form-field>
+                            <mat-label>
+                                Data de Nascimento
+                            </mat-label>
+                            <input
+                                matInput [type]="hide ? 'password' : 'text'"
+                                id="data_nascimento"
+                                formControlName="data_nascimento">
+                        </mat-form-field>
+                        <div
+                            class="error text-danger"
+                            *ngIf="authForm.get('data_nascimento')!.hasError('required') && authForm.get('data_nascimento')!.touched">
+                            Digite a data de Nascimento
+                        </div>
+<!--                        <div class="error text-danger" *ngIf="authForm.get('password')!.hasError('minlength') && authForm.get('password')!.touched">-->
+<!--                            Password must be at least 8 characters long.-->
+<!--                        </div>-->
+                    </div>
+                    <button mat-button class="btn" type="submit" [disabled]="authForm.invalid">
+                        Acessar
+                    </button>
+                    <div class="text-center back-to-sign-in">
+                        <a mat-button routerLink="/authentication">
+                            <i class="ri-arrow-left-s-line"></i>
+                            Voltar para acesso profissional
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

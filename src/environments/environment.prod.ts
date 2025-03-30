@@ -6,9 +6,9 @@
 
 export const environment = {
     production: true,
-    apiBaseUrl: 'https://portal.directrad.com.br/api/v1',
-    api_v1_base_url: 'https://portal.directrad.com.br/api/v1',
-    baseUrl: 'https://portal.directrad.com.br'
+    apiBaseUrl: 'https://portalv2-be.directrad.com.br/api/v1',
+    api_v1_base_url: 'https://portalv2-be.directrad.com.br/api/v1',
+    baseUrl: 'https://portalv2-be.directrad.com.br/'
 };
 
 

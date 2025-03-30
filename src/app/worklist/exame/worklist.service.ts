@@ -60,7 +60,7 @@ export class WorklistService {
     //                     }
     //                 ),
     //                 catchError(err => {
-    //                     console.error('Erro ao obter dados da conta:', err);
+    //                     console.error('Erro ao obter dados da dados-cadastro:', err);
     //                     return of(null);
     //                 })
     //             );
