@@ -387,6 +387,18 @@ export class EstudosComponent {
         delete filters.rangeStart;
         delete filters.rangeEnd;
         delete filters.dateOption;
+        this.pacsList.forEach(pacs => {
+            if(pacs.id == this.searchForm.get('pacs_id')?.value) {
+                this.selectedPacs = pacs;
+                this.aetitles.forEach(aetitle => {
+                    if(aetitle.id == pacs.aet_principal) {
+                        this.selectedAetitle = aetitle;
+                        return;
+                    }
+                })
+                return;
+            }
+        })
         this.estudoService.getEstudos(1, 10, filters).subscribe({
             next: (examesList: PaginatedList<Estudo[]>) => {
                 this.dataSource.data = examesList.items;
@@ -476,7 +488,7 @@ export class EstudosComponent {
 
     menuEstudos(estudo: Estudo) {
         this.dialog.open(MenuEstudosDialogComponent, {
-            maxHeight: '70vh'
+            maxHeight: '80vh'
         }).afterClosed().subscribe(result => {
             if (result) {
                 if (result == STUDIES_OPTION_MENU.TAGS_DICOM) {
