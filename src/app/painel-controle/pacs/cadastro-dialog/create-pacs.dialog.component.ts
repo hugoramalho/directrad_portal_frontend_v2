@@ -9,7 +9,7 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButton} from "@angular/material/button";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
@@ -45,6 +45,7 @@ import {MatIcon} from "@angular/material/icon";
         MatOption,
         MatProgressSpinner,
         MatIcon,
+        NgClass,
     ]
 })
 export class CreatePacsDialogComponent {
@@ -56,6 +57,7 @@ export class CreatePacsDialogComponent {
     teleUsers: UserRis[] = [];
     adminUsers: User[] = [];
     isLoading = true;
+    isSaving = false;
     filteredTeles: UserRis[] = [];
     filteredAdmins: User[] = [];
 
@@ -85,7 +87,7 @@ export class CreatePacsDialogComponent {
 
                 this.pacsForm = this.formBuilder.group({
                     tipo_pacs_application: ['', Validators.required],
-                    identificacao: [''],
+                    identificacao: ['', Validators.required],
                     ip: [''],
                     dominio: [''],
                     worklist_ip: [''],
@@ -99,7 +101,7 @@ export class CreatePacsDialogComponent {
                     pacs_ram_config: [''],
                     tamanho_pool: [''],
                     quantidade_threads: [''],
-                    aetitle_storage_principal: [''],
+                    aetitle_storage_principal: ['', Validators.required],
                     aetitle_worklist: [''],
                     tele_id: [''],
                     admin_id: [''],
@@ -164,6 +166,8 @@ export class CreatePacsDialogComponent {
             return;
         }
         const pacsData = this.pacsForm.value as Pacs;
+        this.isSaving = true;
+        this.pacsForm.disable();
         this.pacsService.create(pacsData).subscribe({
             next: (response) => {
                 this.snackBar.open('Pacs criado com sucesso', 'Fechar', {
@@ -172,9 +176,13 @@ export class CreatePacsDialogComponent {
                     verticalPosition: 'bottom',
                     // panelClass: ['success-snackbar']
                 });
+                this.pacsForm.enable();
                 this.dialogRef.close(response);
+                this.isSaving = false;
             },
             error: (error) => {
+                this.isSaving = false;
+                this.pacsForm.enable();
                 console.error('Erro ao criar PACS:', error);
             }
         });

@@ -184,6 +184,7 @@
                         <mat-form-field>
                             <mat-label>AeTitle Principal (Storage)</mat-label>
                             <input
+                                oninput="this.value = this.value.replace(/[^A-Za-z0-9_]/g, '').toUpperCase()"
                                 matInput
                                 type="text"
                                 class="form-control"
@@ -195,6 +196,7 @@
                         <mat-form-field>
                             <mat-label>AeTitle Worklist (Opcional)</mat-label>
                             <input
+                                oninput="this.value = this.value.replace(/[^A-Za-z0-9_]/g, '').toUpperCase()"
                                 matInput
                                 type="text"
                                 class="form-control"
@@ -354,15 +356,27 @@
         Próximo
     </button>
     <button
+        [disabled]="isSaving"
+        [ngClass]="this.isSaving ?'elem-disabled' : 'elem-enabled'"
         *ngIf="currentPage === 2"
         mat-raised-button
         mat-button
         type="submit"
         class="btn btn-success btn-submit"
         (click)="submit()">
-        Cadastrar
+        <mat-progress-spinner
+            *ngIf="isSaving"
+            diameter="20"
+            mode="indeterminate"
+            color="accent"
+            style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+        </mat-progress-spinner>
+        {{ isSaving ? 'Cadastrando...' : 'Cadastrar' }}
     </button>
+
     <button
+        [disabled]="isSaving"
+        [ngClass]="this.isSaving ?'elem-disabled' : 'elem-enabled'"
         mat-raised-button
         mat-button
         type="button"
@@ -401,10 +415,22 @@
                 </div>
             </div>
             <div class="row">
+                <div class="flex justify-content-start mb-25">
+                    <mat-label
+                        style="white-space: nowrap; display: inline; margin-right: 1rem">
+                        Criar Aetitle no Pacs após o cadastro no Portal
+                    </mat-label>
+                    <mat-slide-toggle
+                        class="form-control"
+                        formControlName="sync_pacs_aetitle"
+                        style="display: inline">
+                    </mat-slide-toggle>
+                </div>
                 <div class="col-md-6 form-group">
                     <mat-form-field>
                         <mat-label>AeTitle Principal (Storage)</mat-label>
                         <input
+                            oninput="this.value = this.value.replace(/[^A-Za-z0-9_]/g, '').toUpperCase()"
                             matInput
                             type="text"
                             class="form-control"
@@ -416,6 +442,7 @@
                     <mat-form-field>
                         <mat-label>AeTitle Worklist - Pacs Central (Opcional)</mat-label>
                         <input
+                            oninput="this.value = this.value.replace(/[^A-Za-z0-9_]/g, '').toUpperCase()"
                             matInput
                             type="text"
                             class="form-control"
@@ -497,6 +524,8 @@
     *ngIf="tipo_pacs_application === PacsHostType.PACS_CENTRAL_ORACLE"
     class="modal-footer">
     <button
+        [disabled]="isSaving"
+        [ngClass]="this.isSaving ?'elem-disabled' : 'elem-enabled'"
         mat-raised-button
         mat-button
         type="button"
@@ -505,12 +534,21 @@
         Cancelar
     </button>
     <button
+        [disabled]="isSaving"
+        [ngClass]="this.isSaving ?'elem-disabled' : 'elem-enabled'"
         mat-raised-button
         mat-button
         type="submit"
         class="btn btn-success btn-submit"
         (click)="submit()">
-        Salvar
+        <mat-progress-spinner
+            *ngIf="isSaving"
+            diameter="20"
+            mode="indeterminate"
+            color="accent"
+            style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+        </mat-progress-spinner>
+        {{ isSaving ? 'Salvando...' : 'Salvar' }}
     </button>
 </mat-dialog-actions>
 
