@@ -5,7 +5,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {RouterLink} from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {NgIf} from '@angular/common';
+import {NgClass, NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 import {CustomizerSettingsService} from '../../customizer-settings/customizer-settings.service';
 import {AuthService} from "../../@shared/service/auth/auth.service";
@@ -23,7 +23,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
         MatCheckboxModule,
         ReactiveFormsModule,
         NgIf,
-        MatProgressSpinner
+        MatProgressSpinner,
+        NgClass
     ],
     templateUrl: './sign-in.component.html',
     styleUrl: './sign-in.component.scss'
