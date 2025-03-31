@@ -78,7 +78,7 @@ export class EstudoDownloadService {
                 })
             },
             error: (err) => {
-                console.error('Erro ao solicitar o download:', err);
+                console.error('Erro:', err);
             }
         });
     }

@@ -41,6 +41,7 @@ export class StudySeriesService {
     }
 
     getStudySeries(pacs: Pacs, aetitle: Aetitle, estudo: Estudo): Observable<StudyDownload> {
+        console.log('getStudySeries', pacs, aetitle, estudo);
         return this.http.get<ApiResponseInterface<StudyDownload>>(
             `${this.baseUrl}/pacs/${pacs.id}/aetitles/${aetitle.id}/studies/${estudo.StudyInstanceUID}/series`,
         ).pipe(

@@ -4,7 +4,7 @@ import {
     MAT_DIALOG_DATA,
     MatDialogContent,
     MatDialogActions,
-    MatDialogTitle
+    MatDialogTitle, MatDialog
 } from '@angular/material/dialog';
 import {EstudoService} from "../../@shared/service/estudo/study.service";
 import {
@@ -43,6 +43,10 @@ import {MatSelect} from "@angular/material/select";
 import {StudyDownload, StudyDownloadSerie} from "../../@shared/model/estudo/study-download";
 import {unknownValuePipe} from "../../@shared/pipe/unknown-value";
 import {StudySeriesService} from "../../@shared/service/estudo/study-series.service";
+import {MenuEstudosDialogComponent} from "../menu/options-menu.component";
+import {STUDIES_OPTION_MENU} from "../menu/options-menu.enum";
+import {EditarEstudoDialogComponent} from "../edicao/edicao-estudo.component";
+import {ConfirmDeleteStudiesSeriesDialogComponent} from "./confirm-delete-study-series.dialog.component";
 
 export interface DialogData {
     pacs: Pacs;
@@ -115,7 +119,7 @@ export class DeleteStudySeriesDialogComponent {
         public dialogRef: MatDialogRef<DeleteStudySeriesDialogComponent>,
         public themeService: CustomizerSettingsService,
         private studySeriesService: StudySeriesService,
-        private estudoDownloadService: EstudoDownloadService,
+        private dialog: MatDialog,
     ) {
     }
 
@@ -143,7 +147,20 @@ export class DeleteStudySeriesDialogComponent {
     }
 
     onDeleteSerie(serie: StudyDownloadSerie) {
-        return this.estudoDownloadService.onDownloadSerie(this.selectedPacs, this.selectedAetitle, serie);
+        this.dialog.open(ConfirmDeleteStudiesSeriesDialogComponent, {
+            data: serie,
+            maxHeight: '30vh'
+        }).afterClosed().subscribe(result => {
+            if (result) {
+                this.studySeriesService.deleteStudySeries(
+                    this.selectedPacs,
+                    this.selectedAetitle,
+                    serie
+                );
+                return;
+            }
+            return;
+        });
     }
 
 }
