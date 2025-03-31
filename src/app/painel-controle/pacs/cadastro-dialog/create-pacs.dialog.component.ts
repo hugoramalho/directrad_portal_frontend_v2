@@ -24,6 +24,8 @@ import {forkJoin} from "rxjs";
 import {User} from "../../../@shared/model/usuario/user";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {MatIcon} from "@angular/material/icon";
+import {ClinicaService} from "../../../@shared/service/usuario/clinica.service";
+import {UserClinica} from "../../../@shared/model/usuario/user-clinica";
 
 @Component({
     standalone: true,
@@ -55,17 +57,20 @@ export class CreatePacsDialogComponent {
     currentPage = 1;
     usarChaveSSH = false;
     teleUsers: UserRis[] = [];
+    filteredTeles: UserRis[] = [];
     adminUsers: User[] = [];
+    filteredAdmins: User[] = [];
+    clinicas: UserClinica[] = [];
+    filteredClinicas: UserClinica[] = [];
     isLoading = true;
     isSaving = false;
-    filteredTeles: UserRis[] = [];
-    filteredAdmins: User[] = [];
 
     constructor(
         public dialogRef: MatDialogRef<CreatePacsDialogComponent>,
         private formBuilder: FormBuilder,
         private pacsService: PacsService,
         private usersService: UsersService,
+        private clinicaService: ClinicaService,
         private snackBar: MatSnackBar,
         @Inject(MAT_DIALOG_DATA) public tipo_pacs_application: PacsHostType
     ) {
@@ -77,12 +82,15 @@ export class CreatePacsDialogComponent {
         forkJoin({
             result1: this.usersService.queryAdmins(),
             result2: this.usersService.queryTeles(),
+            result3: this.clinicaService.query(),
         }).subscribe({
-            next: ({result1, result2}) => {
+            next: ({result1, result2, result3}) => {
                 this.adminUsers = result1;
                 this.filteredAdmins = result1;
                 this.filteredTeles = result2;
                 this.teleUsers = result2;
+                this.clinicas = result3;
+                this.filteredClinicas = result3;
                 this.isLoading = false;
 
                 this.pacsForm = this.formBuilder.group({
@@ -111,6 +119,7 @@ export class CreatePacsDialogComponent {
                     pacs_host_ssh_password: [''],
                     pacs_host_ssh_key: [''],
                     sync_pacs_aetitle: [false],
+                    clinica_id: [''],
                 });
                 this.pacsForm.get('tipo_pacs_application')?.setValue(
                     this.tipo_pacs_application
@@ -132,6 +141,13 @@ export class CreatePacsDialogComponent {
     onAdminSearch(value: string) {
         this.filteredAdmins = this.adminUsers.filter(user =>
             user.username?.toLowerCase().includes(value.toLowerCase())
+        );
+    }
+
+    onClinicaSearch(value: string) {
+        this.filteredClinicas = this.clinicas.filter(user =>
+            user.nome_razao?.toLowerCase().includes(value.toLowerCase()) ||
+            user.nome?.toLowerCase().includes(value.toLowerCase())
         );
     }
 
