@@ -69,10 +69,22 @@
 <!--                            Esqueci minha senha-->
 <!--                        </a>-->
                     </div>
-                    <button mat-button class="btn" type="submit" [disabled]="authForm.invalid">
-                        Login
+                    <button
+                        mat-button
+                        class="btn"
+                        type="submit"
+                        [disabled]="authForm.invalid || isLogging">
+                        <mat-progress-spinner
+                            *ngIf="isLogging"
+                            diameter="20"
+                            mode="indeterminate"
+                            color="accent"
+                            style="display: inline-block; vertical-align: middle; margin-right: 8px;"
+                        ></mat-progress-spinner>
+                        {{ isLogging ? 'Autenticando...' : 'Login' }}
                     </button>
                     <button
+                        [disabled]="isLogging"
                         (click)="onPatientAccess()"
                         mat-button
                         class="btn"

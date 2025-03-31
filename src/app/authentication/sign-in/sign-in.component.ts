@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 import {CustomizerSettingsService} from '../../customizer-settings/customizer-settings.service';
 import {AuthService} from "../../@shared/service/auth/auth.service";
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
     selector: 'app-sign-in',
@@ -21,13 +22,15 @@ import {MatSnackBar} from '@angular/material/snack-bar';
         MatButtonModule,
         MatCheckboxModule,
         ReactiveFormsModule,
-        NgIf
+        NgIf,
+        MatProgressSpinner
     ],
     templateUrl: './sign-in.component.html',
     styleUrl: './sign-in.component.scss'
 })
 export class SignInComponent {
-    isToggled = false;
+    isToggled: boolean = false;
+    isLogging: boolean = false;
     constructor(
         private fb: FormBuilder,
         private router: Router,
@@ -37,8 +40,8 @@ export class SignInComponent {
 
     ) {
         this.authForm = this.fb.group({
-            password: ['', [Validators.required, Validators.minLength(8)]],
-            username: ['']
+            password: ['', [Validators.required, Validators.minLength(2)]],
+            username: ['', [Validators.required]]
         });
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
@@ -49,6 +52,8 @@ export class SignInComponent {
     authForm: FormGroup;
     onSubmit(): void {
         if (this.authForm.valid) {
+            this.isLogging = true;
+            this.authForm.disable();
             this.authService.login(
                 this.authForm.value.username,
                 this.authForm.value.password
@@ -61,6 +66,8 @@ export class SignInComponent {
                         panelClass: ['success-snackbar']
                     });
                     this.router.navigate(['/']);
+                    this.isLogging = false;
+                    this.authForm.enable();
                 },
                 error: () => {
                     this.snackBar.open('Falha na autenticação!', 'Fechar', {
@@ -69,6 +76,8 @@ export class SignInComponent {
                         verticalPosition: 'bottom',
                         panelClass: ['error-snackbar']
                     });
+                    this.isLogging = false;
+                    this.authForm.enable();
                 }
             });
         }

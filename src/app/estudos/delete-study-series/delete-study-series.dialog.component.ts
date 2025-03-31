@@ -14,13 +14,13 @@ import {
     MatHeaderCell,
     MatHeaderCellDef,
     MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
-    MatTable
+    MatTable, MatTableDataSource
 } from "@angular/material/table";
-import {NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
+import {NgForOf, NgIf, NgSwitch, NgSwitchCase} from "@angular/common";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
-import {MatInput} from "@angular/material/input";
-import {FormBuilder, FormGroup, FormsModule} from "@angular/forms";
+import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TagDicom} from "../../@shared/model/estudo/tag-dicom";
 import {Estudo} from "../../@shared/model/estudo/exame";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
@@ -38,6 +38,11 @@ import {Pacs} from "../../@shared/model/pacs/pacs";
 import {EstudoTag} from "./estudo-tag";
 import {EstudoDownloadService} from "../../@shared/service/estudo/study-download.service";
 import {Aetitle} from "../../@shared/model/pacs/aetitle";
+import {MatOption} from "@angular/material/autocomplete";
+import {MatSelect} from "@angular/material/select";
+import {StudyDownload, StudyDownloadSerie} from "../../@shared/model/estudo/study-download";
+import {unknownValuePipe} from "../../@shared/pipe/unknown-value";
+import {StudySeriesService} from "../../@shared/service/estudo/study-series.service";
 
 export interface DialogData {
     pacs: Pacs;
@@ -47,9 +52,9 @@ export interface DialogData {
 
 @Component({
     standalone: true,
-    selector: 'app-edit-estudo-modal',
-    templateUrl: './paciente-download-estudo.component.html',
-    styleUrls: ['./paciente-download-estudo.component.scss'],
+    selector: 'app-delete-study-series-modal',
+    templateUrl: './delete-study-series.dialog.component.html',
+    styleUrls: ['./delete-study-series.dialog.component.scss'],
     imports: [
         MatTable,
         MatDialogContent,
@@ -70,32 +75,47 @@ export interface DialogData {
         MatDialogActions,
         MatButton,
         MatProgressSpinner,
-        MatDialogTitle
+        MatTooltip,
+        DataInputComponent,
+        GenderSelectComponent,
+        TrueFalseSelectComponent,
+        StudyModalitySelectComponent,
+        UnityMeasureInputComponent,
+        PhoneInputComponent,
+        NgSwitchCase,
+        NgSwitch,
+        MatDialogTitle,
+        MatFormField,
+        MatLabel,
+        MatOption,
+        MatSelect,
+        NgForOf,
+        ReactiveFormsModule,
+        unknownValuePipe
     ]
 })
-export class DownloadEstudoPacienteDialogComponent {
-    estudoForm: FormGroup;
+export class DeleteStudySeriesDialogComponent {
     isToggled = false;
-    estudoTags: EstudoTag[] = [];
-    isModified: boolean = false;
+    estudoDonwload: StudyDownload;
     isLoading = true;
     selectedAetitle: Aetitle;
     selectedPacs: Pacs;
     estudo: Estudo;
+    dataSource = new MatTableDataSource<StudyDownloadSerie>([]);
     displayedColumns: string[] = [
-        'tag',
-        'name',
-        'value',
-        'actions'
+        'series_name',
+        'modality',
+        'study_date',
+        'total_images',
+        'actions',
     ];
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: DialogData,
-        public dialogRef: MatDialogRef<DownloadEstudoPacienteDialogComponent>,
+        public dialogRef: MatDialogRef<DeleteStudySeriesDialogComponent>,
         public themeService: CustomizerSettingsService,
-        private estudoService: EstudoService,
+        private studySeriesService: StudySeriesService,
         private estudoDownloadService: EstudoDownloadService,
-        private formBuilder: FormBuilder,
     ) {
     }
 
@@ -107,35 +127,23 @@ export class DownloadEstudoPacienteDialogComponent {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
-        this.estudoForm = this.formBuilder.group({
-            StudyDate: [null],
-            StudyModality: [''],
-
+        this.studySeriesService.getStudySeries(
+            this.selectedPacs,
+            this.selectedAetitle,
+            this.estudo
+        ).subscribe(estudoDownloadInfo => {
+            this.estudoDonwload = estudoDownloadInfo;
+            this.dataSource.data = this.estudoDonwload.series
+            this.isLoading = false;
         });
-        // this.estudoDownloadService.getDownloadInfo(this.selectedPacs, this.selectedAetitle, this.estudo).subscribe({
-        //     next: data => {
-        //     }
-        // })
-        this.isLoading = false;
     }
 
     onCancel(): void {
         this.dialogRef.close(); // Fecha o modal sem salvar alterações
     }
 
-    onDonwload(): void {
-        const updatedTags = this.estudoTags
-            .filter((tag) => tag.isEditable)
-            .map(({name, value}) => ({name, value}));
-        console.log(updatedTags);
-        // this.dialogRef.close(updatedTags);
+    onDeleteSerie(serie: StudyDownloadSerie) {
+        return this.estudoDownloadService.onDownloadSerie(this.selectedPacs, this.selectedAetitle, serie);
     }
 
-    onDonwloadMaxQuality(): void {
-        const updatedTags = this.estudoTags
-            .filter((tag) => tag.isEditable)
-            .map(({name, value}) => ({name, value}));
-        console.log(updatedTags);
-        // this.dialogRef.close(updatedTags);
-    }
 }

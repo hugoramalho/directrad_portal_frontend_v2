@@ -25,7 +25,8 @@ export class AuthInterceptor implements HttpInterceptor {
             const clonedRequest = request.clone({
                 setHeaders: {
                     [HTTP_HEADERS.AUTH_TOKEN]: `Bearer ${JWT}`,
-                    [HTTP_HEADERS.CLIENT_APP]: 'PACS'
+                    [HTTP_HEADERS.CLIENT_APP]: 'PACS',
+                    // [HTTP_HEADERS.ALLOW_ORIGIN]: '*'
                 }
             });
             return next.handle(clonedRequest).pipe(

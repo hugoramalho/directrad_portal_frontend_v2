@@ -15,7 +15,8 @@ import {UserService} from "../usuario/user.service";
 import {StudyViewerRedirect} from "../../model/estudo/study-viewer-redirect";
 import {Pacs} from "../../model/pacs/pacs";
 import {Aetitle} from "../../model/pacs/aetitle";
-import {StudyDownload} from "../../model/estudo/study-download";
+import {StudyDownload, StudyDownloadSerie} from "../../model/estudo/study-download";
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root',
@@ -29,10 +30,7 @@ export class EstudoDownloadService {
     ) {
     }
 
-    getDownloadInfo(pacs: Pacs | undefined, aetitle: Aetitle | undefined, estudo: Estudo) {
-        if (!pacs || !aetitle) {
-            return;
-        }
+    getDownloadInfo(pacs: Pacs, aetitle: Aetitle, estudo: Estudo): Observable<StudyDownload> {
         return this.http.get<ApiResponseInterface<StudyDownload>>(
             `${this.baseUrl}/pacs/${pacs.id}/aetitles/${aetitle.id}/studies/${estudo.StudyInstanceUID}/download/info`,
         ).pipe(
@@ -40,87 +38,48 @@ export class EstudoDownloadService {
         );
     }
 
-    onDonwloadInfo(pacs: Pacs | undefined, aetitle: Aetitle | undefined, estudo: Estudo): void {
-        if (!pacs || !aetitle) {
-            return;
+    onDonwload(pacs: Pacs, aetitle: Aetitle, estudo: StudyDownload, queryParams: any): void {
+        console.log('queryParams', queryParams, estudo);
+        let params = new HttpParams();
+        if (queryParams) {
+            Object.keys(queryParams).forEach((key) => {
+                const value = queryParams[key];
+                if (value !== null && value !== undefined && value !== '') {
+                    params = params.set(key, value);
+                }
+            });
         }
-        let isLocal = false;
-        this.http.get<ApiResponseInterface<StudyViewerRedirect>>(
-            `${this.baseUrl}/pacs/${pacs.id}/aetitles/${aetitle.id}/studies/${estudo.StudyInstanceUID}/download?local=${isLocal}`,
+        console.log('params', params);
+
+        this.http.post<ApiResponseInterface<StudyViewerRedirect>>(
+            `${this.baseUrl}/pacs/${pacs.id}/aetitles/${aetitle.id}/studies/${estudo.study_uid}/download`,
+            {},
+            {params: params}
         ).subscribe(response => {
-            const viewerWindow = window.open(response.data.viewer_url, '_blank');
+            const viewerWindow = window.open(response.data.file_url, '_blank');
             if (viewerWindow) {
                 viewerWindow.focus();
             }
         });
     }
 
-    onDonwload(pacs: Pacs | undefined, aetitle: Aetitle | undefined, estudo: Estudo): void {
-        if (!pacs || !aetitle) {
-            return;
-        }
-        console.log(estudo);
-        let isLocal = false;
-        this.http.get<ApiResponseInterface<StudyViewerRedirect>>(
-            `${this.baseUrl}/pacs/${pacs.id}/aetitles/${aetitle.id}/studies/${estudo.StudyInstanceUID}/viewer?local=${isLocal}`,
-        ).subscribe(response => {
-            const viewerWindow = window.open(response.data.viewer_url, '_blank');
-            if (viewerWindow) {
-                viewerWindow.focus();
+    onDownloadSerie(pacs: Pacs, aetitle: Aetitle, studyDownloadSerie: StudyDownloadSerie) {
+        this.http.post<ApiResponseInterface<StudyDownloadSerie>>(
+            `${this.baseUrl}/pacs/${pacs.id}/aetitles/${aetitle.id}/studies/${studyDownloadSerie.study_uid}/series/${studyDownloadSerie.uid}/download?uncompressed=false`,
+            studyDownloadSerie
+        ).subscribe({
+            next: (response) => {
+                this.http.get(response.data.file_url).subscribe(response => {
+                    console.log('response', response);
+                    // const downloadWindow = window.open(response, '_blank');
+                    // if (downloadWindow) {
+                    //     downloadWindow.focus();
+                    // }
+                })
+            },
+            error: (err) => {
+                console.error('Erro ao solicitar o download:', err);
             }
         });
     }
-
-    onDonwloadMaxQuality(pacs: Pacs | undefined, aetitle: Aetitle | undefined, estudo: Estudo): void {
-        if (!pacs || !aetitle) {
-            return;
-        }
-        console.log(estudo);
-        let isLocal = false;
-        this.http.get<ApiResponseInterface<StudyViewerRedirect>>(
-            `${this.baseUrl}/pacs/${pacs.id}/aetitles/${aetitle.id}/studies/${estudo.StudyInstanceUID}/viewer?local=${isLocal}`,
-        ).subscribe(response => {
-            const viewerWindow = window.open(response.data.viewer_url, '_blank');
-            if (viewerWindow) {
-                viewerWindow.focus();
-            }
-        });
-    }
-
-    // async healthCheck(): Promise<boolean> {
-    //     try {
-    //         const healthCheckResponse = await lastValueFrom(
-    //             this.http.post<any>(`${this.site}/request`, {
-    //                 type: 'health_check_url'
-    //             })
-    //         );
-    //         if (healthCheckResponse?.success && healthCheckResponse?.info) {
-    //             try {
-    //                 // JSONP GET request simulando o comportamento do jQuery
-    //                 const jsonpUrl = `${healthCheckResponse.info}?callback=JSONP_CALLBACK`;
-    //
-    //                 const jsonpResponse = await lastValueFrom(
-    //                     this.http.jsonp<any>(jsonpUrl, 'JSONP_CALLBACK')
-    //                         .pipe(
-    //                             timeout(1000),
-    //                             catchError((error: HttpErrorResponse) => {
-    //                                 console.warn('Erro JSONP:', error);
-    //                                 if (error.status === 200 || error.status === 404) {
-    //                                     return of(true);
-    //                                 }
-    //                                 return of(false);
-    //                             })
-    //                         )
-    //                 );
-    //
-    //                 return jsonpResponse === true || !!jsonpResponse;
-    //             } catch (error) {
-    //                 return false;
-    //             }
-    //         }
-    //         return false;
-    //     } catch (error) {
-    //         return false;
-    //     }
-    // }
 }

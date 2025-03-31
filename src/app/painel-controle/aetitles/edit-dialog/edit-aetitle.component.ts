@@ -200,6 +200,7 @@ export class EditAetitleComponent {
                     verticalPosition: 'bottom',
                     // panelClass: ['success-snackbar']
                 });
+                this.aetitleForm.enable();
                 this.isSaving = false;
             }
         });

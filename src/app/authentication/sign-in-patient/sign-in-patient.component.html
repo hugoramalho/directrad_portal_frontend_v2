@@ -59,8 +59,19 @@
 <!--                            Password must be at least 8 characters long.-->
 <!--                        </div>-->
                     </div>
-                    <button mat-button class="btn" type="submit" [disabled]="authForm.invalid">
-                        Acessar
+                    <button
+                        mat-button
+                        class="btn"
+                        type="submit"
+                        [disabled]="authForm.invalid || isLogging">
+                        <mat-progress-spinner
+                            *ngIf="isLogging"
+                            diameter="20"
+                            mode="indeterminate"
+                            color="accent"
+                            style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                        </mat-progress-spinner>
+                        {{ isLogging ? 'Autenticando...' : 'Acessar' }}
                     </button>
                     <div class="text-center back-to-sign-in">
                         <a mat-button routerLink="/authentication">

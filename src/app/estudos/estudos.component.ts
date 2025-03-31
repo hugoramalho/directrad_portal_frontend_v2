@@ -41,6 +41,8 @@ import {MatIcon} from "@angular/material/icon";
 import {AetitleService} from "../@shared/service/pacs/aetitle.service";
 import {forkJoin} from "rxjs";
 import {Aetitle} from "../@shared/model/pacs/aetitle";
+import {DownloadEstudoDialogComponent} from "./download/download-estudo.component";
+import {DeleteStudySeriesDialogComponent} from "./delete-study-series/delete-study-series.dialog.component";
 
 
 @Component({
@@ -450,8 +452,26 @@ export class EstudosComponent {
         this.estudoViewerService.openViewer(pacs, this.selectedAetitle, estudo);
     }
 
-    downloadEstudo(uid: string) {
+    onDownloadEstudo(estudo: Estudo) {
+        this.dialog.open(DownloadEstudoDialogComponent, {
+            data: {
+                pacs: this.selectedPacs,
+                aetitle: this.selectedAetitle,
+                estudo: estudo
+            },
+            maxHeight: '70vh'
+        })
+    }
 
+    onDeleteStudySeries(estudo: Estudo) {
+        this.dialog.open(DeleteStudySeriesDialogComponent, {
+            data: {
+                pacs: this.selectedPacs,
+                aetitle: this.selectedAetitle,
+                estudo: estudo
+            },
+            maxHeight: '70vh'
+        })
     }
 
     menuEstudos(estudo: Estudo) {
@@ -466,10 +486,10 @@ export class EstudosComponent {
                     })
                 }
                 if (result == STUDIES_OPTION_MENU.DOWNLOAD_STUDY) {
-                    this.dialog.open(EditarEstudoDialogComponent, {
-                        data: estudo,
-                        maxHeight: '70vh'
-                    })
+                    this.onDownloadEstudo(estudo);
+                }
+                if (result == STUDIES_OPTION_MENU.DELETE_STUDY_SERIES) {
+                    this.onDeleteStudySeries(estudo);
                 }
             }
         });

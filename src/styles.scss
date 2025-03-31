@@ -223,3 +223,10 @@ button {
         color: inherit !important;
     }
 }
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px; /* Altura ajustável */
+}

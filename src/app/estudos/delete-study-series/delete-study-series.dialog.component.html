@@ -1,4 +1,4 @@
-<h1 class="dialog-title" *ngIf="!isLoading" mat-dialog-title>Download de estudo</h1>
+<h1 class="dialog-title" *ngIf="!isLoading" mat-dialog-title>Exclusão de séries de estudo</h1>
 <span class="spacer"></span>
 <h3 style="display: inline" *ngIf="!isLoading" class="mb-25" mat-dialog-title>uid: {{ estudo.StudyInstanceUID }}</h3>
 
@@ -65,16 +65,16 @@
                 </ng-container>
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef>
-                        Download
+                        Excluir
                     </th>
                     <td mat-cell *matCellDef="let element">
                         <button
                             mat-icon-button
-                            class="mat-primary"
-                            matTooltip='Download da série'
+                            class="btn-danger"
+                            matTooltip='Excluir série'
                             matTooltipPosition="right"
-                            (click)="onDownloadSerie(element)">
-                            <mat-icon>download</mat-icon>
+                            (click)="onDeleteSerie(element)">
+                            <mat-icon style="color: indianred">delete</mat-icon>
                         </button>
                     </td>
                 </ng-container>
@@ -82,37 +82,10 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
         </div>
-        <form
-            class="download-options"
-            [formGroup]="estudoForm">
-            <mat-form-field>
-                <mat-label>
-                    Download do estudo
-                </mat-label>
-                <mat-select
-                    formControlName="uncompressed">
-                    <mat-option [value]="false">
-                        Download do estudo completo
-                    </mat-option>
-                    <mat-option [value]="true">
-                        Download sem compressão (Qualidade máxima)
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </form>
-
     </ng-template>
 </mat-dialog-content>
 <mat-dialog-actions *ngIf="!isLoading" class="custom-dialog-actions">
     <span class="spacer"></span>
-    <button
-        mat-button
-        mat-raised-button
-        color="primary"
-        (click)="onDonwload(estudoDonwload)">
-<!--        <mat-icon>download</mat-icon>-->
-        Download
-    </button>
     <button mat-button (click)="onCancel()">Cancelar</button>
 </mat-dialog-actions>
 
