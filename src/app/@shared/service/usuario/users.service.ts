@@ -56,10 +56,17 @@ export class UsersService {
     ): PaginatedList<User[]> {
         let filtered = [...allUsers];
         Object.entries(filters).forEach(([key, value]) => {
-            if (value && typeof value === 'string') {
-                filtered = filtered.filter(aet =>
-                    (aet[key as keyof User] ?? '').toString().toLowerCase().includes(value.toLowerCase())
-                );
+            if (value !== undefined && value !== null && value !== '') {
+                filtered = filtered.filter(user => {
+                    const userValue = user[key as keyof User];
+                    if (userValue === undefined || userValue === null) return false;
+                    const valueIsNumber = !isNaN(Number(value));
+                    const userValueIsNumber = !isNaN(Number(userValue));
+                    if (valueIsNumber && userValueIsNumber) {
+                        return Number(userValue) === Number(value);
+                    }
+                    return userValue.toString().toLowerCase().includes(value.toString().toLowerCase());
+                });
             }
         });
         const total = filtered.length;
@@ -74,5 +81,6 @@ export class UsersService {
             page_size: pageSize,
         };
     }
+
 
 }

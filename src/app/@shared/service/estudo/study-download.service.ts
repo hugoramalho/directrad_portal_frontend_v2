@@ -39,7 +39,6 @@ export class EstudoDownloadService {
     }
 
     onDonwload(pacs: Pacs, aetitle: Aetitle, estudo: StudyDownload, queryParams: any): void {
-        console.log('queryParams', queryParams, estudo);
         let params = new HttpParams();
         if (queryParams) {
             Object.keys(queryParams).forEach((key) => {
@@ -49,11 +48,9 @@ export class EstudoDownloadService {
                 }
             });
         }
-        console.log('params', params);
-
         this.http.post<ApiResponseInterface<StudyViewerRedirect>>(
             `${this.baseUrl}/pacs/${pacs.id}/aetitles/${aetitle.id}/studies/${estudo.study_uid}/download`,
-            {},
+            estudo,
             {params: params}
         ).subscribe(response => {
             const viewerWindow = window.open(response.data.file_url, '_blank');
@@ -69,13 +66,10 @@ export class EstudoDownloadService {
             studyDownloadSerie
         ).subscribe({
             next: (response) => {
-                this.http.get(response.data.file_url).subscribe(response => {
-                    console.log('response', response);
-                    // const downloadWindow = window.open(response, '_blank');
-                    // if (downloadWindow) {
-                    //     downloadWindow.focus();
-                    // }
-                })
+                const downloadWindow = window.open(response.data.file_url, '_blank');
+                if (downloadWindow) {
+                    downloadWindow.focus();
+                }
             },
             error: (err) => {
                 console.error('Erro:', err);

@@ -73,7 +73,6 @@
                         mat-button
                         class="btn"
                         type="submit"
-                        [ngClass]="this.isLogging ?'elem-disabled' : 'elem-enabled'"
                         [disabled]="authForm.invalid || isLogging">
                         <mat-progress-spinner
                             *ngIf="isLogging"

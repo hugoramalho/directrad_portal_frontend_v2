@@ -41,6 +41,7 @@ import {MatChip, MatChipSet} from "@angular/material/chips";
 import {EmptyValuePipe} from "../../@shared/pipe/empty-value.pipe";
 import {EditUserDialogComponent} from "./edit-dialog/edit-user.dialog.component";
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 
 @Component({
@@ -63,7 +64,8 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular
         MatIcon,
         EmptyValuePipe,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatProgressSpinner
     ],
     templateUrl: './user.component.html',
     styleUrl: './user.component.scss'
@@ -79,6 +81,7 @@ export class CadastroUsuarioComponent {
     selection = new SelectionModel<User>(true, []);
     users: User[];
     clinicas: UserClinica[];
+    filteredClinicas: UserClinica[];
     teleUsers: UserTele[];
     filteredTeles: UserTele[];
     pacsList: Pacs[];
@@ -112,8 +115,10 @@ export class CadastroUsuarioComponent {
         });
         this.searchForm = this.formBuilder.group({
             username: [''],
+            company: [''],
             pacs_id: [''],
             clinica: [''],
+            clinica_id: [''],
             tele_id: [''],
         });
     }
@@ -130,6 +135,7 @@ export class CadastroUsuarioComponent {
         }).subscribe({
             next: ({result1, result2, result3, result4, result5}) => {
                 this.clinicas = result1;
+                this.filteredClinicas = result1;
                 this.teleUsers = result2;
                 this.filteredTeles = result2;
                 this.pacsList = result3;
@@ -269,6 +275,13 @@ export class CadastroUsuarioComponent {
     {
         this.filteredPacs = this.pacsList.filter(pacs =>
             pacs.identificacao?.toLowerCase().includes(value.toLowerCase())
+        );
+    }
+
+    onClinicaSearch(value: string)
+    {
+        this.filteredClinicas = this.clinicas.filter(clinica =>
+            clinica.nome?.toLowerCase().includes(value.toLowerCase())
         );
     }
 
