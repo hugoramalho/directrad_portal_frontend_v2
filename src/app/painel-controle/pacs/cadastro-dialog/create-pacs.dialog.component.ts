@@ -118,7 +118,7 @@ export class CreatePacsDialogComponent {
                     use_ssh_key: [''],
                     pacs_host_ssh_password: [''],
                     pacs_host_ssh_key: [''],
-                    sync_pacs_aetitle: [false],
+                    sync_pacs_aetitle: [true],
                     clinica_id: [''],
                 });
                 this.pacsForm.get('tipo_pacs_application')?.setValue(

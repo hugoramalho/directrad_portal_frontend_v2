@@ -145,7 +145,6 @@ export class CadastroUsuarioComponent {
                 this.isLoading = false;
             }
         });
-
     }
 
     private loadUsers(page: number = 1, page_size: number = 20): void {

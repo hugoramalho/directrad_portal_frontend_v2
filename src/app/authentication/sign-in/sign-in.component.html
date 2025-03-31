@@ -73,7 +73,7 @@
                         mat-button
                         class="btn"
                         type="submit"
-                        [ngClass]="!this.isLogging ?'elem-disabled' : 'elem-enabled'"
+                        [ngClass]="this.isLogging ?'elem-disabled' : 'elem-enabled'"
                         [disabled]="authForm.invalid || isLogging">
                         <mat-progress-spinner
                             *ngIf="isLogging"
@@ -85,7 +85,7 @@
                         {{ isLogging ? 'Autenticando...' : 'Login' }}
                     </button>
                     <button
-                        [ngClass]="!this.isLogging ?'elem-disabled' : 'elem-enabled'"
+                        [ngClass]="this.isLogging ?'elem-disabled' : 'elem-enabled'"
                         [disabled]="isLogging"
                         (click)="onPatientAccess()"
                         mat-button
