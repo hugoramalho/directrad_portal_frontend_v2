@@ -9,6 +9,8 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import { User } from '../../model/usuario/user';
 import {UsersRepository} from "../../repository/user/users.repository";
+import {Aetitle} from "../../model/pacs/aetitle";
+import {PaginatedList} from "../../model/http/paginated-list";
 
 @Injectable({
     providedIn: 'root'
@@ -40,6 +42,37 @@ export class UsersService {
     queryPaginated(page: number = 1, page_size: number = 20, queryParams: Record<string, any> | null = null)
     {
         return this.usersRepository.queryPaginated(page, page_size, queryParams);
+    }
+
+    query(params: {} = {}){
+        return this.usersRepository.query(params);
+    }
+
+    search(
+        allUsers: User[],
+        page: number = 1,
+        pageSize: number = 10,
+        filters: Record<string, any> = {}
+    ): PaginatedList<User[]> {
+        let filtered = [...allUsers];
+        Object.entries(filters).forEach(([key, value]) => {
+            if (value && typeof value === 'string') {
+                filtered = filtered.filter(aet =>
+                    (aet[key as keyof User] ?? '').toString().toLowerCase().includes(value.toLowerCase())
+                );
+            }
+        });
+        const total = filtered.length;
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const paginated = filtered.slice(startIndex, endIndex);
+        return {
+            count: paginated.length,
+            items: paginated,
+            total: total,
+            page: page,
+            page_size: pageSize,
+        };
     }
 
 }

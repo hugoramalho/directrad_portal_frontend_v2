@@ -104,6 +104,30 @@ export class UsersRepository {
         );
     }
 
+    query(queryParams: Record<string, any> | null = null): Observable<User[]>
+    {
+        let params = new HttpParams();
+        if (queryParams) {
+            Object.keys(queryParams).forEach((key) => {
+                const value = queryParams[key];
+                if (value !== null && value !== undefined && value !== '') {
+                    params = params.set(key, value);
+                }
+            });
+        }
+        return this.http.get<ApiResponseInterface<User[]>>(
+            `${this.baseUrl}`,
+            {params}
+        ).pipe(
+            map(
+                response => response.data
+            ),
+            catchError(err => {
+                return of([]);
+            })
+        );
+    }
+
     queryPaginated(
         page: number = 1,
         page_size: number = 20,

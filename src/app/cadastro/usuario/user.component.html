@@ -7,53 +7,107 @@
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            Username
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
+        <form [formGroup]="searchForm">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Username
+                            </mat-label>
+                            <input
+                                formControlName="username"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>
+                                Clínica
+                            </mat-label>
+                            <input
+                                formControlName="clinica"
+                                matInput>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!--            <div class="col-sm-3">-->
+                <!--                <div class="mb-25">-->
+                <!--                    <mat-form-field>-->
+                <!--                        <mat-label>-->
+                <!--                            Tipo de usuário-->
+                <!--                        </mat-label>-->
+                <!--                        <input-->
+                <!--                            formControlName="group"-->
+                <!--                            matInput>-->
+                <!--                    </mat-form-field>-->
+                <!--                </div>-->
+                <!--            </div>-->
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>Pacs</mat-label>
+                            <mat-select
+                                #pacsSelect
+                                class="form-control"
+                                formControlName="pacs_id">
+                                <mat-option>
+                                    <mat-icon>search</mat-icon>
+                                    <input
+                                        #pacsSearchInput
+                                        matInput
+                                        placeholder="Buscar..."
+                                        (click)="$event.stopPropagation()"
+                                        (input)="onPacsSearch(pacsSearchInput.value)"
+                                        autocomplete="off"/>
+                                </mat-option>
+                                @for (item of filteredPacs; track item) {
+                                    <mat-option [value]="item.id">
+                                        {{ item.identificacao }}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="mb-25">
+                        <mat-form-field>
+                            <mat-label>Usuário Tele</mat-label>
+                            <mat-select
+                                class="form-control"
+                                formControlName="tele_id">
+                                <mat-option>
+                                    <mat-icon>search</mat-icon>
+                                    <input
+                                        #teleSearchInput
+                                        matInput
+                                        placeholder="Buscar..."
+                                        (click)="$event.stopPropagation()"
+                                        (input)="onTeleSearch(teleSearchInput.value)"
+                                        autocomplete="off"/>
+                                </mat-option>
+                                @for (item of filteredTeles; track item) {
+                                    <mat-option [value]="item.id">
+                                        {{ item.full_name }}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            Tipo de usuário
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
+            <div class="btn-box">
+                <button
+                    (click)="onSearch()"
+                    mat-button>
+                    Buscar
+                </button>
             </div>
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            PACS
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <div class="mb-25">
-                    <mat-form-field>
-                        <mat-label>
-                            Tele
-                        </mat-label>
-                        <input matInput>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
-        <div class="btn-box">
-            <button mat-button>
-                Buscar
-            </button>
-        </div>
+        </form>
+
     </mat-card-content>
 </mat-card>
 

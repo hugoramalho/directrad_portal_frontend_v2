@@ -67,7 +67,6 @@ export class AetitleService {
         filters: Record<string, any> = {}
     ): PaginatedList<Aetitle[]> {
         let filtered = [...allAetitles];
-
         Object.entries(filters).forEach(([key, value]) => {
             if (value && typeof value === 'string') {
                 filtered = filtered.filter(aet =>
@@ -75,12 +74,10 @@ export class AetitleService {
                 );
             }
         });
-
         const total = filtered.length;
         const startIndex = (page - 1) * pageSize;
         const endIndex = startIndex + pageSize;
         const paginated = filtered.slice(startIndex, endIndex);
-
         return {
             count: paginated.length,
             items: paginated,

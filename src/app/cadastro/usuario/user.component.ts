@@ -32,8 +32,6 @@ import {UserService} from "../../@shared/service/usuario/user.service";
 import {UserGroups, UserGroupsMapper} from "../../@shared/model/usuario/user-groups";
 import {AetitleService} from "../../@shared/service/pacs/aetitle.service";
 import {forkJoin} from "rxjs";
-import {PacsSyncStatus, PacsSyncStatusMapper} from "../../@shared/model/pacs/status-sync";
-import {TipoAetitle, TipoAetitleMapper} from "../../@shared/model/pacs/aetitle-type";
 import {ClinicaService} from "../../@shared/service/usuario/clinica.service";
 import {PacsService} from "../../@shared/service/pacs/pacs.service";
 import {UserClinica} from "../../@shared/model/usuario/user-clinica";
@@ -42,6 +40,7 @@ import {UserTele} from "../../@shared/model/usuario/user-tele";
 import {MatChip, MatChipSet} from "@angular/material/chips";
 import {EmptyValuePipe} from "../../@shared/pipe/empty-value.pipe";
 import {EditUserDialogComponent} from "./edit-dialog/edit-user.dialog.component";
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @Component({
@@ -51,7 +50,6 @@ import {EditUserDialogComponent} from "./edit-dialog/edit-user.dialog.component"
         MatCardModule,
         MatMenuModule,
         MatButtonModule,
-        RouterLink,
         MatTableModule,
         NgIf,
         MatCheckboxModule,
@@ -63,9 +61,9 @@ import {EditUserDialogComponent} from "./edit-dialog/edit-user.dialog.component"
         MatNativeDateModule,
         MatPaginator,
         MatIcon,
-        MatChipSet,
-        MatChip,
-        EmptyValuePipe
+        EmptyValuePipe,
+        FormsModule,
+        ReactiveFormsModule
     ],
     templateUrl: './user.component.html',
     styleUrl: './user.component.scss'
@@ -73,6 +71,7 @@ import {EditUserDialogComponent} from "./edit-dialog/edit-user.dialog.component"
 export class CadastroUsuarioComponent {
     protected readonly PacsHostType = PacsHostType;
     isLoading: boolean = false;
+    searchForm: FormGroup;
     classApplied = false;
     isToggled = false;
     currentLength: number = 0;
@@ -81,7 +80,9 @@ export class CadastroUsuarioComponent {
     users: User[];
     clinicas: UserClinica[];
     teleUsers: UserTele[];
+    filteredTeles: UserTele[];
     pacsList: Pacs[];
+    filteredPacs: Pacs[];
     aetitles: Aetitle[];
     isAdmin: boolean = false;
     displayedColumns: string[] = [
@@ -98,6 +99,7 @@ export class CadastroUsuarioComponent {
     constructor(
         public themeService: CustomizerSettingsService,
         private dialog: MatDialog,
+        private formBuilder: FormBuilder,
         private usersService: UsersService,
         private userService: UserService,
         private aetitleService: AetitleService,
@@ -108,6 +110,12 @@ export class CadastroUsuarioComponent {
         this.themeService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
+        this.searchForm = this.formBuilder.group({
+            username: [''],
+            pacs_id: [''],
+            clinica: [''],
+            tele_id: [''],
+        });
     }
 
     ngOnInit(): void {
@@ -117,14 +125,20 @@ export class CadastroUsuarioComponent {
             result1: this.clinicaService.query(),
             result2: this.usersService.queryTeles(),
             result3: this.pacsService.query(),
-            result4: this.aetitleService.query()
+            result4: this.aetitleService.query(),
+            result5: this.usersService.query()
         }).subscribe({
-            next: ({result1, result2, result3, result4}) => {
+            next: ({result1, result2, result3, result4, result5}) => {
                 this.clinicas = result1;
                 this.teleUsers = result2;
+                this.filteredTeles = result2;
                 this.pacsList = result3;
+                this.filteredPacs = result3;
                 this.aetitles = result4;
-                this.loadUsers(1, 20);
+                this.users = result5;
+                // this.loadUsers(1, 20);
+                this.runFrontendSearch(); // primeira busca já renderiza a tabela
+
             },
             error: (err) => {
                 console.error('Erro ao buscar os dados:', err);
@@ -170,6 +184,22 @@ export class CadastroUsuarioComponent {
         });
     }
 
+    private runFrontendSearch(page: number = 1, pageSize: number = 20): void {
+        this.isLoading = true;
+        const filters = this.searchForm.value;
+        const result = this.usersService.search(this.users, page, pageSize, filters);
+        this.dataSource.data = result.items.map(user => {
+            user?.groups?.map(group => {
+                group.group_name = UserGroupsMapper.getDescription(group.group_id);
+            })
+            user.tele = this.teleUsers.find(u => u.id == user.tele_id)?.username
+            user.clinica = this.clinicas.find(c => c.id == user.clinica_id)?.nome;
+            user.pacs = this.pacsList.find(p => p.id == user.pacs_id)?.identificacao;
+            return user;
+        });
+        this.currentLength = result.total;
+        this.isLoading = false;
+    }
 
 //----------------------------------------------------------------------------------------------------------------------
     /** Whether the number of selected elements matches the total number of rows. */
@@ -207,9 +237,8 @@ export class CadastroUsuarioComponent {
     }
 
     onPageChange(event: PageEvent) {
-        this.loadUsers(event.pageIndex + 1, event.pageSize);
+        this.runFrontendSearch(event.pageIndex + 1, event.pageSize);
     }
-
     // RTL Mode
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
@@ -231,6 +260,23 @@ export class CadastroUsuarioComponent {
             .subscribe((result) => {
 
             });
+    }
+
+    onSearch(){
+        this.runFrontendSearch();
+    }
+
+    onPacsSearch(value: string)
+    {
+        this.filteredPacs = this.pacsList.filter(pacs =>
+            pacs.identificacao?.toLowerCase().includes(value.toLowerCase())
+        );
+    }
+
+    onTeleSearch(value: string) {
+        this.filteredTeles = this.teleUsers.filter(user =>
+            user.full_name?.toLowerCase().includes(value.toLowerCase())
+        );
     }
 
 }
