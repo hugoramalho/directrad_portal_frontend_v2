@@ -261,14 +261,30 @@
                                 }
                             </mat-select>
                         </mat-form-field>
-                        <!--                        <button-->
-                        <!--                            mat-raised-button-->
-                        <!--                            mat-button-->
-                        <!--                            type="submit"-->
-                        <!--                            class="btn btn-success btn-submit"-->
-                        <!--                        >-->
-                        <!--                            Cadastrar novo usuário Pacs Admin-->
-                        <!--                        </button>-->
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <mat-form-field>
+                            <mat-label>Clínica</mat-label>
+                            <mat-select
+                                class="form-control"
+                                formControlName="clinica_id">
+                                <mat-option>
+                                    <mat-icon>search</mat-icon>
+                                    <input
+                                        #clinicaSearchInput
+                                        matInput
+                                        placeholder="Buscar..."
+                                        (click)="$event.stopPropagation()"
+                                        (input)="onClinicaSearch(clinicaSearchInput.value)"
+                                        autocomplete="off"/>
+                                </mat-option>
+                                @for (item of filteredClinicas; track item) {
+                                    <mat-option [value]="item.id">
+                                        {{ item.nome_razao || item.nome}}
+                                    </mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="pacs-access-data">
@@ -373,7 +389,6 @@
         </mat-progress-spinner>
         {{ isSaving ? 'Cadastrando...' : 'Cadastrar' }}
     </button>
-
     <button
         [disabled]="isSaving"
         [ngClass]="this.isSaving ?'elem-disabled' : 'elem-enabled'"
@@ -502,19 +517,35 @@
                             </mat-option>
                             @for (item of filteredAdmins; track item) {
                                 <mat-option [value]="item.id">
-                                    {{ item.username }} - {{ item?.company }}
+                                    {{ item.username }} - {{ item?.company || item?.nome_completo}}
                                 </mat-option>
                             }
                         </mat-select>
                     </mat-form-field>
-                    <!--                    <button-->
-                    <!--                        mat-raised-button-->
-                    <!--                        mat-button-->
-                    <!--                        type="submit"-->
-                    <!--                        class="btn btn-success btn-submit"-->
-                    <!--                    >-->
-                    <!--                        Cadastrar novo usuário Pacs Admin-->
-                    <!--                    </button>-->
+                </div>
+                <div class="col-md-6 form-group">
+                    <mat-form-field>
+                        <mat-label>Clínica</mat-label>
+                        <mat-select
+                            class="form-control"
+                            formControlName="clinica_id">
+                            <mat-option>
+                                <mat-icon>search</mat-icon>
+                                <input
+                                    #clinicaSearchInput
+                                    matInput
+                                    placeholder="Buscar..."
+                                    (click)="$event.stopPropagation()"
+                                    (input)="onClinicaSearch(clinicaSearchInput.value)"
+                                    autocomplete="off"/>
+                            </mat-option>
+                            @for (item of filteredClinicas; track item) {
+                                <mat-option [value]="item.id">
+                                    {{ item.nome_razao || item.nome}}
+                                </mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
                 </div>
             </div>
         </form>
